@@ -25,9 +25,36 @@ Built with **Next.js (Pages Router)**, **Express**, **MongoDB**, and **Node.js**
 
 ---
 
+
 ## ⚙️ Installation
 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/<your-username>/<repo-name>.git
 cd <repo-name>
+
+Install client dependencies 
+cd client
+npm install
+
+Install server dependencies
+cd ../server
+npm install
+
+Setup client environment variables
+Create a .env.local file in the client folder:
+
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/photostudio
+JWT_SECRET=your_jwt_secret
+
+cd client
+npm run dev
+
+cd server
+npm run dev
+
+
+
