@@ -5,7 +5,6 @@ import CopyRight from "@/assets/icons/CopyRight";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import SectionHeader from "@/components/SectionHeader";
 import LinkButton from "@/components/ui/LinkButton";
-import SectionBadge from "@/components/ui/SectionBadge";
 import Image from "next/image";
 
 export default function Home() {
