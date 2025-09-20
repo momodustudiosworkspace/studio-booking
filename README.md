@@ -18,7 +18,7 @@ Built with **Next.js (Pages Router)**, **Express**, **MongoDB**, and **Node.js**
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend:** [Next.js (Pages Router)](https://nextjs.org/docs/pages)
+- **Frontend:** [Next.js (App Router)](https://nextjs.org/docs)
 - **Backend:** [Express.js](https://expressjs.com/)
 - **Database:** [MongoDB](https://www.mongodb.com/)
 - **Runtime:** [Node.js](https://nodejs.org/)
