@@ -9,10 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@chakra-ui/avatar": "^2.3.0",
     "clsx": "^2.1.1",
     "next": "15.5.3",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-avatar": "^5.0.4",
+    "react-countup": "^6.5.3",
+    "react-dom": "19.1.0",
+    "react-simple-star-rating": "^5.1.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
