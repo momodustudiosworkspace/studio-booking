@@ -9,14 +9,14 @@ subtitle?:string;
 description?:string;
 author:string;
 image?:string;
-rating?:number;
+rating:number;
 }
 const CardTwo = ({title,description,author,image, subtitle, rating}:CardOneProps) => {
 
   return (
     <div className='bg-[#FAFAFA]'>
-        <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence"  className='  rounded-full' />
-        <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence"  className='  rounded-full' />
+        <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence"  className='h-2 w-2  rounded-full' />
+        <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence"  className='h-2 w-2  rounded-full' />
        
 
         <Rating initialValue={rating} iconsCount={rating} allowFraction readonly size={20} />

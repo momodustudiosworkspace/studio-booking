@@ -156,7 +156,7 @@ export default function Home() {
                   
           })}
         </div>
-        <p>Jemila hi</p>
+      
       </section>
       
     </main>
