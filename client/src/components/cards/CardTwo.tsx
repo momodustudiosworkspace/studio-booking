@@ -15,8 +15,8 @@ const CardTwo = ({title,description,author,image, subtitle, rating}:CardOneProps
 
   return (
     <div className='bg-[#FAFAFA]'>
-        <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence"  className='h-2 w-2  rounded-full' />
-        <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence"  className='h-2 w-2  rounded-full' />
+        {/* <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence"  className='h-[200px] w-[400px] rounded-full' />
+        <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence"  className='h-[200px] w-[400px] rounded-full' /> */}
        
 
         <Rating initialValue={rating} iconsCount={rating} allowFraction readonly size={20} />
