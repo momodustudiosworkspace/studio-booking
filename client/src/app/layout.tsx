@@ -3,7 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
-const montSerrat = Montserrat({
+const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
 });
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${montSerrat.variable} font-montserrat`}
+        className={`${inter.variable} ${montserrat.variable} font-montserrat`}
       >
         {/* <ThemeToggle /> */}
         <Navbar />
