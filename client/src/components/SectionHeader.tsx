@@ -3,13 +3,13 @@ import SectionBadge from "./ui/SectionBadge";
 
 interface SectionHeaderProps {
   badgeWidth?: string;
-  badgeText: string;
+  badgeText?: string;
   headerText?: string;
   paragraphText?: string;variation?: "light" | "dark";
 }
 const SectionHeader = ({
   badgeWidth,
-  badgeText,
+  badgeText = '',
   headerText,
   paragraphText,
   variation="light"
@@ -17,7 +17,7 @@ const SectionHeader = ({
   return (
     <div className="flex flex-col gap-4">
       <div className={badgeWidth}>
-        <SectionBadge text={badgeText} variation={variation} />
+        {badgeText && <SectionBadge text={badgeText} variation={variation} />}
       </div>
       <h1 className="text-[25px] font-bold">{headerText}</h1>
       <p>{paragraphText}</p>
