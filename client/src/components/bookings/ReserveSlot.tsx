@@ -7,7 +7,7 @@ interface ReserveSlotProps {
     setReserveSlot: (values: { date: Date | null; time: Date | null }) => void
 }
 
-const ReserveSlot = ({ proceedBtnRef, setReserveSlot }: ReserveSlotProps) => {
+const ReserveSlot = ({ proceedBtnRef, setReserveSlot }: ReserveSlotProps): React.JSX.Element => {
     const hiddenSubmitRef = useRef<HTMLButtonElement>(null)
 
     useEffect(() => {

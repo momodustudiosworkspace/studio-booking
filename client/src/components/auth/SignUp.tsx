@@ -12,7 +12,7 @@ interface SignUpProps {
     signin: boolean;
     setSignin: (value: boolean) => void
 }
-const SignUp = ({ signin, setSignin }: SignUpProps) => {
+const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
     const router = useRouter()
     return (
         <AuthForm headerText='Create your account' paragraphText='Already have an account?' signin={signin} setSignin={() => setSignin(!signin)}>

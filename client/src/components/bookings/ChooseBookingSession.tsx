@@ -1,7 +1,7 @@
 import { BaseIcons, IconsType } from '@/assets/icons/BaseIcons';
 import React, { useState } from 'react'
 
-const ChooseBookingSession = () => {
+const ChooseBookingSession = (): React.JSX.Element => {
 
     const [selectedSession, setSelectedSession] = useState<number | null>(null)
 

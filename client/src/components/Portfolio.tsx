@@ -2,7 +2,7 @@ import React from 'react'
 import SectionHeader from './SectionHeader'
 import CardOne from './cards/CardOne'
 
-const Portfolio = () => {
+const Portfolio = (): React.JSX.Element => {
     const PORTFOLIO =[
         {id:1, image:"/home/portfolio-one.png", title:"Weddings & Engagements", description:"Elegant, timeless, and full of emotion — we document your big day so you can relive it for a lifetime."},
         {id:2, image:"/home/portfolio-two.png", title:"Portrait Photography", description:"From professional headshots to personal lifestyle portraits, we capture the essence of who you are."},

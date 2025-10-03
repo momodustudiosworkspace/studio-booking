@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { BaseIcons } from '@/assets/icons/BaseIcons';
 import SectionHeader from './SectionHeader';
 
-const Faqs = () => {
+const Faqs = (): React.JSX.Element => {
     const [selectedFaq, setSelectedFaq] = useState<number | null>(null)
     const FAQS: {
         id: number;

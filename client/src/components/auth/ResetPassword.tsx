@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 
 
 
-const ResetPassword = () => {
+const ResetPassword = (): React.JSX.Element => {
      const router = useRouter()
     return (
         <AuthForm headerText='create new password' paragraphText={`create a new password for your account`} authForm={false} >

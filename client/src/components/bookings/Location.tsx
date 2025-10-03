@@ -8,7 +8,7 @@ interface LocationProps {
     setLocation: (values: { state: string, address: string }) => void
 }
 
-const Location = ({ proceedBtnRef, setLocation }: LocationProps) => {
+const Location = ({ proceedBtnRef, setLocation }: LocationProps): React.JSX.Element => {
     const hiddenSubmitRef = useRef<HTMLButtonElement>(null)
     const [selectedLocation, setSelectedLocation] = useState<number | null>(null)
     

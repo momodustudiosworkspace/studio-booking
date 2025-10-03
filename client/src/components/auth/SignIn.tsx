@@ -10,7 +10,7 @@ interface SignProps {
     signin: boolean;
     setSignin: (value: boolean) => void
 }
-const SignIn = ({ signin, setSignin }: SignProps) => {
+const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
 
     return (
         <AuthForm headerText='Log in to your account' paragraphText={`Don't have an account?`} signin={signin} setSignin={() => setSignin(!signin)}>

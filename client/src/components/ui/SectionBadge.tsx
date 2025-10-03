@@ -5,7 +5,7 @@ interface SectionBadgeProps {
   text: string;
   variation: "light" | "dark";
 }
-const SectionBadge = ({ text, variation = "light" }: SectionBadgeProps) => {
+const SectionBadge = ({ text, variation = "light" }: SectionBadgeProps): React.JSX.Element => {
   const variant =
     variation === "dark" ? "bg-[#FAFAFA33] text-white" : "text-black bg-[#FAFAFA]";
   return (

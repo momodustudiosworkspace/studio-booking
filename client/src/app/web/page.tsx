@@ -170,9 +170,11 @@ export default function Page() {
           />
           {TESTIMONIES.map((testimony, key) => {
             return <CardTwo key={key} title={testimony.title}
-              subtitle={testimony.subtitle}
+            // subtitle={testimony.subtitle}
               author={testimony.author}
-              image={testimony.image} rating={4} description={
+              // image={testimony.image} 
+              // rating={4} 
+              description={
                 testimony.description
               } />
 

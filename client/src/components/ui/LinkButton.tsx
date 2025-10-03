@@ -21,7 +21,7 @@ export default function LinkButton({
   size = "md",
   responsiveSize,
   className,
-}: LinkButtonProps) {
+}: LinkButtonProps): React.JSX.Element {
   const base =
     "inline-flex items-center font-medium rounded-full transition-colors duration-200";
   const variantClasses = {

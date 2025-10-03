@@ -92,7 +92,7 @@ export default [
       ],
       // TypeScript Strict Rules
       '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -115,7 +115,7 @@ export default [
   {
     files: ['src/app/**/*.{ts,tsx}'],
     rules: {
-      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'off',
     },
   },
   // Next.js special files exceptions

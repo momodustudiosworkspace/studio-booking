@@ -11,7 +11,7 @@ interface AuthFormProps {
     signin?: boolean | undefined;
     setSignin?: (value: boolean) => void
 }
-const AuthForm = ({ children, signin, setSignin, headerText, paragraphText, authForm = true }: AuthFormProps) => {
+const AuthForm = ({ children, signin, setSignin, headerText, paragraphText, authForm = true }: AuthFormProps): React.JSX.Element => {
     return (
         <div className='text-white mt-10 h-full w-full'>
 
