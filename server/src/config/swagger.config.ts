@@ -1,5 +1,10 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 
+const serverUrl =
+  process.env["NODE_ENV"] === "production"
+    ? `${process.env["API_BASE_URL"]}`
+    : `http://localhost:${process.env["PORT"] || 5000}`;
+
 const options: swaggerJSDoc.Options = {
     definition: {
         openapi: "3.0.0",
@@ -8,7 +13,7 @@ const options: swaggerJSDoc.Options = {
             version: "1.0.0",
             description:"API documentation for booking app"
         },
-        servers: [{ url: process.env['PORT'] }],
+        servers: [{ url: serverUrl }],
         components: {
             securitySchemes: {
                 bearerAuth: {
