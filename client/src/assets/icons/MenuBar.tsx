@@ -2,7 +2,7 @@ import React from "react";
 
 const MenuBar = () => {
   return (
-    <span className="bg-gray-50 rounded-full h-10 w-10 flex justify-center items-center">
+    <button className="bg-gray-50 rounded-full h-10 w-10 flex justify-center items-center">
       <svg
         width="16"
         height="13"
@@ -15,7 +15,7 @@ const MenuBar = () => {
           fill="#1C1B1F"
         />
       </svg>
-    </span>
+    </button>
   );
 };
 

@@ -3,9 +3,10 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   darkMode: "class",
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{ts,tsx}',
+    './src/components/**/*.{ts,tsx}',
+    './src/app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
@@ -15,10 +16,10 @@ const config: Config = {
         black: "var(--color-black)",
         white: "var(--color-white)",
       },
-      fontFamily: {
-        montserrat: ["var(--font-montserrat)"],
-        inter: ["var(--font-inter)"],
-      },
+     fontFamily: {
+        sans: ["var(--font-inter)", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
+      },   
     },
   },
   plugins: [],
