@@ -8,7 +8,7 @@ const options: swaggerJSDoc.Options = {
             version: "1.0.0",
             description:"API documentation for booking app"
         },
-        servers: [{ url: 'http://localhost:5000' }],
+        servers: [{ url: process.env['PORT'] }],
         components: {
             securitySchemes: {
                 bearerAuth: {
