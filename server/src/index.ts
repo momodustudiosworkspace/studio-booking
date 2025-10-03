@@ -25,11 +25,18 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerOpenapiSpecificatio
 // auth endpoints 
 app.use("/api/auth", authRoutes)
 
+const PORT = process.env['PORT'] || 5000;
 
-app.listen(5000, () => {
-    console.log("Working Yay!");
-    
-})
-connectDB().catch((err) => {
-    console.log(err); 
-})
+
+
+(async () => {
+  try {
+    await connectDB(); // 👈 wait for DB connection
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to connect to DB", err);
+    process.exit(1); // Exit if DB connection fails
+  }
+})();
