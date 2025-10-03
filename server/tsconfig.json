@@ -1,5 +1,9 @@
 {
     "compilerOptions": {
+         "outDir": "dist",
+        "rootDir": "src",
+        "module": "commonjs",
+        "target": "es2019",
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
@@ -11,9 +15,10 @@
         "noPropertyAccessFromIndexSignature": true,
         "noUncheckedIndexedAccess": true,
         "esModuleInterop": true,
-         "types": [
-      "node"
-    ],
+         "skipLibCheck": true,
+        "types": [
+            "node"
+            ]
     },
     "include": ["src/**/*"],
     "exclude":["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
