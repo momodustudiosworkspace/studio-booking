@@ -8,7 +8,7 @@ title:string;
 description:string;
 image:string;
 }
-const CardOne = ({title,description,image}:CardOneProps) => {
+const CardOne = ({ title, description, image }: CardOneProps): React.JSX.Element => {
   return (
 
     <div className='flex flex-col gap-3 w-full'>

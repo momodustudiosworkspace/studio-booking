@@ -2,7 +2,7 @@
 import React from 'react'
 import CountUp from 'react-countup'
 
-const Statistics = () => {
+const Statistics = (): React.JSX.Element => {
     const STATISTICS =[
         {label:"Studio Session", value: "1550+", count:1550},
         {label:"Studio Session", value: "2000+", count:2000},

@@ -7,7 +7,7 @@ import RedirectArrowWhite from '@/assets/icons/RedirectArrowWhite'
 import { useRouter } from 'next/navigation'
 
 
-const VerifyEmail = () => {
+const VerifyEmail = (): React.JSX.Element => {
     const router = useRouter()
     return (
         <AuthForm headerText='verify email' paragraphText={`enter 4 digit code sent to user23@gmail.com`} authForm={false}>

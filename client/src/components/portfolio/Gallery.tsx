@@ -1,39 +1,40 @@
 "use client";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
-export default function Gallery() {
-    const [media, setMedia] = useState<any[]>([]);
-    const [nextCursor, setNextCursor] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
+export default function Gallery(): React.JSX.Element {
+    // const [media, setMedia] = useState<any[]>([]);
+    // const [nextCursor, setNextCursor] = useState<string | null>(null);
+    // const [loading, setLoading] = useState(false);
 
-    async function fetchMedia(loadMore = false, folder = "weddings") {
-        setLoading(true);
-        const url = `/api/media?folder=${folder}${loadMore && nextCursor ? `&next_cursor=${nextCursor}` : ""
-            }`;
+    // async function fetchMedia(loadMore = false, folder = "weddings") {
+    //     setLoading(true);
+    //     const url = `/api/media?folder=${folder}${loadMore && nextCursor ? `&next_cursor=${nextCursor}` : ""
+    //         }`;
 
-        const res = await fetch(url);
-        const data = await res.json();
+    //     const res = await fetch(url);
+    //     const data = await res.json();
 
-        setMedia(loadMore ? [...media, ...data.resources] : data.resources);
-        setNextCursor(data.next_cursor || null);
-        setLoading(false);
-    }
+    //     setMedia(loadMore ? [...media, ...data.resources] : data.resources);
+    //     setNextCursor(data.next_cursor || null);
+    //     setLoading(false);
+    // }
 
-    useEffect(() => {
-        fetchMedia();
-    }, []);
+    // useEffect(() => {
+    //     fetchMedia();
+    // }, []);
 
     return (
         <div>
+            Gallery
             {/* Filter buttons */}
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
                 <button onClick={() => fetchMedia(false, "weddings")}>Weddings</button>
                 <button onClick={() => fetchMedia(false, "portraits")}>Portraits</button>
                 <button onClick={() => fetchMedia(false, "videos")}>Videos</button>
-            </div>
+            </div> */}
 
             {/* Gallery */}
-            <div className="grid grid-cols-3 gap-4 mt-4">
+            {/* <div className="grid grid-cols-3 gap-4 mt-4">
                 {media?.map((item) => (
                     <img
                         key={item.public_id}
@@ -42,10 +43,10 @@ export default function Gallery() {
                         className="rounded-lg"
                     />
                 ))}
-            </div>
+            </div> */}
 
             {/* Load More */}
-            {nextCursor && (
+            {/* {nextCursor && (
                 <button
                     disabled={loading}
                     onClick={() => fetchMedia(true)}
@@ -53,7 +54,7 @@ export default function Gallery() {
                 >
                     {loading ? "Loading..." : "Load More"}
                 </button>
-            )}
+            )} */}
         </div>
     );
 }

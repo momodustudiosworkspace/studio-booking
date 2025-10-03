@@ -1,17 +1,17 @@
 "use client"
 import React from 'react'
 import Avatar from 'react-avatar';
-import { Rating } from 'react-simple-star-rating';
+// import { Rating } from 'react-simple-star-rating';
 
 interface CardOneProps {
   title: string;
-  subtitle?: string;
+  // subtitle?: string;
   description?: string;
   author: string;
-  image: string;
-  rating: number;
+  // image: string;
+  // rating: number;
 }
-const CardTwo = ({ title, description, author, image, subtitle, rating }: CardOneProps) => {
+const CardTwo = ({ title, description, author }: CardOneProps): React.JSX.Element => {
 
   return (
     <div className='bg-[#FAFAFA]  rounded-md px-4 pt-6 pb-16 flex flex-col gap-6'>

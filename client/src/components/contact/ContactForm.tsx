@@ -4,7 +4,7 @@ import React from 'react'
 import Button from '../ui/Button'
 import RedirectArrowWhite from '@/assets/icons/RedirectArrowWhite'
 
-const ContactForm = () => {
+const ContactForm = (): React.JSX.Element => {
     return (
         <Formik initialValues={{
             fname: '',

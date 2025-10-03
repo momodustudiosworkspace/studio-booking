@@ -13,7 +13,7 @@ const SectionHeader = ({
   headerText,
   paragraphText,
   variation="light"
-}: SectionHeaderProps) => {
+}: SectionHeaderProps): React.JSX.Element => {
   return (
     <div className="flex flex-col gap-4">
       <div className={badgeWidth}>

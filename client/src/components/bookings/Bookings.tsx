@@ -8,7 +8,7 @@ import RedirectArrowWhite from '@/assets/icons/RedirectArrowWhite'
 import ReserveSlot from './ReserveSlot'
 import Location from './Location'
 
-const Bookings = () => {
+const Bookings = (): React.JSX.Element => {
     const [bookingStep, setBookingStep] = useState<number>(0)
 
     const proceedBtnRef = useRef<HTMLButtonElement>(null);
