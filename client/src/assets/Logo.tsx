@@ -3,7 +3,7 @@ import React from "react";
 
 const Logo = () => {
   return (
-    <Link href={"/"}>
+    <Link href={"/web"}>
       {" "}
       <svg
         width="100"
