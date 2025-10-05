@@ -14,7 +14,10 @@ export async function register(req: Request, res: Response) {
             password:string
         }
 
-        if (!first_name || !last_name || !email || !password) {
+        console.log("Req body: ", req.body);
+        
+
+        if (!email || !password) {
            return res.status(400).json({message:"All fields are required"})
         }
 
