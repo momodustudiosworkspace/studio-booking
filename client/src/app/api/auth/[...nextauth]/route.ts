@@ -14,70 +14,66 @@ import { JWT } from 'next-auth/jwt';
 declare module 'next-auth/jwt' {
   interface JWT {
     accessToken: string;
-    refreshToken: string;
+    // refreshToken: string;
     accessTokenExpires: number;
-    is_active: boolean;
-    current_plan: string;
-    is_premium_plan_active: boolean;
-  
+    isMember: boolean;
+    isAdmin: boolean;
   }
 }
 
 declare module 'next-auth' {
   interface User {
     accessToken: string;
-    refreshToken: string;
-    is_active: boolean;
-    current_plan: string;
-    is_premium_plan_active: boolean;
+    email: string;
+    // refreshToken: string;
+    isMember: boolean;
+    isAdmin: boolean;
   }
   interface Session {
     user: {
       accessToken: string;
-      refreshToken: string;
-      is_active: boolean;
-      current_plan: string;
-      is_premium_plan_active: boolean;
+      // refreshToken: string;
+      email: string;
+      isMember: boolean;
+      isAdmin: boolean;
     } & DefaultSession['user'];
   }
 }
 
 const baseUrl = process.env["Production"] ? process.env["API_BASE_URL"] : process.env["API_BASE_URL_LOCAL"]
 
-async function refreshAccessToken(token: JWT): Promise<JWT> {
-  try {
-    const res = await fetch(
-      `${baseUrl}/user/auth/token/refresh/`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ refresh: token['refreshToken'] }),
-      }
-    );
+// async function refreshAccessToken(token: JWT): Promise<JWT> {
+//   try {
+//     const res = await fetch(
+//       `${baseUrl}/user/auth/token/refresh/`,
+//       {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ refresh: token['refreshToken'] }),
+//       }
+//     );
 
-    const refreshedTokens = await res.json();
+//     const refreshedTokens = await res.json();
 
-    if (!res.ok) throw refreshedTokens;
+//     if (!res.ok) throw refreshedTokens;
 
-    return {
-      ...token,
-      accessToken: refreshedTokens?.data?.access,
-      accessTokenExpires: Date.now() + 60 * 60 * 1000, // expires in 1 hour
-      refreshToken: refreshedTokens?.data?.refresh ?? token.refreshToken, // fall back to old one
-    };
-  } catch (error) {
-    console.log('Refresh token error:', error);
-    return { ...token, error: 'RefreshAccessTokenError' };
-  }
-}
+//     return {
+//       ...token,
+//       accessToken: refreshedTokens?.data?.access,
+//       accessTokenExpires: Date.now() + 60 * 60 * 1000, // expires in 1 hour
+//       refreshToken: refreshedTokens?.data?.refresh ?? token.refreshToken, // fall back to old one
+//     };
+//   } catch (error) {
+//     console.log('Refresh token error:', error);
+//     return { ...token, error: 'RefreshAccessTokenError' };
+//   }
+// }
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
 
   providers: [
-
-    // Hanlde google auth 
-    GoogleProvider({
+     GoogleProvider({
       clientId: process.env['GOOGLE_CLIENT_ID']!,
       clientSecret: process.env['GOOGLE_CLIENT_SECRET']!,
     }),
@@ -102,48 +98,83 @@ export const authOptions: NextAuthOptions = {
           }
         );
 
-        const result = await res.json();
-        if (res.status === 401) {
-          return result?.message
-        }
-        console.log("Result: ", result)
-          console.log("Rse: ", res)
-        return result
-        // return {
-        //   id: user.id,
+        const user = await res.json();
+        if (res.status === 400) {
+      throw new Error(user?.message || "Invalid request. Please check your inputs.");
+    }
 
-        //   name: `${user.first_name} ${user.last_name}`,
-        //   email: user.email,
-        //   image: user.profile_image,
+    if (res.status === 401) {
+      throw new Error(user?.message || "Unauthorized. Incorrect email or password.");
+    }
 
-        //   accessToken: tokens.access,
-        //   refreshToken: tokens.refresh,
-
-        
-        //   is_active: user.is_active,
-        //   current_plan: user.current_plan,
-        //   is_premium_plan_active: user.is_premium_plan_active,
-        // };
+    if (!res.ok) {
+      throw new Error(user?.message || "Something went wrong. Please try again later.");
+    }
+      return {
+      id: user.user._id,
+      email: user.user.email,
+      accessToken: user.token,
+      isMember: user.user.isMember,
+      isAdmin: user.user.isAdmin,
+    };  
       },
     }),
   ],
 
   pages: {
-    signIn: '/auth/signin-signup',
-    signOut: '/auth/signin-signup',
+    signIn: '/auth',
+    signOut: '/auth',
   },
 
   callbacks: {
+    async signIn({ user, account, }) {
+    // Runs when user signs in (Google or Credentials)
+    if (account?.provider === "google") {
+      try {
+        // Example: send user info to your backend for signup/login
+        const res = await fetch(`${baseUrl}/auth/google-login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: user.name,
+            email: user.email,
+            image: user.image,
+            provider: account.provider,
+            providerAccountId: account.providerAccountId,
+            accessToken: account.access_token,
+          }),
+        });
+
+        if (!res.ok) {
+          console.error("Backend Google login failed");
+          return false; // cancel sign-in
+        }
+
+        const data = await res.json();
+        console.log("User synced with backend:", data);
+
+        // // You can attach any data you want to `user` here
+        // (user as any).backendToken = data.token;
+        // (user as any).isMember = data.user.isMember;
+        // (user as any).isAdmin = data.user.isAdmin;
+
+        return true;
+      } catch (error) {
+        console.error("Error syncing Google user:", error);
+        return false;
+      }
+    }
+
+    return true; // For credentials login
+  },
     async jwt({ token, user }: { token: JWT; user: User }): Promise<JWT> {
       if (user) {
         token.accessToken = user.accessToken;
-        token.refreshToken = user.refreshToken;
+        // token.refreshToken = user.refreshToken;
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000;
 
-    
-        token.is_active = user.is_active;
-        token.current_plan = user.current_plan;
-        token.is_premium_plan_active = user.is_premium_plan_active;
+  
+        token.isMember = user.isMember;
       }
 
       if (
@@ -153,8 +184,8 @@ export const authOptions: NextAuthOptions = {
       ) {
         return token;
       }
-
-      return refreshAccessToken(token);
+      return token
+      // return refreshAccessToken(token);
     },
     async session({
       session,
@@ -166,19 +197,13 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user = {
           ...session.user,
-          email: token.email ?? null,
+         
           image: token.picture ?? null,
-          is_active: token.is_active ?? null,
-        
-          is_premium_plan_active: token.is_premium_plan_active ?? null,
-          current_plan: token.current_plan ?? null,
+          isMember: token.isMember ?? null,
           name: token.name ?? null,
          
         };
       }
-      console.log('session: ', session);
-      console.log('token: ', token);
-
       return session;
     },
   },

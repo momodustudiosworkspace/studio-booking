@@ -32,24 +32,21 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
                 });
 
                 if (!res?.ok) {
-                    console.log("!res.ok: ", res);
+                    // toast.error(data.error || data.message || "Registration failed");
+                    toast.error(AuthToast, {
+                        data: {
+                            title: 'Sign in failed',
+                            content: `${res?.error || "Registration failed"}`,
+                        },
+                        ariaLabel: 'Something went wrong',
+                        icon: false,
+                        theme: 'colored',
 
+                    });
+                    return;
                 }
-                if (res?.error) {
-                    // console.log(res?.error);
-                    console.log('res: ', res?.error);
-                    // showToastNotification(
-                    //     {
-                    //         header: 'Error',
-                    //         body: `Invalid credentials`,
-                    //     },
-                    //     <KeyIcon />
-                    // );
-                } else {
-                    // router.push('/dashboard');
-                    // router.push('/');
-                    console.log(res);
-                }
+
+
             }
             }>
                 {({ values, }) => (
