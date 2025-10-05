@@ -13,12 +13,12 @@ export interface IUser extends Document {
 
 const userSchema: Schema<IUser> = new Schema<IUser>(
   {
-    first_name: { type: String, required: true, trim: true },
-    last_name: { type: String, required: true, trim: true }, // 👈 added
+    first_name: { type: String, required: false, trim: true },
+    last_name: { type: String, required: false, trim: true }, // 👈 added
     email: { type: String, required: true, unique: true, lowercase: true, index: true },
     isMember: { type: Boolean, required: false, default: false },
     isAdmin: { type: Boolean, required: false, default: false },
-    passwordHash: { type: String, required: true },
+    passwordHash: { type: String, required: false },
   },
   {
     timestamps: true,

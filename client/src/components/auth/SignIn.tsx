@@ -5,6 +5,9 @@ import { Field, Form, Formik } from 'formik'
 import Button from '../ui/Button'
 import RedirectArrowWhite from '@/assets/icons/RedirectArrowWhite'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import { toast } from 'react-toastify'
+import { AuthToast } from '../toast/ToastMessage'
 
 interface SignProps {
     signin: boolean;
@@ -19,7 +22,32 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
                 lname: '',
                 email: '',
                 password: ''
-            }} onSubmit={values => console.log(values)
+            }} onSubmit={async (values) => {
+
+
+                const res = await signIn('credentials', {
+                    redirect: false,
+                    email: values.email,
+                    password: values.password,
+                });
+
+                if (!res?.ok) {
+                    // toast.error(data.error || data.message || "Registration failed");
+                    toast.error(AuthToast, {
+                        data: {
+                            title: 'Sign in failed',
+                            content: `${res?.error || "Registration failed"}`,
+                        },
+                        ariaLabel: 'Something went wrong',
+                        icon: false,
+                        theme: 'colored',
+
+                    });
+                    return;
+                }
+
+
+            }
             }>
                 {({ values, }) => (
                     <Form className='flex flex-col gap-10 text-white'>

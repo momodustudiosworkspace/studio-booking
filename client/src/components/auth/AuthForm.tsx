@@ -1,6 +1,7 @@
 import React from 'react'
 import { BaseIcons } from '@/assets/icons/BaseIcons';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 
 
 interface AuthFormProps {
@@ -28,7 +29,11 @@ const AuthForm = ({ children, signin, setSignin, headerText, paragraphText, auth
                 </div>
             </div>
 
-            {authForm && <> <button className='bg-[#FAFAFA] rounded-full w-full flex items-center justify-center h-12 gap-2 text-[14px] my-10'><BaseIcons value='google' /> <span className='font-semibold text-black'>Sign Up with Google</span></button>
+
+            {/* Google auth button  */}
+            {authForm && <> <button onClick={() => signIn("google", {
+                callbackUrl: "/dashboard",
+            })} className='bg-[#FAFAFA] rounded-full w-full flex items-center justify-center h-12 gap-2 text-[14px] my-10'><BaseIcons value='google' /> <span className='font-semibold text-black'>Sign {signin ? 'in' : 'up'} with Google</span></button>
 
                 <div className='flex items-center justify-between gap-1 mb-10'>
                     <div className='h-[0.5px] bg-gray-300 w-[150px]'></div>

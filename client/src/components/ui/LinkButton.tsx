@@ -2,8 +2,8 @@ import clsx from "clsx";
 import Link from "next/link";
 
 interface LinkButtonProps {
-  href: string;
-  text: string;
+  href: string | undefined;
+  text?: string | undefined;
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
   variant?: "primary" | "secondary" | "outline" | "white";
@@ -39,7 +39,7 @@ export default function LinkButton({
 
   return (
     <Link
-      href={href}
+      href={href || '/'}
       className={clsx(
         base,
         variantClasses[variant],
