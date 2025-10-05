@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login } from "../controllers/auth.controllers";
+import { register, login, googleAuth } from "../controllers/auth.controllers";
 
 const router = Router();
 
@@ -77,5 +77,43 @@ router.post("/register", register);
  *         description: Invalid credentials
  */
 router.post("/login", login);
+
+
+/**
+ * @openapi
+ * /api/auth/google-login:
+ *   post:
+ *     summary: Handle Google OAuth login or signup
+ *     tags: [Auth]
+ *     description: Accepts user data from Google OAuth via NextAuth and creates or logs in a user automatically.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - name
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: johndoe@gmail.com
+ *               name:
+ *                 type: string
+ *                 example: John Doe
+ *               image:
+ *                 type: string
+ *                 example: https://lh3.googleusercontent.com/photo.jpg
+ *               provider:
+ *                 type: string
+ *                 example: google
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       500:
+ *         description: Server error
+ */
+router.post("/google-login", googleAuth);
 
 export default router;

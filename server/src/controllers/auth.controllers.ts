@@ -42,9 +42,26 @@ export async function register(req: Request, res: Response) {
     }
 }
 
+// Google auth 
+export async function googleAuth(req: Request, res: Response) {
+    try {
+       const { email, name } = req.body;
+
+    let user = await User.findOne({ email });
+    if (!user) {
+        user = await User.create({ email, name });
+    }
+
+    const token = jwt.sign({ userId: String(user._id) }, process.env['JWT_SECRET'] as string, { expiresIn: '7d' })
+    return res.json({ message: "Sign In successful", user, token });
+     
+    } catch (error) {
+        return res.status(500).json({message:`Server error: ${error}`})
+    }
+}
+
 
 // login user 
-
 export const login = async (req: Request, res: Response) => {
     try {
 
