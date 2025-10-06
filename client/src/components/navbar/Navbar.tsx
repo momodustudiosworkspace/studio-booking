@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import Logo from "../../assets/Logo";
+import Logo from "../../assets/LogoBlack";
 import MenuBar from "../../assets/icons/MenuBar";
 import { useSession } from "next-auth/react";
 import UserNavbar from "./UserNavbar";

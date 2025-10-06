@@ -24,14 +24,14 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="flex relative flex-col min-h-screen overflow-y-hidden justify-center bg-no-repeat px-5 w-full">
+    <section className="flex relative flex-col sm:h-full min-h-screen overflow-y-hidden sm:justify-start justify-center bg-no-repeat sm:px-0 px-5 w-full">
       {/* <ThemeToggle /> */}
-      <Image src="/auth/auth-image.jpg" alt="" fill className="object-cover object-left" priority />
+      <div className="sm:hidden flex">
+        <Image src="/auth/auth-image.jpg" alt="" fill className="object-cover object-left" priority />
+      </div>
+      <div className="absolute w-full bg-black/30 sm:hidden flex z-10 top-0 bottom-0 h-full"></div>
 
-
-      <div className="absolute w-full bg-black/30 z-10 top-0 bottom-0 h-full"></div>
-
-      <div className="relative z-20">
+      <div className="relative z-20 h-full">
         {children}
       </div>
       </section>

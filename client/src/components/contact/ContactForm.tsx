@@ -14,7 +14,7 @@ const ContactForm = (): React.JSX.Element => {
         }} onSubmit={values => console.log(values)
         }>
             {({ values, }) => (
-                <Form className='flex flex-col gap-10'>
+                <Form className='flex flex-col gap-10 w-full'>
                     <div className='flex flex-col gap-3 text-black font-medium'>
                         <label>First Name</label>
                         <Field name='fname' className='border-b-[1px] outline-0 border-black focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter first name"/>

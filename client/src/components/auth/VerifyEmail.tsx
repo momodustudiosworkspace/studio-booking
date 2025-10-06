@@ -17,11 +17,11 @@ const VerifyEmail = (): React.JSX.Element => {
             }} onSubmit={values => console.log(values)
             }>
                 {({ values, isSubmitting }) => (
-                    <Form className='flex flex-col gap-10'>
+                    <Form className='flex flex-col w-full gap-10'>
 
-                        <div className='flex flex-col gap-3 text-white font-medium'>
+                        <div className='flex flex-col gap-3 sm:text-black text-white font-medium'>
                             <label className='text-sm font-medium'>OTP</label>
-                            <Field name='otp' type='text' className='border-b-[1px] outline-0 border-white bg-transparent focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter OTP" />
+                            <Field name='otp' type='text' className='border-b-[1px] outline-0 border-white sm:border-black bg-transparent focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter OTP" />
                         </div>
 
 

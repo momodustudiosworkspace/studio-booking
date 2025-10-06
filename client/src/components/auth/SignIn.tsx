@@ -50,19 +50,19 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
             }
             }>
                 {({ values, }) => (
-                    <Form className='flex flex-col gap-10 text-white'>
+                    <Form className='flex flex-col gap-10 w-full sm:text-black text-white'>
 
                         <div className='flex flex-col gap-3'>
-                            <label className='text-sm font-medium text-white'>Email Address</label>
-                            <Field name='email' type='email' className='border-b-[1px] outline-0 border-white focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter email address" />
+                            <label className='text-sm font-medium sm:text-black text-white'>Email Address</label>
+                            <Field name='email' type='email' className='border-b-[1px] outline-0 sm:border-black border-white focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter email address" />
                         </div>
                         <div className='flex  flex-col gap-3'>
-                            <label className='text-sm font-medium text-white'>Password</label>
-                            <Field name='password' type='password' className='border-b-[1px] outline-0 border-white focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter email address" />
+                            <label className='text-sm font-medium sm:text-black text-white'>Password</label>
+                            <Field name='password' type='password' className='border-b-[1px] outline-0 sm:border-black border-white focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter email address" />
                         </div>
 
-                        <div className='w-full flex mb-8 justify-end'>
-                            <Link href={'/auth/forgot-password'} className='underline text-white'>Forgot password?</Link>
+                        <div className='w-full flex sm:mb-0 mb-8 justify-end'>
+                            <Link href={'/auth/forgot-password'} className='underline sm:text-black text-white'>Forgot password?</Link>
                         </div>
 
 
