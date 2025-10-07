@@ -24,7 +24,7 @@ const AuthForm = ({ children, signin, setSignin, headerText, paragraphText, auth
             </div>
 
 
-            <div className='flex w-[50%] sm:justify-center sm:items-center flex-col'>
+            <div className='flex sm:w-[50%] w-full sm:justify-center sm:items-center flex-col'>
                 <div className='w-full sm:w-[450px]'>
                     <div className='sm:hidden flex w-[170px]'>
                         <Link href={'/'}> <BaseIcons value='logo-white' /></Link>
@@ -46,7 +46,7 @@ const AuthForm = ({ children, signin, setSignin, headerText, paragraphText, auth
                     {/* Google auth button  */}
                     {authForm && <> <button onClick={() => signIn("google", {
                         callbackUrl: "/dashboard",
-                    })} className='bg-[#FAFAFA] rounded-full w-full flex items-center justify-center h-12 gap-2 text-[14px] my-10'><BaseIcons value='google' /> <span className='font-semibold text-black'>Sign {signin ? 'in' : 'up'} with Google</span></button>
+                    })} className='bg-[#FAFAFA] hover:cursor-pointer rounded-full w-full flex items-center justify-center h-12 gap-2 text-[14px] my-10'><BaseIcons value='google' /> <span className='font-semibold text-black'>Sign {signin ? 'in' : 'up'} with Google</span></button>
 
                         <div className='flex items-center justify-between gap-1 mb-10'>
                             <div className='h-[0.5px] sm:bg-black bg-gray-300 w-[150px]'></div>

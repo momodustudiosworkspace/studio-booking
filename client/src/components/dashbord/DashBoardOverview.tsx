@@ -14,20 +14,23 @@ const DashBoardOverview = () => {
             title: 'total bookings',
             count: 50,
             linkText: 'view bookings',
-            href:'/'
+            href: '/',
+            status: 'total'
         },
         {
             icon: 'calendar-check-outlined-black' as IconsType,
             title: 'completed bookings ',
             count: 50,
             linkText: 'view images',
-            href:'/'
+            href: '/',
+            status: 'completed'
         },
         {
             icon: 'camera-outlined-black' as IconsType,
             title: 'upcoming session',
             count: 3,
             linkText: 'next session: 5th june 2025',
+            status: 'upcoming'
             
         },
         {
@@ -35,7 +38,8 @@ const DashBoardOverview = () => {
             title: 'Cancelled bookings',
             count: 2,
             linkText: 'view all',
-            href: '/'
+            href: '/',
+            status: 'cancelled'
         },
     ]
     const BOOKING_QUICK_LINKS_CARDS = [
@@ -44,21 +48,21 @@ const DashBoardOverview = () => {
             title: 'Book a session',
             count: 50,
             linkText: 'Book a session',
-            href:'/'
+            href: '/',
         },
         {
             icon: 'calendar-check-outlined-black' as IconsType,
             title: 'Request a quote',
             count: 50,
             linkText: 'Request a quote',
-            href:'/'
+            href: '/',
         },
         {
             icon: 'camera-outlined-black' as IconsType,
             title: 'Message studio',
             count: 3,
             linkText: 'next session: 5th june 2025',
-            href: '/'
+            href: '/',
         },
     ]
     const BOOKING_SERVICES_CARDS = [
@@ -100,13 +104,13 @@ const DashBoardOverview = () => {
                 headerText: 'welcome back, emmanuel',
                 paragraph: 'Book in minutes, manage everything from scheduling to delivery',
                 linkText: 'Book your session',
-                href: 'string'
+                href: '/'
             }
         }>
             <section>
                 <div className='flex gap-4 items-center mb-14'>
                     {BOOKING_ANALYTICS_CARDS.map((card, key)=>{
-                        return <BookingCardAnalytics key={key} icon={card.icon} title={card.title} count={card.count} linkText={card.linkText} href={card?.href} />
+                        return <BookingCardAnalytics key={key} status={card.status} icon={card.icon} title={card.title} count={card.count} linkText={card.linkText} href={card?.href} />
                     })}
                 </div>
                 <div className='flex flex-col gap-4'>

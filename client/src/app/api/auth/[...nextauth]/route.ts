@@ -73,9 +73,13 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
 
   providers: [
-     GoogleProvider({
+    GoogleProvider({
       clientId: process.env['GOOGLE_CLIENT_ID']!,
       clientSecret: process.env['GOOGLE_CLIENT_SECRET']!,
+      issuer: "https://accounts.google.com", // ✅ skips discovery step
+      httpOptions: {
+        timeout: 10000, // wait up to 10s
+      },
     }),
     CredentialsProvider({
       name: 'Credentials',
@@ -85,7 +89,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials): Promise<User | null> {
         if (!credentials?.email || !credentials?.password) return null;
-     
+
         const res = await fetch(
           `${baseUrl}/auth/login/`,
           {
@@ -100,23 +104,23 @@ export const authOptions: NextAuthOptions = {
 
         const user = await res.json();
         if (res.status === 400) {
-      throw new Error(user?.message || "Invalid request. Please check your inputs.");
-    }
+          throw new Error(user?.message || "Invalid request. Please check your inputs.");
+        }
 
-    if (res.status === 401) {
-      throw new Error(user?.message || "Unauthorized. Incorrect email or password.");
-    }
+        if (res.status === 401) {
+          throw new Error(user?.message || "Unauthorized. Incorrect email or password.");
+        }
 
-    if (!res.ok) {
-      throw new Error(user?.message || "Something went wrong. Please try again later.");
-    }
-      return {
-      id: user.user._id,
-      email: user.user.email,
-      accessToken: user.token,
-      isMember: user.user.isMember,
-      isAdmin: user.user.isAdmin,
-    };  
+        if (!res.ok) {
+          throw new Error(user?.message || "Something went wrong. Please try again later.");
+        }
+        return {
+          id: user.user._id,
+          email: user.user.email,
+          accessToken: user.token,
+          isMember: user.user.isMember,
+          isAdmin: user.user.isAdmin,
+        };
       },
     }),
   ],
@@ -128,52 +132,52 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account, }) {
-    // Runs when user signs in (Google or Credentials)
-    if (account?.provider === "google") {
-      try {
-        // Example: send user info to your backend for signup/login
-        const res = await fetch(`${baseUrl}/auth/google-login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: user.name,
-            email: user.email,
-            image: user.image,
-            provider: account.provider,
-            providerAccountId: account.providerAccountId,
-            accessToken: account.access_token,
-          }),
-        });
+      // Runs when user signs in (Google or Credentials)
+      if (account?.provider === "google") {
+        try {
+          // Example: send user info to your backend for signup/login
+          const res = await fetch(`${baseUrl}/auth/google-login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: user.name,
+              email: user.email,
+              image: user.image,
+              provider: account.provider,
+              providerAccountId: account.providerAccountId,
+              accessToken: account.access_token,
+            }),
+          });
 
-        if (!res.ok) {
-          console.error("Backend Google login failed");
-          return false; // cancel sign-in
+          if (!res.ok) {
+            console.error("Backend Google login failed");
+            return false; // cancel sign-in
+          }
+
+          const data = await res.json();
+          console.log("User synced with backend:", data);
+
+          // // You can attach any data you want to `user` here
+          // (user as any).backendToken = data.token;
+          // (user as any).isMember = data.user.isMember;
+          // (user as any).isAdmin = data.user.isAdmin;
+
+          return true;
+        } catch (error) {
+          console.error("Error syncing Google user:", error);
+          return false;
         }
-
-        const data = await res.json();
-        console.log("User synced with backend:", data);
-
-        // // You can attach any data you want to `user` here
-        // (user as any).backendToken = data.token;
-        // (user as any).isMember = data.user.isMember;
-        // (user as any).isAdmin = data.user.isAdmin;
-
-        return true;
-      } catch (error) {
-        console.error("Error syncing Google user:", error);
-        return false;
       }
-    }
 
-    return true; // For credentials login
-  },
+      return true; // For credentials login
+    },
     async jwt({ token, user }: { token: JWT; user: User }): Promise<JWT> {
       if (user) {
         token.accessToken = user.accessToken;
         // token.refreshToken = user.refreshToken;
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000;
 
-  
+
         token.isMember = user.isMember;
       }
 
@@ -197,11 +201,11 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user = {
           ...session.user,
-         
+
           image: token.picture ?? null,
           isMember: token.isMember ?? null,
           name: token.name ?? null,
-         
+
         };
       }
       return session;
