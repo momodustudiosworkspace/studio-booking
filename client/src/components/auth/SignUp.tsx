@@ -70,19 +70,19 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
             }
             }>
                 {({ values, isSubmitting }) => (
-                    <Form className='flex flex-col gap-10'>
+                    <Form className='flex flex-col w-full gap-10'>
 
-                        <div className='flex flex-col gap-3 text-white font-medium'>
+                        <div className='flex flex-col gap-3 text-white sm:text-black font-medium'>
                             <label className='text-sm font-medium'>Email Address</label>
-                            <Field name='email' type='email' className='border-b-[1px] outline-0 border-white bg-transparent focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter email address" />
+                            <Field name='email' type='email' className='border-b-[1px] outline-0 border-white sm:border-black bg-transparent focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter email address" />
                         </div>
-                        <div className='flex flex-col gap-3 text-white font-medium'>
+                        <div className='flex flex-col gap-3 text-white sm:text-black font-medium'>
                             <label className='text-sm font-medium'>Password</label>
-                            <Field name='password' type='password' className='border-b-[1px] outline-0 border-white bg-transparent focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter password" />
+                            <Field name='password' type='password' className='border-b-[1px] outline-0 border-white sm:border-black bg-transparent focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter password" />
                         </div>
-                        <div className='flex mb-4 flex-col gap-3 text-white font-medium'>
+                        <div className='flex mb-4 flex-col gap-3 text-white sm:text-black font-medium'>
                             <label className='text-sm font-medium'>Confirm Password</label>
-                            <Field name='password_confirm' type='password' className='border-b-[1px] outline-0 border-white bg-transparent focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Confirm password" />
+                            <Field name='password_confirm' type='password' className='border-b-[1px] outline-0 border-white sm:border-black bg-transparent focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Confirm password" />
                         </div>
 
                         <div className='flex items-start gap-1'>

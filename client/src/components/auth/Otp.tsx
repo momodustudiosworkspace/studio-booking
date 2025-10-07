@@ -24,7 +24,7 @@ const Otp = (): React.JSX.Element => {
             }} onSubmit={values => console.log(values)
             }>
                 {({ values, isSubmitting,setFieldValue }) => (
-                    <Form className='flex flex-col gap-10 mt-20'>
+                    <Form className='flex flex-col sm:items-start w-full gap-10 mt-20'>
 
                         {/* <div className='flex flex-col gap-3 text-white font-medium'>
                             <label className='text-sm font-medium capitalize'></label>
@@ -45,10 +45,10 @@ const Otp = (): React.JSX.Element => {
                             renderInput={props => (
                                 <input
                                     {...props}
-                                    className='mb-5 border border-primary text-[28px] focus:outline-black'
+                                    className='mb-5 border border-black text-[28px] focus:outline-black'
                                 />
                             )}
-                            containerStyle='flex justify-center gap-3'
+                            containerStyle='flex justify-center sm:gap-10 gap-3'
                             inputStyle={{
                                 width: '56px',
                                 height: '70px',

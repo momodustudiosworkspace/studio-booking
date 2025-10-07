@@ -4,6 +4,7 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProviderWrapper from "@/components/providers/SessionProviderWrapper";
 import { ToastContainer } from 'react-toastify';
+import 'react-vertical-timeline-component/style.min.css';
 import "react-toastify/dist/ReactToastify.css";
 
 

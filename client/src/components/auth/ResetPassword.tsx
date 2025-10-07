@@ -18,15 +18,15 @@ const ResetPassword = (): React.JSX.Element => {
             }} onSubmit={values => console.log(values)
             }>
                 {({ values, }) => (
-                    <Form className='flex flex-col gap-10 text-white'>
+                    <Form className='flex flex-col w-full gap-10 mt-20 text-white sm:text-black'>
 
                         <div className='flex flex-col gap-3'>
-                            <label className='text-sm font-medium text-white'>Password</label>
-                            <Field name='password' type='password' className='border-b-[1px] outline-0 border-white focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter email address" />
+                            <label className='text-sm font-medium text-white sm:text-black'>Password</label>
+                            <Field name='password' type='password' className='border-b-[1px] outline-0 border-white sm:border-black focus:border-b-2 transition-all ease-in-out pb-2' placeholder="New password" />
                         </div>
                         <div className='flex  flex-col gap-3'>
-                            <label className='text-sm font-medium text-white'> Confirm Password</label>
-                            <Field name='password_2' type='password' className='border-b-[1px] outline-0 border-white focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Enter email address" />
+                            <label className='text-sm font-medium text-white sm:text-black'> Confirm Password</label>
+                            <Field name='password_2' type='password' className='border-b-[1px] outline-0 border-white sm:border-black focus:border-b-2 transition-all ease-in-out pb-2' placeholder="Retry password" />
                         </div>
                       
                         <div className='w-full flex justify-end'>
