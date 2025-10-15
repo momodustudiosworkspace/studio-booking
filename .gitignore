@@ -19,6 +19,7 @@ out/
 .env.production.local
 server/.env
 client/.env
+client/.env.local
 
 # --- Logs ---
 logs/

@@ -44,7 +44,16 @@ export default function Page() {
                         </div>
                     </div>
                     <ContactForm />
-                    <p>{ `{{Google map API}}`}</p>
+                    <p>{`{{Google map API}}`}</p>
+                    <iframe
+                        width="600"
+                        height="450"
+
+                        loading="lazy"
+                        allowFullScreen
+                        referrerPolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAF8FFGQtsWR23-L-Qs6AdnH6sMDeZ8BLs&q=Space+Needle,Seattle+WA">
+                    </iframe>
                     <Faqs/>
                 </div>
 

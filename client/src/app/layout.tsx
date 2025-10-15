@@ -6,6 +6,7 @@ import SessionProviderWrapper from "@/components/providers/SessionProviderWrappe
 import { ToastContainer } from 'react-toastify';
 import 'react-vertical-timeline-component/style.min.css';
 import "react-toastify/dist/ReactToastify.css";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 
 const inter = Inter({
@@ -85,7 +86,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   }) {
 
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en" >
       <body className={`${inter.variable} ${montserrat.variable} font-inter min-h-screen`}>

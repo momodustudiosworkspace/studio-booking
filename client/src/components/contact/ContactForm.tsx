@@ -35,7 +35,7 @@ const ContactForm = (): React.JSX.Element => {
                     <div className='w-full flex justify-end'>
                         <Button text='Send message' onClick={() => console.log(values)
                         } icon={< RedirectArrowWhite />}
-                            iconPosition="right" className='w-[165px]' />
+                            iconPosition="right" className='w-auto' />
                    </div>
                 </Form>
             )}
