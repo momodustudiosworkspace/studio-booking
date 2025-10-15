@@ -8,6 +8,7 @@ import morgan from "morgan"
 
 // Auth router 
 import authRoutes from "./routes/auth.routes"
+import bookingRoutes from "./routes/booking.routes";
 
 
 
@@ -24,6 +25,9 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerOpenapiSpecificatio
 
 // auth endpoints 
 app.use("/api/auth", authRoutes)
+
+// booking endpoints
+app.use("/api/bookings", bookingRoutes);
 
 const PORT = process.env['PORT'] || 5000;
 
