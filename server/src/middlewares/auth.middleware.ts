@@ -11,27 +11,37 @@ export function authMiddleWare(
   next: NextFunction
 ): void {
   try {
-    const header = req.headers["authorization"];
-    if (!header || !header.startsWith("Bearer ")) {
-      res.status(401).json({ message: "Unauthorized" });
+    const header = req.headers.authorization;
+    if (!header?.startsWith("Bearer ")) {
+      res.status(401).json({ message: "Unauthorized: Missing or invalid header" });
       return;
     }
 
-    // Extract token safely
-    const token = header.substring("Bearer ".length).trim();
+    const token = header.split(" ")[1];
+    if (!token) {
+      res.status(401).json({ message: "Unauthorized: Token missing" });
+      return;
+    }
 
-    const secret = process.env["JWT_SECRET"];
+    const secret = process.env['JWT_SECRET'];
     if (!secret) {
-      res.status(500).json({ message: "JWT is missing" });
+      res.status(500).json({ message: "Server error: JWT secret not configured" });
       return;
     }
 
-    const payload = jwt.verify(token, secret) as { userId: string };
-    req.userId = payload.userId;
+    const decoded = jwt.verify(token, secret) as { userId: string };
+    if (!decoded || !decoded.userId) {
+      res.status(401).json({ message: "Unauthorized: Invalid token payload" });
+      return;
+    }
 
-    next();
+    req.userId = decoded.userId;
+      console.log("Middleware: ", req);
+    
+    next(); // ✅ Only reach next() after all checks
   } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
+    console.error("JWT verification error:", error);
+    res.status(401).json({ message: "Unauthorized: Invalid or expired token" });
   }
 }
 

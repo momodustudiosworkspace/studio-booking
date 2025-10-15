@@ -14,8 +14,6 @@ export async function register(req: Request, res: Response) {
             password:string
         }
 
-        console.log("Req body: ", req.body);
-        
 
         if (!email || !password) {
            return res.status(400).json({message:"All fields are required"})
@@ -62,7 +60,7 @@ export async function googleAuth(req: Request, res: Response) {
 
 
 // login user 
-export const login = async (req: Request, res: Response) => {
+export async function login (req: Request, res: Response) {
     try {
 
         const { email, password } = req.body as { email: string, password: string }

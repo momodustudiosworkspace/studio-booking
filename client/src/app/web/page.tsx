@@ -75,7 +75,7 @@ export default function Page() {
               text="Book your session"
               icon={<RedirectArrowWhite />}
               iconPosition="right"
-              className="w-[200px]"
+              className="w-auto"
             />
 
             <LinkButton
@@ -147,16 +147,17 @@ export default function Page() {
               </div>
             ))}
 
-
-            <LinkButton
-              href="/bookings"
-              size="md"
-              variant="white"
-              className="w-[215px]"
-              text="Book your session"
-              icon={<RedirectArrowWhite />}
-              iconPosition="right"
-            />
+            <div>
+              <LinkButton
+                href="/bookings"
+                size="md"
+                variant="white"
+                text="Book your session"
+                icon={<RedirectArrowWhite />}
+                iconPosition="right"
+                className="w-[204px]"
+              />
+            </div>
           </div>
         </div>
 
@@ -191,14 +192,14 @@ export default function Page() {
               headerText="Your Next Favorite Photo Is Just One Click Away"
               paragraphText="Book your shoot today and enjoy a fully online experience — from scheduling to final image delivery."
             />
-            <LinkButton
+            <div> <LinkButton
               href="/bookings"
               size="md"
-              className="w-[200px]"
+              className="w-auto"
               text="Book your session"
               icon={<RedirectArrowWhite />}
               iconPosition="right"
-            />
+            /></div>
           </div>
           <div className="w-full flex justify-end"> <Image src={'/home/next-photo-studio-shoot.jpg'} alt="" width={280} height={100} quality={100} loading="lazy" /></div>
         </div>

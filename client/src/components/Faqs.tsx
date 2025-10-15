@@ -22,7 +22,7 @@ const Faqs = (): React.JSX.Element => {
             },
             {
                 id: 3,
-                question: 'How long will it take to get my pictures?',
+                question: 'How  do i get my pictures?',
                 answer: 'You can book directly on our website in just a few clicks. Select your service, choose a date and time, make your payment, and you’re all set!'
             },
             {
