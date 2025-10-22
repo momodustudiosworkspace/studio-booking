@@ -3,15 +3,15 @@ import NextAuth, {
   NextAuthOptions,
   Session,
   User,
-} from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
-import { JWT } from 'next-auth/jwt';
+} from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import { JWT } from "next-auth/jwt";
 
 /**
  * --- Type Augmentation ---
  */
-declare module 'next-auth/jwt' {
+declare module "next-auth/jwt" {
   interface JWT {
     accessToken: string;
     // refreshToken: string;
@@ -21,7 +21,7 @@ declare module 'next-auth/jwt' {
   }
 }
 
-declare module 'next-auth' {
+declare module "next-auth" {
   interface User {
     accessToken: string;
     email: string;
@@ -36,11 +36,13 @@ declare module 'next-auth' {
       email: string;
       isMember: boolean;
       isAdmin: boolean;
-    } & DefaultSession['user'];
+    } & DefaultSession["user"];
   }
 }
 
-const baseUrl = process.env["Production"] ? process.env["API_BASE_URL"] : process.env["API_BASE_URL_LOCAL"]
+const baseUrl = process.env["Production"]
+  ? process.env["API_BASE_URL"]
+  : process.env["API_BASE_URL_LOCAL"];
 
 // async function refreshAccessToken(token: JWT): Promise<JWT> {
 //   try {
@@ -70,49 +72,52 @@ const baseUrl = process.env["Production"] ? process.env["API_BASE_URL"] : proces
 // }
 
 export const authOptions: NextAuthOptions = {
-  session: { strategy: 'jwt' },
+  session: { strategy: "jwt" },
 
   providers: [
     GoogleProvider({
-      clientId: process.env['GOOGLE_CLIENT_ID']!,
-      clientSecret: process.env['GOOGLE_CLIENT_SECRET']!,
+      clientId: process.env["GOOGLE_CLIENT_ID"]!,
+      clientSecret: process.env["GOOGLE_CLIENT_SECRET"]!,
       issuer: "https://accounts.google.com", // ✅ skips discovery step
       httpOptions: {
         timeout: 10000, // wait up to 10s
       },
     }),
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials): Promise<User | null> {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const res = await fetch(
-          `${baseUrl}/auth/login/`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
-            }),
-          }
-        );
+        const res = await fetch(`${baseUrl}/auth/login/`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password,
+          }),
+        });
 
         const user = await res.json();
         if (res.status === 400) {
-          throw new Error(user?.message || "Invalid request. Please check your inputs.");
+          throw new Error(
+            user?.message || "Invalid request. Please check your inputs."
+          );
         }
 
         if (res.status === 401) {
-          throw new Error(user?.message || "Unauthorized. Incorrect email or password.");
+          throw new Error(
+            user?.message || "Unauthorized. Incorrect email or password."
+          );
         }
 
         if (!res.ok) {
-          throw new Error(user?.message || "Something went wrong. Please try again later.");
+          throw new Error(
+            user?.message || "Something went wrong. Please try again later."
+          );
         }
         return {
           id: user.user._id,
@@ -126,12 +131,12 @@ export const authOptions: NextAuthOptions = {
   ],
 
   pages: {
-    signIn: '/auth',
-    signOut: '/auth',
+    signIn: "/auth",
+    signOut: "/auth",
   },
 
   callbacks: {
-    async signIn({ user, account, }) {
+    async signIn({ user, account }) {
       // Runs when user signs in (Google or Credentials)
       if (account?.provider === "google") {
         try {
@@ -177,7 +182,6 @@ export const authOptions: NextAuthOptions = {
         // token.refreshToken = user.refreshToken;
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000;
 
-
         token.isMember = user.isMember;
       }
 
@@ -188,7 +192,7 @@ export const authOptions: NextAuthOptions = {
       ) {
         return token;
       }
-      return token
+      return token;
       // return refreshAccessToken(token);
     },
     async session({
@@ -205,7 +209,6 @@ export const authOptions: NextAuthOptions = {
           image: token.picture ?? null,
           isMember: token.isMember ?? null,
           name: token.name ?? null,
-
         };
       }
       return session;

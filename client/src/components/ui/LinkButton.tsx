@@ -29,7 +29,7 @@ export default function LinkButton({
     secondary: "bg-white text-black border border-black hover:bg-gray-100",
     outline:
       "bg-transparent text-black border border-black hover:bg-black hover:text-white",
-    white:"bg-white text-black"
+    white: "bg-white text-black",
   };
   const sizeClasses = {
     sm: "px-2 py-2 text-sm",
@@ -39,7 +39,7 @@ export default function LinkButton({
 
   return (
     <Link
-      href={href || '/'}
+      href={href || "/"}
       className={clsx(
         base,
         variantClasses[variant],
@@ -48,9 +48,9 @@ export default function LinkButton({
         className
       )}
     >
-      {icon && iconPosition === "left" && <span className="mr-2">{icon}</span>}
+      {icon && iconPosition === "left" && <span className='mr-2'>{icon}</span>}
       {text}
-      {icon && iconPosition === "right" && <span className="ml-2">{icon}</span>}
+      {icon && iconPosition === "right" && <span className='ml-2'>{icon}</span>}
     </Link>
   );
 }

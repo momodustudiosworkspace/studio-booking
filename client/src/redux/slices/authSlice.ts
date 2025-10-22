@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import { RootState } from '../store';
 
 export interface BusinessState {
@@ -16,7 +16,7 @@ const initialState: BusinessState = {
   is_brand_owner: false,
   number_of_owned_brands: 0,
   is_active: true,
-  current_plan: '',
+  current_plan: "",
   is_premium_plan_active: false,
   business_registration_step: 0,
   business_id: null,
@@ -24,7 +24,7 @@ const initialState: BusinessState = {
 };
 
 const businessSlice = createSlice({
-  name: 'business',
+  name: "business",
   initialState,
   reducers: {
     setBusinessData: (state, action: PayloadAction<BusinessState>) => {

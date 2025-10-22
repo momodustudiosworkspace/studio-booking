@@ -5,21 +5,22 @@ interface SectionHeaderProps {
   badgeWidth?: string;
   badgeText?: string;
   headerText?: string;
-  paragraphText?: string;variation?: "light" | "dark";
+  paragraphText?: string;
+  variation?: "light" | "dark";
 }
 const SectionHeader = ({
   badgeWidth,
-  badgeText = '',
+  badgeText = "",
   headerText,
   paragraphText,
-  variation="light"
+  variation = "light",
 }: SectionHeaderProps): React.JSX.Element => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className='flex flex-col gap-4'>
       <div className={badgeWidth}>
         {badgeText && <SectionBadge text={badgeText} variation={variation} />}
       </div>
-      <h1 className="text-[25px] font-bold">{headerText}</h1>
+      <h1 className='text-[25px] font-bold'>{headerText}</h1>
       <p>{paragraphText}</p>
     </div>
   );

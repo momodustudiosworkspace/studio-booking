@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   try {
     const result = await cloudinary.search
       .expression(`folder="${folder}"`) // 🔍 filter by folder
-      .max_results(12)                  // 🔢 limit per request
+      .max_results(12) // 🔢 limit per request
       .next_cursor(nextCursor || undefined)
       .execute();
 
