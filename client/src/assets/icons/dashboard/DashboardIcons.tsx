@@ -1,10 +1,18 @@
 
-export type IconsType = 'home-solid-black' | 'camera-solid-black' | 'help-solid-black' | 'logout-danger' | 'camera-outlined-black' | 'calendar-check-outlined-black' | 'calendar-outlined-black' | 'arrow-diagonal-right-black' | 'notification-solid-black' | 'wallet-outlined-black' | 'chat-outlined-black' | 'photo-added-outlined-black' | 'booking-confirmed-outlined-black' | 'bin-outlined-danger' | 'cancel-outlined-black' | 'calendar-grid-outlined-black' | 'dollar-sign-outlined-black' | "arrow-left-outlined-black" | "check-solid-black"
+export type IconsType = 'home-solid-black' | 'camera-solid-black' | 'help-solid-black' | 'logout-danger' | 'camera-outlined-black' | 'calendar-check-outlined-black' | 'calendar-outlined-black' | 'arrow-diagonal-right-black' | 'notification-solid-black' | 'wallet-outlined-black' | 'chat-outlined-black' | 'photo-added-outlined-black' | 'booking-confirmed-outlined-black' | 'bin-outlined-danger' | 'cancel-outlined-black' | 'calendar-grid-outlined-black' | 'dollar-sign-outlined-black' | "arrow-left-outlined-black" | "check-solid-black" | "circle-outlined-black"
 type Type = {
     value: IconsType;
 };
 
 export const DashboardIcons = ({ value }: Type) => { 
+    if (value === 'circle-outlined-black') {
+        return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="15" height="15" rx="7.5" fill="white" />
+            <rect x="0.5" y="0.5" width="15" height="15" rx="7.5" stroke="#8B8B8B" />
+        </svg>
+
+
+    }
     if (value === 'check-solid-black') {
         return < svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
             <rect width="18" height="18" rx="9" fill="black" />

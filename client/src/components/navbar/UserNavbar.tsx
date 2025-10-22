@@ -1,8 +1,9 @@
 'use client'
-import { DashboardIcons } from '@/assets/icons/DashboardIcons';
+import { DashboardIcons } from '@/assets/icons/dashboard/DashboardIcons';
 import React, { useState } from 'react'
 import Modal from '../ui/Modal';
 import DashboardNotifications from '../dashbord/DashboardNotifications';
+import MenuBar from '@/assets/icons/MenuBar';
 
 
 interface UserNavbarProps {
@@ -30,16 +31,21 @@ const UserNavbar = ({ user }: UserProps) => {
                     <span className='text-white text-xs'>2</span>
                 </div>}
             </button>
-            <div className='h-[50px] w-[50px] flex justify-center items-center bg-black text-white uppercase rounded-full'>
-                {user.email?.[0]}{user.email?.[1]}
+            <div className='hidden sm:flex items-center gap-4'>
+                <div className='h-[50px] w-[50px] flex justify-center items-center bg-black text-white uppercase rounded-full'>
+                    {user.email?.[0]}{user.email?.[1]}
+                </div>
+                <div>
+                    <p className='font-semibold'>{user.email}</p>
+                    <small>{user.email}</small>
+                </div>
             </div>
-            <div>
-                <p className='font-semibold'>{user.email}</p>
-                <small>{user.email}</small>
+            <div className='sm:hidden flex'>
+                <MenuBar />
             </div>
 
-            <Modal isOpen={open} onClose={() => setOpen(false)} contentClassName='right-10'>
-                <div className='w-[383px] px-5 py-5 bg-white rounded-md'>
+            <Modal isOpen={open} onClose={() => setOpen(false)} contentClassName='sm:right-10 sm:px-0 px-4'>
+                <div className='sm:w-[383px] w-full px-5 py-5 bg-white rounded-md'>
                     <div className='flex items-center justify-between'>
                         <h3 className='font-semibold'>Notifications</h3>
                         <button className='h-[20px] w-[20px] flex justify-center rounded-full items-center bg-[#FAFAFA]' onClick={() => setOpen(false)}>

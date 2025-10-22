@@ -1,5 +1,5 @@
 "use client"
-import { DashboardIcons, IconsType } from '@/assets/icons/DashboardIcons';
+import { DashboardIcons, IconsType } from '@/assets/icons/dashboard/DashboardIcons';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,14 +9,15 @@ const DashboardSideBar = () => {
     const SIDEBAR_LINKS = [
         { href: "/dashboard", label: "Home", icon:'home-solid-black' as IconsType },
         { href: "/dashboard/bookings", label: "Bookings", icon:'camera-solid-black' as IconsType},
+        { href: "/dashboard/profile-settings", label: "Profile", icon: 'help-solid-black' as IconsType },
         { href: "/dashboard/help", label: "Help", icon:'help-solid-black' as IconsType },
        
     ];
     const pathname = usePathname();
 
   return (
-      <div className='min-h-[200px] rounded-md w-[247px] bg-white px-4 py-5 shadow-sm'>
-          <nav className="space-y-2">
+      <div className='min-h-[200px] sm:flex hidden rounded-md w-[247px] bg-white px-4 py-5 shadow-sm'>
+          <nav className="space-y-2 w-full">
               {SIDEBAR_LINKS.map((link) => (
                   <Link
                       key={link.href}

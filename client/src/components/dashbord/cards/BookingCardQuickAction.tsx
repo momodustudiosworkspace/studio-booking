@@ -1,4 +1,4 @@
-import { DashboardIcons, IconsType } from '@/assets/icons/DashboardIcons'
+import { DashboardIcons, IconsType } from '@/assets/icons/dashboard/DashboardIcons'
 import Link from 'next/link';
 import React from 'react'
 

@@ -6,7 +6,9 @@ import { useRouter } from 'next/navigation'
 import Button from '../ui/Button'
 import RedirectArrowWhite from '@/assets/icons/RedirectArrowWhite'
 import ReserveSlot from './ReserveSlot'
-import Location from './Location'
+import BookingsPreview from './BookingsPreview'
+import BookingsLocation from './BookingsLocation'
+import PageMessage from '../PageMessage'
 
 const Bookings = (): React.JSX.Element => {
     const [bookingStep, setBookingStep] = useState<number>(0)
@@ -49,12 +51,33 @@ const Bookings = (): React.JSX.Element => {
             },
             {
                 id: 3,
-                component: <Location 
+                component: <BookingsLocation 
                     proceedBtnRef={proceedBtnRef}
-                    setLocation={(values) => setLocation({...values})}
+                    setbookingsLocation={(values) => setLocation({ ...values })}
                 />,
                 header: 'reserve a slot',
                 paragraph: 'We’ll hold your slot while you complete checkout'
+            },
+            {
+                id: 4,
+                component: <BookingsPreview
+                    proceedBtnRef={proceedBtnRef}
+                    setbookingsPreview={(values) => setLocation({ ...values })}
+                />,
+                header: 'preview',
+                paragraph: 'We’ll hold your slot while you complete checkout'
+            },
+            {
+                id: 5,
+                component: <PageMessage
+                    status={'success'}
+                    messageHeader={'Booking completed'}
+                    messageParagraph={'You can visit your dashbord to view all bookings'}
+                    btnText={'Go to dashboard'}
+                    href={'/dashboard'}
+                />,
+                header: '',
+                paragraph: ''
             },
         ]
     const handleBookingStepsProceed = () => {
@@ -64,7 +87,8 @@ const Bookings = (): React.JSX.Element => {
 
 
     return (
-        <section className='px-5'>
+        <section className='px-5 flex justify-center items-center'>
+            <div className='sm:w-[460px] w-full'>
             <button className='bg-[#FAFAFA] h-10 w-10 rounded-full flex justify-center items-center' onClick={() => {
                 if (bookingStep === 0) {
                     return router.push('/web')
@@ -82,21 +106,23 @@ const Bookings = (): React.JSX.Element => {
             {bookingStep < 2 ? '' : bookingStep === 3 && reserveSlot?.date ? reserveSlot.date.toLocaleString() : ''}
             {location.state && location.state}
 
-            <div className='w-full mt-14 mb-10'>
+                <div className='flex justify-center items-center w-full mt-14 mb-10'>
+
                 {
                     BOOKING_STEPS[bookingStep]?.component
                 }
-            </div>
-
-            <div className='w-full flex justify-end'>
+                </div>
+                {bookingStep !== 4 && <div className='w-full flex justify-end'>
                 <Button
                     ref= {proceedBtnRef}
                     text={'Proceed'}
                     onClick={handleBookingStepsProceed}
                     icon={< RedirectArrowWhite />}
-                    iconPosition="right" className='w-[115px]' size='md'
+                        iconPosition="right" className='w-[125px]' size='md'
                 />
+                </div>}
             </div>
+
 
         </section>
     )

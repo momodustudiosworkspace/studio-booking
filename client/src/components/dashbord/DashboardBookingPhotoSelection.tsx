@@ -48,7 +48,7 @@ const DashboardBookingPhotoSelection = ({
   }, [selectedPhotos, setTotalSelectedPhotos]);
 
   return (
-    <div className="grid grid-cols-4 gap-y-6 w-full gap-x-5">
+    <div className="grid sm:grid-cols-4 grid-cols-2 gap-y-6 gap-x-2 w-full">
       {photos.map((photo, index) => {
         const isSelected = selectedPhotos.includes(index);
         const selectionNumber = isSelected
@@ -58,8 +58,7 @@ const DashboardBookingPhotoSelection = ({
         return (
           <div
             key={index}
-            className={`relative group hover:cursor-pointer w-[320px] ml-4 h-[420px] rounded-lg overflow-hidden transition-all duration-300 ${isSelected ? "ring-4 ring-black scale-[1.01]" : ""
-              }`}
+            className={`relative group hover:cursor-pointer sm:w-[310px] w-full sm:ml-4 sm:h-[420px] rounded-lg overflow-hidden transition-all duration-300`}
           >
             <Image
               src={photo}
@@ -69,9 +68,14 @@ const DashboardBookingPhotoSelection = ({
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
             />
 
+            {/* ✅ Inner green overlay border */}
+            {isSelected && (
+              <div className="absolute inset-0 rounded-lg border-[4px] border-green-400 pointer-events-none" />
+            )}
+
             {/* Selection badge */}
             {isSelected && (
-              <div className="absolute top-3 right-3 bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm shadow-md">
+              <div className="absolute top-3 right-3 bg-green-400 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm shadow-md">
                 {selectionNumber}
               </div>
             )}
@@ -79,7 +83,8 @@ const DashboardBookingPhotoSelection = ({
             {/* Hover select button */}
             <button
               onClick={() => handleSelectedPhotos(index)}
-              className="absolute top-1/2 left-1/2 hidden group-hover:flex -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-black/70 text-white px-4 py-2 rounded-lg text-sm"
+              className={`absolute bottom-3 left-1/2 -translate-x-1/2 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200 ${isSelected ? "bg-green-400" : "bg-black/70"
+                }`}
             >
               {isSelected ? "Deselect" : "Select"}
             </button>

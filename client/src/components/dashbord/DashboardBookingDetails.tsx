@@ -1,13 +1,14 @@
 "use client"
 import React, { useState } from 'react'
 import DashboardLayout from './DashboardLayout'
-import { DashboardIcons } from '@/assets/icons/DashboardIcons'
+import { DashboardIcons } from '@/assets/icons/dashboard/DashboardIcons'
 import DashboardHeader from './DashboardHeader'
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
+// import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import { redirect } from 'next/navigation'
 import LinkButton from '../ui/LinkButton'
 import RedirectArrowWhite from '@/assets/icons/RedirectArrowWhite'
 import DashboardBookingPhotoSelection from './DashboardBookingPhotoSelection'
+import DashboardBookingTimeline from './DashboardBookingTimeline'
 
 const DashboardBookingDetails = () => {
 
@@ -17,42 +18,42 @@ const DashboardBookingDetails = () => {
     // if upcoming, clinets can cancel if completed clients can rebook and get discount
 
     // if client is late based on bookign time and checkin time let the checking timeline be red 
-    const timeLineLevel = 6
+    const timeLineLevel = 5
 
 
-    const BOOKING_TIMELINE = [
-        {
-            id: 1,
-            text: "booking",
-            date: "wednesday october 12th, 2025 at 3:00pm",
-        },
-        {
-            id: 2,
-            text: "Checking",
-            date: "wednesday october 12th, 2025 at 3:00pm",
-        },
-        {
-            id: 3,
-            text: "session",
-            date: "wednesday october 12th, 2025 at 3:00pm",
-        },
-        {
-            id: 4,
-            text: "session completed",
-            date: "wednesday october 12th, 2025 at 3:00pm",
-        },
-        {
-            id: 5,
-            text: "photo selection",
-            date: "wednesday october 12th, 2025 at 3:00pm",
-        },
-        {
-            id: 6,
-            text: "final delivery",
-            date: "wednesday october 12th, 2025 at 3:00pm",
-        },
+    // const BOOKING_TIMELINE = [
+    //     {
+    //         id: 1,
+    //         text: "booking",
+    //         date: "wednesday october 12th, 2025 at 3:00pm",
+    //     },
+    //     {
+    //         id: 2,
+    //         text: "Checking",
+    //         date: "wednesday october 12th, 2025 at 3:00pm",
+    //     },
+    //     {
+    //         id: 3,
+    //         text: "session",
+    //         date: "wednesday october 12th, 2025 at 3:00pm",
+    //     },
+    //     {
+    //         id: 4,
+    //         text: "session completed",
+    //         date: "wednesday october 12th, 2025 at 3:00pm",
+    //     },
+    //     {
+    //         id: 5,
+    //         text: "photo selection",
+    //         date: "wednesday october 12th, 2025 at 3:00pm",
+    //     },
+    //     {
+    //         id: 6,
+    //         text: "final delivery",
+    //         date: "wednesday october 12th, 2025 at 3:00pm",
+    //     },
 
-    ]
+    // ]
 
 
     return (
@@ -77,24 +78,25 @@ const DashboardBookingDetails = () => {
                     href: '/'
                 }
             }>
-                <div className='flex gap-2'>
+                <div className='flex sm:flex-row flex-col gap-2'>
 
                     {/* Timeline  */}
-                    <div className='h-[610px] p-4 bg-white rounded-lg w-[50%] shadow'>
+                    <div className='sm:h-[610px] h-[680px] p-4 bg-white rounded-lg w-full sm:w-[50%] shadow'>
                         <DashboardHeader headerText={'timeline'} paragraph={"track every step from booking to delivery"} />
 
-                        <div className='max-h-[510px] overflow-y-scroll'>
-                            <VerticalTimeline lineColor='#DFDFDF'>
+                        <div className='max-h-[510px] relative overflow-y-scroll mt-10'>
+                            <DashboardBookingTimeline />
+                            {/* <VerticalTimeline layout='1-column-left' lineColor='#DFDFDF' >
                                 {BOOKING_TIMELINE.map((timeLine) => {
-                                    const timeLineBg = timeLine.id <= 3 ? "rgb(76, 175, 80)" : "#FAFAFA"
-                                    const timeLineTextColor = timeLine.id <= 3 ? "#fff" : "black"
+
                                     return <VerticalTimelineElement key={timeLine.id}
                                         className="vertical-timeline-element--work"
-                                        contentStyle={{ background: `${timeLineBg}`, color: `${timeLineTextColor}` }}
-                                        contentArrowStyle={{ borderRight: `7px solid  ${timeLineBg}` }}
+                                        contentStyle={{ color: `black` }}
+                                        contentArrowStyle={{ color: `#fff` }}
                                         // date="2011 - present"
-                                        iconStyle={{ background: `${timeLineBg}`, color: `${timeLineTextColor}` }}
+                                        iconStyle={{ background: `#fff`, color: `black`, border: 'none' }}
                                         icon={<DashboardIcons value="check-solid-black" />}
+
 
                                     >
                                         <h3 className="vertical-timeline-element-title capitalize font-bold">Studio {timeLine.text}</h3>
@@ -104,12 +106,12 @@ const DashboardBookingDetails = () => {
                                     </VerticalTimelineElement>
                                 })}
 
-                            </VerticalTimeline>
+                            </VerticalTimeline> */}
                         </div>
                     </div>
 
                     {/* Details  */}
-                    <div className='h-[610px] p-4 bg-white rounded-lg w-[50%] shadow'>
+                    <div className='h-[610px] p-4 bg-white rounded-lg w-full sm:w-[50%] shadow'>
                         <DashboardHeader headerText={'booking summary'} paragraph={"your session at a glance "} />
                         <div className='w-full mt-10 flex flex-col gap-7'>
                             <div className='w-full flex items-center capitalize justify-between'>
@@ -158,8 +160,8 @@ const DashboardBookingDetails = () => {
                 </div>
 
                 {/* Photo selection and download  */}
-                <div className='bg-white rounded-lg py-5 px-5'>
-                    <div className='flex items-center justify-between mb-10'>
+                <div className='bg-white rounded-lg py-5 sm:px-5'>
+                    <div className='flex sm:flex-row flex-col sm:items-center justify-between mb-10 gap-4'>
                         <DashboardHeader headerText={`${timeLineLevel < 6 ? 'proof gallery' : 'final images'}`} paragraph={`${timeLineLevel < 6 ? 'select images to be edited from your studio session' : 'your images from your session is ready'}`} />
 
                         {timeLineLevel >= 6 ? <div className='shrink-0'>

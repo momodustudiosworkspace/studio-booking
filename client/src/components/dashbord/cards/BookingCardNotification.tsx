@@ -1,4 +1,4 @@
-import { DashboardIcons, IconsType } from '@/assets/icons/DashboardIcons'
+import { DashboardIcons, IconsType } from '@/assets/icons/dashboard/DashboardIcons'
 import RedirectArrowWhite from '@/assets/icons/RedirectArrowWhite';
 import LinkButton from '@/components/ui/LinkButton'
 import React from 'react'

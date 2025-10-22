@@ -33,7 +33,7 @@ const ReserveSlot = ({ proceedBtnRef, setReserveSlot }: ReserveSlotProps): React
                 })
             }}
         >
-            <Form className="flex flex-col gap-10 text-black">
+            <Form className="flex flex-col w-full gap-10 text-black">
                 {/* Date field */}
                 <div className="flex flex-col gap-3">
                     <label className="text-sm font-medium text-black">Date</label>

@@ -11,13 +11,13 @@ interface BookingCardServiceprops{
 }
 const BookingCardService = ({title,paragraph,href}: BookingCardServiceprops) => {
   return (
-      <div className='w-[335px] p-4 h-[297px] flex flex-col gap-3 bg-white shadow rounded-md'>
+      <div className='sm:w-[335px] w-full p-4 min-h-[297px] flex flex-col gap-3 bg-white shadow rounded-md'>
           <Image
               src="/home/hero-section-one.png"
               alt="/"
               width={300}
               height={151}
-              className="w-full h-[151px] object-cover object-center rounded-md"
+              className="w-full sm:h-[151px] h-[200px] object-cover object-center rounded-md"
           />
           <div>
               <h1 className='font-bold'>{title}</h1>

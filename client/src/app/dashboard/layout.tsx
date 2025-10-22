@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar/Navbar";
 import DashboardSideBar from "@/components/dashbord/DashboardSideBar";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+// import { getServerSession } from "next-auth";
+// import { redirect } from "next/navigation";
+// import { authOptions } from "../api/auth/[...nextauth]/route";
 
 
 export const metadata: Metadata = {
@@ -18,25 +18,25 @@ export default async function Layout({
 }>) {
 
   // ✅ get session securely on the server
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
   // ✅ redirect unauthenticated users to login
-  if (!session) {
-    redirect("/auth"); // Or wherever your login page is
-  }
+  // if (!session) {
+  //   redirect("/auth"); // Or wherever your login page is
+  // }
   return (
 
     <section
-      className={`font-montserrat bg-[#FAFAFA] w-full flex flex-col`}
+      className={`font-montserrat bg-[#FAFAFA] min-h-screen w-full flex flex-col`}
     >
 
       <div className="max-w-screen h-[80px] bg-white flex justify-center">
         <Navbar />
       </div>
-      <div className="max-w-screen flex justify-center">
-        <div className="flex gap-5 items-start px-20 pb-32 pt-10 w-[1800px]">
+      <div className="max-w-screen flex justify-center mt-10">
+        <div className="flex gap-5 items-start sm:px-20 px-4 pb-32 w-[1800px]">
           <DashboardSideBar />
-          <div className="w-full max-h-screen overflow-y-scroll">{children}</div>
+          <div className="w-full max-h-screen sm:overflow-y-scroll">{children}</div>
         </div>
       </div>
 

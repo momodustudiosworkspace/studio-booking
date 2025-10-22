@@ -3,14 +3,14 @@ import { BaseIcons, IconsType } from '@/assets/icons/BaseIcons'
 import { Field, Form, Formik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
 
-interface LocationProps {
+interface BookingsLocationProps {
     proceedBtnRef: React.RefObject<HTMLButtonElement | null>
-    setLocation: (values: { state: string, address: string }) => void
+    setbookingsLocation: (values: { state: string, address: string }) => void
 }
 
-const Location = ({ proceedBtnRef, setLocation }: LocationProps): React.JSX.Element => {
+const BookingsLocation = ({ proceedBtnRef, setbookingsLocation }: BookingsLocationProps): React.JSX.Element => {
     const hiddenSubmitRef = useRef<HTMLButtonElement>(null)
-    const [selectedLocation, setSelectedLocation] = useState<number | null>(null)
+    const [selectedbookingsLocation, setSelectedbookingsLocation] = useState<number | null>(null)
     
       const BOOKING_SESSIONS: {
             title: string;
@@ -23,7 +23,7 @@ const Location = ({ proceedBtnRef, setLocation }: LocationProps): React.JSX.Elem
                 id:1
             },
             {
-                title: 'Choose location',
+                title: 'Choose Location',
                 icon: 'marker-black',
                 id:2
             },
@@ -40,14 +40,14 @@ const Location = ({ proceedBtnRef, setLocation }: LocationProps): React.JSX.Elem
     }, [proceedBtnRef])
 
     return (
-        <div>
+        <div className='w-full '>
  <div className='bg-[#f3f3f3] h-[128px] w-full mb-10 grid grid-cols-2 gap-x-5 gap-y-5 p-5 rounded-lg overflow-y-scroll'>
           {BOOKING_SESSIONS.map((session, key) => (
-              <button key={key} className={`${selectedLocation === session.id ? 'border-2 border-black' : ''} bg-white  text-sm rounded-lg h-[86px] flex flex-col items-center justify-center gap-2 w-[100%]`}
+              <button key={key} className={`${selectedbookingsLocation === session.id ? 'border-2 border-black' : ''} bg-white  text-sm rounded-lg h-[86px] flex flex-col items-center justify-center gap-2 w-[100%]`}
                   onClick={() =>
                   {
-                      console.log(selectedLocation);
-                      setSelectedLocation(session.id)
+                      console.log(selectedbookingsLocation);
+                      setSelectedbookingsLocation(session.id)
                       
                   }
               }>
@@ -58,13 +58,13 @@ const Location = ({ proceedBtnRef, setLocation }: LocationProps): React.JSX.Elem
       </div>
             {
                 
-                selectedLocation === 2 && <Formik
+                selectedbookingsLocation === 2 && <Formik
                     initialValues={{
                         state: '',
                         address: '',
                     }}
                     onSubmit={(values) => {
-                        setLocation({
+                        setbookingsLocation({
                             state: values.state,
                             address: values.address
 
@@ -108,4 +108,4 @@ const Location = ({ proceedBtnRef, setLocation }: LocationProps): React.JSX.Elem
     )
 }
 
-export default Location
+export default BookingsLocation

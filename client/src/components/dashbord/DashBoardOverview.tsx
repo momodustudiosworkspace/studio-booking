@@ -1,6 +1,6 @@
 import React from 'react'
 import DashboardLayout from './DashboardLayout'
-import { IconsType } from '@/assets/icons/DashboardIcons'
+import { IconsType } from '@/assets/icons/dashboard/DashboardIcons'
 import BookingCardAnalytics from './cards/BookingCardAnalytics'
 import DashboardHeader from './DashboardHeader'
 import BookingCardQuickAtion from './cards/BookingCardQuickAction'
@@ -107,23 +107,29 @@ const DashBoardOverview = () => {
                 href: '/'
             }
         }>
-            <section>
-                <div className='flex gap-4 items-center mb-14'>
+            <section className='w-full'>
+
+                {/* Booking analytics  */}
+                <div className='flex sm:flex-row flex-col gap-4 items-center mb-14 w-full'>
                     {BOOKING_ANALYTICS_CARDS.map((card, key)=>{
                         return <BookingCardAnalytics key={key} status={card.status} icon={card.icon} title={card.title} count={card.count} linkText={card.linkText} href={card?.href} />
                     })}
                 </div>
+
+                {/* Quick links  */}
                 <div className='flex flex-col gap-4'>
                     <DashboardHeader headerText="quick actions" paragraph="Lorem ipsum dolor sit amet consectetur."/>
-                    <div className='flex gap-4 items-center mb-14'>
+                    <div className='flex sm:flex-row flex-col gap-4 items-center mb-14'>
                         {BOOKING_QUICK_LINKS_CARDS.map((card, key) => {
                             return <BookingCardQuickAtion key={key} icon={card.icon} title={card.title} linkText={card.linkText} href={card?.href} />
                         })}
                     </div>
                 </div>
+
+                {/* Services  */}
                 <div className='flex flex-col gap-4'>
                     <DashboardHeader headerText="our services" paragraph="Pick a session type you’ll love for us to cover"/>
-                    <div className='grid grid-cols-4 gap-y-4 mb-14'>
+                    <div className='grid sm:grid-cols-4 grid-cols-1 gap-y-4 mb-14'>
                         {BOOKING_SERVICES_CARDS.map((card, key) => {
                             return <BookingCardService key={key} title={card.title} paragraph={card.paragraph} href={card?.href} />
                         })}
