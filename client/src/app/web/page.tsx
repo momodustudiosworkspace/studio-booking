@@ -150,7 +150,7 @@ export default function Page() {
           </div>
 
           {/* About us  */}
-          <div className='sm:mb-20 mb-10 flex sm:flex-row flex-col sm:justify-between gap-6 px-5'>
+          <div className='sm:mb-20 mb-10 flex sm:mt-20 sm:flex-row flex-col sm:justify-between gap-6 px-5'>
             <div className="sm:w-[415px]">
               <SectionHeader
                 badgeText='About us'

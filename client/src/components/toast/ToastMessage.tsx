@@ -85,7 +85,7 @@ export function AuthToast({ data, toastProps }: CustomNotificationProps) {
   return (
     <div className='flex w-full flex-col'>
       <h3
-        className={`'text-sm font-semibold', ${isColored ? "text-white" : "text-zinc-800"} `}
+        className={`'text-sm font-semibold font-inter', ${isColored ? "text-white" : "text-zinc-800"} `}
       >
         {data.title}
       </h3>

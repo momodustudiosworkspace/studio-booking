@@ -94,7 +94,7 @@ export default async function RootLayout({
           <ToastContainer
             position='top-right'
             autoClose={8000}
-            hideProgressBar={false}
+            hideProgressBar={true}
             newestOnTop={true}
             closeOnClick
             pauseOnHover

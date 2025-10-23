@@ -10,6 +10,7 @@ interface ButtonProps {
   responsiveSize?: string;
   className?: string;
   disabled?: boolean;
+  loading?: boolean;
   onClick: () => void;
 }
 
@@ -21,6 +22,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       responsiveSize,
       className,
       disabled,
+      loading,
       iconPosition = "left",
       variant = "primary",
       size = "md",
@@ -62,6 +64,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {text}
         {icon && iconPosition === "right" && (
+          loading ? <div className='h-4 w-4 animate-spin rounded-full border-4 border-white ml-2 border-t-transparent'></div> :
           <span className='ml-2'>{icon}</span>
         )}
       </button>

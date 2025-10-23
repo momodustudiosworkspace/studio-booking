@@ -123,6 +123,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
                 iconPosition='right'
                 className='w-[124px]'
                 size='md'
+                loading={isSubmitting}
               />
             </div>
           </Form>

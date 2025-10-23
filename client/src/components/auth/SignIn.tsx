@@ -50,7 +50,7 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
           }
         }}
       >
-        {({ values }) => (
+        {({ values, isSubmitting }) => (
           <Form className='flex w-full flex-col gap-10 text-white sm:text-black'>
             <div className='flex flex-col gap-3'>
               <label className='text-sm font-medium text-white sm:text-black'>
@@ -92,6 +92,7 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
                 iconPosition='right'
                 className='w-[110px]'
                 size='md'
+                loading={isSubmitting}
               />
             </div>
           </Form>

@@ -16,22 +16,24 @@ const ContactForm = (): React.JSX.Element => {
       onSubmit={values => console.log(values)}
     >
       {({ values }) => (
-        <Form className='flex flex-col gap-10'>
-          <div className='flex flex-col gap-3 font-medium text-black'>
-            <label>First Name</label>
-            <Field
-              name='fname'
-              className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
-              placeholder='Enter first name'
-            />
-          </div>
-          <div className='flex flex-col gap-3 font-medium text-black'>
-            <label>Last Name</label>
-            <Field
-              name='lname'
-              className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
-              placeholder='Enter last name'
-            />
+        <Form className='flex flex-col gap-10 w-full '>
+          <div className="flex sm:flex-row flex-col gap-10 sm:justify-between">
+            <div className='flex flex-col gap-3 w-full font-medium text-black'>
+              <label>First Name</label>
+              <Field
+                name='fname'
+                className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                placeholder='Enter first name'
+              />
+            </div>
+            <div className='flex flex-col gap-3 w-full font-medium text-black'>
+              <label>Last Name</label>
+              <Field
+                name='lname'
+                className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                placeholder='Enter last name'
+              />
+            </div>
           </div>
           <div className='flex flex-col gap-3 font-medium text-black'>
             <label>Email</label>

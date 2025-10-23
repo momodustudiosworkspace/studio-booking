@@ -4,9 +4,6 @@ import { HomeIcons } from "./home/HomeIcons";
 const CopyRight = () => {
   return (
     <div>
-
-
-
       <div className="sm:hidden flex">
         <HomeIcons value="mobile-trade-mark-c" />
       </div>
