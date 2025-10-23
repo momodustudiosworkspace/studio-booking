@@ -42,15 +42,15 @@ const Faqs = (): React.JSX.Element => {
     },
   ];
   return (
-    <div className="flex sm:flex-row flex-col sm:justify-between">
-      <div className="sm:w-[500px]">
+    <div className='flex flex-col sm:flex-row sm:justify-between'>
+      <div className='sm:w-[500px]'>
         <SectionHeader
           badgeText='FAQs'
           badgeWidth='w-[120px]'
           headerText='Quick answers to the questions we get asked the most.'
         />
       </div>
-      <div className='mt-10 flex flex-col justify-center gap-10 w-full sm:w-[553px]'>
+      <div className='mt-10 flex w-full flex-col justify-center gap-10 sm:w-[553px]'>
         {FAQS.map((faq, key) => {
           return (
             <div className='border-b-[1px] border-[#CCCCCC] pb-3' key={key}>

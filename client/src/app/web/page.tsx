@@ -57,25 +57,24 @@ export default function Page() {
 
   return (
     <section className='flex min-h-screen w-full justify-center'>
-      <section className='w-full flex justify-center items-center flex-col'>
-        <div className="sm:w-[1440px] w-full flex flex-col">
+      <section className='flex w-full flex-col items-center justify-center'>
+        <div className='flex w-full flex-col sm:w-[1440px]'>
           {/* Hero  */}
-          <div className='mb-10 flex flex-col gap-6 sm:px-0 px-5'>
+          <div className='mb-10 flex flex-col gap-6 px-5 sm:px-0'>
             <div className='flex items-start gap-3'>
-              <h1 className='font-montserrat sm:text-[120px] text-[30px] font-extrabold uppercase'>
+              <h1 className='font-montserrat text-[30px] font-extrabold uppercase sm:text-[120px]'>
                 Momodu studios
               </h1>
               <CopyRight />
             </div>
-            <div className="flex sm:flex-row flex-col">
-
+            <div className='flex flex-col sm:flex-row'>
               <div>
-                <p className='text-[18px] mb-10 sm:mb-0 w-full sm:w-[433px]'>
-                  From booking to final delivery — Momodu Studios brings the entire
-                  photography experience online.
+                <p className='mb-10 w-full text-[18px] sm:mb-0 sm:w-[433px]'>
+                  From booking to final delivery — Momodu Studios brings the
+                  entire photography experience online.
                 </p>
               </div>
-              <div className='flex w-full justify-end sm:h-[48px] gap-4'>
+              <div className='flex w-full justify-end gap-4 sm:h-[48px]'>
                 <LinkButton
                   href='/bookings'
                   size='md'
@@ -97,7 +96,7 @@ export default function Page() {
           </div>
 
           {/* Grid of images mobile */}
-          <div className='relative mb-30 flex sm:hidden items-center justify-between'>
+          <div className='relative mb-30 flex items-center justify-between sm:hidden'>
             <Image
               src={"/home/hero-section-one.png"}
               alt='momodu studios'
@@ -116,7 +115,7 @@ export default function Page() {
           </div>
 
           {/* Gird of images desktop  */}
-          <div className='relative mb-30 hidden sm:flex items-center justify-between'>
+          <div className='relative mb-30 hidden items-center justify-between sm:flex'>
             <Image
               src={"/home/hero-image-three.jpg"}
               alt='momodu studios'
@@ -124,7 +123,7 @@ export default function Page() {
               height={100}
               // priority
               quality={100}
-              loading="lazy"
+              loading='lazy'
             />
             <Image
               src={"/home/hero-image-one.jpg"}
@@ -133,7 +132,7 @@ export default function Page() {
               height={100}
               // priority
               quality={100}
-              loading="lazy"
+              loading='lazy'
             />
             <Image
               src={"/home/hero-image-two.jpg"}
@@ -142,42 +141,45 @@ export default function Page() {
               height={100}
               // priority
               quality={100}
-              loading="lazy"
+              loading='lazy'
             />
-            <div className='absolute sm:right-20 right-5 -bottom-20 sm:-bottom-[130px]'>
+            <div className='absolute right-5 -bottom-20 sm:right-20 sm:-bottom-[130px]'>
               <AnytimeCapture />
             </div>
           </div>
 
           {/* About us  */}
-          <div className='sm:mb-20 mb-10 flex sm:mt-20 sm:flex-row flex-col sm:justify-between gap-6 px-5'>
-            <div className="sm:w-[415px]">
+          <div className='mb-10 flex flex-col gap-6 px-5 sm:mt-20 sm:mb-20 sm:flex-row sm:justify-between'>
+            <div className='sm:w-[415px]'>
               <SectionHeader
                 badgeText='About us'
                 badgeWidth='w-[150px]'
                 headerText='More Than Photos — We Capture Your Story'
               />
             </div>
-            <div className="flex sm:w-[697px] flex-col gap-6 sm:text-[16px] text-[14px]">
+            <div className='flex flex-col gap-6 text-[14px] sm:w-[697px] sm:text-[16px]'>
               <p>
-                At Momodu Studios, we believe photography isn’t just about pressing
-                a shutter — it’s about preserving moments that matter.For over [X
-                years], we’ve helped individuals, couples, and brands tell their
-                stories through timeless, authentic, and breathtaking imagery.
+                At Momodu Studios, we believe photography isn’t just about
+                pressing a shutter — it’s about preserving moments that
+                matter.For over [X years], we’ve helped individuals, couples,
+                and brands tell their stories through timeless, authentic, and
+                breathtaking imagery.
               </p>
 
               <p>
-                Now, we’ve taken our craft fully online — making the entire process
-                effortless for you. From booking your shoot to making payments,
-                reviewing your pictures, and downloading your final images,
-                everything happens in one secure, beautiful platform.
+                Now, we’ve taken our craft fully online — making the entire
+                process effortless for you. From booking your shoot to making
+                payments, reviewing your pictures, and downloading your final
+                images, everything happens in one secure, beautiful platform.
               </p>
 
               <p>
                 Whether it’s the warmth of a family portrait, the elegance of a
-                wedding, the detail in a product shoot, or the vibrance of an event,
-                we bring creativity, precision, and heart to every frame..
-              </p></ div>
+                wedding, the detail in a product shoot, or the vibrance of an
+                event, we bring creativity, precision, and heart to every
+                frame..
+              </p>
+            </div>
           </div>
 
           {/* Statictics counts  */}
@@ -187,15 +189,17 @@ export default function Page() {
         </div>
 
         {/* Portfolio  */}
-        <div className='bg-black w-full px-5 py-10 text-white flex items-center flex-col '>
+        <div className='flex w-full flex-col items-center bg-black px-5 py-10 text-white'>
           <Portfolio />
-          <div className='mt-10 grid sm:grid-cols-4 grid-cols-1 sm:gap-x-20 gap-8 pr-24 pl-5 w-full sm:w-[1440px]'>
+          <div className='mt-10 grid w-full grid-cols-1 gap-8 pr-24 pl-5 sm:w-[1440px] sm:grid-cols-4 sm:gap-x-20'>
             {BOOK_SESSION.map((book, key) => (
               <div key={key} className='flex flex-col gap-2'>
                 <h3 className='text-[16px] font-semibold capitalize'>
                   {book.title}
                 </h3>
-                <p className='sm:text-[16px] text-xs text-[#AAAAAA]'>{book.description}</p>
+                <p className='text-xs text-[#AAAAAA] sm:text-[16px]'>
+                  {book.description}
+                </p>
               </div>
             ))}
 
@@ -214,31 +218,36 @@ export default function Page() {
         </div>
 
         {/* Testimonials  */}
-        <div className='flex flex-col items-center sm:px-0 w-full px-5 py-10'>
-          <div className="flex flex-col gap-8 w-full sm:w-[1440px]">
+        <div className='flex w-full flex-col items-center px-5 py-10 sm:px-0'>
+          <div className='flex w-full flex-col gap-8 sm:w-[1440px]'>
             {/* mobile  */}
-            <div className="sm:hidden flex flex-col">
+            <div className='flex flex-col sm:hidden'>
               <SectionHeader
                 badgeText='Testimonials'
                 badgeWidth='w-[45%] sm:w-[170px]'
                 headerText='Smiles, Stories, and Stunning Shots'
-
               />
-              <p className="w-full">Our clients trust us with their most important moments — here’s what they have to say.</p>
+              <p className='w-full'>
+                Our clients trust us with their most important moments — here’s
+                what they have to say.
+              </p>
             </div>
 
             {/* Desktop  */}
-            <div className="hidden sm:flex justify-between items-center w-full">
-              <div className="w-[300px]">
+            <div className='hidden w-full items-center justify-between sm:flex'>
+              <div className='w-[300px]'>
                 <SectionHeader
                   badgeText='Testimonials'
                   badgeWidth='w-[45%] sm:w-[170px]'
                   headerText='Smiles, Stories, and Stunning Shots'
 
-                // paragraphText=''
+                  // paragraphText=''
                 />
               </div>
-              <p className="w-[476px] text-[16px]">Our clients trust us with their most important moments — here’s what they have to say.</p>
+              <p className='w-[476px] text-[16px]'>
+                Our clients trust us with their most important moments — here’s
+                what they have to say.
+              </p>
             </div>
             {TESTIMONIES.map((testimony, key) => {
               return (
@@ -257,8 +266,8 @@ export default function Page() {
         </div>
 
         {/* Your next favorite photo is just one click away */}
-        <div className='mb-20 w-full sm:w-[1440px] flex flex-col items-center justify-between'>
-          <div className='sm:hidden flex w-full justify-start'>
+        <div className='mb-20 flex w-full flex-col items-center justify-between sm:w-[1440px]'>
+          <div className='flex w-full justify-start sm:hidden'>
             {" "}
             <Image
               src={"/home/next-photo-studio.jpg"}
@@ -269,7 +278,7 @@ export default function Page() {
               alt=''
             />
           </div>
-          <div className='sm:flex hidden w-full justify-start'>
+          <div className='hidden w-full justify-start sm:flex'>
             {" "}
             <Image
               src={"/home/desktop-photo-studios.jpg"}
@@ -280,8 +289,8 @@ export default function Page() {
               alt=''
             />
           </div>
-          <div className='mt-8 mb-8 flex items-center w-full flex-col gap-5 pr-10 pl-5'>
-            <div className="w-full sm:w-[600px] flex justify-center">
+          <div className='mt-8 mb-8 flex w-full flex-col items-center gap-5 pr-10 pl-5'>
+            <div className='flex w-full justify-center sm:w-[600px]'>
               <SectionHeader
                 badgeWidth='w-[100px]'
                 headerText='Your Next Favorite Photo Is Just One Click Away'
@@ -300,7 +309,7 @@ export default function Page() {
               />
             </div>
           </div>
-          <div className='flex sm:hidden w-full justify-end'>
+          <div className='flex w-full justify-end sm:hidden'>
             {" "}
             <Image
               src={"/home/next-photo-studio-shoot.jpg"}
@@ -311,7 +320,7 @@ export default function Page() {
               loading='lazy'
             />
           </div>
-          <div className='sm:flex w-full hidden justify-end'>
+          <div className='hidden w-full justify-end sm:flex'>
             {" "}
             <Image
               src={"/home/next-photo-studio-shoot.jpg"}
@@ -325,8 +334,8 @@ export default function Page() {
         </div>
 
         {/* FAQs  */}
-        <div className='px-5 w-full sm:w-[1440px]'>
-          <div className='mt-10 sm:mb-20 mb-10 '>
+        <div className='w-full px-5 sm:w-[1440px]'>
+          <div className='mt-10 mb-10 sm:mb-20'>
             <Faqs />
           </div>
         </div>

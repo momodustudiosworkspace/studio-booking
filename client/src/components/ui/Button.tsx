@@ -63,10 +63,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <span className='mr-2'>{icon}</span>
         )}
         {text}
-        {icon && iconPosition === "right" && (
-          loading ? <div className='h-4 w-4 animate-spin rounded-full border-4 border-white ml-2 border-t-transparent'></div> :
-          <span className='ml-2'>{icon}</span>
-        )}
+        {icon &&
+          iconPosition === "right" &&
+          (loading ? (
+            <div className='ml-2 h-4 w-4 animate-spin rounded-full border-4 border-white border-t-transparent'></div>
+          ) : (
+            <span className='ml-2'>{icon}</span>
+          ))}
       </button>
     );
   }
