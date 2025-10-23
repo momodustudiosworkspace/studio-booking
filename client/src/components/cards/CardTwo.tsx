@@ -36,6 +36,7 @@ const CardTwo = ({
       {/* <div className='  w-full flex'>
 
         <Rating />
+      
       </div> */}
 
       <h1 className='font-montserrat text-2xl font-bold'>{title}</h1>

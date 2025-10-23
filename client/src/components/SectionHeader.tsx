@@ -17,11 +17,14 @@ const SectionHeader = ({
 }: SectionHeaderProps): React.JSX.Element => {
   return (
     <div className='flex flex-col gap-4'>
-      <div className={badgeWidth}>
-        {badgeText && <SectionBadge text={badgeText} variation={variation} />}
+      <div className="flex gap-4 flex-col">
+        <div className={badgeWidth}>
+          {badgeText && <SectionBadge text={badgeText} variation={variation} />}
+        </div>
+        <h1 className='text-[25px] font-bold'>{headerText}</h1>
       </div>
-      <h1 className='text-[25px] font-bold'>{headerText}</h1>
       <p>{paragraphText}</p>
+
     </div>
   );
 };

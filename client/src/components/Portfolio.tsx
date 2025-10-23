@@ -35,22 +35,28 @@ const Portfolio = (): React.JSX.Element => {
   ];
   return (
     <section>
-      <SectionHeader
-        variation='dark'
-        badgeWidth='w-[180px]'
-        badgeText='Our portfolio'
-        headerText='Every Moment, Perfectly Captured'
-        paragraphText='Your moments deserve more than a memory — they deserve to be unforgettable.'
-      />
-      <div className='mt-14 grid grid-cols-1 gap-10 md:grid-cols-2'>
-        {PORTFOLIO.map((item, key) => (
-          <CardOne
-            key={key}
-            title={item.title}
-            description={item.description}
-            image={item.image}
-          />
-        ))}
+      <div className="sm:hidden flex flex-col">
+        <SectionHeader
+          variation='dark'
+          badgeWidth='w-[180px]'
+          badgeText='Our portfolio'
+          headerText='Every Moment, Perfectly Captured'
+          paragraphText='Your moments deserve more than a memory — they deserve to be unforgettable.'
+        />
+        <div className='mt-14 grid grid-cols-1 gap-10 md:grid-cols-2'>
+          {PORTFOLIO.map((item, key) => (
+            <CardOne
+              key={key}
+              title={item.title}
+              description={item.description}
+              image={item.image}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+
       </div>
     </section>
   );
