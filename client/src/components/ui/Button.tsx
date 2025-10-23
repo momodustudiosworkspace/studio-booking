@@ -10,6 +10,7 @@ interface ButtonProps {
   responsiveSize?: string;
   className?: string;
   disabled?: boolean;
+  loading?: boolean;
   onClick: () => void;
 }
 
@@ -21,6 +22,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       responsiveSize,
       className,
       disabled,
+      loading,
       iconPosition = "left",
       variant = "primary",
       size = "md",
@@ -32,8 +34,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       "inline-flex items-center font-medium rounded-full transition-colors duration-200";
     const variantClasses = {
       primary: "bg-black text-white hover:bg-gray-800",
-      secondary:
-        "bg-white text-black border border-black hover:bg-gray-100",
+      secondary: "bg-white text-black border border-black hover:bg-gray-100",
       outline:
         "bg-transparent text-black border border-black hover:bg-black hover:text-white",
       white: "bg-white text-black",
@@ -54,18 +55,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           variantClasses[variant],
           sizeClasses[size],
           responsiveSize,
-          disabled
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:opacity-90",
+          disabled ? "cursor-not-allowed opacity-50" : "hover:opacity-90",
           className
         )}
       >
         {icon && iconPosition === "left" && (
-          <span className="mr-2">{icon}</span>
+          <span className='mr-2'>{icon}</span>
         )}
         {text}
         {icon && iconPosition === "right" && (
-          <span className="ml-2">{icon}</span>
+          loading ? <div className='h-4 w-4 animate-spin rounded-full border-4 border-white ml-2 border-t-transparent'></div> :
+          <span className='ml-2'>{icon}</span>
         )}
       </button>
     );

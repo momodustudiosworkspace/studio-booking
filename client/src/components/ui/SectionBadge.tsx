@@ -5,15 +5,20 @@ interface SectionBadgeProps {
   text: string;
   variation: "light" | "dark";
 }
-const SectionBadge = ({ text, variation = "light" }: SectionBadgeProps): React.JSX.Element => {
+const SectionBadge = ({
+  text,
+  variation = "light",
+}: SectionBadgeProps): React.JSX.Element => {
   const variant =
-    variation === "dark" ? "bg-[#FAFAFA33] text-white" : "text-black bg-[#FAFAFA]";
+    variation === "dark"
+      ? "bg-[#FAFAFA33] text-white"
+      : "text-black bg-[#FAFAFA]";
   return (
     <div
-      className={`${variant} flex gap-4 items-center rounded-full px-3 py-2`}
+      className={`${variant} flex items-center gap-4 rounded-full px-3 py-2`}
     >
       <MomoduBlack />
-      <p className="font-semibold text-md">{text}</p>
+      <p className='text-md font-semibold'>{text}</p>
     </div>
   );
 };

@@ -1,14 +1,13 @@
-
 import type { Metadata } from "next";
 import Image from "next/image";
-
 
 export const metadata: Metadata = {
   title: {
     default: "Sign In | Momodu Studios",
     template: "%s | Momodu Studios",
   },
-  description: "Sign in or create an account to book your next photo session at Momodu Studios.",
+  description:
+    "Sign in or create an account to book your next photo session at Momodu Studios.",
   openGraph: {
     title: "Sign In | Momodu Studios",
     description: "Sign in or create an account to book your next session.",
@@ -24,17 +23,20 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="flex relative flex-col sm:h-full min-h-screen overflow-y-hidden sm:justify-start justify-center bg-no-repeat sm:px-0 px-5 w-full">
+    <section className='relative flex min-h-screen w-full flex-col justify-center overflow-y-hidden bg-no-repeat px-5 sm:h-full sm:justify-start sm:px-0'>
       {/* <ThemeToggle /> */}
-      <div className="sm:hidden flex">
-        <Image src="/auth/auth-image.jpg" alt="" fill className="object-cover object-left" priority />
+      <div className='flex sm:hidden'>
+        <Image
+          src='/auth/auth-image.jpg'
+          alt=''
+          fill
+          className='object-cover object-left'
+          priority
+        />
       </div>
-      <div className="absolute w-full bg-black/30 sm:hidden flex z-10 top-0 bottom-0 h-full"></div>
+      <div className='absolute top-0 bottom-0 z-10 flex h-full w-full bg-black/30 sm:hidden'></div>
 
-      <div className="relative z-20 h-full">
-        {children}
-      </div>
-      </section>
-
+      <div className='relative z-20 h-full'>{children}</div>
+    </section>
   );
 }

@@ -24,12 +24,12 @@ const DashboardBookingPhotoSelection = ({
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([]);
   const totalPhotoSelection = 4;
   const handleSelectedPhotos = (selectedPhoto: number) => {
-    setSelectedPhotos((prevSelected) => {
+    setSelectedPhotos(prevSelected => {
       const alreadySelected = prevSelected.includes(selectedPhoto);
 
       // Deselect if already selected
       if (alreadySelected) {
-        return prevSelected.filter((photo) => photo !== selectedPhoto);
+        return prevSelected.filter(photo => photo !== selectedPhoto);
       }
 
       // Prevent selecting more than limit
@@ -48,7 +48,7 @@ const DashboardBookingPhotoSelection = ({
   }, [selectedPhotos, setTotalSelectedPhotos]);
 
   return (
-    <div className="grid grid-cols-4 gap-y-6 w-full gap-x-5">
+    <div className='grid w-full grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-4'>
       {photos.map((photo, index) => {
         const isSelected = selectedPhotos.includes(index);
         const selectionNumber = isSelected
@@ -58,20 +58,24 @@ const DashboardBookingPhotoSelection = ({
         return (
           <div
             key={index}
-            className={`relative group hover:cursor-pointer w-[320px] ml-4 h-[420px] rounded-lg overflow-hidden transition-all duration-300 ${isSelected ? "ring-4 ring-black scale-[1.01]" : ""
-              }`}
+            className={`group relative w-full overflow-hidden rounded-lg transition-all duration-300 hover:cursor-pointer sm:ml-4 sm:h-[420px] sm:w-[310px]`}
           >
             <Image
               src={photo}
               alt={`photo-${index}`}
               width={320}
               height={420}
-              className="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+              className='h-full w-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-105'
             />
+
+            {/* ✅ Inner green overlay border */}
+            {isSelected && (
+              <div className='pointer-events-none absolute inset-0 rounded-lg border-[4px] border-green-400' />
+            )}
 
             {/* Selection badge */}
             {isSelected && (
-              <div className="absolute top-3 right-3 bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm shadow-md">
+              <div className='absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-green-400 text-sm font-semibold text-white shadow-md'>
                 {selectionNumber}
               </div>
             )}
@@ -79,7 +83,9 @@ const DashboardBookingPhotoSelection = ({
             {/* Hover select button */}
             <button
               onClick={() => handleSelectedPhotos(index)}
-              className="absolute top-1/2 left-1/2 hidden group-hover:flex -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-black/70 text-white px-4 py-2 rounded-lg text-sm"
+              className={`absolute bottom-3 left-1/2 -translate-x-1/2 rounded-lg px-4 py-2 text-sm text-white transition-colors duration-200 ${
+                isSelected ? "bg-green-400" : "bg-black/70"
+              }`}
             >
               {isSelected ? "Deselect" : "Select"}
             </button>

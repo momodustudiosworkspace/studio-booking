@@ -1,16 +1,11 @@
-'use client'
+"use client";
 
 import Otp from "@/components/auth/Otp";
 
-
 export default function Page() {
-
   return (
-
-
-    <section className="flex relative flex-col min-h-screen justify-center w-full">
+    <section className='relative flex min-h-screen w-full flex-col justify-center'>
       <Otp />
-
     </section>
   );
 }

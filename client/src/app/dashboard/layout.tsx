@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar/Navbar";
 import DashboardSideBar from "@/components/dashbord/DashboardSideBar";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-
+// import { getServerSession } from "next-auth";
+// import { redirect } from "next/navigation";
+// import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
   title: "Photo studio",
@@ -16,30 +15,28 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   // ✅ get session securely on the server
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
   // ✅ redirect unauthenticated users to login
-  if (!session) {
-    redirect("/auth"); // Or wherever your login page is
-  }
+  // if (!session) {
+  //   redirect("/auth"); // Or wherever your login page is
+  // }
   return (
-
     <section
-      className={`font-montserrat bg-[#FAFAFA] w-full flex flex-col`}
+      className={`font-montserrat flex min-h-screen w-full flex-col bg-[#FAFAFA]`}
     >
-
-      <div className="max-w-screen h-[80px] bg-white flex justify-center">
-        <Navbar />
+      <div className='flex h-[80px] max-w-screen justify-center bg-white'>
+        <Navbar navBarWidth="sm:w-[1640px]" />
       </div>
-      <div className="max-w-screen flex justify-center">
-        <div className="flex gap-5 items-start px-20 pb-32 pt-10 w-[1800px]">
+      <div className='mt-10 flex max-w-screen justify-center'>
+        <div className='flex w-[1800px] items-start gap-5 px-4 pb-32 sm:px-20'>
           <DashboardSideBar />
-          <div className="w-full max-h-screen overflow-y-scroll">{children}</div>
+          <div className='max-h-screen w-full sm:overflow-y-scroll'>
+            {children}
+          </div>
         </div>
       </div>
-
     </section>
   );
 }
