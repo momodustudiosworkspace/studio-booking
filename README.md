@@ -9,11 +9,12 @@ Built with **Next.js (Pages Router)**, **Express**, **MongoDB**, and **Node.js**
 
 ## 🚀 Features (Planned)
 - 📅 Booking system for studio sessions
-- 👤 Customer management
+- 👤 Customer dashboard & management
 - 💵 Payment & invoicing
 - 🖼️ Photo gallery & delivery system
 - 🔑 Authentication & authorization
 - 📊 Admin dashboard
+  
 
 ---
 
