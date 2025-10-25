@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar/Navbar";
 import DashboardSideBar from "@/components/dashbord/DashboardSideBar";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 // import { getServerSession } from "next-auth";
 // import { redirect } from "next/navigation";
 // import { authOptions } from "../api/auth/[...nextauth]/route";
@@ -15,13 +18,13 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // ✅ get session securely on the server
-  // const session = await getServerSession(authOptions);
+  // ✅ get session securely on the server 
+  const session = await getServerSession(authOptions);
 
-  // ✅ redirect unauthenticated users to login
-  // if (!session) {
-  //   redirect("/auth"); // Or wherever your login page is
-  // }
+  // ✅ redirect unauthenticated users to login 
+  if (!session) {
+    redirect("/auth"); // Or wherever your login page is
+  }
   return (
     <section
       className={`font-montserrat flex min-h-screen w-full flex-col bg-[#FAFAFA]`}

@@ -14,6 +14,8 @@ interface SignProps {
   setSignin: (value: boolean) => void;
 }
 const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
+
+
   return (
     <AuthForm
       headerText='Log in to your account'
@@ -29,25 +31,42 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
           password: "",
         }}
         onSubmit={async values => {
-          const res = await signIn("credentials", {
-            redirect: false,
-            email: values.email,
-            password: values.password,
-          });
 
-          if (!res?.ok) {
-            // toast.error(data.error || data.message || "Registration failed");
+          try {
+            const res = await signIn("credentials", {
+              redirect: false,
+              email: values.email,
+              password: values.password,
+            });
+
+            if (!res?.ok) {
+              // toast.error(data.error || data.message || "Registration failed");
+              toast.error(AuthToast, {
+                data: {
+                  title: "Sign in failed",
+                  content: `${res?.error || "Login failed"}`,
+                },
+                ariaLabel: "Something went wrong",
+                icon: false,
+                theme: "colored",
+              });
+              return;
+            }
+
+          } catch (error) {
             toast.error(AuthToast, {
               data: {
                 title: "Sign in failed",
-                content: `${res?.error || "Registration failed"}`,
+                content: `${error || "Login failed, try again later"}`,
               },
               ariaLabel: "Something went wrong",
               icon: false,
               theme: "colored",
             });
-            return;
           }
+
+
+
         }}
       >
         {({ values, isSubmitting }) => (

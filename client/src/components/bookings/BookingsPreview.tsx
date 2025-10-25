@@ -7,7 +7,6 @@ import React, { useEffect, useRef } from "react";
 
 interface bookingsPreviewProps {
   proceedBtnRef: React.RefObject<HTMLButtonElement | null>;
-  setbookingsPreview: (values: { state: string; address: string }) => void;
 }
 
 const BookingsPreview = ({
@@ -24,7 +23,7 @@ const BookingsPreview = ({
   }, [proceedBtnRef]);
 
   return (
-    <div className='w-full'>
+    <div className='w-full sm:w-[490px]'>
       <Formik
         initialValues={{
           state: "",

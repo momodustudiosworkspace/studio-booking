@@ -102,7 +102,7 @@ const DashBoardOverview = () => {
         paragraph:
           "Book in minutes, manage everything from scheduling to delivery",
         linkText: "Book your session",
-        href: "/",
+        href: "/bookings",
       }}
     >
       <section className='w-full'>

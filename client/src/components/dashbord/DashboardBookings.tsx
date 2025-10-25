@@ -4,6 +4,8 @@ import DashboardLayout from "./DashboardLayout";
 import BookingCard from "./cards/BookingCard";
 
 const DashboardBookings = () => {
+
+
   const [currentTab, setCurrentTab] = useState<number>(1);
 
   const TABS = [

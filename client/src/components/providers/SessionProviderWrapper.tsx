@@ -5,7 +5,7 @@ import React, { ReactNode } from "react";
 import { Session } from "next-auth";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "@/redux/store";
+import { persistor, store } from "@/redux/store";
 
 type Props = {
   children: ReactNode;

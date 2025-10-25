@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import UserNavbar from "./UserNavbar";
 import LogoBlack from "@/assets/LogoBlack";
 import Link from "next/link";
@@ -15,7 +15,7 @@ interface NavbarProps {
 const Navbar = ({
   navBarWidth = "sm:w-[1440px]",
 }: NavbarProps): React.JSX.Element => {
-  // const { data: session } = useSession()
+  const { data: session } = useSession()
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -53,7 +53,7 @@ const Navbar = ({
   //   isMember: true,
   //   isAdmin: false,
   // };
-  const showUserMenuBar = false;
+  // const showUserMenuBar = false;
   return (
     <section className='fixed top-0 z-50 flex w-full items-center justify-center bg-white px-5 py-3 sm:px-20 sm:py-5'>
       <div
@@ -83,8 +83,8 @@ const Navbar = ({
         )}
 
         {/* {session?.user ? <UserNavbar user={session.user} /> :  */}
-        {showUserMenuBar ? (
-          <UserNavbar user={showUserMenuBar} />
+        {session?.user ? (
+          <UserNavbar user={session.user} />
         ) : (
           <div>
             <div className='hidden items-center gap-5 font-medium sm:flex'>

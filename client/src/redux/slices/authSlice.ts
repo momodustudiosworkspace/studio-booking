@@ -1,64 +1,42 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 // import { RootState } from '../store';
 
-export interface BusinessState {
-  is_brand_owner: boolean | undefined;
-  number_of_owned_brands: number | undefined;
-  is_active: boolean | undefined;
-  current_plan: string | undefined;
-  is_premium_plan_active: boolean | undefined;
-  business_registration_step?: number;
-  business_id?: number | null;
-  userIsLoggedIn: boolean;
+export interface AuthState {
+  isLoggedIn: boolean,
+  token:string
 }
 
-const initialState: BusinessState = {
-  is_brand_owner: false,
-  number_of_owned_brands: 0,
-  is_active: true,
-  current_plan: "",
-  is_premium_plan_active: false,
-  business_registration_step: 0,
-  business_id: null,
-  userIsLoggedIn: false,
+const initialState: AuthState = {
+  isLoggedIn: false,
+  token:''
 };
 
-const businessSlice = createSlice({
-  name: "business",
+const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
-    setBusinessData: (state, action: PayloadAction<BusinessState>) => {
-      return { ...state, ...action.payload };
+    userLogin: (state, action: PayloadAction<AuthState>) => {
+      state.isLoggedIn = action.payload.isLoggedIn
+      state.token = action.payload.token
     },
-    setBusinessRegistrationStage: (
-      state,
-      action: PayloadAction<{
-        business_registration_step: number;
-        business_id?: number | null;
-      }>
-    ) => {
-      state.business_registration_step =
-        action.payload.business_registration_step;
-      if (action.payload.business_id !== undefined) {
-        state.business_id = action.payload.business_id;
-      }
+    setToken: (state, action: PayloadAction<AuthState>) => {
+      state.token = action.payload.token;
     },
-
-    clearBusinessData: () => {
+    userLogOut: () => {
       return initialState;
     },
   },
 });
 
 export const {
-  setBusinessData,
-  setBusinessRegistrationStage,
-  // setUserIsLoggedIn,
-  clearBusinessData,
-} = businessSlice.actions;
-export default businessSlice.reducer;
-// export const selectBusinessStep = (state: RootState): number =>
-//   state.business.business_registration_step ?? 0;
+  userLogin,
+  userLogOut,
+  setToken
+} = authSlice.actions;
+export const selectUserIsLoggedIn = (state: RootState): boolean =>
+  state.auth.isLoggedIn;
+export default authSlice.reducer;
 // export const selectBusinessId = (state: RootState): number | null =>
 //   state.business.business_id ?? null;
 // export const selectUserIsLoggedIn = (state: RootState): boolean =>

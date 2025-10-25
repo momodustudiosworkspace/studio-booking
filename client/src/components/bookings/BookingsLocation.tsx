@@ -1,21 +1,26 @@
 "use client";
 import { BaseIcons, IconsType } from "@/assets/icons/BaseIcons";
+import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
+import { bookingLocationType } from "@/redux/slices/bookingSlice";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 
 interface BookingsLocationProps {
   proceedBtnRef: React.RefObject<HTMLButtonElement | null>;
-  setbookingsLocation: (values: { state: string; address: string }) => void;
+
 }
 
 const BookingsLocation = ({
   proceedBtnRef,
-  setbookingsLocation,
+
 }: BookingsLocationProps): React.JSX.Element => {
+  const bookingLocation = useAppSelector((state) => state.booking.location)
+  const dispatch = useAppDispatch()
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
   const [selectedbookingsLocation, setSelectedbookingsLocation] = useState<
     number | null
-  >(null);
+    >(null);
+
 
   const BOOKING_SESSIONS: {
     title: string;
@@ -37,13 +42,18 @@ const BookingsLocation = ({
   useEffect(() => {
     if (!proceedBtnRef.current || !hiddenSubmitRef.current) return;
 
-    proceedBtnRef.current.onclick = () => {
-      hiddenSubmitRef.current?.click();
-    };
+    // proceedBtnRef.current.onclick = () => {
+    //   hiddenSubmitRef.current?.click();
+
+    //   console.log("Clicked");
+
+    // };
+    console.log('Clicked');
+
   }, [proceedBtnRef]);
 
   return (
-    <div className='w-full'>
+    <div className='w-full sm:w-[450px]'>
       <div className='mb-10 grid h-[128px] w-full grid-cols-2 gap-x-5 gap-y-5 overflow-y-scroll rounded-lg bg-[#f3f3f3] p-5'>
         {BOOKING_SESSIONS.map((session, key) => (
           <button
@@ -62,14 +72,16 @@ const BookingsLocation = ({
       {selectedbookingsLocation === 2 && (
         <Formik
           initialValues={{
-            state: "",
-            address: "",
+            state: bookingLocation?.state || "",
+            address: bookingLocation?.address || "",
           }}
           onSubmit={values => {
-            setbookingsLocation({
-              state: values.state,
-              address: values.address,
-            });
+            console.log("values are:", values);
+
+
+            dispatch(bookingLocationType({ location: values }))
+
+
           }}
         >
           <Form className='flex flex-col gap-10 text-black'>
@@ -104,6 +116,9 @@ const BookingsLocation = ({
               type='submit'
               ref={hiddenSubmitRef}
               className='hidden'
+              onClick={() => {
+
+              }}
             ></button>
           </Form>
         </Formik>

@@ -3,12 +3,15 @@ import {
   DashboardIcons,
   IconsType,
 } from "@/assets/icons/dashboard/DashboardIcons";
+import { useAppDispatch } from "@/hooks/hooks";
+import { userLogOut } from "@/redux/slices/authSlice";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 const DashboardSideBar = () => {
+  const dispatch = useAppDispatch();
   const SIDEBAR_LINKS = [
     {
       href: "/dashboard",
@@ -48,7 +51,13 @@ const DashboardSideBar = () => {
         ))}
         <button
           className='mt-4 flex w-full items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
-          onClick={() => signOut({ callbackUrl: "/auth" })}
+          onClick={() => {
+
+            dispatch(userLogOut())
+            signOut({ callbackUrl: "/auth" }
+
+            )
+          }}
         >
           <DashboardIcons value='logout-danger' />
           Log Out
