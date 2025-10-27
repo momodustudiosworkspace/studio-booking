@@ -1,6 +1,6 @@
 import { BaseIcons, IconsType } from "@/assets/icons/BaseIcons";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { bookingSessionType } from "@/redux/slices/bookingSlice";
+import { setBookingSessionType } from "@/redux/slices/bookingSlice";
 import React, { useState } from "react";
 
 
@@ -47,7 +47,7 @@ const ChooseBookingSession = (): React.JSX.Element => {
     },
   ];
   return (
-    <div className='grid h-[400px] sm:w-[650px] w-full grid-cols-2 gap-x-5 gap-y-5 overflow-y-scroll rounded-lg bg-[#f3f3f3] p-5'>
+    <div className='grid h-[400px] sm:w-[450px] w-full grid-cols-2 gap-x-5 gap-y-5 overflow-y-scroll rounded-lg bg-[#f3f3f3] p-5'>
       {BOOKING_SESSIONS.map((session, key) => (
         <button
           key={key}
@@ -55,7 +55,7 @@ const ChooseBookingSession = (): React.JSX.Element => {
           onClick={() => {
             console.log(selectedSession);
             setSelectedSession(session.id);
-            dispatch(bookingSessionType({ sessionType: session.id, date: new Date }))
+            dispatch(setBookingSessionType({ sessionType: session.id, date: new Date().toDateString() }))
           }}
         >
           <BaseIcons value={session?.icon} />

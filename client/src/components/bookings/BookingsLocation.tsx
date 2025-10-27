@@ -1,19 +1,15 @@
 "use client";
 import { BaseIcons, IconsType } from "@/assets/icons/BaseIcons";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { bookingLocationType } from "@/redux/slices/bookingSlice";
+import { setBookingLocationType } from "@/redux/slices/bookingSlice";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 
 interface BookingsLocationProps {
-  proceedBtnRef: React.RefObject<HTMLButtonElement | null>;
-
+  setOnProceed: React.Dispatch<React.SetStateAction<(() => void) | null>>;
 }
 
-const BookingsLocation = ({
-  proceedBtnRef,
-
-}: BookingsLocationProps): React.JSX.Element => {
+const BookingsLocation = ({ setOnProceed }: BookingsLocationProps): React.JSX.Element => {
   const bookingLocation = useAppSelector((state) => state.booking.location)
   const dispatch = useAppDispatch()
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
@@ -40,17 +36,16 @@ const BookingsLocation = ({
   ];
 
   useEffect(() => {
-    if (!proceedBtnRef.current || !hiddenSubmitRef.current) return;
+    // Register this child’s custom proceed handler
+    setOnProceed(() => () => {
+      hiddenSubmitRef.current?.click();
+      console.log("Child form submitted");
+    });
 
-    // proceedBtnRef.current.onclick = () => {
-    //   hiddenSubmitRef.current?.click();
+    // Cleanup when leaving this step
+    return () => setOnProceed(null);
+  }, [setOnProceed]);
 
-    //   console.log("Clicked");
-
-    // };
-    console.log('Clicked');
-
-  }, [proceedBtnRef]);
 
   return (
     <div className='w-full sm:w-[450px]'>
@@ -77,11 +72,7 @@ const BookingsLocation = ({
           }}
           onSubmit={values => {
             console.log("values are:", values);
-
-
-            dispatch(bookingLocationType({ location: values }))
-
-
+            dispatch(setBookingLocationType({ location: values }))
           }}
         >
           <Form className='flex flex-col gap-10 text-black'>

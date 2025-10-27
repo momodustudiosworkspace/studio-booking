@@ -1,22 +1,23 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { BaseIcons } from "@/assets/icons/BaseIcons";
 import ChooseBookingSession from "./ChooseBookingSession";
 import { useRouter } from "next/navigation";
 import Button from "../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
-import ReserveSlot from "./ReserveSlot";
 import BookingsPreview from "./BookingsPreview";
 import BookingsLocation from "./BookingsLocation";
 import PageMessage from "../PageMessage";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { bookingSteps } from "@/redux/slices/bookingSlice";
+import { setBookingSteps } from "@/redux/slices/bookingSlice";
+import BookingCalendar from "./BookingCalendar";
 
 const Bookings = (): React.JSX.Element => {
   const router = useRouter();
   const dispatch = useAppDispatch()
   const selectbookingStep = useAppSelector((state => state.booking.bookingStep))
   const [bookingStep, setBookingStep] = useState<number>(selectbookingStep || 0);
+  const [onProceed, setOnProceed] = useState<(() => void) | null>(null);
   const proceedBtnRef = useRef<HTMLButtonElement>(null);
 
 
@@ -47,8 +48,8 @@ const Bookings = (): React.JSX.Element => {
     {
       id: 2,
       component: (
-        <ReserveSlot
-          proceedBtnRef={proceedBtnRef}
+        <BookingCalendar
+          setOnProceed={setOnProceed}
           // setReserveSlot={values => setReserveSlot({ ...values })}
         />
       ),
@@ -59,8 +60,7 @@ const Bookings = (): React.JSX.Element => {
       id: 3,
       component: (
         <BookingsLocation
-          proceedBtnRef={proceedBtnRef}
-
+          setOnProceed={setOnProceed}
         />
       ),
       header: "Choose location",
@@ -91,7 +91,11 @@ const Bookings = (): React.JSX.Element => {
       header: "",
       paragraph: "",
     },
-  ];
+    ];
+
+
+
+
   const handleBookingStepsProceed = async () => {
     if (!proceedBtnRef.current) {
       return console.log("Clicked not working");
@@ -105,16 +109,37 @@ const Bookings = (): React.JSX.Element => {
     };
     setBookingStep(prev => prev + 1)
 
+    console.log("handleBookingStepsProceed");
+
+
   };
 
-  useEffect(() => { dispatch(bookingSteps({ bookingStep: bookingStep })) }, [bookingStep, dispatch])
+  // When proceed button is clicked, call the child handler first, then step forward
+  const handleProceedClick = useCallback(() => {
+    if (onProceed) {
+      onProceed(); // Call child-specific logic
+    } else {
+      // fallback
+      console.log("No child handler registered");
+    }
+  }, [onProceed]);
+
+  useEffect(() => {
+    const btn = proceedBtnRef.current;
+    if (!btn) return;
+    btn.addEventListener("click", handleProceedClick);
+    return () => btn.removeEventListener("click", handleProceedClick);
+  }, [handleProceedClick]);
+
+
+  useEffect(() => { dispatch(setBookingSteps({ bookingStep: bookingStep })) }, [bookingStep, dispatch])
   return (
     <section className='flex items-center justify-center px-5 min-h-screen'>
       <div className='w-full flex justify-center'>
         <div className="w-full flex justify-center">
 
 
-          <div className='mt-14 mb-10 flex flex-col gap-4'>
+          <div className='mt-20 mb-10 flex flex-col gap-4'>
             <button
               className='flex h-10 w-10 items-center justify-center rounded-full bg-[#FAFAFA]'
               onClick={() => {

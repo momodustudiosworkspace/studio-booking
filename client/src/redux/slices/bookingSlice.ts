@@ -3,17 +3,17 @@ import { RootState } from "../store";
 // import { RootState } from '../store';
 
 
-interface BookingLocationOptions{
-        state?: string;
-        address?:string
+interface BookingLocationOptions {
+    state?: string;
+    address?: string
 }
 export interface BookingState {
     assignedTo?: number,
     bookingStep?: number | null,
     sessionType?: number | null,
-    date?: Date,
-    startTime?: Date,
-    endTime?: Date,
+    date?: string | null,
+    startTime?: Date | null,
+    // endTime?: Date | null,
     studioRoom?: "A" | "B",
     status?: "pending" | "confirmed" | "completed" | "cancelled",
     notes?: string,
@@ -24,19 +24,19 @@ export interface BookingState {
 
 const initialState: BookingState = {
     assignedTo: 0,
-    bookingStep:0,
+    bookingStep: 0,
     sessionType: 0,
-    date: new Date,
-    startTime: new Date,
-    endTime: new Date,
+    date: "",
+    startTime: null,
+    // endTime: new Date,
     studioRoom: "A",
     status: "pending",
     notes: "",
     paymentReference: "",
-    location:  {
+    location: {
         state: "abuja",
-        address:"C1, Melita plaza, Gimbiya street, Garki, Abuja."
-        
+        address: "C1, Melita plaza, Gimbiya street, Garki, Abuja."
+
     },
     cancelReason: "",
 };
@@ -45,29 +45,48 @@ const bookingSlice = createSlice({
     name: "booking",
     initialState,
     reducers: {
-        bookingSessionType: (state, action: PayloadAction<BookingState>) => {
+        setBookingSessionType: (state, action: PayloadAction<BookingState>) => {
             state.sessionType = action.payload.sessionType || null
-            state.date = new Date
+            state.date = new Date().toISOString()
         },
-        bookingLocationType: (state, action : PayloadAction<BookingState>) => {
+        setBookingLocationType: (state, action: PayloadAction<BookingState>) => {
             state.location = action.payload.location || null
         },
-        bookingSteps: (state, action : PayloadAction<BookingState>) => {
+        setBookingSteps: (state, action: PayloadAction<BookingState>) => {
             state.bookingStep = action.payload.bookingStep || null
-        }
+        },
+        setBookingDateTime: (
+  state,
+  action: PayloadAction<{ date: string | null; startTime: string | null }>
+) => {
+  const { date, startTime } = action.payload;
 
+  if (date && startTime) {
+    // 🧠 Construct full datetime in local timezone
+    const fullDateTime = new Date(
+      `${date} ${startTime}`
+    );
+
+    // ✅ Store clean ISO formats for MongoDB
+    // state.date = new Date(date.toISOString()).toISOString() || null;       // e.g. "2025-10-30T00:00:00.000Z"
+    state.date = new Date(date).toDateString() || null;       // e.g. "2025-10-30T00:00:00.000Z"
+    state.startTime = fullDateTime || null;                   // e.g. "2025-10-30T09:00:00.000Z"
+    // state.startTime = fullDateTime.toISOString() || null;                   // e.g. "2025-10-30T09:00:00.000Z"
+  }
+}
     },
 });
 
 export const {
-    bookingSessionType,
-    bookingLocationType,
-    bookingSteps
+    setBookingSessionType,
+    setBookingLocationType,
+    setBookingSteps,
+    setBookingDateTime
 } = bookingSlice.actions;
 export const selectBookingSessionType = (state: RootState): number | null | undefined =>
     state.booking.sessionType;
 export const selectbookingLocation = (state: RootState): BookingLocationOptions | null | undefined =>
-    state.booking.location ;
+    state.booking.location;
 export const selectbookingSteps = (state: RootState): number | null | undefined =>
     state.booking.bookingStep;
 export default bookingSlice.reducer;
