@@ -85,6 +85,7 @@ const BookingsPreview = ({
                   <input
                     type='text'
                     placeholder='Enter code'
+                    name="discount_code"
                     className='h-[37px] w-full border-b-[1px] border-white bg-white px-2 text-[14px] outline-0 transition-all ease-in-out focus:border-b-2 sm:w-[224px] sm:border-black'
                   />
                   <button className='absolute top-2 right-1 text-[14px] font-semibold capitalize underline'>

@@ -44,7 +44,6 @@ const Navbar = ({
 
   const pathName = usePathname();
 
-  console.log(pathName.split("/"));
 
   // const showUserMenuBar = {
   //   email: "Testing@gmail.com",

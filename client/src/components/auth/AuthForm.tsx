@@ -21,6 +21,9 @@ const AuthForm = ({
   paragraphText,
   authForm = true,
 }: AuthFormProps): React.JSX.Element => {
+
+
+
   return (
     <div className='mt-10 h-full w-full text-white sm:mt-0 sm:flex sm:text-black'>
       <div className='relative hidden h-full w-[50%] sm:flex'>

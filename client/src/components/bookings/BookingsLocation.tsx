@@ -39,7 +39,7 @@ const BookingsLocation = ({ setOnProceed }: BookingsLocationProps): React.JSX.El
     // Register this child’s custom proceed handler
     setOnProceed(() => () => {
       hiddenSubmitRef.current?.click();
-      console.log("Child form submitted");
+
     });
 
     // Cleanup when leaving this step

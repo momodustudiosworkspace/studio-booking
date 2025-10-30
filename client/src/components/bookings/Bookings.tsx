@@ -11,14 +11,27 @@ import PageMessage from "../PageMessage";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { setBookingSteps } from "@/redux/slices/bookingSlice";
 import BookingCalendar from "./BookingCalendar";
+import { useCreateBookingMutation } from "@/redux/services/booking.api";
+import { toast } from "react-toastify";
+import { AuthToast } from "../toast/ToastMessage";
+import { useSession } from "next-auth/react";
+import LinkButton from "../ui/LinkButton";
 
 const Bookings = (): React.JSX.Element => {
   const router = useRouter();
   const dispatch = useAppDispatch()
+  const { data: session } = useSession()
+
   const selectbookingStep = useAppSelector((state => state.booking.bookingStep))
+  const bookingData = useAppSelector((state => state.booking))
+
   const [bookingStep, setBookingStep] = useState<number>(selectbookingStep || 0);
   const [onProceed, setOnProceed] = useState<(() => void) | null>(null);
+  const [createBooking, { isLoading, isSuccess, isError, error }] = useCreateBookingMutation();
+
   const proceedBtnRef = useRef<HTMLButtonElement>(null);
+
+
 
 
 
@@ -101,33 +114,102 @@ const Bookings = (): React.JSX.Element => {
       return console.log("Clicked not working");
 
     };
+
+    if (bookingStep === 3) {
+
+      console.log("Submit bookings");
+
+      return await handlBookingSubmit()
+    }
     proceedBtnRef.current.onclick = () => {
       // hiddenSubmitRef.current?.click();
 
       console.log("Clicked");
 
     };
+
+
     setBookingStep(prev => prev + 1)
 
     console.log("handleBookingStepsProceed");
 
 
+
+
   };
+  const handlBookingSubmit = async () => {
+    try {
+      // 👇 Clean & prepare payload
+      const payload = {
+        // userId: bookingData.userId, // or get from auth slice if available
+        date: bookingData.date || null,
+        startTime: bookingData.startTime || null,
+        studioRoom: bookingData.studioRoom || null,
+        sessionType: bookingData.sessionType || null,
+        price: 25000,
+  // notes: bookingData.notes,
+      };
+
+      // 🔥 Send to backend
+      const response = await createBooking(payload).unwrap();
+
+
+      if (isError) {
+
+        return toast.error(AuthToast, {
+          data: {
+            title: "Error booking",
+            content: `${(error as any)?.data?.message || "Login failed"}`,
+          },
+          ariaLabel: "Something went wrong",
+          icon: false,
+          theme: "colored",
+        });
+      }
+
+      console.log("✅ Booking created:", response);
+
+      return alert("Booking created successfully!");
+
+    } catch (err: any) {
+      setBookingStep(prev => prev)
+      return toast.error(AuthToast, {
+        data: {
+          title: "Booking failed",
+          content: `${err?.data?.message || "Login failed"}`,
+        },
+        ariaLabel: "Something went wrong",
+        icon: false,
+        theme: "colored",
+      });
+    }
+  }
 
   // When proceed button is clicked, call the child handler first, then step forward
-  const handleProceedClick = useCallback(() => {
+  const handleProceedClick = useCallback(async () => {
+
+  // if (onProceed && bookingStep > 3) {
+  //   console.log("submitting form");
+
+  //   await handlBookingSubmit()
+  // }
     if (onProceed) {
       onProceed(); // Call child-specific logic
+
     } else {
       // fallback
       console.log("No child handler registered");
     }
+
   }, [onProceed]);
+
+
 
   useEffect(() => {
     const btn = proceedBtnRef.current;
     if (!btn) return;
     btn.addEventListener("click", handleProceedClick);
+
     return () => btn.removeEventListener("click", handleProceedClick);
   }, [handleProceedClick]);
 
@@ -152,6 +234,7 @@ const Bookings = (): React.JSX.Element => {
               <BaseIcons value='arrow-left-black' />
             </button>
             <div className='mt-5 flex flex-col gap-2'>
+              {isSuccess && <p className="text-green-600">Booking successfully created!</p>}
               <h1 className='text-[28px] font-extrabold capitalize'>
                 {BOOKING_STEPS[bookingStep]?.header}
               </h1>
@@ -159,6 +242,9 @@ const Bookings = (): React.JSX.Element => {
                 <p>{BOOKING_STEPS[bookingStep]?.paragraph}</p>
               </div>
             </div>
+            {bookingStep}
+
+
             {/* {bookingStep !== null && bookingStep < 2
               ? ""
               : bookingStep === 3 && reserveSlot?.date
@@ -168,15 +254,25 @@ const Bookings = (): React.JSX.Element => {
             {BOOKING_STEPS[bookingStep]?.component}
             {bookingStep !== 4 && (
               <div className='flex w-full mt-4 justify-end'>
-                <Button
+                {!session && bookingStep === 3 ? <LinkButton
+                  href='/auth?redirectTo=/bookings'
+
+
+                  size='md'
+                  text='Login to book'
+                  icon={<RedirectArrowWhite />}
+                  iconPosition='right'
+                  className='w-auto shrink-0'
+                /> : <Button
                   ref={proceedBtnRef}
-                  text={"Proceed"}
+                    text={'Proceed'}
                   onClick={handleBookingStepsProceed}
                   icon={<RedirectArrowWhite />}
                   iconPosition='right'
                   className='w-[125px]'
                   size='md'
-                />
+                  loading={isLoading}
+                />}
               </div>
             )}
           </div>

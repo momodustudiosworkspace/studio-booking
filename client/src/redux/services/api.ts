@@ -1,6 +1,6 @@
 // src/redux/services/api.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { RootState } from '../store';
+import { getSession } from 'next-auth/react';
 
 
 const baseUrl = process.env["Production"]
@@ -11,9 +11,14 @@ export const baseApi = createApi({
   reducerPath: 'api', // 👈 unique key in store
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl || 'http://localhost:5000/api',
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.token;
-      if (token) headers.set('authorization', `Bearer ${token}`);
+      prepareHeaders: async (headers) => {
+      const session = await getSession(); // 🔑 Get NextAuth session
+      const token = session?.user?.accessToken ;
+
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+
       return headers;
     },
   }),

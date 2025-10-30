@@ -8,12 +8,16 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface SignProps {
   signin: boolean;
   setSignin: (value: boolean) => void;
 }
 const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo")
+  const navigate = useRouter()
 
 
   return (
@@ -25,8 +29,6 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
     >
       <Formik
         initialValues={{
-          fname: "",
-          lname: "",
           email: "",
           password: "",
         }}
@@ -51,6 +53,15 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
                 theme: "colored",
               });
               return;
+            }
+
+            if (res?.ok && searchParams && redirectTo) {
+              // Redirect back
+              navigate.push(redirectTo);
+            }
+
+            else {
+              navigate.push('/dashboard')
             }
 
           } catch (error) {
