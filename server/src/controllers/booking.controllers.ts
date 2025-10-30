@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Booking from "../models/booking.models";
+// import { isSlotAvailable } from "../utils/isSlotAvailable"; 
 
 // Extend Express Request interface to include userId
 declare global {
@@ -14,22 +15,42 @@ declare global {
 // ✅ Create Booking
 export async function createBooking (req: Request, res: Response) {
   try {
-    const { sessionType, date, timeSlot, notes } = req.body;
+    // const { sessionType, date, timeSlot, notes } = req.body;
     const userId = req.userId; // assuming user is attached from auth middleware
 
+    
+    const { date, startTime, sessionType, studioRoom, price=25000 } = req.body;
+
+    // The system will calculate end time endTime, based on number of outfits 
+    
     if (!userId) return res.status(401).json({ message: "Unauthorized" });
+
+    // const isAvailable = await isSlotAvailable({
+    //   date: new Date(date),
+    //   startTime: new Date(startTime),
+    //   // endTime: new Date(endTime),
+    //   studioRoom,
+    // });
+
+    // if (!isAvailable) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "This time slot is already booked. Please choose another.",
+    //   });
+    // }
 
     const booking = await Booking.create({
       user: userId,
       sessionType,
       date,
-      timeSlot,
-      notes,
+      startTime,
+      price,
+     studioRoom
     });
 
     return res.status(201).json(booking);
   } catch (error) {
-    return res.status(500).json({ message: "Failed to create booking", error });
+    return res.status(500).json({ message: "Failed to create booking, please try again", error });
   }
 };
 

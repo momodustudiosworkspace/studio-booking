@@ -2,30 +2,54 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface IBooking extends Document {
   user: mongoose.Types.ObjectId;
-  sessionType: string; // e.g. "Wedding", "Birthday", "Studio", etc.
+  assignedTo?: mongoose.Types.ObjectId;
+  sessionType: string;
   date: Date;
-  timeSlot: string; // optional: "10:00 AM - 12:00 PM"
-  status: 0 | 1 | 2 | 3;
+  startTime: Date;
+  endTime: Date;
+  studioRoom?: string;
+  status: "pending" | "confirmed" | "completed" | "cancelled";
   notes?: string;
+  price: number;
+  paymentStatus: "pending" | "paid" | "refunded";
+  paymentReference?: string;
+  cancelReason?: string;
+  rescheduledFrom?: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
 
-const bookingSchema: Schema<IBooking> = new Schema<IBooking>(
+const bookingSchema = new Schema<IBooking>(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    assignedTo: { type: Schema.Types.ObjectId, ref: "User" },
     sessionType: { type: String, required: true, trim: true },
-    date: { type: Date, required: true },
-    timeSlot: { type: String, required: false },
+    date: { type: Date },
+    startTime: { type: Date },
+    endTime: { type: Date },
+    studioRoom: { type: String, enum: ["A", "B"], default: "A" },
     status: {
-      type: Number,
-      enum: [0,1,2,3],
-      default: 0,
+      type: String,
+      enum: ["pending", "confirmed", "completed", "cancelled"],
+      default: "pending",
     },
     notes: { type: String, trim: true },
+    price: { type: Number, },
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "paid", "refunded"],
+      default: "pending",
+    },
+    paymentReference: { type: String, trim: true },
+    cancelReason: { type: String, trim: true },
+    rescheduledFrom: { type: Schema.Types.ObjectId, ref: "Booking" },
   },
   { timestamps: true }
 );
 
-export const Booking: Model<IBooking> = mongoose.model<IBooking>("Booking", bookingSchema);
+bookingSchema.index({ date: 1, startTime: 1, studioRoom: 1 }, { unique: true });
+bookingSchema.index({ user: 1 });
+bookingSchema.index({ status: 1 });
+
+export const Booking: Model<IBooking> = mongoose.model("Booking", bookingSchema);
 export default Booking;
