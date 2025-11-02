@@ -3,9 +3,10 @@ export interface BookingType {
   _id: string | null;
   user: string | null; // or populated user object if you populate
   assignedTo?: number | null;
-  sessionType?: number | null;
+  sessionType?: string | null;
+  package?: string | null;
   date?: string | null;
-  startTime?: Date | null;
+  startTime?: string | null;
   endTime?: string | null;
   studioRoom?: 'A' | 'B' | null;
   status?: 'pending' | 'confirmed' | 'completed' | 'cancelled';

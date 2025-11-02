@@ -11,11 +11,12 @@ import PageMessage from "../PageMessage";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { setBookingSteps } from "@/redux/slices/bookingSlice";
 import BookingCalendar from "./BookingCalendar";
-import { useCreateBookingMutation } from "@/redux/services/booking.api";
+import { useCreateBookingMutation } from "@/redux/services/booking/booking.api";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
 import { useSession } from "next-auth/react";
 import LinkButton from "../ui/LinkButton";
+import BookingPackages from "./BookingPackages";
 
 const Bookings = (): React.JSX.Element => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const Bookings = (): React.JSX.Element => {
 
   const selectbookingStep = useAppSelector((state => state.booking.bookingStep))
   const bookingData = useAppSelector((state => state.booking))
+  const bookingSession = useAppSelector((state) => state.booking.sessionType)
 
   const [bookingStep, setBookingStep] = useState<number>(selectbookingStep || 0);
   const [onProceed, setOnProceed] = useState<(() => void) | null>(null);
@@ -46,6 +48,8 @@ const Bookings = (): React.JSX.Element => {
 
 
 
+
+  // Booking Steps 
   const BOOKING_STEPS: {
     id: number;
     component: React.ReactNode;
@@ -54,24 +58,37 @@ const Bookings = (): React.JSX.Element => {
   }[] = [
     {
       id: 1,
-      component: <ChooseBookingSession />,
+      component: <ChooseBookingSession bookingSession={bookingData.sessionType} />,
       header: "Choose Your Session",
       paragraph: "You can customize details in the next steps",
     },
     {
       id: 2,
       component: (
-        <BookingCalendar
-          setOnProceed={setOnProceed}
+          <BookingPackages
+            bookingPackage={bookingData.package}
+            setOnProceed={setOnProceed}
           // setReserveSlot={values => setReserveSlot({ ...values })}
-        />
-      ),
-      header: "reserve a slot",
-      paragraph: "We’ll hold your slot while you complete checkout",
-    },
-    {
-      id: 3,
-      component: (
+          />
+        ),
+        header: `Select from ${bookingSession} packages`,
+        paragraph: "We’ll hold your slot while you complete checkout",
+      },
+      {
+        id: 3,
+        component: (
+          <BookingCalendar
+            selectedBookingDate={bookingData.date || null}
+            selectedBookingStartTime={bookingData.startTime || null}
+            setOnProceed={setOnProceed}
+          />
+        ),
+        header: "reserve a slot",
+        paragraph: "We’ll hold your slot while you complete checkout",
+      },
+      {
+        id: 4,
+        component: (
         <BookingsLocation
           setOnProceed={setOnProceed}
         />
@@ -80,9 +97,12 @@ const Bookings = (): React.JSX.Element => {
       paragraph: "We’ll hold your slot while you complete checkout",
     },
     {
-      id: 4,
+      id: 5,
       component: (
         <BookingsPreview
+          location={bookingData.location}
+          price={bookingData.package?.price}
+          sesstionType={bookingData.sessionType}
           proceedBtnRef={proceedBtnRef}
 
         />
@@ -91,7 +111,7 @@ const Bookings = (): React.JSX.Element => {
       paragraph: "We’ll hold your slot while you complete checkout",
     },
     {
-      id: 5,
+      id: 6,
       component: (
         <PageMessage
           status={"success"}
@@ -115,7 +135,7 @@ const Bookings = (): React.JSX.Element => {
 
     };
 
-    if (bookingStep === 3) {
+    if (bookingStep === 4) {
 
       console.log("Submit bookings");
 
@@ -137,6 +157,8 @@ const Bookings = (): React.JSX.Element => {
 
 
   };
+
+  // Submit booking 
   const handlBookingSubmit = async () => {
     try {
       // 👇 Clean & prepare payload
@@ -176,7 +198,7 @@ const Bookings = (): React.JSX.Element => {
       return toast.error(AuthToast, {
         data: {
           title: "Booking failed",
-          content: `${err?.data?.message || "Login failed"}`,
+          content: `${err?.data?.message || "User not logged in"}`,
         },
         ariaLabel: "Something went wrong",
         icon: false,
@@ -252,9 +274,9 @@ const Bookings = (): React.JSX.Element => {
                 : ""} */}
 
             {BOOKING_STEPS[bookingStep]?.component}
-            {bookingStep !== 4 && (
+            {bookingStep !== 5 && (
               <div className='flex w-full mt-4 justify-end'>
-                {!session && bookingStep === 3 ? <LinkButton
+                {!session && bookingStep === 4 ? <LinkButton
                   href='/auth?redirectTo=/bookings'
 
 

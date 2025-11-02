@@ -76,10 +76,14 @@ const CustomHeader = ({
 );
 
 interface BookingsLocationProps {
+    selectedBookingDate: string | null;
+    selectedBookingStartTime: string | null;
     setOnProceed: React.Dispatch<React.SetStateAction<(() => void) | null>>;
 }
 
-const BookingCalendar = ({ setOnProceed }: BookingsLocationProps) => {
+const BookingCalendar = ({ selectedBookingDate, selectedBookingStartTime, setOnProceed }: BookingsLocationProps) => {
+
+
 
     const dispatch = useAppDispatch()
     // 🧠 Dummy backend-like data (will be replaced by RTK Query later)
@@ -92,9 +96,12 @@ const BookingCalendar = ({ setOnProceed }: BookingsLocationProps) => {
         { date: "2025-12-05", times: ["09:00", "11:00"] },
     ]);
 
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    // Initialize with Redux date (convert from string to Date)
+    const [selectedDate, setSelectedDate] = useState<Date | null>(
+        selectedBookingDate ? new Date(selectedBookingDate) : null
+    );
     const [availableTimes, setAvailableTimes] = useState<string[]>([]);
-    const [selectedTime, setSelectedTime] = useState<string | null>(null);
+    const [selectedTime, setSelectedTime] = useState<string | null>(selectedBookingStartTime || null);
 
     // ✅ Disable logic
     const isDayDisabled = (date: Date) => {
@@ -127,8 +134,20 @@ const BookingCalendar = ({ setOnProceed }: BookingsLocationProps) => {
         );
 
         setAvailableTimes(slot?.times || []);
+
+        console.log("selectedBookingStartTime: ", selectedBookingStartTime);
+
+        if (selectedBookingStartTime) {
+            const time = new Date(selectedBookingStartTime).toLocaleTimeString("en-NG", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+                timeZone: "Africa/Lagos"
+            });
+            return setSelectedTime(time);
+        }
         setSelectedTime(null);
-    }, [selectedDate, availableSlots,]);
+    }, [selectedDate, availableSlots, selectedBookingStartTime]);
 
     useEffect(() => {
         // Register this child’s custom proceed handler
@@ -192,7 +211,7 @@ const BookingCalendar = ({ setOnProceed }: BookingsLocationProps) => {
                 {selectedDate && (
                     <div className="flex flex-col w-full">
                         <h3 className="text-md font-semibold mb-3 text-black">
-                            Select available Times    Date:{selectedDate?.getDate()}
+                            Select available Times 
                         </h3>
                         {availableTimes.length > 0 ? (
                             <div className="grid sm:grid-cols-4 grid-cols-2 gap-3">
@@ -223,7 +242,7 @@ const BookingCalendar = ({ setOnProceed }: BookingsLocationProps) => {
                         <p className="font-medium text-black">
                             You selected:
                             <span className="ml-2 font-semibold text-black underline">
-                                {selectedDate?.toDateString()} at {selectedTime}
+                                {selectedDate?.toDateString()} at {selectedTime || selectedBookingStartTime}
                             </span>
                         </p>
                     </div>

@@ -1,5 +1,5 @@
 // src/redux/services/booking.api.ts
-import { baseApi } from './api';
+import { baseApi } from '../api';
 import { BookingType } from '@/types/booking';
 
 export const bookingApi = baseApi.injectEndpoints({

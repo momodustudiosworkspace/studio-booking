@@ -1,13 +1,12 @@
 import { BaseIcons, IconsType } from "@/assets/icons/BaseIcons";
-import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
+import { useAppDispatch } from "@/hooks/hooks";
 import { setBookingSessionType } from "@/redux/slices/bookingSlice";
 import React, { useState } from "react";
 
 
-const ChooseBookingSession = (): React.JSX.Element => {
-  const bookingSession = useAppSelector((state) => state.booking.sessionType)
+const ChooseBookingSession = ({ bookingSession }: { bookingSession: string | null | undefined }): React.JSX.Element => {
   const dispatch = useAppDispatch()
-  const [selectedSession, setSelectedSession] = useState<number | null>(bookingSession || null);
+  const [selectedSession, setSelectedSession] = useState<string | null>(bookingSession || null);
 
 
   const BOOKING_SESSIONS: {
@@ -45,21 +44,23 @@ const ChooseBookingSession = (): React.JSX.Element => {
       icon: "lifestyle-black",
       id: 6,
     },
-  ];
+    ];
+
+
   return (
     <div className='grid h-[400px] sm:w-[450px] w-full grid-cols-2 gap-x-5 gap-y-5 overflow-y-scroll rounded-lg bg-[#f3f3f3] p-5'>
       {BOOKING_SESSIONS.map((session, key) => (
         <button
           key={key}
-          className={`${selectedSession === session.id ? "border-2 border-black" : ""} flex h-[86px] w-[100%] flex-col items-center justify-center gap-2 rounded-lg bg-white text-sm`}
+          className={`${selectedSession === session.title ? "border-2 border-black" : ""} flex h-[86px] w-[100%] flex-col items-center justify-center gap-2 rounded-lg bg-white text-sm`}
           onClick={() => {
             console.log(selectedSession);
-            setSelectedSession(session.id);
-            dispatch(setBookingSessionType({ sessionType: session.id, date: new Date().toDateString() }))
+            setSelectedSession(session.title);
+            dispatch(setBookingSessionType({ sessionType: session.title, date: new Date().toDateString() }))
           }}
         >
           <BaseIcons value={session?.icon} />
-          <span className=''>{session?.title}</span>
+          <span className='capitalize'>{session?.title}</span>
         </button>
       ))}
     </div>

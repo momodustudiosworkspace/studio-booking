@@ -134,6 +134,7 @@ export default function Page() {
               quality={100}
               loading='lazy'
             />
+
             <Image
               src={"/home/hero-image-two.jpg"}
               alt='momodu studios'

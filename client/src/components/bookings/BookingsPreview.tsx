@@ -5,11 +5,23 @@ import nairaSymbol from "@/utils/symbols";
 import { Form, Formik } from "formik";
 import React, { useEffect, useRef } from "react";
 
+
+interface LocationProps {
+  state?: string;
+  address?: string
+}
 interface bookingsPreviewProps {
+  location: LocationProps | null | undefined;
+  price: number | null | undefined;
+  sesstionType: string | null | undefined;
   proceedBtnRef: React.RefObject<HTMLButtonElement | null>;
 }
 
+
 const BookingsPreview = ({
+  location,
+  price,
+  sesstionType,
   proceedBtnRef,
 }: bookingsPreviewProps): React.JSX.Element => {
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
@@ -41,19 +53,21 @@ const BookingsPreview = ({
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='person-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
-                  wedding shoot
+                  {sesstionType} shoot
                 </p>
               </div>
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='phone-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
+
+                  {/* user phone number  */}
                   +234 908 124 4447
                 </p>
               </div>
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='marker-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
-                  2464 Royal Ln. Mesa, New Jersey 45463
+                  {location?.address}  {location?.state}
                 </p>
               </div>
             </div>
@@ -66,7 +80,7 @@ const BookingsPreview = ({
                   price
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}200,000
+                  {nairaSymbol()}{price}
                 </p>
               </div>
               <div className='flex items-center justify-between'>
