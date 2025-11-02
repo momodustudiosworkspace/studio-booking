@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Booking from "../models/booking.models";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../config/cloudinary.config";
+import multer from "multer";
+
 // import { isSlotAvailable } from "../utils/isSlotAvailable"; 
 
 // Extend Express Request interface to include userId
@@ -11,6 +15,28 @@ declare global {
     }
   }
 }
+
+  // 🧩 Define multer + Cloudinary storage
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req: any, file) => {
+    // Find booking + user to dynamically set folder
+    const booking = await Booking.findById(req.params.id).populate("user", "first_name last_name");
+    if (!booking || !booking.user) throw new Error("Booking not found");
+
+    const user = booking.user as any;
+    const clientName = `${user.first_name}_${user.last_name}`.replace(/\s+/g, "_");
+
+    return {
+      folder: `bookings/${clientName}/${booking._id}/images`,
+      resource_type: "image",
+      allowed_formats: ["jpg", "jpeg", "png"],
+      public_id: file.originalname.split(".")[0],
+    };
+  },
+});
+
+export const bookingImagesUpload = multer({ storage });
 
 // ✅ Create Booking
 export async function createBooking (req: Request, res: Response) {
@@ -106,5 +132,32 @@ export async function deleteBooking (req: Request, res: Response)  {
     return res.status(200).json({ message: "Booking deleted successfully" });
   } catch (error) {
     return res.status(500).json({ message: "Failed to delete booking", error });
+  }
+};
+// ✅ Upload booking Images
+export async function uploadBookingImages(req: any, res: Response) {
+
+
+   try {
+const files = req.files as Express.Multer.File[];
+
+    if (!files || files.length === 0) {
+      return res.status(400).json({ message: "No files uploaded" });
+    }
+
+    const images = files.map((file) => ({
+      url: (file as any).path,
+      public_id: (file as any).filename,
+    }));
+
+    // Optionally store image URLs in booking record
+    await Booking.findByIdAndUpdate(req.params.id, {
+      $push: { images: { $each: images } },
+    });
+
+    return res.status(200).json({ message: "Images uploaded successfully", images });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Image upload failed", error });
   }
 };

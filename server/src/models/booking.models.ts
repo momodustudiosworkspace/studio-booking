@@ -17,6 +17,12 @@ export interface IBooking extends Document {
   rescheduledFrom?: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
+  images?: {
+  url: string;
+  public_id: string;
+  isSelected?: boolean;
+}[];
+  
 }
 
 const bookingSchema = new Schema<IBooking>(
@@ -43,6 +49,13 @@ const bookingSchema = new Schema<IBooking>(
     paymentReference: { type: String, trim: true },
     cancelReason: { type: String, trim: true },
     rescheduledFrom: { type: Schema.Types.ObjectId, ref: "Booking" },
+    images: [
+        {
+          url: { type: String },
+          public_id: { type: String },
+          isSelected: { type: Boolean, default: false },
+        },
+      ],
   },
   { timestamps: true }
 );

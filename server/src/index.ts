@@ -1,14 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { connectDB } from "./config/db.config";
+// import { connectDB } from "./config/db.config";
 import swaggerUI from "swagger-ui-express"
 import swaggerOpenapiSpecification from "./config/swagger.config";
 import morgan from "morgan"
 
-// Auth router 
+// API routes  
 import authRoutes from "./routes/auth.routes"
 import bookingRoutes from "./routes/booking.routes";
+import packagesRoutes from "./routes/packages.routes"
 
 
 
@@ -29,18 +30,28 @@ app.use("/api/auth", authRoutes)
 // booking endpoints
 app.use("/api/bookings", bookingRoutes);
 
+// booking packages endpoing
+app.use("/api/bookings/packages", packagesRoutes)
+
 const PORT = process.env['PORT'] || 5000;
 
+console.log(PORT);
 
 
-(async () => {
-  try {
-    await connectDB(); // 👈 wait for DB connection
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error("❌ Failed to connect to DB", err);
-    process.exit(1); // Exit if DB connection fails
-  }
-})();
+
+  app.listen(PORT, () => {
+       console.log(`🚀 Server running on port ${PORT}`);
+     });
+
+// (async () => {
+//   try { 
+//     await connectDB(); // 👈 wait for DB connection
+//     app.listen(PORT, () => {
+//       console.log(`🚀 Server running on port ${PORT}`);
+//     });
+
+//   } catch (err) {
+//     console.error("❌ Failed to connect to DB", err);
+//     process.exit(1); // Exit if DB connection fails
+//   }
+// })();

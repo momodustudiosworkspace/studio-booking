@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import * as crypto from 'crypto';
 import User from "../models/user.models";
+import { sendOtpEmail } from "../utils/sendEmail";
+import Opt from "../models/otp.models";
 
 
 // register a new user 
@@ -88,4 +91,55 @@ export async function login (req: Request, res: Response) {
     }
 }
 
-export default {register, login}
+// Generate Auth OTP 
+export const sendOPT = async (req: Request, res: Response) => {
+  const { email } = req.body;
+
+    const user = await User.findOne({ email });
+   
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+  // Generate OTP
+  const otp = generateOTP();
+
+  // Hash OTP before saving (for security)
+    const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
+   
+  const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+   await Opt.create({
+     email: user.email,
+     otp:hashedOtp,
+     expiresAt,
+     purpose: "verify_email"
+    })
+
+    // Send OTP to user (email/SMS)
+    await sendOtpEmail(user.email, otp, "Password Reset");
+    
+    return res.status(201).json({message:`OTP sent to ${user.email}`})
+};
+
+
+// Verify OTP 
+export const verifyOtp = async (req: Request, res: Response) => {
+  const { email, otp } = req.body;
+
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+    const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
+   
+    const getOTP = await Opt.findOne({ email });
+    
+    if (getOTP?.otp !== hashedOtp) {
+        return res.status(404).json({ message: "OTP is invalid." });
+    }
+    if (getOTP.expiresAt.getTime() < Date.now()) {
+        return res.status(404).json({ message: "OTP has expired." });
+    }
+   
+    return  res.status(200).json({ message: "OTP verified successfully" }); 
+};
+
+export default {register, login, googleAuth}
