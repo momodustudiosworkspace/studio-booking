@@ -75,13 +75,13 @@ const CustomHeader = ({
     </div>
 );
 
-interface BookingsLocationProps {
+interface BookingsCalendarProps {
     selectedBookingDate: string | null;
     selectedBookingStartTime: string | null;
     setOnProceed: React.Dispatch<React.SetStateAction<(() => void) | null>>;
 }
 
-const BookingCalendar = ({ selectedBookingDate, selectedBookingStartTime, setOnProceed }: BookingsLocationProps) => {
+const BookingCalendar = ({ selectedBookingDate, selectedBookingStartTime, setOnProceed }: BookingsCalendarProps) => {
 
 
 

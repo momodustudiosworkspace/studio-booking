@@ -9,7 +9,7 @@ import BookingsPreview from "./BookingsPreview";
 import BookingsLocation from "./BookingsLocation";
 import PageMessage from "../PageMessage";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { setBookingSteps } from "@/redux/slices/bookingSlice";
+import { resetBookingState, setBookingSteps } from "@/redux/slices/bookingSlice";
 import BookingCalendar from "./BookingCalendar";
 import { useCreateBookingMutation } from "@/redux/services/booking/booking.api";
 import { toast } from "react-toastify";
@@ -23,18 +23,13 @@ const Bookings = (): React.JSX.Element => {
   const dispatch = useAppDispatch()
   const { data: session } = useSession()
 
-  const selectbookingStep = useAppSelector((state => state.booking.bookingStep))
   const bookingData = useAppSelector((state => state.booking))
-  const bookingSession = useAppSelector((state) => state.booking.sessionType)
 
-  const [bookingStep, setBookingStep] = useState<number>(selectbookingStep || 0);
+  const [bookingStep, setBookingStep] = useState<number>(bookingData.bookingStep || 0);
   const [onProceed, setOnProceed] = useState<(() => void) | null>(null);
-  const [createBooking, { isLoading, isSuccess, isError, error }] = useCreateBookingMutation();
+  const [createBooking, { isLoading, isSuccess, error, isError }] = useCreateBookingMutation();
 
   const proceedBtnRef = useRef<HTMLButtonElement>(null);
-
-
-
 
 
 
@@ -71,7 +66,7 @@ const Bookings = (): React.JSX.Element => {
           // setReserveSlot={values => setReserveSlot({ ...values })}
           />
         ),
-        header: `Select from ${bookingSession} packages`,
+      header: `Select from ${bookingData.sessionType} packages`,
         paragraph: "We’ll hold your slot while you complete checkout",
       },
       {
@@ -89,7 +84,9 @@ const Bookings = (): React.JSX.Element => {
       {
         id: 4,
         component: (
-        <BookingsLocation
+          <BookingsLocation
+            selectedBookingLocation={bookingData.location}
+            selectedDefaultLocation={bookingData.defaultLocation || null}
           setOnProceed={setOnProceed}
         />
       ),
@@ -114,20 +111,18 @@ const Bookings = (): React.JSX.Element => {
       id: 6,
       component: (
         <PageMessage
-          status={"success"}
-          messageHeader={"Booking completed"}
-          messageParagraph={"You can visit your dashbord to view all bookings"}
-          btnText={"Go to dashboard"}
-          href={"/dashboard"}
+          status={isSuccess && bookingStep === 5 ? "success" : "error"}
+          messageHeader={isSuccess && bookingStep === 5 ? "Booking completed" : "Booking failed"}
+          // Pass error message from server 
+          messageParagraph={isSuccess && bookingStep === 5 ? "You can visit your dashbord to view all bookings" : "There was an issue completing your booking."}
+          btnText={isSuccess && bookingStep === 5 ? "Go to dashboard" : ""}
+          href={isSuccess && bookingStep === 5 ? "/dashboard" : ""}
         />
       ),
       header: "",
       paragraph: "",
     },
     ];
-
-
-
 
   const handleBookingStepsProceed = async () => {
     if (!proceedBtnRef.current) {
@@ -168,12 +163,15 @@ const Bookings = (): React.JSX.Element => {
         startTime: bookingData.startTime || null,
         studioRoom: bookingData.studioRoom || null,
         sessionType: bookingData.sessionType || null,
-        price: 25000,
+        price: bookingData.package?.price || null,
+        location: bookingData.location || null
   // notes: bookingData.notes,
       };
 
       // 🔥 Send to backend
       const response = await createBooking(payload).unwrap();
+
+      console.log("response: ", response);
 
 
       if (isError) {
@@ -181,17 +179,17 @@ const Bookings = (): React.JSX.Element => {
         return toast.error(AuthToast, {
           data: {
             title: "Error booking",
-            content: `${(error as any)?.data?.message || "Login failed"}`,
+            content: `${(error as any)?.data?.message || "Booking failed"}`,
           },
           ariaLabel: "Something went wrong",
           icon: false,
           theme: "colored",
         });
       }
+      setBookingStep(prev => prev + 1);
 
-      console.log("✅ Booking created:", response);
+      return dispatch(resetBookingState())
 
-      return alert("Booking created successfully!");
 
     } catch (err: any) {
       setBookingStep(prev => prev)
@@ -236,15 +234,18 @@ const Bookings = (): React.JSX.Element => {
   }, [handleProceedClick]);
 
 
-  useEffect(() => { dispatch(setBookingSteps({ bookingStep: bookingStep })) }, [bookingStep, dispatch])
+  useEffect(() => {
+    if (bookingStep < 4) {
+      dispatch(setBookingSteps({ bookingStep: bookingStep }))
+
+    }
+  }, [bookingStep, dispatch])
   return (
     <section className='flex items-center justify-center px-5 min-h-screen'>
       <div className='w-full flex justify-center'>
         <div className="w-full flex justify-center">
-
-
           <div className='mt-20 mb-10 flex flex-col gap-4'>
-            <button
+            {bookingStep !== 5 && <button
               className='flex h-10 w-10 items-center justify-center rounded-full bg-[#FAFAFA]'
               onClick={() => {
                 if (bookingStep === 0) {
@@ -255,8 +256,9 @@ const Bookings = (): React.JSX.Element => {
             >
               <BaseIcons value='arrow-left-black' />
             </button>
+            }
             <div className='mt-5 flex flex-col gap-2'>
-              {isSuccess && <p className="text-green-600">Booking successfully created!</p>}
+
               <h1 className='text-[28px] font-extrabold capitalize'>
                 {BOOKING_STEPS[bookingStep]?.header}
               </h1>
@@ -264,8 +266,6 @@ const Bookings = (): React.JSX.Element => {
                 <p>{BOOKING_STEPS[bookingStep]?.paragraph}</p>
               </div>
             </div>
-            {bookingStep}
-
 
             {/* {bookingStep !== null && bookingStep < 2
               ? ""
@@ -297,6 +297,22 @@ const Bookings = (): React.JSX.Element => {
                 />}
               </div>
             )}
+            {!isSuccess && bookingStep > 4 &&
+
+              <div className="w-full flex justify-center">
+                <Button
+                  text='Retry booking'
+                  onClick={() => setBookingStep(prev => prev - 1)}
+                  icon={<RedirectArrowWhite />}
+                  // disabled={!values.agree || isSubmitting}
+                  iconPosition='right'
+                  className='w-[180px]'
+                  size='md'
+                // loading={isSubmitting} 
+                />
+
+              </div>
+            }
           </div>
 
         </div>

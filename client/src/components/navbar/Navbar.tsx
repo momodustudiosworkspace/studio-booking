@@ -17,7 +17,7 @@ const Navbar = ({
 }: NavbarProps): React.JSX.Element => {
   const { data: session } = useSession()
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number | null>(null);
 
   const ROUTES = [
     {

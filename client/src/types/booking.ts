@@ -1,4 +1,9 @@
 // src/types/booking.ts
+
+interface BookingLocationOptions {
+    state?: string;
+    address?: string
+}
 export interface BookingType {
   _id: string | null;
   user: string | null; // or populated user object if you populate
@@ -9,6 +14,7 @@ export interface BookingType {
   startTime?: string | null;
   endTime?: string | null;
   studioRoom?: 'A' | 'B' | null;
+  location?:BookingLocationOptions | null,
   status?: 'pending' | 'confirmed' | 'completed' | 'cancelled';
   notes?: string | null;
   price?: number | null;
@@ -19,3 +25,4 @@ export interface BookingType {
   createdAt?: string | null;
   updatedAt?: string | null;
 }
+

@@ -5,6 +5,7 @@ import * as crypto from 'crypto';
 import User from "../models/user.models";
 import { sendOtpEmail } from "../utils/sendEmail";
 import Opt from "../models/otp.models";
+import { generateOTP } from "../utils/generateOTP";
 
 
 // register a new user 

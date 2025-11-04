@@ -39,4 +39,5 @@ export const {
   useGetBookingByIdQuery,
   useCreateBookingMutation,
   useDeleteBookingMutation,
+   usePrefetch,
 } = bookingApi;

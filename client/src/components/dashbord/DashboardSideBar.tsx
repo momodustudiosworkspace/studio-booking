@@ -15,7 +15,7 @@ const DashboardSideBar = () => {
   const SIDEBAR_LINKS = [
     {
       href: "/dashboard",
-      label: "Home",
+      label: "Dashboard",
       icon: "home-solid-black" as IconsType,
     },
     {
@@ -34,6 +34,7 @@ const DashboardSideBar = () => {
       icon: "help-solid-black" as IconsType,
     },
   ];
+
   const pathname = usePathname();
 
   return (

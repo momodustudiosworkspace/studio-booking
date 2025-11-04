@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Modal from "../ui/Modal";
 import DashboardNotifications from "../dashbord/DashboardNotifications";
 import MenuBar from "@/assets/icons/MenuBar";
+import { redirect } from "next/navigation";
 
 interface UserNavbarProps {
   email: string | undefined;
@@ -36,10 +37,10 @@ const UserNavbar = ({ user }: UserProps) => {
         )}
       </button>
       <div className='hidden items-center gap-4 sm:flex'>
-        <div className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase'>
+        <button className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase' onClick={() => redirect("/dashboard")}>
           {user.email?.[0]}
           {user.email?.[1]}
-        </div>
+        </button>
         <div>
           <p className='font-semibold'>{user.email}</p>
           <small>{user.email}</small>

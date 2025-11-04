@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-// import { connectDB } from "./config/db.config";
+import { connectDB } from "./config/db.config";
 import swaggerUI from "swagger-ui-express"
 import swaggerOpenapiSpecification from "./config/swagger.config";
 import morgan from "morgan"
@@ -39,19 +39,19 @@ console.log(PORT);
 
 
 
-  app.listen(PORT, () => {
-       console.log(`🚀 Server running on port ${PORT}`);
-     });
+  // app.listen(PORT, () => {
+  //      console.log(`🚀 Server running on port ${PORT}`);
+  //    });
 
-// (async () => {
-//   try { 
-//     await connectDB(); // 👈 wait for DB connection
-//     app.listen(PORT, () => {
-//       console.log(`🚀 Server running on port ${PORT}`);
-//     });
+(async () => {
+  try { 
+    await connectDB(); // 👈 wait for DB connection
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
 
-//   } catch (err) {
-//     console.error("❌ Failed to connect to DB", err);
-//     process.exit(1); // Exit if DB connection fails
-//   }
-// })();
+  } catch (err) {
+    console.error("❌ Failed to connect to DB", err);
+    process.exit(1); // Exit if DB connection fails
+  }
+})();

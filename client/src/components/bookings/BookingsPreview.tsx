@@ -80,7 +80,7 @@ const BookingsPreview = ({
                   price
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}{price}
+                  {nairaSymbol()}{price?.toLocaleString("en-US")}
                 </p>
               </div>
               <div className='flex items-center justify-between'>
@@ -88,7 +88,7 @@ const BookingsPreview = ({
                   VAT
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}200,000
+                  0.7%
                 </p>
               </div>
               <div className='flex w-full flex-col items-start justify-between gap-2 sm:flex-row sm:items-center'>
@@ -112,7 +112,7 @@ const BookingsPreview = ({
                   total
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}200,000
+                  {nairaSymbol()}{price?.toLocaleString("en-US")}
                 </p>
               </div>
             </div>

@@ -1,52 +1,70 @@
-import React from "react";
+"use client"
+import React, { useMemo } from "react";
 import DashboardLayout from "./DashboardLayout";
 import { IconsType } from "@/assets/icons/dashboard/DashboardIcons";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import DashboardHeader from "./DashboardHeader";
 import BookingCardQuickAtion from "./cards/BookingCardQuickAction";
 import BookingCardService from "./cards/BookingCardService";
+import { useGetBookingsQuery } from "@/redux/services/booking/booking.api";
 
 const DashBoardOverview = () => {
-  const BOOKING_ANALYTICS_CARDS = [
-    {
-      icon: "camera-outlined-black" as IconsType,
-      title: "total bookings",
-      count: 50,
-      linkText: "view bookings",
-      href: "/",
-      status: "total",
-    },
-    {
-      icon: "calendar-check-outlined-black" as IconsType,
-      title: "completed bookings ",
-      count: 50,
-      linkText: "view images",
-      href: "/",
-      status: "completed",
-    },
-    {
-      icon: "camera-outlined-black" as IconsType,
-      title: "upcoming session",
-      count: 3,
-      linkText: "next session: 5th june 2025",
-      status: "upcoming",
-    },
-    {
-      icon: "camera-outlined-black" as IconsType,
-      title: "Cancelled bookings",
-      count: 2,
-      linkText: "view all",
-      href: "/",
-      status: "cancelled",
-    },
-  ];
+
+  // Call the query hook
+  const { data: bookings, error, isLoading, } = useGetBookingsQuery();
+
+  // ✅ Compute analytics safely and memoize
+  const analytics = useMemo(() => {
+    const total = bookings?.length || 0;
+    const completed = bookings?.filter(b => b.status === "completed").length || 0;
+    const upcoming = bookings?.filter(b => b.status === "pending").length || 0;
+    const cancelled = bookings?.filter(b => b.status === "cancelled").length || 0;
+
+    return [
+      {
+        icon: "camera-outlined-black" as IconsType,
+        title: "Total Bookings",
+        count: total,
+        linkText: "View bookings",
+        href: "/bookings",
+        status: "total",
+      },
+      {
+        icon: "calendar-check-outlined-black" as IconsType,
+        title: "Completed Bookings",
+        count: completed,
+        linkText: "View images",
+        href: "/bookings",
+        status: "completed",
+      },
+      {
+        icon: "camera-outlined-black" as IconsType,
+        title: "Upcoming Sessions",
+        count: upcoming,
+        linkText: "Next session soon",
+        href: "/bookings",
+        status: "upcoming",
+      },
+      {
+        icon: "camera-outlined-black" as IconsType,
+        title: "Cancelled Bookings",
+        count: cancelled,
+        linkText: "View all",
+        href: "/bookings",
+        status: "cancelled",
+      },
+    ];
+  }, [bookings]);
+  if (isLoading) return "Loading...";
+  if (error) return "Failed to load data";
+
   const BOOKING_QUICK_LINKS_CARDS = [
     {
       icon: "camera-outlined-black" as IconsType,
       title: "Book a session",
       count: 50,
       linkText: "Book a session",
-      href: "/",
+      href: "/bookings",
     },
     {
       icon: "calendar-check-outlined-black" as IconsType,
@@ -108,19 +126,17 @@ const DashBoardOverview = () => {
       <section className='w-full'>
         {/* Booking analytics  */}
         <div className='mb-14 flex w-full flex-col items-center gap-4 sm:flex-row'>
-          {BOOKING_ANALYTICS_CARDS.map((card, key) => {
-            return (
-              <BookingCardAnalytics
-                key={key}
-                status={card.status}
-                icon={card.icon}
-                title={card.title}
-                count={card.count}
-                linkText={card.linkText}
-                href={card?.href}
-              />
-            );
-          })}
+          {analytics.map((card, key) => (
+            <BookingCardAnalytics
+              key={key}
+              status={card.status}
+              icon={card.icon}
+              title={card.title}
+              count={card.count}
+              linkText={card.linkText}
+              href={card.href}
+            />
+          ))}
         </div>
 
         {/* Quick links  */}

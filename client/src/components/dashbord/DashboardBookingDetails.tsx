@@ -9,8 +9,16 @@ import LinkButton from "../ui/LinkButton";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import DashboardBookingPhotoSelection from "./DashboardBookingPhotoSelection";
 import DashboardBookingTimeline from "./DashboardBookingTimeline";
+import { BookingType } from "@/types/booking";
 
-const DashboardBookingDetails = () => {
+
+interface DashboardBookingDetailsProps {
+  booking?: BookingType;
+  isLoading: boolean;
+}
+const DashboardBookingDetails = ({ booking, isLoading }: DashboardBookingDetailsProps) => {
+
+
   const [totalSelectedPhotos, setTotalSelectedPhotos] = useState<number>(0);
 
   // Set a condition for the link:
@@ -18,40 +26,8 @@ const DashboardBookingDetails = () => {
 
   // if client is late based on bookign time and checkin time let the checking timeline be red
   const timeLineLevel = 5;
-
-  // const BOOKING_TIMELINE = [
-  //     {
-  //         id: 1,
-  //         text: "booking",
-  //         date: "wednesday october 12th, 2025 at 3:00pm",
-  //     },
-  //     {
-  //         id: 2,
-  //         text: "Checking",
-  //         date: "wednesday october 12th, 2025 at 3:00pm",
-  //     },
-  //     {
-  //         id: 3,
-  //         text: "session",
-  //         date: "wednesday october 12th, 2025 at 3:00pm",
-  //     },
-  //     {
-  //         id: 4,
-  //         text: "session completed",
-  //         date: "wednesday october 12th, 2025 at 3:00pm",
-  //     },
-  //     {
-  //         id: 5,
-  //         text: "photo selection",
-  //         date: "wednesday october 12th, 2025 at 3:00pm",
-  //     },
-  //     {
-  //         id: 6,
-  //         text: "final delivery",
-  //         date: "wednesday october 12th, 2025 at 3:00pm",
-  //     },
-
-  // ]
+  if (isLoading) return <p>Loading booking details...</p>;
+  if (!booking) return <p>No booking found.</p>;
 
   return (
     <div className='-mt-24'>
@@ -86,27 +62,6 @@ const DashboardBookingDetails = () => {
 
             <div className='relative mt-10 max-h-[510px] overflow-y-scroll'>
               <DashboardBookingTimeline />
-              {/* <VerticalTimeline layout='1-column-left' lineColor='#DFDFDF' >
-                                {BOOKING_TIMELINE.map((timeLine) => {
-
-                                    return <VerticalTimelineElement key={timeLine.id}
-                                        className="vertical-timeline-element--work"
-                                        contentStyle={{ color: `black` }}
-                                        contentArrowStyle={{ color: `#fff` }}
-                                        // date="2011 - present"
-                                        iconStyle={{ background: `#fff`, color: `black`, border: 'none' }}
-                                        icon={<DashboardIcons value="check-solid-black" />}
-
-
-                                    >
-                                        <h3 className="vertical-timeline-element-title capitalize font-bold">Studio {timeLine.text}</h3>
-                                        <p className='capitalize'>
-                                            {timeLine.date}
-                                        </p>
-                                    </VerticalTimelineElement>
-                                })}
-
-                            </VerticalTimeline> */}
             </div>
           </div>
 
@@ -194,6 +149,8 @@ const DashboardBookingDetails = () => {
               </div>
             )}
           </div>
+
+          {/* DashboardBookingPhotoSelection  */}
           <div className='max-h-[800px] w-full overflow-y-scroll pt-5'>
             <DashboardBookingPhotoSelection
               setTotalSelectedPhotos={setTotalSelectedPhotos}

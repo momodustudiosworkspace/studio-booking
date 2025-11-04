@@ -1,19 +1,27 @@
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import LinkButton from "@/components/ui/LinkButton";
+import { formatDate } from "@/utils/dateFormatter";
+import nairaSymbol from "@/utils/symbols";
+import { formatTime } from "@/utils/timeFormatter";
 import React from "react";
 
+interface BookingLocationOptions {
+  state?: string;
+  address?: string
+}
 interface BookingCardProps {
-  id: number;
-  title: string;
-  location: string;
-  date: string;
-  time: string;
-  amount: string;
-  status: number;
+  bookingId?: string | null | undefined;
+  title?: string | null | undefined;
+  location?: BookingLocationOptions | null | undefined;
+  date?: string | null | undefined;
+  time?: string | null | undefined;
+  amount?: number | null | undefined;
+  status: "cancelled" | "completed" | "pending" | "confirmed" | undefined
+  ;
 }
 const BookingCard = ({
-  id,
+  bookingId,
   title,
   location,
   date,
@@ -22,28 +30,27 @@ const BookingCard = ({
   status,
 }: BookingCardProps) => {
   const statusStyle =
-    status === 0
+    status === "cancelled"
       ? "bg-red-200 text-red-500"
-      : status === 1
+      : status === "pending"
         ? "bg-[#0362001A] text-[#036200]"
-        : status === 2
+        : status === "confirmed"
           ? "bg-blue-300 text-blue-600"
-          : status === 3
+          : status === "completed"
             ? "bg-[#E595001A] text-[#E59500]"
             : "";
   const statusText =
-    status === 0
+    status === "cancelled"
       ? "cancelled"
-      : status === 1
+      : status === "completed"
         ? "completed"
-        : status === 2
-          ? "upcoming"
-          : status === 3
-            ? "past"
+        : status === "pending"
+          ? "pending"
+          : status === "confirmed"
+            ? "confirmed"
             : "";
   return (
     <div
-      key={id}
       className='flex flex-col justify-between gap-3 rounded-md bg-white p-4 shadow sm:flex-row sm:items-center sm:gap-0'
     >
       {/* Booking Details  */}
@@ -64,7 +71,7 @@ const BookingCard = ({
               {statusText}
             </span>
           </div>
-          <p className='text-[14px] sm:text-[16px]'>{location}</p>
+          <p className='text-[14px] sm:text-[16px]'>{location?.address} {location?.state}</p>
         </div>
       </div>
       {/* Booking date  */}
@@ -76,9 +83,9 @@ const BookingCard = ({
         </div>
         <div>
           <div className='mb-1 flex gap-2'>
-            <h3 className='font-semibold capitalize'>{date}</h3>
+            <h3 className='font-semibold capitalize'>{formatDate(date, "short")}</h3>
           </div>
-          <p className='text-[14px] sm:text-[16px]'>{time}</p>
+          <p className='text-[14px] sm:text-[16px]'>{formatTime(time)}</p>
         </div>
       </div>
       {/* Booking price  */}
@@ -90,17 +97,17 @@ const BookingCard = ({
         </div>
         <div>
           <div className='mb-1 flex gap-2'>
-            <h3 className='font-semibold capitalize'>{amount}</h3>
+            <h3 className='font-semibold capitalize'>{nairaSymbol()}{amount?.toLocaleString()}</h3>
           </div>
           <p className='text-[14px] sm:text-[16px]'>
-            {status === 0 ? "cancelled" : "completed"}
+            {status === "completed" ? "cancelled" : "completed"}
           </p>
         </div>
       </div>
       {/* View booking details  */}
       <div className='flex gap-2 sm:items-center sm:justify-center'>
         <LinkButton
-          href={`/dashboard/photo-studio/bookings/${id}`}
+          href={`/dashboard/photo-studio/bookings/${bookingId}`}
           size='md'
           text={"View"}
           icon={<RedirectArrowWhite />}

@@ -1,9 +1,61 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
+import { DashboardIcons, IconsType } from "./dashboard/DashboardIcons";
+import Link from "next/link";
 
 const MenuBar = () => {
+
+  const [showSideBarmenu, setShowSideBarmenu] = useState<boolean>(false)
+  const SIDEBAR_MENU = [
+    {
+      href: "/dashboard",
+      label: "Dashboard",
+      icon: "home-solid-black" as IconsType,
+    },
+    {
+      href: "/dashboard/bookings",
+      label: "Bookings",
+      icon: "camera-solid-black" as IconsType,
+    },
+    {
+      href: "/dashboard/profile-settings",
+      label: "Profile",
+      icon: "help-solid-black" as IconsType,
+    },
+    {
+      href: "/dashboard/help",
+      label: "Help",
+      icon: "help-solid-black" as IconsType,
+    },
+  ]
+
+
+  const ROUTES = [
+    {
+      id: 1,
+      text: "Home",
+      href: "/web",
+    },
+    {
+      id: 2,
+      text: "About Us",
+      href: "/web/about-us",
+    },
+    {
+      id: 3,
+      text: "Portfolio",
+      href: "/web/portfolio",
+    },
+    {
+      id: 4,
+      text: "Contact",
+      href: "/web/contact",
+    },
+  ];
   return (
-    <button className='flex h-10 w-10 items-center justify-center rounded-full bg-gray-50'>
-      <svg
+    <div>
+      {<button className='flex h-10 w-10 items-center justify-center rounded-full bg-gray-50' onClick={() => setShowSideBarmenu(!showSideBarmenu)}>
+        {showSideBarmenu ? <DashboardIcons value='cancel-outlined-black' /> : <svg
         width='16'
         height='13'
         viewBox='0 0 16 13'
@@ -14,8 +66,25 @@ const MenuBar = () => {
           d='M0.5 2.36619V0.699524H15.5V2.36619H0.5ZM0.5 12.3662V10.6995H15.5V12.3662H0.5ZM0.5 7.36619V5.69952H15.5V7.36619H0.5Z'
           fill='#1C1B1F'
         />
-      </svg>
-    </button>
+        </svg>}
+      </button>}
+      {showSideBarmenu && <div className="absolute bg-white w-full h-screen left-0">
+        <div className="flex flex-col gap-4 pl-4 pt-10 border-b-[1px] border-gray-400 pb-10">
+          <h3 className="font-medium">General menu</h3>
+          {ROUTES.map((route) => {
+            return <Link key={route.href} href={route.href} className="flex items-center gap-2" onClick={() => setShowSideBarmenu(false)}> {route.text}</Link>
+          })}
+
+        </div>
+        <div className="flex flex-col gap-4 pl-4 pt-10">
+
+          <h3 className="font-medium">User menu</h3>
+          {SIDEBAR_MENU.map((menu) => {
+            return <Link key={menu.label} href={menu.href} className="flex items-center gap-2" onClick={() => setShowSideBarmenu(false)}> <DashboardIcons value={menu.icon} />{menu.label}</Link>
+          })}
+        </div>
+      </div>}
+    </div>
   );
 };
 

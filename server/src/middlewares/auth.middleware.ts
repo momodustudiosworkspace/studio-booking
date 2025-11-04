@@ -36,8 +36,6 @@ export function authMiddleWare(
     }
 
     req.userId = decoded.userId;
-      console.log("Middleware: ", req);
-    
     next(); // ✅ Only reach next() after all checks
   } catch (error) {
     console.error("JWT verification error:", error);
