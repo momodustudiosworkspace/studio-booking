@@ -25,6 +25,7 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
       headerText='Log in to your account'
       paragraphText={`Don't have an account?`}
       signin={signin}
+      imgUrl=""
       setSignin={() => setSignin(!signin)}
     >
       <Formik

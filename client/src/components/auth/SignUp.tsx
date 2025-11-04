@@ -5,7 +5,7 @@ import { Field, Form, Formik } from "formik";
 import Button from "../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
 
@@ -15,12 +15,15 @@ interface SignUpProps {
 }
 const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo")
 
   return (
     <AuthForm
       headerText='Create your account'
       paragraphText='Already have an account?'
       signin={signin}
+      imgUrl=""
       setSignin={() => setSignin(!signin)}
     >
       <Formik
@@ -40,6 +43,11 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
               body: JSON.stringify(values),
             });
             const data = await res.json();
+
+            if (res?.ok && searchParams && redirectTo) {
+              // Redirect back
+              return router.push(redirectTo);
+            }
 
             if (!res.ok) {
               // toast.error(data.error || data.message || "Registration failed");

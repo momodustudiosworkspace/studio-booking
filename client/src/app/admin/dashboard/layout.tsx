@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar/Navbar";
-import DashboardSideBar from "@/components/dashbord/user/DashboardSideBar";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import DashboardSideBar from "@/components/dashbord/admin/DashboardSideBar";
 // import { getServerSession } from "next-auth";
 // import { redirect } from "next/navigation";
 // import { authOptions } from "../api/auth/[...nextauth]/route";
@@ -27,7 +27,7 @@ export default async function Layout({
   }
   return (
     <section
-      className={`font-montserrat flex min-h-screen w-full flex-col bg-[#FAFAFA]`}
+      className={`font-montserrat flex min-h-screen w-full flex-col bg-[#fff]`}
     >
       <div className='flex h-[80px] max-w-screen justify-center bg-white'>
         <Navbar navBarWidth='sm:w-[1640px]' />

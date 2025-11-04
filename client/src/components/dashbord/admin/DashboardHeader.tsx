@@ -1,5 +1,5 @@
 import React from "react";
-import LinkButton from "../ui/LinkButton";
+import LinkButton from "../../ui/LinkButton";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 
 interface DashboardHeaderProps {
@@ -7,7 +7,7 @@ interface DashboardHeaderProps {
   paragraph: string;
   linkText?: string;
   badge?: string | undefined;
-  badgeStatus?: number | undefined;
+  badgeStatus?: "pending" | "confirmed" | "completed" | "cancelled" | undefined;
   badgeClass?: string | undefined;
   href?: string;
 }
@@ -21,13 +21,13 @@ const DashboardHeader = ({
   badgeClass,
 }: DashboardHeaderProps) => {
   const bagdeStatusStyle =
-    badgeStatus === 0
+    badgeStatus === "cancelled"
       ? "bg-red-200 text-red-500"
-      : badgeStatus === 1
+      : badgeStatus === "completed"
         ? "bg-[#0362001A] text-[#036200]"
-        : badgeStatus === 2
+        : badgeStatus === "pending"
           ? "bg-blue-300 text-blue-600"
-          : badgeStatus === 3
+          : badgeStatus === undefined
             ? "bg-[#E595001A] text-[#E59500]"
             : "";
   return (

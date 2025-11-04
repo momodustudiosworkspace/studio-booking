@@ -2,7 +2,7 @@
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import React, { useState } from "react";
 import Modal from "../ui/Modal";
-import DashboardNotifications from "../dashbord/DashboardNotifications";
+import DashboardNotifications from "../dashbord/user/DashboardNotifications";
 import MenuBar from "@/assets/icons/MenuBar";
 import { redirect } from "next/navigation";
 

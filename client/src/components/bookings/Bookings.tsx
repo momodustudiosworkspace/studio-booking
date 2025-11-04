@@ -276,10 +276,8 @@ const Bookings = (): React.JSX.Element => {
             {BOOKING_STEPS[bookingStep]?.component}
             {bookingStep !== 5 && (
               <div className='flex w-full mt-4 justify-end'>
-                {!session && bookingStep === 4 ? <LinkButton
-                  href='/auth?redirectTo=/bookings'
-
-
+                {!session?.user.accessToken && bookingStep === 4 ? <LinkButton
+                  href='/auth?redirectTo=bookings'
                   size='md'
                   text='Login to book'
                   icon={<RedirectArrowWhite />}

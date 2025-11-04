@@ -15,7 +15,7 @@ export interface BookingType {
   endTime?: string | null;
   studioRoom?: 'A' | 'B' | null;
   location?:BookingLocationOptions | null,
-  status?: 'pending' | 'confirmed' | 'completed' | 'cancelled';
+  status?:undefined | "pending" | "confirmed" | "completed" | "cancelled";
   notes?: string | null;
   price?: number | null;
   paymentStatus?: 'pending' | 'paid' | 'refunded';

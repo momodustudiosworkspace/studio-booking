@@ -12,7 +12,7 @@ interface DashboardLayoutProps {
     paragraph: string;
     linkText: string;
     badge?: string;
-    badgeStatus?: number;
+    badgeStatus?: undefined | "pending" | "confirmed" | "completed" | "cancelled";
     badgeClass?: string;
     href: string;
   };

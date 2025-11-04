@@ -23,7 +23,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: {
     default: "Momodu Studios",
-    template: "%s | Bookings",
+    template: "%s | Momodu Studios Bookings",
   },
   description: "Photostudio booking web application",
   keywords: [

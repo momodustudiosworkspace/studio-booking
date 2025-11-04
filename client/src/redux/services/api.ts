@@ -51,4 +51,7 @@ export const baseApi = createApi({
     //   invalidatesTags: ['Booking'],
     // }),
   }),
+  refetchOnReconnect: true,
+  refetchOnFocus: true,
+  keepUnusedDataFor: 300, // 5 min cache
 });

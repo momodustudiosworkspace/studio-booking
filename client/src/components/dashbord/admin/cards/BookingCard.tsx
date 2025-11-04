@@ -11,7 +11,7 @@ interface BookingLocationOptions {
   address?: string
 }
 interface BookingCardProps {
-  bookingId?: string | null | undefined;
+  id?: string | null | undefined;
   title?: string | null | undefined;
   location?: BookingLocationOptions | null | undefined;
   date?: string | null | undefined;
@@ -21,7 +21,7 @@ interface BookingCardProps {
   ;
 }
 const BookingCard = ({
-  bookingId,
+  id,
   title,
   location,
   date,
@@ -107,7 +107,7 @@ const BookingCard = ({
       {/* View booking details  */}
       <div className='flex gap-2 sm:items-center sm:justify-center'>
         <LinkButton
-          href={`/dashboard/photo-studio/bookings/${bookingId}`}
+          href={`/dashboard/photo-studio/bookings/${id}`}
           size='md'
           text={"View"}
           icon={<RedirectArrowWhite />}

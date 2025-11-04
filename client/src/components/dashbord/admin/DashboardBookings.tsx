@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
-import BookingCard from "./cards/BookingCard";
+import BookingCard from "../user/cards/BookingCard";
 import { useGetBookingsQuery, usePrefetch } from "@/redux/services/booking/booking.api";
 
 const DashboardBookings = () => {
@@ -57,7 +57,7 @@ const DashboardBookings = () => {
 
         <BookingCard
           key={b.id}
-          bookingId={b.id}
+          id={b.id}
           title={b.title}
           location={b.location}
           date={b.date}

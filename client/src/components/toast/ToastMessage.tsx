@@ -223,7 +223,7 @@ export function WithProgress({
           cy='100'
           fill='transparent'
           stroke='#e0e0e0'
-          stroke-width='6'
+          strokeWidth='6'
           stroke-dasharray='565.48px'
           stroke-dashoffset='0'
         />
@@ -232,7 +232,7 @@ export function WithProgress({
           cx='100'
           cy='100'
           stroke='#76e5b1'
-          stroke-width='16px'
+          strokeWidth='16px'
           stroke-linecap='round'
           fill='transparent'
           stroke-dasharray='565.48px'

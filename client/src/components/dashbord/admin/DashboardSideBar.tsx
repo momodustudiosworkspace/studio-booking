@@ -4,6 +4,7 @@ import {
   IconsType,
 } from "@/assets/icons/dashboard/DashboardIcons";
 import { useAppDispatch } from "@/hooks/hooks";
+// import { baseApi } from "@/redux/services/api"; 
 import { userLogOut } from "@/redux/slices/authSlice";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -14,32 +15,48 @@ const DashboardSideBar = () => {
   const dispatch = useAppDispatch();
   const SIDEBAR_LINKS = [
     {
-      href: "/dashboard",
+      href: "/admin/dashboard",
       label: "Dashboard",
       icon: "home-solid-black" as IconsType,
     },
     {
-      href: "/dashboard/bookings",
-      label: "Bookings",
-      icon: "camera-solid-black" as IconsType,
+      href: "/admin/dashboard/clients",
+      label: "Client",
+      icon: "person-solid-black" as IconsType,
     },
     {
-      href: "/dashboard/profile-settings",
-      label: "Profile",
-      icon: "help-solid-black" as IconsType,
+      href: "/admin/dashboard/bookings",
+      label: "Bookings",
+      icon: "camera-marker-solid-black" as IconsType,
+    },
+    {
+      href: "/admin/dashboard/payments",
+      label: "Payments",
+      icon: "cash-solid-black" as IconsType,
+    },
+    {
+      href: "/admin/dashboard/report-and-analytics",
+      label: "Report & Analysis",
+      icon: "report-analytics-solid-black" as IconsType,
     },
     {
       href: "/dashboard/help",
       label: "Help",
       icon: "help-solid-black" as IconsType,
     },
+    {
+      href: "/admin/dashboard/settings",
+      label: "Settings",
+      icon: "settings-solid-black" as IconsType,
+    },
+
   ];
 
   const pathname = usePathname();
 
   return (
-    <div className='hidden min-h-[200px] w-[247px] rounded-md bg-white px-4 py-5 shadow-sm sm:flex'>
-      <nav className='w-full space-y-2'>
+    <div className='h-screen w-[300px] -mt-[120px] z-50 pr-4 pt-[130px] sm:flex border-r-[1px] border-gray-200'>
+      <nav className='w-full space-y-4'>
         {SIDEBAR_LINKS.map(link => (
           <Link
             key={link.href}
@@ -54,9 +71,12 @@ const DashboardSideBar = () => {
           className='mt-4 flex w-full items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
           onClick={() => {
 
+            // setTimeout(() => {
+            //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
+            // }, 500)
             dispatch(userLogOut())
-            signOut({ callbackUrl: "/auth" }
 
+            signOut({ callbackUrl: "/auth" }
             )
           }}
         >

@@ -62,7 +62,7 @@ const Navbar = ({
           <LogoBlack />
         </div>
 
-        {pathName.split("/")[1] !== "dashboard" && (
+        {pathName.split("/")[1] !== "dashboard" || pathName.split("/")[0] !== "admin" && (
           <div className='hidden items-center gap-10 sm:flex'>
             {ROUTES.map(route => {
               return (
