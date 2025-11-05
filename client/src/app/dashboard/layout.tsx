@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar/Navbar";
-import DashboardSideBar from "@/components/dashbord/DashboardSideBar";
+import DashboardSideBar from "@/components/dashbord/user/DashboardSideBar";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 // import { getServerSession } from "next-auth";
 // import { redirect } from "next/navigation";
 // import { authOptions } from "../api/auth/[...nextauth]/route";
@@ -16,18 +19,18 @@ export default async function Layout({
   children: React.ReactNode;
 }>) {
   // ✅ get session securely on the server
-  // const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
   // ✅ redirect unauthenticated users to login
-  // if (!session) {
-  //   redirect("/auth"); // Or wherever your login page is
-  // }
+  if (!session) {
+    redirect("/auth"); // Or wherever your login page is
+  }
   return (
     <section
       className={`font-montserrat flex min-h-screen w-full flex-col bg-[#FAFAFA]`}
     >
       <div className='flex h-[80px] max-w-screen justify-center bg-white'>
-        <Navbar navBarWidth="sm:w-[1640px]" />
+        <Navbar navBarWidth='sm:w-[1640px]' />
       </div>
       <div className='mt-10 flex max-w-screen justify-center'>
         <div className='flex w-[1800px] items-start gap-5 px-4 pb-32 sm:px-20'>

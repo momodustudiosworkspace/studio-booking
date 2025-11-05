@@ -35,7 +35,7 @@ const Portfolio = (): React.JSX.Element => {
   ];
   return (
     <section>
-      <div className="sm:hidden flex flex-col">
+      <div className='flex flex-col sm:hidden'>
         <SectionHeader
           variation='dark'
           badgeWidth='w-[180px]'
@@ -55,9 +55,7 @@ const Portfolio = (): React.JSX.Element => {
         </div>
       </div>
 
-      <div>
-
-      </div>
+      <div></div>
     </section>
   );
 };

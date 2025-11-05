@@ -91,7 +91,7 @@ export default [
         },
       ],
       // TypeScript Strict Rules
-      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",

@@ -5,6 +5,8 @@ import {
   getBookingById,
   getUserBookings,
   updateBooking,
+  bookingImagesUpload,
+  uploadBookingImages,
 } from "../controllers/booking.controllers";
 import authMiddleWare from "../middlewares/auth.middleware";
 
@@ -193,5 +195,32 @@ router.put("/:id", authMiddleWare, updateBooking);
  *         description: Server error
  */
 router.delete("/:id", authMiddleWare, deleteBooking);
+/**
+ * @openapi
+ * /api/bookings/{id}:
+ *   post:
+ *     summary: Uplaod booking images
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Booking ID
+ *     responses:
+ *       200:
+ *         description: Booking deleted successfully
+ *       404:
+ *         description: Booking not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+router.post("/:id", authMiddleWare, uploadBookingImages);
+router.post("/:id/upload", authMiddleWare, bookingImagesUpload.array("images", 10), uploadBookingImages);
 
 export default router;

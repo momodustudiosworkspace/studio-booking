@@ -10,15 +10,15 @@ export default function Page() {
   return (
     <section className='flex min-h-screen w-full justify-center sm:pt-5'>
       <section className='w-full sm:w-[1440px]'>
-        <div className='flex flex-col gap-10 sm:px-0 px-5 py-10'>
-          <div className="flex sm:flex-row flex-col items-end sm:justify-between">
+        <div className='flex flex-col gap-10 px-5 py-10 sm:px-0'>
+          <div className='flex flex-col items-end sm:flex-row sm:justify-between'>
             <div>
               {/* hero  */}
-              <h1 className='mb-6 w-full text-left sm:text-[120px] text-[34px] font-extrabold'>
+              <h1 className='mb-6 w-full text-left text-[34px] font-extrabold sm:text-[120px]'>
                 Contact Us
               </h1>
 
-              <div className="w-full sm:w-[560px]">
+              <div className='w-full sm:w-[560px]'>
                 <SectionHeader
                   headerText='we are always ready to help you and answer your questions'
                   paragraphText='Lorem ipsum dolor sit amet consectetur. Pharetra id ultricies amet non. Turpis amet facilisis sem sit. Elementum egestas pretium vitae quis justo.'
@@ -26,7 +26,7 @@ export default function Page() {
               </div>
               {/* call center  */}
               <div className='mt-10'>
-                <div className="flex flex-col sm:flex-row sm:gap-20">
+                <div className='flex flex-col sm:flex-row sm:gap-20'>
                   <div className='mb-8'>
                     <span className='text-[#414141]'>call center</span>
                     <p className='text-[19px] font-medium'>09169305000</p>
@@ -34,7 +34,9 @@ export default function Page() {
                   </div>
                   <div className='mb-8'>
                     <span className='text-[#414141]'>Email address</span>
-                    <p className='text-[19px] font-medium'>admin@momodustudios.com</p>
+                    <p className='text-[19px] font-medium'>
+                      admin@momodustudios.com
+                    </p>
                     <p className='text-[19px] font-medium'>
                       scoails@momodustudios.com
                     </p>
@@ -59,7 +61,7 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <div className="sm:w-[596px] w-full">
+            <div className='w-full sm:w-[596px]'>
               <ContactForm />
             </div>
           </div>

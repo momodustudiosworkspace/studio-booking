@@ -10,18 +10,18 @@ const Statistics = (): React.JSX.Element => {
     { label: "client rating", value: "4.5/5", count: 4.5 },
   ];
   return (
-    <div className='flex sm:flex-row flex-col px-8 sm:justify-between border-[#CCCCCC] border-b-[1px] border-t-[1px]'>
+    <div className='flex flex-col border-t-[1px] border-b-[1px] border-[#CCCCCC] px-8 sm:flex-row sm:justify-between'>
       {STATISTICS.map((stat, index) => (
         <div
           key={index}
-          className={`flex flex-col items-center gap-3 border-b-[1px] border-gray-500 sm:border-none py-10 ${index === 0 ? "border-t-[1px]" : "border-t-0"} `}
+          className={`flex flex-col items-center gap-3 border-b-[1px] border-gray-500 py-10 sm:border-none ${index === 0 ? "border-t-[1px]" : "border-t-0"} `}
         >
           <CountUp
             end={stat.count}
             duration={5}
             delay={2}
             suffix='+'
-            className='sm:text-5xl text-3xl font-bold'
+            className='text-3xl font-bold sm:text-5xl'
           />
           {/* <h2 className=''>{stat.value}</h2> */}
           <p className='text-gray-500'>{stat.label}</p>

@@ -5,12 +5,21 @@ import nairaSymbol from "@/utils/symbols";
 import { Form, Formik } from "formik";
 import React, { useEffect, useRef } from "react";
 
+interface LocationProps {
+  state?: string;
+  address?: string;
+}
 interface bookingsPreviewProps {
+  location: LocationProps | null | undefined;
+  price: number | null | undefined;
+  sesstionType: string | null | undefined;
   proceedBtnRef: React.RefObject<HTMLButtonElement | null>;
-  setbookingsPreview: (values: { state: string; address: string }) => void;
 }
 
 const BookingsPreview = ({
+  location,
+  price,
+  sesstionType,
   proceedBtnRef,
 }: bookingsPreviewProps): React.JSX.Element => {
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
@@ -24,7 +33,7 @@ const BookingsPreview = ({
   }, [proceedBtnRef]);
 
   return (
-    <div className='w-full'>
+    <div className='w-full sm:w-[490px]'>
       <Formik
         initialValues={{
           state: "",
@@ -42,19 +51,20 @@ const BookingsPreview = ({
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='person-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
-                  wedding shoot
+                  {sesstionType} shoot
                 </p>
               </div>
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='phone-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
+                  {/* user phone number  */}
                   +234 908 124 4447
                 </p>
               </div>
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='marker-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
-                  2464 Royal Ln. Mesa, New Jersey 45463
+                  {location?.address} {location?.state}
                 </p>
               </div>
             </div>
@@ -67,7 +77,8 @@ const BookingsPreview = ({
                   price
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}200,000
+                  {nairaSymbol()}
+                  {price?.toLocaleString("en-US")}
                 </p>
               </div>
               <div className='flex items-center justify-between'>
@@ -75,7 +86,7 @@ const BookingsPreview = ({
                   VAT
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}200,000
+                  0.7%
                 </p>
               </div>
               <div className='flex w-full flex-col items-start justify-between gap-2 sm:flex-row sm:items-center'>
@@ -86,6 +97,7 @@ const BookingsPreview = ({
                   <input
                     type='text'
                     placeholder='Enter code'
+                    name='discount_code'
                     className='h-[37px] w-full border-b-[1px] border-white bg-white px-2 text-[14px] outline-0 transition-all ease-in-out focus:border-b-2 sm:w-[224px] sm:border-black'
                   />
                   <button className='absolute top-2 right-1 text-[14px] font-semibold capitalize underline'>
@@ -98,7 +110,8 @@ const BookingsPreview = ({
                   total
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}200,000
+                  {nairaSymbol()}
+                  {price?.toLocaleString("en-US")}
                 </p>
               </div>
             </div>

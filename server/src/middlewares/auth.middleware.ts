@@ -13,7 +13,7 @@ export function authMiddleWare(
   try {
     const header = req.headers.authorization;
     if (!header?.startsWith("Bearer ")) {
-      res.status(401).json({ message: "Unauthorized: Missing or invalid header" });
+      res.status(401).json({ message: "User is not logged in." });
       return;
     }
 
@@ -36,8 +36,6 @@ export function authMiddleWare(
     }
 
     req.userId = decoded.userId;
-      console.log("Middleware: ", req);
-    
     next(); // ✅ Only reach next() after all checks
   } catch (error) {
     console.error("JWT verification error:", error);

@@ -1,5 +1,9 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import DashboardHeader from "./DashboardHeader";
+import { useSession } from "next-auth/react";
+import { useAppDispatch } from "@/hooks/hooks";
+import { setToken } from "@/redux/slices/authSlice";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -8,12 +12,28 @@ interface DashboardLayoutProps {
     paragraph: string;
     linkText: string;
     badge?: string;
-    badgeStatus?: number;
+    badgeStatus?:
+      | undefined
+      | "pending"
+      | "confirmed"
+      | "completed"
+      | "cancelled";
     badgeClass?: string;
     href: string;
   };
 }
 const DashboardLayout = ({ children, headerProps }: DashboardLayoutProps) => {
+  const { data: session } = useSession();
+  const tokenDispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (session?.user.accessToken) {
+      tokenDispatch(
+        setToken({ isLoggedIn: true, token: session.user.accessToken })
+      );
+    }
+  }, [session, tokenDispatch]);
+
   return (
     <section className='flex w-full flex-col gap-10'>
       <DashboardHeader

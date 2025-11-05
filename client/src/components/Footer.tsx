@@ -59,30 +59,33 @@ const Footer = (): React.JSX.Element => {
     },
   ];
   return (
-    <div className='relative bg-black sm:px-0 px-5 py-10 text-white'>
-      <div className="relative flex flex-col items-center">
-        <div className='my-4 sm:mb-20 mb-5 flex flex-col items-center justify-center'>
-          <Link href={"/"} className="sm:hidden flex">
+    <div className='relative bg-black px-5 py-10 text-white sm:px-0'>
+      <div className='relative flex flex-col items-center'>
+        <div className='my-4 mb-5 flex flex-col items-center justify-center sm:mb-20'>
+          <Link href={"/"} className='flex sm:hidden'>
             {" "}
             <BaseIcons value='logo-white' />
           </Link>
-          <Link href={"/"} className="hidden sm:flex">
+          <Link href={"/"} className='hidden sm:flex'>
             {" "}
             <FooterIcons value='desktop-logo-white' />
           </Link>
           <p className='font-semibold text-white'>Impossible is nothing</p>
         </div>
-        <div className="w-full sm:mb-20 flex justify-center">
-          <div className='flex sm:flex-row sm:w-[1440px] flex-col sm:justify-between gap-8 py-3'>
+        <div className='flex w-full justify-center sm:mb-20'>
+          <div className='flex flex-col gap-8 py-3 sm:w-[1440px] sm:flex-row sm:justify-between'>
             {FOOTER_LINKS?.map((link, key) => (
-              <div key={key} className="w-full sm:w-[320px]">
+              <div key={key} className='w-full sm:w-[320px]'>
                 <h3 className='mb-4 text-lg font-semibold text-white/80 capitalize'>
                   {link?.title}
                 </h3>
 
                 <ul className='flex flex-col gap-4'>
                   {link?.links?.map((sublink, key) => (
-                    <li key={key} className={`sm:text-[16px] text-sm font-medium`}>
+                    <li
+                      key={key}
+                      className={`text-sm font-medium sm:text-[16px]`}
+                    >
                       {sublink?.href != "" ? (
                         <Link
                           href={sublink.href}
@@ -101,9 +104,8 @@ const Footer = (): React.JSX.Element => {
           </div>
         </div>
 
-
         {/* Mobile footer form  */}
-        <div className='mt-3 mb-20 sm:hidden flex'>
+        <div className='mt-3 mb-20 flex sm:hidden'>
           <Formik
             initialValues={{ email: "" }}
             onSubmit={values => {
@@ -162,9 +164,9 @@ const Footer = (): React.JSX.Element => {
           </Formik>
         </div>
 
-        <div className="flex sm:flex-row flex-col w-full border-t-[1px] border-gray-800 sm:justify-between items-center sm:w-[1440px] sm:pt-5">
+        <div className='flex w-full flex-col items-center border-t-[1px] border-gray-800 sm:w-[1440px] sm:flex-row sm:justify-between sm:pt-5'>
           <div>
-            <p className='w-full  py-4 sm:text-[16px] text-xs text-[#AAAAAA]'>
+            <p className='w-full py-4 text-xs text-[#AAAAAA] sm:text-[16px]'>
               © 2025 momodu studios. All rights reserved.
             </p>
           </div>

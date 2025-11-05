@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import DashboardLayout from "./DashboardLayout";
 import { Field, Form, Formik } from "formik";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 
 const DashboardProfile = () => {

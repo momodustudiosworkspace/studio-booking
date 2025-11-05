@@ -8,45 +8,68 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface SignProps {
   signin: boolean;
   setSignin: (value: boolean) => void;
 }
 const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
+  const navigate = useRouter();
+
   return (
     <AuthForm
       headerText='Log in to your account'
       paragraphText={`Don't have an account?`}
       signin={signin}
+      imgUrl=''
       setSignin={() => setSignin(!signin)}
     >
       <Formik
         initialValues={{
-          fname: "",
-          lname: "",
           email: "",
           password: "",
         }}
         onSubmit={async values => {
-          const res = await signIn("credentials", {
-            redirect: false,
-            email: values.email,
-            password: values.password,
-          });
+          try {
+            const res = await signIn("credentials", {
+              redirect: false,
+              email: values.email,
+              password: values.password,
+            });
 
-          if (!res?.ok) {
-            // toast.error(data.error || data.message || "Registration failed");
+            if (!res?.ok) {
+              // toast.error(data.error || data.message || "Registration failed");
+              toast.error(AuthToast, {
+                data: {
+                  title: "Sign in failed",
+                  content: `${res?.error || "Login failed"}`,
+                },
+                ariaLabel: "Something went wrong",
+                icon: false,
+                theme: "colored",
+              });
+              return;
+            }
+
+            if (res?.ok && searchParams && redirectTo) {
+              // Redirect back
+              navigate.push(redirectTo);
+            } else {
+              navigate.push("/dashboard");
+            }
+          } catch (error) {
             toast.error(AuthToast, {
               data: {
                 title: "Sign in failed",
-                content: `${res?.error || "Registration failed"}`,
+                content: `${error || "Login failed, try again later"}`,
               },
               ariaLabel: "Something went wrong",
               icon: false,
               theme: "colored",
             });
-            return;
           }
         }}
       >

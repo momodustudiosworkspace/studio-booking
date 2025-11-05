@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 :root {
   /* Brand colors */
   --brand-black: #000000;
@@ -66,4 +67,34 @@ body {
 }
 button:hover {
   cursor: pointer;
+}
+
+/* Make selected and keyboard-selected days black with white text */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-radius: 0.5rem !important; /* optional - round it nicely */
+}
+
+/* Hover effect (consistent with brand) */
+.react-datepicker__day:hover {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+/* Disabled days styling */
+.react-datepicker__day--disabled {
+  color: #d1d5db !important; /* Tailwind gray-300 */
+  text-decoration: line-through;
+}
+
+.custom-calendar {
+  width: 400px; /* Set your desired width */
+  height: 400px; /* Set your desired height */
+}
+enter code here
+/* Optional: Additional styling for inner elements */
+.custom-calendar .react-datepicker__month-container {
+  height: 100%; /* Ensure the inner container takes the full height */
 }

@@ -1,32 +1,51 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { BaseIcons } from "@/assets/icons/BaseIcons";
 import ChooseBookingSession from "./ChooseBookingSession";
 import { useRouter } from "next/navigation";
 import Button from "../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
-import ReserveSlot from "./ReserveSlot";
 import BookingsPreview from "./BookingsPreview";
 import BookingsLocation from "./BookingsLocation";
 import PageMessage from "../PageMessage";
+import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
+import {
+  resetBookingState,
+  setBookingSteps,
+} from "@/redux/slices/bookingSlice";
+import BookingCalendar from "./BookingCalendar";
+import { useCreateBookingMutation } from "@/redux/services/booking/booking.api";
+import { toast } from "react-toastify";
+import { AuthToast } from "../toast/ToastMessage";
+import { useSession } from "next-auth/react";
+import LinkButton from "../ui/LinkButton";
+import BookingPackages from "./BookingPackages";
 
 const Bookings = (): React.JSX.Element => {
-  const [bookingStep, setBookingStep] = useState<number>(0);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { data: session } = useSession();
+
+  const bookingData = useAppSelector(state => state.booking);
+
+  const [bookingStep, setBookingStep] = useState<number>(
+    bookingData.bookingStep || 0
+  );
+  const [onProceed, setOnProceed] = useState<(() => void) | null>(null);
+  const [createBooking, { isLoading, isSuccess, error, isError }] =
+    useCreateBookingMutation();
 
   const proceedBtnRef = useRef<HTMLButtonElement>(null);
 
-  const [reserveSlot, setReserveSlot] = useState<{
-    date: Date | null;
-    time: Date | null;
-  }>({
-    date: null,
-    time: null,
-  });
-  const [location, setLocation] = useState<{ state: string; address: string }>({
-    state: "",
-    address: "",
-  });
-  const router = useRouter();
+  // const [reserveSlot, setReserveSlot] = useState<{
+  //   date: Date | null;
+  //   time: Date | null;
+  // }>({
+  //   date: null,
+  //   time: null,
+  // });
+
+  // Booking Steps
   const BOOKING_STEPS: {
     id: number;
     component: React.ReactNode;
@@ -35,27 +54,31 @@ const Bookings = (): React.JSX.Element => {
   }[] = [
     {
       id: 1,
-      component: <ChooseBookingSession />,
+      component: (
+        <ChooseBookingSession bookingSession={bookingData.sessionType} />
+      ),
       header: "Choose Your Session",
       paragraph: "You can customize details in the next steps",
     },
     {
       id: 2,
       component: (
-        <ReserveSlot
-          proceedBtnRef={proceedBtnRef}
-          setReserveSlot={values => setReserveSlot({ ...values })}
+        <BookingPackages
+          bookingPackage={bookingData.package}
+          setOnProceed={setOnProceed}
+          // setReserveSlot={values => setReserveSlot({ ...values })}
         />
       ),
-      header: "reserve a slot",
+      header: `Select from ${bookingData.sessionType} packages`,
       paragraph: "We’ll hold your slot while you complete checkout",
     },
     {
       id: 3,
       component: (
-        <BookingsLocation
-          proceedBtnRef={proceedBtnRef}
-          setbookingsLocation={values => setLocation({ ...values })}
+        <BookingCalendar
+          selectedBookingDate={bookingData.date || null}
+          selectedBookingStartTime={bookingData.startTime || null}
+          setOnProceed={setOnProceed}
         />
       ),
       header: "reserve a slot",
@@ -64,78 +87,225 @@ const Bookings = (): React.JSX.Element => {
     {
       id: 4,
       component: (
+        <BookingsLocation
+          selectedBookingLocation={bookingData.location}
+          selectedDefaultLocation={bookingData.defaultLocation || null}
+          setOnProceed={setOnProceed}
+        />
+      ),
+      header: "Choose location",
+      paragraph: "We’ll hold your slot while you complete checkout",
+    },
+    {
+      id: 5,
+      component: (
         <BookingsPreview
+          location={bookingData.location}
+          price={bookingData.package?.price}
+          sesstionType={bookingData.sessionType}
           proceedBtnRef={proceedBtnRef}
-          setbookingsPreview={values => setLocation({ ...values })}
         />
       ),
       header: "preview",
       paragraph: "We’ll hold your slot while you complete checkout",
     },
     {
-      id: 5,
+      id: 6,
       component: (
         <PageMessage
-          status={"success"}
-          messageHeader={"Booking completed"}
-          messageParagraph={"You can visit your dashbord to view all bookings"}
-          btnText={"Go to dashboard"}
-          href={"/dashboard"}
+          status={isSuccess && bookingStep === 5 ? "success" : "error"}
+          messageHeader={
+            isSuccess && bookingStep === 5
+              ? "Booking completed"
+              : "Booking failed"
+          }
+          // Pass error message from server
+          messageParagraph={
+            isSuccess && bookingStep === 5
+              ? "You can visit your dashbord to view all bookings"
+              : "There was an issue completing your booking."
+          }
+          btnText={isSuccess && bookingStep === 5 ? "Go to dashboard" : ""}
+          href={isSuccess && bookingStep === 5 ? "/dashboard" : ""}
         />
       ),
       header: "",
       paragraph: "",
     },
   ];
-  const handleBookingStepsProceed = () => {
+
+  const handleBookingStepsProceed = async () => {
+    if (!proceedBtnRef.current) {
+      return console.log("Clicked not working");
+    }
+
+    if (bookingStep === 4) {
+      console.log("Submit bookings");
+
+      return await handlBookingSubmit();
+    }
+    proceedBtnRef.current.onclick = () => {
+      // hiddenSubmitRef.current?.click();
+
+      console.log("Clicked");
+    };
+
     setBookingStep(prev => prev + 1);
+
+    console.log("handleBookingStepsProceed");
   };
 
-  return (
-    <section className='flex items-center justify-center px-5'>
-      <div className='w-full sm:w-[460px]'>
-        <button
-          className='flex h-10 w-10 items-center justify-center rounded-full bg-[#FAFAFA]'
-          onClick={() => {
-            if (bookingStep === 0) {
-              return router.push("/web");
-            }
-            setBookingStep(prev => prev - 1);
-          }}
-        >
-          <BaseIcons value='arrow-left-black' />
-        </button>
-        <div className='mt-10 flex flex-col gap-2'>
-          <h1 className='text-[28px] font-extrabold capitalize'>
-            {BOOKING_STEPS[bookingStep]?.header}
-          </h1>
-          <div className='flex items-center gap-1'>
-            <p>{BOOKING_STEPS[bookingStep]?.paragraph}</p>
-          </div>
-        </div>
-        {bookingStep < 2
-          ? ""
-          : bookingStep === 3 && reserveSlot?.date
-            ? reserveSlot.date.toLocaleString()
-            : ""}
-        {location.state && location.state}
+  // Submit booking
+  const handlBookingSubmit = async () => {
+    try {
+      // 👇 Clean & prepare payload
+      const payload = {
+        // userId: bookingData.userId, // or get from auth slice if available
+        date: bookingData.date || null,
+        startTime: bookingData.startTime || null,
+        studioRoom: bookingData.studioRoom || null,
+        sessionType: bookingData.sessionType || null,
+        price: bookingData.package?.price || null,
+        location: bookingData.location || null,
+        // notes: bookingData.notes,
+      };
 
-        <div className='mt-14 mb-10 flex w-full items-center justify-center'>
-          {BOOKING_STEPS[bookingStep]?.component}
-        </div>
-        {bookingStep !== 4 && (
-          <div className='flex w-full justify-end'>
-            <Button
-              ref={proceedBtnRef}
-              text={"Proceed"}
-              onClick={handleBookingStepsProceed}
-              icon={<RedirectArrowWhite />}
-              iconPosition='right'
-              className='w-[125px]'
-              size='md'
-            />
+      // 🔥 Send to backend
+      const response = await createBooking(payload).unwrap();
+
+      console.log("response: ", response);
+
+      if (isError) {
+        return toast.error(AuthToast, {
+          data: {
+            title: "Error booking",
+            content: `${(error as any)?.data?.message || "Booking failed"}`,
+          },
+          ariaLabel: "Something went wrong",
+          icon: false,
+          theme: "colored",
+        });
+      }
+      setBookingStep(prev => prev + 1);
+
+      return dispatch(resetBookingState());
+    } catch (err: any) {
+      setBookingStep(prev => prev);
+      return toast.error(AuthToast, {
+        data: {
+          title: "Booking failed",
+          content: `${err?.data?.message || "User not logged in"}`,
+        },
+        ariaLabel: "Something went wrong",
+        icon: false,
+        theme: "colored",
+      });
+    }
+  };
+
+  // When proceed button is clicked, call the child handler first, then step forward
+  const handleProceedClick = useCallback(async () => {
+    // if (onProceed && bookingStep > 3) {
+    //   console.log("submitting form");
+
+    //   await handlBookingSubmit()
+    // }
+    if (onProceed) {
+      onProceed(); // Call child-specific logic
+    } else {
+      // fallback
+      console.log("No child handler registered");
+    }
+  }, [onProceed]);
+
+  useEffect(() => {
+    const btn = proceedBtnRef.current;
+    if (!btn) return;
+    btn.addEventListener("click", handleProceedClick);
+
+    return () => btn.removeEventListener("click", handleProceedClick);
+  }, [handleProceedClick]);
+
+  useEffect(() => {
+    if (bookingStep < 4) {
+      dispatch(setBookingSteps({ bookingStep: bookingStep }));
+    }
+  }, [bookingStep, dispatch]);
+  return (
+    <section className='flex min-h-screen items-center justify-center px-5'>
+      <div className='flex w-full justify-center'>
+        <div className='flex w-full justify-center'>
+          <div className='mt-20 mb-10 flex flex-col gap-4'>
+            {bookingStep !== 5 && (
+              <button
+                className='flex h-10 w-10 items-center justify-center rounded-full bg-[#FAFAFA]'
+                onClick={() => {
+                  if (bookingStep === 0) {
+                    return router.push("/web");
+                  }
+                  setBookingStep(prev => prev - 1);
+                }}
+              >
+                <BaseIcons value='arrow-left-black' />
+              </button>
+            )}
+            <div className='mt-5 flex flex-col gap-2'>
+              <h1 className='text-[28px] font-extrabold capitalize'>
+                {BOOKING_STEPS[bookingStep]?.header}
+              </h1>
+              <div className='flex items-center gap-1'>
+                <p>{BOOKING_STEPS[bookingStep]?.paragraph}</p>
+              </div>
+            </div>
+
+            {/* {bookingStep !== null && bookingStep < 2
+              ? ""
+              : bookingStep === 3 && reserveSlot?.date
+                ? reserveSlot.date.toLocaleString()
+                : ""} */}
+
+            {BOOKING_STEPS[bookingStep]?.component}
+            {bookingStep !== 5 && (
+              <div className='mt-4 flex w-full justify-end'>
+                {!session?.user.accessToken && bookingStep === 4 ? (
+                  <LinkButton
+                    href='/auth?redirectTo=bookings'
+                    size='md'
+                    text='Login to book'
+                    icon={<RedirectArrowWhite />}
+                    iconPosition='right'
+                    className='w-auto shrink-0'
+                  />
+                ) : (
+                  <Button
+                    ref={proceedBtnRef}
+                    text={"Proceed"}
+                    onClick={handleBookingStepsProceed}
+                    icon={<RedirectArrowWhite />}
+                    iconPosition='right'
+                    className='w-[125px]'
+                    size='md'
+                    loading={isLoading}
+                  />
+                )}
+              </div>
+            )}
+            {!isSuccess && bookingStep > 4 && (
+              <div className='flex w-full justify-center'>
+                <Button
+                  text='Retry booking'
+                  onClick={() => setBookingStep(prev => prev - 1)}
+                  icon={<RedirectArrowWhite />}
+                  // disabled={!values.agree || isSubmitting}
+                  iconPosition='right'
+                  className='w-[180px]'
+                  size='md'
+                  // loading={isSubmitting}
+                />
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );
