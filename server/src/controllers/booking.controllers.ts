@@ -120,6 +120,9 @@ export async function getUserBookings(req: Request, res: Response) {
 export async function getBookingById(req: Request, res: Response) {
   try {
     const { id } = req.params;
+
+    console.log("Booking ID: ",id);
+    
     if (!mongoose.Types.ObjectId.isValid(Number(id)))
       return res.status(400).json({ message: "Invalid booking ID" });
 

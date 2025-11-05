@@ -55,7 +55,7 @@ const DashboardSideBar = () => {
   const pathname = usePathname();
 
   return (
-    <div className='h-screen w-[300px] -mt-[120px] z-50 pr-4 pt-[130px] sm:flex border-r-[1px] border-gray-200'>
+    <div className='h-screen w-[300px] -mt-[120px] z-40 pr-4 pt-[130px] sm:flex border-r-[1px] border-gray-200'>
       <nav className='w-full space-y-4'>
         {SIDEBAR_LINKS.map(link => (
           <Link

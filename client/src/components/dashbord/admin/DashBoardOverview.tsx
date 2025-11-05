@@ -5,6 +5,7 @@ import DashboardLayout from "./DashboardLayout";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import DashboardHeader from "./DashboardHeader";
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
+import BookingCard from "./cards/BookingCard";
 
 const DashBoardOverview = () => {
 
@@ -82,10 +83,10 @@ const DashBoardOverview = () => {
 
         
         {/* Bookings table  */}
-        <section className="h-[125px] w-full rounded-md bg-red-400 p-5 shadow">
+        <section className="max-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] p-5 shadow">
 
           {/* header section  */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-10">
             <DashboardHeader
               headerText={"Bookings"}
               paragraph={"All bookings record"}
@@ -114,6 +115,26 @@ const DashBoardOverview = () => {
               </div>
              
             </div>
+          </div>
+
+          {/* booking list  */}
+          <div className="flex flex-col gap-10">
+            <BookingCard id={""}
+              client_name={"Ekong Emmanuel"}
+              location={"outdoor"}
+              date={"19th October, 2025"}
+              time={""}
+
+              status="completed"
+            />
+            <BookingCard id={""}
+              client_name={"Ekong Emmanuel"}
+              location={"outdoor"}
+              date={"19th October, 2025"}
+              time={""}
+
+              status="pending"
+            />
           </div>
        </section>
       </section>

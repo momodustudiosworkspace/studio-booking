@@ -13,7 +13,7 @@ export function authMiddleWare(
   try {
     const header = req.headers.authorization;
     if (!header?.startsWith("Bearer ")) {
-      res.status(401).json({ message: "Unauthorized: Missing or invalid header" });
+      res.status(401).json({ message: "User is not logged in." });
       return;
     }
 
