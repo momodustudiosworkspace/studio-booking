@@ -34,11 +34,11 @@ const DashboardSideBar = () => {
       label: "Payments",
       icon: "cash-solid-black" as IconsType,
     },
-    {
-      href: "/admin/dashboard/report-and-analytics",
-      label: "Report & Analysis",
-      icon: "report-analytics-solid-black" as IconsType,
-    },
+    // {
+    //   href: "/admin/dashboard/report-and-analytics",
+    //   label: "Report & Analysis",
+    //   icon: "report-analytics-solid-black" as IconsType,
+    // },
     {
       href: "/dashboard/help",
       label: "Help",
