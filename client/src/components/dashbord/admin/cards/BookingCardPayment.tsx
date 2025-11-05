@@ -6,7 +6,7 @@ import LinkButton from "@/components/ui/LinkButton";
 // import { formatTime } from "@/utils/timeFormatter";
 import React from "react";
 
-interface BookingCardProps {
+interface BookingCardPaymentProps {
   id?: string | null | undefined;
   location?: string | null | undefined;
   date?: string | null | undefined;
@@ -14,14 +14,14 @@ interface BookingCardProps {
   time?: string | null | undefined;
   status: "cancelled" | "completed" | "pending" | "confirmed" | undefined;
 }
-const BookingCard = ({
+const BookingCardPayment = ({
   id,
   location,
   date,
   time,
   status,
   client_name,
-}: BookingCardProps) => {
+}: BookingCardPaymentProps) => {
   const statusStyle =
     status === "cancelled"
       ? "bg-red-200 text-red-500"
@@ -93,4 +93,4 @@ const BookingCard = ({
   );
 };
 
-export default BookingCard;
+export default BookingCardPayment;

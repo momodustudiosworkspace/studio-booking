@@ -40,14 +40,11 @@ declare module "next-auth" {
   }
 }
 
-const baseUrl = process.env["Production"]
-  ? process.env["API_BASE_URL"]
-  : process.env["API_BASE_URL_LOCAL"];
 
 // async function refreshAccessToken(token: JWT): Promise<JWT> {
 //   try {
 //     const res = await fetch(
-//       `${baseUrl}/user/auth/token/refresh/`,
+//       `${process.env["API_BASE_URL"]}/user/auth/token/refresh/`,
 //       {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
@@ -92,7 +89,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials): Promise<User | null> {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const res = await fetch(`${baseUrl}/auth/login/`, {
+        const res = await fetch(`${process.env["API_BASE_URL"]}/auth/login/`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -141,7 +138,7 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           // Example: send user info to your backend for signup/login
-          const res = await fetch(`${baseUrl}/auth/google-login`, {
+          const res = await fetch(`${process.env["API_BASE_URL"]}/auth/google-login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

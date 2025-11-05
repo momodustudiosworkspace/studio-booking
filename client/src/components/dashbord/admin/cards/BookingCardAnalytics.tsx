@@ -4,7 +4,7 @@ import React from "react";
 
 interface BookingCardAnalyticsProps {
   title: string;
-  count: number | 0;
+  count: number | string | 0;
   text: string;
   dataType: number;
 }

@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 
+
 export async function POST(req: Request): Promise<NextResponse<unknown>> {
   try {
     const body = await req.json();
 
-    const res = await fetch("http://localhost:5000/api/auth/register/", {
+    const res = await fetch(`${process.env["API_BASE_URL"] }/auth/register/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

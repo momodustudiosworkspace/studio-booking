@@ -76,14 +76,14 @@ const DashBoardOverview = () => {
         </div>
 
         {/* Bookings table  */}
-        <section className='max-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] p-5 shadow'>
+        <section className='max-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow mb-10'>
           {/* header section  */}
-          <div className='mb-10 flex items-center justify-between'>
+          <div className='mb-10 p-5 flex items-center justify-between'>
             <DashboardHeader
               headerText={"Bookings"}
               paragraph={"All bookings record"}
             />
-            <div className='flex items-center gap-10'>
+            <div className='flex items-center gap-10 '>
               <div className='relative w-full'>
                 <div className=''>
                   <div className='absolute top-3 left-1 text-[14px] font-semibold capitalize underline'>
@@ -108,23 +108,98 @@ const DashBoardOverview = () => {
           </div>
 
           {/* booking list  */}
-          <div className='flex flex-col gap-10'>
-            <BookingCard
-              id={""}
-              client_name={"Ekong Emmanuel"}
-              location={"outdoor"}
-              date={"19th October, 2025"}
-              time={""}
-              status='completed'
+          <div className='flex flex-col font-medium'>
+            <div className="flex items-center font-semibold gap-[120px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4">
+              <div className='flex shrink-0 justify-between sm:w-[480px] sm:items-center'>
+                <p>Booking ID</p>
+                <p>Client Name</p>
+                <p>Location</p>
+              </div>
+              <div className='flex items-center justify-center gap-2 sm:w-[200px]'>
+                <p>Date</p>
+              </div>
+              <div className='flex items-center gap-2 sm:w-[200px]'>
+                <p>Status</p>
+              </div>
+              <div className='flex gap-2 sm:items-center sm:justify-center'>
+                <p>Action</p>
+              </div>
+
+            </div>
+
+            {/* Bookings lists */}
+            <div className="flex flex-col gap-10 py-5 pl-4 pr-6">
+              <BookingCard
+                id={"jwjwhwhweje"}
+                client_name={"Ekong Emmanuel"}
+                location={"outdoor"}
+                date={"19th October, 2025"}
+                time={""}
+                status='completed'
+              />
+              <BookingCard
+                id={""}
+                client_name={"Ekong Emmanuel"}
+                location={"outdoor"}
+                date={"19th October, 2025"}
+                time={""}
+                status='pending'
+              />
+            </div>
+          </div>
+        </section>
+
+
+        {/* Clients table  */}
+        <section className='max-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
+          {/* header section  */}
+          <div className='mb-10 p-5 flex items-center justify-between'>
+            <DashboardHeader
+              headerText={"Clients"}
+              paragraph={"All clients record"}
             />
-            <BookingCard
-              id={""}
-              client_name={"Ekong Emmanuel"}
-              location={"outdoor"}
-              date={"19th October, 2025"}
-              time={""}
-              status='pending'
-            />
+
+          </div>
+
+          {/* client list  */}
+          <div className='flex flex-col font-medium'>
+            <div className="flex items-center font-semibold gap-[120px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4">
+              <div className='flex shrink-0 justify-between sm:w-[480px] sm:items-center'>
+                <p>Booking ID</p>
+                <p>Client Name</p>
+                <p>Location</p>
+              </div>
+              <div className='flex items-center justify-center gap-2 sm:w-[200px]'>
+                <p>Date</p>
+              </div>
+              <div className='flex items-center gap-2 sm:w-[200px]'>
+                <p>Status</p>
+              </div>
+              <div className='flex gap-2 sm:items-center sm:justify-center'>
+                <p>Action</p>
+              </div>
+
+            </div>
+
+            {/* Bookings lists */}
+            <div className="flex flex-col gap-10 py-5 pl-4 pr-6">
+              <BookingCard
+                id={"jwjwhwhweje"}
+                client_name={"Ekong Emmanuel"}
+                location={"outdoor"}
+                date={"19th October, 2025"}
+                time={""}
+                status='completed'
+              />
+              <BookingCard
+                id={""}
+                client_name={"Ekong Emmanuel"}
+                location={"outdoor"}
+                date={"19th October, 2025"}
+                time={""}
+                status='pending'
+              />
+          </div>
           </div>
         </section>
       </section>
