@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -25,7 +24,7 @@ export default function Layout({
   return (
     <section className='relative flex min-h-screen w-full flex-col justify-center overflow-y-hidden bg-no-repeat px-5 sm:h-full sm:justify-start sm:px-0'>
       {/* <ThemeToggle /> */}
-  
+
       <div className='absolute top-0 bottom-0 z-10 flex h-full w-full bg-black/30 sm:hidden'></div>
 
       <div className='relative z-20 h-full'>{children}</div>

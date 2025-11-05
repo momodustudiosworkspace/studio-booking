@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useMemo } from "react";
 import DashboardLayout from "./DashboardLayout";
 import { IconsType } from "@/assets/icons/dashboard/DashboardIcons";
@@ -9,16 +9,17 @@ import BookingCardService from "./cards/BookingCardService";
 import { useGetBookingsQuery } from "@/redux/services/booking/booking.api";
 
 const DashBoardOverview = () => {
-
   // Call the query hook
-  const { data: bookings, error, isLoading, } = useGetBookingsQuery();
+  const { data: bookings, error, isLoading } = useGetBookingsQuery();
 
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
     const total = bookings?.length || 0;
-    const completed = bookings?.filter(b => b.status === "completed").length || 0;
+    const completed =
+      bookings?.filter(b => b.status === "completed").length || 0;
     const upcoming = bookings?.filter(b => b.status === "pending").length || 0;
-    const cancelled = bookings?.filter(b => b.status === "cancelled").length || 0;
+    const cancelled =
+      bookings?.filter(b => b.status === "cancelled").length || 0;
 
     return [
       {

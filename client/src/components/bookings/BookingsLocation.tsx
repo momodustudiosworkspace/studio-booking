@@ -5,10 +5,9 @@ import { setBookingLocationType } from "@/redux/slices/bookingSlice";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 
-
 interface BookingLocationOptions {
   state?: string;
-  address?: string
+  address?: string;
 }
 interface BookingsLocationProps {
   selectedDefaultLocation: number | null;
@@ -16,13 +15,16 @@ interface BookingsLocationProps {
   setOnProceed: React.Dispatch<React.SetStateAction<(() => void) | null>>;
 }
 
-const BookingsLocation = ({ selectedBookingLocation, selectedDefaultLocation, setOnProceed }: BookingsLocationProps): React.JSX.Element => {
-
-  const dispatch = useAppDispatch()
+const BookingsLocation = ({
+  selectedBookingLocation,
+  selectedDefaultLocation,
+  setOnProceed,
+}: BookingsLocationProps): React.JSX.Element => {
+  const dispatch = useAppDispatch();
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
-  const [selectedbookingsLocation, setSelectedbookingsLocation] = useState<number | null
+  const [selectedbookingsLocation, setSelectedbookingsLocation] = useState<
+    number | null
   >(selectedDefaultLocation || null);
-
 
   const BOOKING_LOCATIONS: {
     title: string;
@@ -46,21 +48,21 @@ const BookingsLocation = ({ selectedBookingLocation, selectedDefaultLocation, se
     setOnProceed(() => () => {
       hiddenSubmitRef.current?.click();
       if (selectedbookingsLocation === 1) {
-        dispatch(setBookingLocationType({
-          location: {
-            state: 'Abuja',
-            address: 'C1 Melita Plaze, Gimbiya street, Garki'
-          },
-          defaultLocation: selectedbookingsLocation
-        }))
+        dispatch(
+          setBookingLocationType({
+            location: {
+              state: "Abuja",
+              address: "C1 Melita Plaze, Gimbiya street, Garki",
+            },
+            defaultLocation: selectedbookingsLocation,
+          })
+        );
       }
     });
 
     // Cleanup when leaving this step
     return () => setOnProceed(null);
   }, [setOnProceed, selectedbookingsLocation, dispatch]);
-
-
 
   return (
     <div className='w-full sm:w-[450px]'>
@@ -72,7 +74,6 @@ const BookingsLocation = ({ selectedBookingLocation, selectedDefaultLocation, se
             onClick={() => {
               console.log(" setSelectedbookingsLocation(location.id);");
               setSelectedbookingsLocation(location.id);
-
             }}
           >
             <BaseIcons value={location?.icon} />
@@ -89,18 +90,18 @@ const BookingsLocation = ({ selectedBookingLocation, selectedDefaultLocation, se
           onSubmit={values => {
             if (selectedbookingsLocation > 1) {
               if (values.state && values.address) {
-                dispatch(setBookingLocationType({
-                  location: {
-                    state: values.state,
-                    address: values.address,
-                  },
-                  defaultLocation: selectedbookingsLocation
-                }))
+                dispatch(
+                  setBookingLocationType({
+                    location: {
+                      state: values.state,
+                      address: values.address,
+                    },
+                    defaultLocation: selectedbookingsLocation,
+                  })
+                );
               }
             }
-          }
-
-          }
+          }}
         >
           <Form className='flex flex-col gap-10 text-black'>
             {/* Date field */}
@@ -134,9 +135,7 @@ const BookingsLocation = ({ selectedBookingLocation, selectedDefaultLocation, se
               type='submit'
               ref={hiddenSubmitRef}
               className='hidden'
-              onClick={() => {
-
-              }}
+              onClick={() => {}}
             ></button>
           </Form>
         </Formik>

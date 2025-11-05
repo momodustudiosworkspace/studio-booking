@@ -25,20 +25,20 @@ const PageMessage = ({
       <BaseIcons value='cancel-solid-red' />
     );
   return (
-    <div className='flex w-full text-center  flex-col items-center justify-center gap-4 sm:w-[550px]'>
+    <div className='flex w-full flex-col items-center justify-center gap-4 text-center sm:w-[550px]'>
       <div>{icon}</div>
-      <h1 className='font-semibold sm:text-[42px]'>
-        {messageHeader}
-      </h1>
+      <h1 className='font-semibold sm:text-[42px]'>{messageHeader}</h1>
       <p>{messageParagraph}</p>
-      {btnText && <LinkButton
-        href={href}
-        size='md'
-        className='w-auto'
-        text={btnText}
-        icon={<RedirectArrowWhite />}
-        iconPosition='right'
-      />}
+      {btnText && (
+        <LinkButton
+          href={href}
+          size='md'
+          className='w-auto'
+          text={btnText}
+          icon={<RedirectArrowWhite />}
+          iconPosition='right'
+        />
+      )}
     </div>
   );
 };

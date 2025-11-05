@@ -37,7 +37,10 @@ const UserNavbar = ({ user }: UserProps) => {
         )}
       </button>
       <div className='hidden items-center gap-4 sm:flex'>
-        <button className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase' onClick={() => redirect("/dashboard")}>
+        <button
+          className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase'
+          onClick={() => redirect("/dashboard")}
+        >
           {user.email?.[0]}
           {user.email?.[1]}
         </button>

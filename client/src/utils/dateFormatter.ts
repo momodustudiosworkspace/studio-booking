@@ -1,13 +1,16 @@
 import { format } from "date-fns";
 
 type DateFormatType =
-  | "short"        // Sat, Dec 4, 2025
-  | "numeric"      // 2025-12-04
-  | "monthYear"    // Dec 2025
-  | "time"         // 2:00 PM
-  | "full";        // Saturday, December 4, 2025
+  | "short" // Sat, Dec 4, 2025
+  | "numeric" // 2025-12-04
+  | "monthYear" // Dec 2025
+  | "time" // 2:00 PM
+  | "full"; // Saturday, December 4, 2025
 
-export const formatDate = (dateString: string | null | undefined, type: DateFormatType = "short") => {
+export const formatDate = (
+  dateString: string | null | undefined,
+  type: DateFormatType = "short"
+) => {
   const date = new Date(`${dateString}`);
 
   switch (type) {

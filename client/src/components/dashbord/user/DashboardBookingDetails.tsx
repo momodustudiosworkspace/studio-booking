@@ -14,14 +14,14 @@ import { formatDate } from "@/utils/dateFormatter";
 import { formatTime } from "@/utils/timeFormatter";
 import nairaSymbol from "@/utils/symbols";
 
-
 interface DashboardBookingDetailsProps {
   booking?: BookingType;
   isLoading: boolean;
 }
-const DashboardBookingDetails = ({ booking, isLoading }: DashboardBookingDetailsProps) => {
-
-
+const DashboardBookingDetails = ({
+  booking,
+  isLoading,
+}: DashboardBookingDetailsProps) => {
   const [totalSelectedPhotos, setTotalSelectedPhotos] = useState<number>(0);
 
   // Set a condition for the link:
@@ -82,9 +82,11 @@ const DashboardBookingDetails = ({ booking, isLoading }: DashboardBookingDetails
               </div>
               <div className='flex w-full items-center justify-between capitalize'>
                 <p className='font-bold'>date & time</p>
-                <p className='font-medium'>{formatDate(booking.date)}, {formatTime(booking.startTime)}</p>
+                <p className='font-medium'>
+                  {formatDate(booking.date)}, {formatTime(booking.startTime)}
+                </p>
               </div>
-              <div className='flex w-full items-center sm:justify-between gap-10 capitalize'>
+              <div className='flex w-full items-center gap-10 capitalize sm:justify-between'>
                 <p className='font-bold'>location</p>
                 <p className='font-medium'>{booking.location?.address}</p>
               </div>
@@ -93,16 +95,21 @@ const DashboardBookingDetails = ({ booking, isLoading }: DashboardBookingDetails
                 {/* <p className='font-medium'>ekong emmanuel</p> */}
                 {/* <p className='font-bold'></p> */}
                 <p className='font-medium'>{booking.location?.state}</p>
-
               </div>
               <div className='flex flex-col gap-7 rounded-md bg-[#FAFAFA] px-4 py-5'>
                 <div className='flex w-full items-center justify-between capitalize'>
                   <p className='font-bold'>total</p>
-                  <p className='font-medium'>{nairaSymbol()}{booking.price?.toLocaleString()}</p>
+                  <p className='font-medium'>
+                    {nairaSymbol()}
+                    {booking.price?.toLocaleString()}
+                  </p>
                 </div>
                 <div className='flex w-full items-center justify-between capitalize'>
                   <p className='font-bold'>paid</p>
-                  <p className='font-medium'>{nairaSymbol()}{booking.price?.toLocaleString()}</p>
+                  <p className='font-medium'>
+                    {nairaSymbol()}
+                    {booking.price?.toLocaleString()}
+                  </p>
                 </div>
 
                 <div className='flex w-full items-center justify-between capitalize'>

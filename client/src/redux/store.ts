@@ -3,14 +3,14 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { combineReducers } from "redux";
 import auth from "./slices/authSlice";
-import booking from "./slices/bookingSlice"
+import booking from "./slices/bookingSlice";
 import { baseApi } from "./services/api";
 
 // Combine all reducers
 const rootReducer = combineReducers({
   auth: auth,
   booking: booking,
-   [baseApi.reducerPath]: baseApi.reducer, // 👈 add API reducer
+  [baseApi.reducerPath]: baseApi.reducer, // 👈 add API reducer
 });
 
 // Persist config

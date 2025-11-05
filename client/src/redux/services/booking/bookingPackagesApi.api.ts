@@ -1,12 +1,12 @@
 // src/redux/services/booking.api.ts
-import { baseApi } from '../api';
-import { BookingType } from '@/types/booking';
+import { baseApi } from "../api";
+import { BookingType } from "@/types/booking";
 
 export const bookingPackagesApi = baseApi.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     getBookingPackages: builder.query<BookingType[], void>({
-      query: () => '/bookings/packages',
-      providesTags: ['Bookings'],
+      query: () => "/bookings/packages",
+      providesTags: ["Bookings"],
     }),
   }),
   overrideExisting: false,

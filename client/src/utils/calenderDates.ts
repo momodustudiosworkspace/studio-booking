@@ -18,7 +18,4 @@ export {
   inRange,
   min,
   max,
-} from 'date-arithmetic'
-
-
-
+} from "date-arithmetic";

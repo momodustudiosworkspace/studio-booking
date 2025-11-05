@@ -8,7 +8,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { JWT } from "next-auth/jwt";
 
-
 /**
  * --- Type Augmentation ---
  */
@@ -206,7 +205,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user = {
           ...session.user,
-accessToken : token.accessToken,
+          accessToken: token.accessToken,
           image: token.picture ?? null,
           isMember: token.isMember ?? null,
           name: token.name ?? null,

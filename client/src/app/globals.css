@@ -69,7 +69,6 @@ button:hover {
   cursor: pointer;
 }
 
-
 /* Make selected and keyboard-selected days black with white text */
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
@@ -90,13 +89,12 @@ button:hover {
   text-decoration: line-through;
 }
 
-
 .custom-calendar {
-    width: 400px; /* Set your desired width */
-    height: 400px; /* Set your desired height */
+  width: 400px; /* Set your desired width */
+  height: 400px; /* Set your desired height */
 }
 enter code here
 /* Optional: Additional styling for inner elements */
 .custom-calendar .react-datepicker__month-container {
-    height: 100%; /* Ensure the inner container takes the full height */
+  height: 100%; /* Ensure the inner container takes the full height */
 }

@@ -8,7 +8,7 @@ import React from "react";
 
 interface BookingLocationOptions {
   state?: string;
-  address?: string
+  address?: string;
 }
 interface BookingCardProps {
   id?: string | null | undefined;
@@ -17,8 +17,7 @@ interface BookingCardProps {
   date?: string | null | undefined;
   time?: string | null | undefined;
   amount?: number | null | undefined;
-  status: "cancelled" | "completed" | "pending" | "confirmed" | undefined
-  ;
+  status: "cancelled" | "completed" | "pending" | "confirmed" | undefined;
 }
 const BookingCard = ({
   id,
@@ -50,9 +49,7 @@ const BookingCard = ({
             ? "confirmed"
             : "";
   return (
-    <div
-      className='flex flex-col justify-between gap-3 rounded-md bg-white p-4 shadow sm:flex-row sm:items-center sm:gap-0'
-    >
+    <div className='flex flex-col justify-between gap-3 rounded-md bg-white p-4 shadow sm:flex-row sm:items-center sm:gap-0'>
       {/* Booking Details  */}
       <div className='flex shrink-0 gap-4 sm:w-[500px] sm:items-center'>
         <div
@@ -71,7 +68,9 @@ const BookingCard = ({
               {statusText}
             </span>
           </div>
-          <p className='text-[14px] sm:text-[16px]'>{location?.address} {location?.state}</p>
+          <p className='text-[14px] sm:text-[16px]'>
+            {location?.address} {location?.state}
+          </p>
         </div>
       </div>
       {/* Booking date  */}
@@ -83,7 +82,9 @@ const BookingCard = ({
         </div>
         <div>
           <div className='mb-1 flex gap-2'>
-            <h3 className='font-semibold capitalize'>{formatDate(date, "short")}</h3>
+            <h3 className='font-semibold capitalize'>
+              {formatDate(date, "short")}
+            </h3>
           </div>
           <p className='text-[14px] sm:text-[16px]'>{formatTime(time)}</p>
         </div>
@@ -97,7 +98,10 @@ const BookingCard = ({
         </div>
         <div>
           <div className='mb-1 flex gap-2'>
-            <h3 className='font-semibold capitalize'>{nairaSymbol()}{amount?.toLocaleString()}</h3>
+            <h3 className='font-semibold capitalize'>
+              {nairaSymbol()}
+              {amount?.toLocaleString()}
+            </h3>
           </div>
           <p className='text-[14px] sm:text-[16px]'>
             {status === "completed" ? "cancelled" : "completed"}

@@ -16,14 +16,14 @@ interface SignUpProps {
 const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo")
+  const redirectTo = searchParams.get("redirectTo");
 
   return (
     <AuthForm
       headerText='Create your account'
       paragraphText='Already have an account?'
       signin={signin}
-      imgUrl=""
+      imgUrl=''
       setSignin={() => setSignin(!signin)}
     >
       <Formik

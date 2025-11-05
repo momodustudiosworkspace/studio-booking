@@ -3,13 +3,13 @@ import { RootState } from "../store";
 // import { RootState } from '../store';
 
 export interface AuthState {
-  isLoggedIn: boolean,
-  token:string
+  isLoggedIn: boolean;
+  token: string;
 }
 
 const initialState: AuthState = {
   isLoggedIn: false,
-  token:''
+  token: "",
 };
 
 const authSlice = createSlice({
@@ -17,8 +17,8 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     userLogin: (state, action: PayloadAction<AuthState>) => {
-      state.isLoggedIn = action.payload.isLoggedIn
-      state.token = action.payload.token
+      state.isLoggedIn = action.payload.isLoggedIn;
+      state.token = action.payload.token;
     },
     setToken: (state, action: PayloadAction<AuthState>) => {
       state.token = action.payload.token;
@@ -29,11 +29,7 @@ const authSlice = createSlice({
   },
 });
 
-export const {
-  userLogin,
-  userLogOut,
-  setToken
-} = authSlice.actions;
+export const { userLogin, userLogOut, setToken } = authSlice.actions;
 export const selectUserIsLoggedIn = (state: RootState): boolean =>
   state.auth.isLoggedIn;
 export default authSlice.reducer;

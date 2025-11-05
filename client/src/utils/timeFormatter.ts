@@ -1,7 +1,9 @@
-
 // src/utils/formatTime.ts
 
-export function formatTime(isoString: string | null | undefined, useUTC = false): string {
+export function formatTime(
+  isoString: string | null | undefined,
+  useUTC = false
+): string {
   const date = new Date(`${isoString}`);
 
   const options: Intl.DateTimeFormatOptions = {

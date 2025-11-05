@@ -1,8 +1,8 @@
 // src/types/booking.ts
 
 interface BookingLocationOptions {
-    state?: string;
-    address?: string
+  state?: string;
+  address?: string;
 }
 export interface BookingType {
   _id: string | null;
@@ -13,16 +13,15 @@ export interface BookingType {
   date?: string | null;
   startTime?: string | null;
   endTime?: string | null;
-  studioRoom?: 'A' | 'B' | null;
-  location?:BookingLocationOptions | null,
-  status?:undefined | "pending" | "confirmed" | "completed" | "cancelled";
+  studioRoom?: "A" | "B" | null;
+  location?: BookingLocationOptions | null;
+  status?: undefined | "pending" | "confirmed" | "completed" | "cancelled";
   notes?: string | null;
   price?: number | null;
-  paymentStatus?: 'pending' | 'paid' | 'refunded';
+  paymentStatus?: "pending" | "paid" | "refunded";
   paymentReference?: string | null;
   cancelReason?: string | null;
   rescheduledFrom?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
-

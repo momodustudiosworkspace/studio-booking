@@ -5,10 +5,9 @@ import nairaSymbol from "@/utils/symbols";
 import { Form, Formik } from "formik";
 import React, { useEffect, useRef } from "react";
 
-
 interface LocationProps {
   state?: string;
-  address?: string
+  address?: string;
 }
 interface bookingsPreviewProps {
   location: LocationProps | null | undefined;
@@ -16,7 +15,6 @@ interface bookingsPreviewProps {
   sesstionType: string | null | undefined;
   proceedBtnRef: React.RefObject<HTMLButtonElement | null>;
 }
-
 
 const BookingsPreview = ({
   location,
@@ -59,7 +57,6 @@ const BookingsPreview = ({
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='phone-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
-
                   {/* user phone number  */}
                   +234 908 124 4447
                 </p>
@@ -67,7 +64,7 @@ const BookingsPreview = ({
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='marker-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
-                  {location?.address}  {location?.state}
+                  {location?.address} {location?.state}
                 </p>
               </div>
             </div>
@@ -80,7 +77,8 @@ const BookingsPreview = ({
                   price
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}{price?.toLocaleString("en-US")}
+                  {nairaSymbol()}
+                  {price?.toLocaleString("en-US")}
                 </p>
               </div>
               <div className='flex items-center justify-between'>
@@ -99,7 +97,7 @@ const BookingsPreview = ({
                   <input
                     type='text'
                     placeholder='Enter code'
-                    name="discount_code"
+                    name='discount_code'
                     className='h-[37px] w-full border-b-[1px] border-white bg-white px-2 text-[14px] outline-0 transition-all ease-in-out focus:border-b-2 sm:w-[224px] sm:border-black'
                   />
                   <button className='absolute top-2 right-1 text-[14px] font-semibold capitalize underline'>
@@ -112,7 +110,8 @@ const BookingsPreview = ({
                   total
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
-                  {nairaSymbol()}{price?.toLocaleString("en-US")}
+                  {nairaSymbol()}
+                  {price?.toLocaleString("en-US")}
                 </p>
               </div>
             </div>

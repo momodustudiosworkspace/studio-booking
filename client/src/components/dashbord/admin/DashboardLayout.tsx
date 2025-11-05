@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
 import DashboardHeader from "./DashboardHeader";
 import { useSession } from "next-auth/react";
@@ -12,22 +12,27 @@ interface DashboardLayoutProps {
     paragraph: string;
     linkText: string;
     badge?: string;
-    badgeStatus?: undefined | "pending" | "confirmed" | "completed" | "cancelled";
+    badgeStatus?:
+      | undefined
+      | "pending"
+      | "confirmed"
+      | "completed"
+      | "cancelled";
     badgeClass?: string;
     href: string;
   };
 }
 const DashboardLayout = ({ children, headerProps }: DashboardLayoutProps) => {
-
-  const { data: session } = useSession()
-  const tokenDispatch = useAppDispatch()
+  const { data: session } = useSession();
+  const tokenDispatch = useAppDispatch();
 
   useEffect(() => {
     if (session?.user.accessToken) {
-
-      tokenDispatch(setToken({ isLoggedIn: true, token: session.user.accessToken }))
+      tokenDispatch(
+        setToken({ isLoggedIn: true, token: session.user.accessToken })
+      );
     }
-  }, [session, tokenDispatch])
+  }, [session, tokenDispatch]);
 
   return (
     <section className='flex w-full flex-col gap-10'>

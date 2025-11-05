@@ -5,7 +5,6 @@ const AnytimeCapture = () => {
     <div>
       <div className='flex sm:hidden'>
         <svg
-
           width='99'
           height='99'
           viewBox='0 0 99 99'
@@ -83,7 +82,7 @@ const AnytimeCapture = () => {
           </defs>
         </svg>
       </div>
-      <div className="hidden sm:flex">
+      <div className='hidden sm:flex'>
         <svg
           width='170'
           height='170'

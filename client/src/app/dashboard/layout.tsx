@@ -18,10 +18,10 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // ✅ get session securely on the server 
+  // ✅ get session securely on the server
   const session = await getServerSession(authOptions);
 
-  // ✅ redirect unauthenticated users to login 
+  // ✅ redirect unauthenticated users to login
   if (!session) {
     redirect("/auth"); // Or wherever your login page is
   }

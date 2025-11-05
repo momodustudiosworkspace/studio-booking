@@ -16,16 +16,15 @@ interface SignProps {
 }
 const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo")
-  const navigate = useRouter()
-
+  const redirectTo = searchParams.get("redirectTo");
+  const navigate = useRouter();
 
   return (
     <AuthForm
       headerText='Log in to your account'
       paragraphText={`Don't have an account?`}
       signin={signin}
-      imgUrl=""
+      imgUrl=''
       setSignin={() => setSignin(!signin)}
     >
       <Formik
@@ -34,7 +33,6 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
           password: "",
         }}
         onSubmit={async values => {
-
           try {
             const res = await signIn("credentials", {
               redirect: false,
@@ -59,12 +57,9 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
             if (res?.ok && searchParams && redirectTo) {
               // Redirect back
               navigate.push(redirectTo);
+            } else {
+              navigate.push("/dashboard");
             }
-
-            else {
-              navigate.push('/dashboard')
-            }
-
           } catch (error) {
             toast.error(AuthToast, {
               data: {
@@ -76,9 +71,6 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
               theme: "colored",
             });
           }
-
-
-
         }}
       >
         {({ values, isSubmitting }) => (

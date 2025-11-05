@@ -3,11 +3,15 @@ import { useAppDispatch } from "@/hooks/hooks";
 import { setBookingSessionType } from "@/redux/slices/bookingSlice";
 import React, { useState } from "react";
 
-
-const ChooseBookingSession = ({ bookingSession }: { bookingSession: string | null | undefined }): React.JSX.Element => {
-  const dispatch = useAppDispatch()
-  const [selectedSession, setSelectedSession] = useState<string | null>(bookingSession || null);
-
+const ChooseBookingSession = ({
+  bookingSession,
+}: {
+  bookingSession: string | null | undefined;
+}): React.JSX.Element => {
+  const dispatch = useAppDispatch();
+  const [selectedSession, setSelectedSession] = useState<string | null>(
+    bookingSession || null
+  );
 
   const BOOKING_SESSIONS: {
     title: string;
@@ -44,11 +48,10 @@ const ChooseBookingSession = ({ bookingSession }: { bookingSession: string | nul
       icon: "lifestyle-black",
       id: 6,
     },
-    ];
-
+  ];
 
   return (
-    <div className='grid h-[400px] sm:w-[450px] w-full grid-cols-2 gap-x-5 gap-y-5 overflow-y-scroll rounded-lg bg-[#f3f3f3] p-5'>
+    <div className='grid h-[400px] w-full grid-cols-2 gap-x-5 gap-y-5 overflow-y-scroll rounded-lg bg-[#f3f3f3] p-5 sm:w-[450px]'>
       {BOOKING_SESSIONS.map((session, key) => (
         <button
           key={key}
@@ -56,7 +59,12 @@ const ChooseBookingSession = ({ bookingSession }: { bookingSession: string | nul
           onClick={() => {
             console.log(selectedSession);
             setSelectedSession(session.title);
-            dispatch(setBookingSessionType({ sessionType: session.title, date: new Date().toDateString() }))
+            dispatch(
+              setBookingSessionType({
+                sessionType: session.title,
+                date: new Date().toDateString(),
+              })
+            );
           }}
         >
           <BaseIcons value={session?.icon} />

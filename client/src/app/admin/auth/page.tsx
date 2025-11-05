@@ -12,7 +12,7 @@ import { useState } from "react";
 
 export default function Page(): React.JSX.Element {
   const [signin, setSignin] = useState<boolean>(true);
-  const navigate = useRouter()
+  const navigate = useRouter();
   return (
     <section className='h-full w-full'>
       <AuthForm
@@ -65,12 +65,11 @@ export default function Page(): React.JSX.Element {
             //   });
             // }
 
-
-            navigate.push('/admin/dashboard')
+            navigate.push("/admin/dashboard");
           }}
         >
           {({ values, isSubmitting }) => (
-            <Form className='flex w-full flex-col gap-10 mt-14 text-white sm:text-black'>
+            <Form className='mt-14 flex w-full flex-col gap-10 text-white sm:text-black'>
               <div className='flex flex-col gap-3'>
                 <label className='text-sm font-medium text-white sm:text-black'>
                   Email Address
@@ -93,7 +92,6 @@ export default function Page(): React.JSX.Element {
                   placeholder='Enter email address'
                 />
               </div>
-
 
               <div className='flex w-full justify-end'>
                 <Button

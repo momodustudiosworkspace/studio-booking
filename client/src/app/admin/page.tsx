@@ -1,7 +1,4 @@
-
-
 export default function Page(): React.JSX.Element {
-
   return (
     <section className='h-full w-full'>
       {/* {signin ? (

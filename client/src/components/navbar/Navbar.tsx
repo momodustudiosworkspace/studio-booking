@@ -15,7 +15,7 @@ interface NavbarProps {
 const Navbar = ({
   navBarWidth = "sm:w-[1440px]",
 }: NavbarProps): React.JSX.Element => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   const [currentPage, setCurrentPage] = useState<number | null>(null);
 
@@ -44,7 +44,6 @@ const Navbar = ({
 
   const pathName = usePathname();
 
-
   // const showUserMenuBar = {
   //   email: "Testing@gmail.com",
   //   accessToken: "",
@@ -62,24 +61,25 @@ const Navbar = ({
           <LogoBlack />
         </div>
 
-        {pathName.split("/")[1] !== "dashboard" || pathName.split("/")[0] !== "admin" && (
-          <div className='hidden items-center gap-10 sm:flex'>
-            {ROUTES.map(route => {
-              return (
-                <Link
-                  key={route.id}
-                  href={route.href}
-                  className={`mx-4 text-black ${currentPage === route.id ? "font-bold underline" : "font-medium"}`}
-                  onClick={() => {
-                    setCurrentPage(route.id);
-                  }}
-                >
-                  {route.text}
-                </Link>
-              );
-            })}
-          </div>
-        )}
+        {pathName.split("/")[1] !== "dashboard" ||
+          (pathName.split("/")[0] !== "admin" && (
+            <div className='hidden items-center gap-10 sm:flex'>
+              {ROUTES.map(route => {
+                return (
+                  <Link
+                    key={route.id}
+                    href={route.href}
+                    className={`mx-4 text-black ${currentPage === route.id ? "font-bold underline" : "font-medium"}`}
+                    onClick={() => {
+                      setCurrentPage(route.id);
+                    }}
+                  >
+                    {route.text}
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
 
         {/* {session?.user ? <UserNavbar user={session.user} /> :  */}
         {session?.user ? (

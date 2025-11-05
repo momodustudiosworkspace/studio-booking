@@ -6,15 +6,13 @@ import LinkButton from "@/components/ui/LinkButton";
 // import { formatTime } from "@/utils/timeFormatter";
 import React from "react";
 
-
 interface BookingCardProps {
   id?: string | null | undefined;
   location?: string | null | undefined;
   date?: string | null | undefined;
   client_name?: string | null | undefined;
   time?: string | null | undefined;
-  status: "cancelled" | "completed" | "pending" | "confirmed" | undefined
-  ;
+  status: "cancelled" | "completed" | "pending" | "confirmed" | undefined;
 }
 const BookingCard = ({
   id,
@@ -22,7 +20,7 @@ const BookingCard = ({
   date,
   time,
   status,
-  client_name
+  client_name,
 }: BookingCardProps) => {
   const statusStyle =
     status === "cancelled"
@@ -45,16 +43,10 @@ const BookingCard = ({
             ? "confirmed"
             : "";
   return (
-    <div
-      className='flex flex-col justify-between gap-3  sm:flex-row sm:items-center sm:gap-0'
-    >
+    <div className='flex flex-col justify-between gap-3 sm:flex-row sm:items-center sm:gap-0'>
       {/* Booking Details  */}
       <div className='flex shrink-0 justify-between sm:w-[400px] sm:items-center'>
-        <p
-          className=""
-        >
-          #MS-2041
-        </p>
+        <p className=''>#MS-2041</p>
         <div>
           <p className='text-[14px] sm:text-[16px]'>{client_name}</p>
         </div>
@@ -81,7 +73,7 @@ const BookingCard = ({
       {/* Booking status  */}
       <div className='flex items-center gap-2 sm:w-[200px]'>
         <span
-          className={`${statusStyle} flex items-center w-full justify-center rounded-full px-2 py-3 text-xs font-semibold capitalize`}
+          className={`${statusStyle} flex w-full items-center justify-center rounded-full px-2 py-3 text-xs font-semibold capitalize`}
         >
           {statusText}
         </span>

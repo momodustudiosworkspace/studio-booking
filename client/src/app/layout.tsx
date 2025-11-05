@@ -89,8 +89,6 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} ${montserrat.variable} font-inter min-h-screen`}
       >
-
-
         <SessionProviderWrapper session={session}>
           {children}
           <ToastContainer
@@ -104,7 +102,6 @@ export default async function RootLayout({
             theme='dark'
           />
         </SessionProviderWrapper>
-
       </body>
     </html>
   );

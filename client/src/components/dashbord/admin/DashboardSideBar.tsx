@@ -4,7 +4,7 @@ import {
   IconsType,
 } from "@/assets/icons/dashboard/DashboardIcons";
 import { useAppDispatch } from "@/hooks/hooks";
-// import { baseApi } from "@/redux/services/api"; 
+// import { baseApi } from "@/redux/services/api";
 import { userLogOut } from "@/redux/slices/authSlice";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -49,13 +49,12 @@ const DashboardSideBar = () => {
       label: "Settings",
       icon: "settings-solid-black" as IconsType,
     },
-
   ];
 
   const pathname = usePathname();
 
   return (
-    <div className='h-screen w-[300px] -mt-[120px] z-40 pr-4 pt-[130px] sm:flex border-r-[1px] border-gray-200'>
+    <div className='z-40 -mt-[120px] h-screen w-[300px] border-r-[1px] border-gray-200 pt-[130px] pr-4 sm:flex'>
       <nav className='w-full space-y-4'>
         {SIDEBAR_LINKS.map(link => (
           <Link
@@ -70,14 +69,12 @@ const DashboardSideBar = () => {
         <button
           className='mt-4 flex w-full items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
           onClick={() => {
-
             // setTimeout(() => {
             //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
             // }, 500)
-            dispatch(userLogOut())
+            dispatch(userLogOut());
 
-            signOut({ callbackUrl: "/auth" }
-            )
+            signOut({ callbackUrl: "/auth" });
           }}
         >
           <DashboardIcons value='logout-danger' />
