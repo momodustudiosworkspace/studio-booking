@@ -10,6 +10,7 @@ import morgan from "morgan"
 import authRoutes from "./routes/auth.routes"
 import bookingRoutes from "./routes/booking.routes";
 import packagesRoutes from "./routes/packages.routes"
+import paymentRoutes from "./routes/payment.routes"
 
 
 
@@ -29,6 +30,9 @@ app.use("/api/auth", authRoutes)
 
 // booking endpoints
 app.use("/api/bookings", bookingRoutes);
+
+// payment endpoints
+app.use("/api/payments", paymentRoutes);
 
 // booking packages endpoing
 app.use("/api/bookings/packages", packagesRoutes)
