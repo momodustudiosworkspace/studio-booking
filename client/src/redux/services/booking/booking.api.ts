@@ -1,6 +1,6 @@
 // src/redux/services/booking.api.ts
 import { baseApi } from "../api";
-import { BookingType } from "@/types/booking";
+import { BookingType, BookingTypeResponse } from "@/types/booking.types";
 
 export const bookingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -17,7 +17,7 @@ export const bookingApi = baseApi.injectEndpoints({
           : [{ type: "Bookings", id }],
     }),
 
-    createBooking: builder.mutation<BookingType, Partial<BookingType>>({
+    createBooking: builder.mutation<BookingTypeResponse, Partial<BookingType>>({
       query: body => ({
         url: "/bookings/",
         method: "POST",

@@ -9,9 +9,6 @@ const rawBaseQuery = fetchBaseQuery({
     const session = await getSession();
     const token = session?.user?.accessToken;
 
-    console.log("User access token in RTKQ",);
-    
-
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
@@ -22,9 +19,6 @@ const rawBaseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth: typeof rawBaseQuery = async (args, api, extraOptions) => {
   let result = await rawBaseQuery(args, api, extraOptions);
-
-  console.log("I got to baseQueryWithReauth", baseUrl);
-  
 
   if (result.error && result.error.status === 401) {
     console.log("🔄 Access token expired, refreshing...");
@@ -84,7 +78,7 @@ const baseQueryWithReauth: typeof rawBaseQuery = async (args, api, extraOptions)
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Bookings", "User", "Auth"],
+  tagTypes: ["Bookings", "User", "Auth", "Payments"],
   endpoints: () => ({}),
   refetchOnReconnect: true,
   refetchOnFocus: true,

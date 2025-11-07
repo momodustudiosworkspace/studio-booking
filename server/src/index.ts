@@ -32,7 +32,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/bookings", bookingRoutes);
 
 // payment endpoints
-app.use("/api/payments", paymentRoutes);
+app.use("/api/payment", paymentRoutes);
 
 // booking packages endpoing
 app.use("/api/bookings/packages", packagesRoutes)

@@ -6,8 +6,8 @@ import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import nairaSymbol from "@/utils/symbols";
 
 interface PackageProps {
-  title: string;
-  price: number;
+  title: string | null;
+  price: number | null;
 }
 interface BookingsPackagesProps {
   bookingPackage: PackageProps | null | undefined;

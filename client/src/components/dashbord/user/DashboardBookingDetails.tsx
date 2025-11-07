@@ -9,7 +9,7 @@ import LinkButton from "../../ui/LinkButton";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import DashboardBookingPhotoSelection from "./DashboardBookingPhotoSelection";
 import DashboardBookingTimeline from "./DashboardBookingTimeline";
-import { BookingType } from "@/types/booking";
+import { BookingType } from "@/types/booking.types";
 import { formatDate } from "@/utils/dateFormatter";
 import { formatTime } from "@/utils/timeFormatter";
 import nairaSymbol from "@/utils/symbols";
