@@ -6,6 +6,7 @@ import LogoBlack from "@/assets/LogoBlack";
 import Image from "next/image";
 import { HomeIcons } from "@/assets/icons/home/HomeIcons";
 
+
 interface AuthFormProps {
   children: React.ReactNode;
   headerText: string;
@@ -26,6 +27,15 @@ const AuthForm = ({
   adminAuth = false,
   authForm = true,
 }: AuthFormProps): React.JSX.Element => {
+
+  // const { data: session } = useSession();
+
+
+  // if (session) {
+  //   console.log(session.user.accessToken);
+
+  // }
+
   return (
     <div className='mt-10 h-full w-full text-white sm:mt-0 sm:flex sm:text-black'>
       <div
