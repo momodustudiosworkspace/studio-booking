@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+// import { RootState } from "../store";
 // import { RootState } from '../store';
 
 interface BookingLocationOptions {
@@ -7,14 +7,15 @@ interface BookingLocationOptions {
   address?: string;
 }
 export interface BookingState {
+  bookingId?: string | null;
   assignedTo?: number;
   bookingStep?: number | null;
   sessionType?: string | null;
   date?: string | null; // stored as ISO or toDateString()
   startTime?: string | null; // stored as Date object
   package?: {
-    title: string;
-    price: number;
+    title: string | null;
+    price: number | null;
   } | null;
   // endTime?: Date | null,
   studioRoom?: "A" | "B";
@@ -27,6 +28,7 @@ export interface BookingState {
 }
 
 const initialState: BookingState = {
+bookingId:null,
   assignedTo: 0,
   bookingStep: 0,
   sessionType: "",
@@ -80,6 +82,11 @@ const bookingSlice = createSlice({
     setBookingPackage: (state, action: PayloadAction<BookingState>) => {
       state.package = action.payload.package || null;
     },
+
+    setBookingId: (state, action: PayloadAction<BookingState>) => {
+      state.bookingId = action.payload.bookingId || null
+      state.package = action.payload.package || null
+    },
     resetBookingState: () => initialState,
   },
 });
@@ -90,18 +97,19 @@ export const {
   setBookingSteps,
   setBookingDateTime,
   setBookingPackage,
+  setBookingId,
   resetBookingState,
 } = bookingSlice.actions;
-export const selectBookingSessionType = (
-  state: RootState
-): string | null | undefined => state.booking.sessionType;
-export const selectbookingLocation = (
-  state: RootState
-): BookingLocationOptions | null | undefined => state.booking.location;
-export const selectbookingSteps = (
-  state: RootState
-): number | null | undefined => state.booking.bookingStep;
-export const selectbooking = (state: RootState): BookingState => state.booking;
+// export const selectBookingSessionType = (
+//   state: RootState
+// ): string | null | undefined => state.booking.sessionType;
+// export const selectbookingLocation = (
+//   state: RootState
+// ): BookingLocationOptions | null | undefined => state.booking.location;
+// export const selectbookingSteps = (
+//   state: RootState
+// ): number | null | undefined => state.booking.bookingStep;
+// export const selectbooking = (state: RootState): BookingState => state.booking;
 export default bookingSlice.reducer;
 // export const selectBusinessId = (state: RootState): number | null =>
 //   state.business.business_id ?? null;

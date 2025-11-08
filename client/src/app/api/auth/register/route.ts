@@ -1,3 +1,4 @@
+import baseUrl from "@/config/baseUrl";
 import { NextResponse } from "next/server";
 
 
@@ -5,7 +6,7 @@ export async function POST(req: Request): Promise<NextResponse<unknown>> {
   try {
     const body = await req.json();
 
-    const res = await fetch(`${process.env["API_BASE_URL"] }/auth/register/`, {
+    const res = await fetch(`${baseUrl }/auth/register/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

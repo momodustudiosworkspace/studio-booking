@@ -7,6 +7,7 @@ import NextAuth, {
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { JWT } from "next-auth/jwt";
+import baseUrl from "@/config/baseUrl";
 
 /**
  * --- Type Augmentation ---
@@ -14,7 +15,7 @@ import { JWT } from "next-auth/jwt";
 declare module "next-auth/jwt" {
   interface JWT {
     accessToken: string;
-    // refreshToken: string;
+    refreshToken: string;
     accessTokenExpires: number;
     isMember: boolean;
     isAdmin: boolean;
@@ -25,14 +26,14 @@ declare module "next-auth" {
   interface User {
     accessToken: string;
     email: string;
-    // refreshToken: string;
+    refreshToken: string;
     isMember: boolean;
     isAdmin: boolean;
   }
   interface Session {
     user: {
       accessToken: string;
-      // refreshToken: string;
+      refreshToken: string;
       email: string;
       isMember: boolean;
       isAdmin: boolean;
@@ -44,7 +45,7 @@ declare module "next-auth" {
 // async function refreshAccessToken(token: JWT): Promise<JWT> {
 //   try {
 //     const res = await fetch(
-//       `${process.env["API_BASE_URL"]}/user/auth/token/refresh/`,
+//       `${baseUrl}/user/auth/token/refresh/`,
 //       {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
@@ -89,7 +90,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials): Promise<User | null> {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const res = await fetch(`${process.env["API_BASE_URL"]}/auth/login/`, {
+        const res = await fetch(`${baseUrl}/auth/login/`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -116,10 +117,14 @@ export const authOptions: NextAuthOptions = {
             user?.message || "Something went wrong. Please try again later."
           );
         }
+
+        console.log("User login data: ", user);
+        
         return {
           id: user.user._id,
           email: user.user.email,
-          accessToken: user.token,
+          accessToken: user.accessToken,
+          refreshToken:user.refreshToken,
           isMember: user.user.isMember,
           isAdmin: user.user.isAdmin,
         };
@@ -138,7 +143,7 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           // Example: send user info to your backend for signup/login
-          const res = await fetch(`${process.env["API_BASE_URL"]}/auth/google-login`, {
+          const res = await fetch(`${baseUrl}/auth/google-login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -152,7 +157,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!res.ok) {
-            console.error("Backend Google login failed");
+            console.log("Backend Google login failed");
             return false; // cancel sign-in
           }
 
@@ -163,6 +168,14 @@ export const authOptions: NextAuthOptions = {
           // (user as any).backendToken = data.token;
           // (user as any).isMember = data.user.isMember;
           // (user as any).isAdmin = data.user.isAdmin;
+          user.accessToken = data.accessToken
+          user.refreshToken = data.refreshToken
+          user.email = data.user.email
+          user.isAdmin = data.user.isAdmin
+          user.isMember = data.user.isMember
+
+          console.log("user from google: ", user);
+          
 
           return true;
         } catch (error) {
@@ -176,10 +189,10 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }: { token: JWT; user: User }): Promise<JWT> {
       if (user) {
         token.accessToken = user.accessToken;
-        // token.refreshToken = user.refreshToken;
+        token.refreshToken = user.refreshToken;
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000;
-
         token.isMember = user.isMember;
+        token.email = user.email
       }
 
       if (
@@ -206,6 +219,7 @@ export const authOptions: NextAuthOptions = {
           image: token.picture ?? null,
           isMember: token.isMember ?? null,
           name: token.name ?? null,
+          email:token.email ?? null
         };
       }
       return session;

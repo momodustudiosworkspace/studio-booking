@@ -25,3 +25,8 @@ export interface BookingType {
   createdAt?: string | null;
   updatedAt?: string | null;
 }
+
+export interface BookingTypeResponse{
+  booking: BookingType,
+  message:string
+}

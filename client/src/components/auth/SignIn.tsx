@@ -61,10 +61,12 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
               navigate.push("/dashboard");
             }
           } catch (error) {
+            console.log(error);
+
             toast.error(AuthToast, {
               data: {
                 title: "Sign in failed",
-                content: `${error || "Login failed, try again later"}`,
+                content: `${"Login failed, try again later"}`,
               },
               ariaLabel: "Something went wrong",
               icon: false,
@@ -116,6 +118,7 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
                 className='w-[110px]'
                 size='md'
                 loading={isSubmitting}
+                disabled={isSubmitting}
               />
             </div>
           </Form>
