@@ -22,6 +22,8 @@ const BookingPayment = ({ setBookingStep, setPaymentCompleted }: BookingPaymentP
     const [loading, setLoading] = useState(false);
 
     const handlePayment = async () => {
+        console.log(session?.user.email);
+
         setLoading(createPaymentLoading);
         try {
           
@@ -125,7 +127,7 @@ const BookingPayment = ({ setBookingStep, setPaymentCompleted }: BookingPaymentP
 
 
         } catch (error) {
-            console.error("Payment init error:", error);
+            console.log("Payment init error:", error);
             alert("Payment initialization failed.");
             setLoading(false);
         }

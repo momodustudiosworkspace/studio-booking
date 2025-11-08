@@ -140,7 +140,7 @@ const Bookings = (): React.JSX.Element => {
               : "There was an issue completing your booking."
           }
             btnText={paymentCompleted && bookingStep === 6 ? "Go to dashboard" : ""}
-            href={paymentCompleted && bookingStep === 5 ? "/dashboard" : ""}
+            href={paymentCompleted && bookingStep === 6 ? "/dashboard" : ""}
         />
       ),
       header: "",
@@ -294,9 +294,10 @@ const Bookings = (): React.JSX.Element => {
 
             {BOOKING_STEPS[bookingStep]?.component}
 
-            {bookingStep !== 6 && (
+            {bookingStep !== 5 && (
               <div className='mt-4 flex w-full justify-end'>
-                {!session?.user && bookingStep === 4 ? (
+
+                {!session?.user && bookingStep > 3 ? (
                   <LinkButton
                     href='/auth?redirectTo=bookings'
                     size='md'
@@ -320,7 +321,7 @@ const Bookings = (): React.JSX.Element => {
                 )}
               </div>
             )}
-            {paymentCompleted !== "Approved" && bookingStep > 5 && (
+            {paymentCompleted !== "Approved" && bookingStep > 6 && (
               <div className='flex w-full justify-center'>
                 <Button
                   text='Retry booking'

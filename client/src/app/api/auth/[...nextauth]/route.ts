@@ -157,7 +157,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!res.ok) {
-            console.error("Backend Google login failed");
+            console.log("Backend Google login failed");
             return false; // cancel sign-in
           }
 
@@ -168,6 +168,14 @@ export const authOptions: NextAuthOptions = {
           // (user as any).backendToken = data.token;
           // (user as any).isMember = data.user.isMember;
           // (user as any).isAdmin = data.user.isAdmin;
+          user.accessToken = data.accessToken
+          user.refreshToken = data.refreshToken
+          user.email = data.user.email
+          user.isAdmin = data.user.isAdmin
+          user.isMember = data.user.isMember
+
+          console.log("user from google: ", user);
+          
 
           return true;
         } catch (error) {
@@ -184,6 +192,7 @@ export const authOptions: NextAuthOptions = {
         token.refreshToken = user.refreshToken;
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000;
         token.isMember = user.isMember;
+        token.email = user.email
       }
 
       if (
@@ -210,6 +219,7 @@ export const authOptions: NextAuthOptions = {
           image: token.picture ?? null,
           isMember: token.isMember ?? null,
           name: token.name ?? null,
+          email:token.email ?? null
         };
       }
       return session;

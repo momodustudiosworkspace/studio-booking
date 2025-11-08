@@ -12,7 +12,7 @@ export const paymentApi = baseApi.injectEndpoints({
     // 1️⃣ Initialize payment
     createPayment: builder.mutation<CreatePaymentResponse, CreatePaymentRequest>({
       query: (body) => ({
-        url: "/payment/init",
+        url: "/payment/create",
         method: "POST",
         body,
       }),
