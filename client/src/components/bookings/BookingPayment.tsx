@@ -6,6 +6,8 @@ import { resetBookingState } from "@/redux/slices/bookingSlice";
 import { CreatePaymentRequest } from "@/types/payment.types";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { AuthToast } from "../toast/ToastMessage";
 
 interface BookingPaymentProps{
     setBookingStep: (value: number) => void;
@@ -35,7 +37,7 @@ const BookingPayment = ({ setBookingStep, setPaymentCompleted }: BookingPaymentP
                 onSuccess: async ({id, reference, message}) => {
                     console.log(id, reference, message);
                     setPaymentCompleted(message)
-                    setBookingStep(6)
+                    // setBookingStep(6)
 
 
                     const payload: CreatePaymentRequest = {
@@ -46,11 +48,27 @@ const BookingPayment = ({ setBookingStep, setPaymentCompleted }: BookingPaymentP
                         status: "success"
                     };
 
-                    const response = await createPayment(payload).unwrap();
-                    const { message : resMsg, data } = response
-                    console.log(resMsg, data);
-                    
-                    dispatch(resetBookingState());
+                    try {
+                        const response = await createPayment(payload).unwrap();
+                        const { message: resMsg, data } = response
+                        console.log("create payment", resMsg, data);
+                        toast.success(AuthToast, {
+                            data: {
+                                title: "Payment",
+                                content: `${response.message || "Payment successful!"}`,
+                            },
+                            ariaLabel: "Booking session secured",
+                            icon: false,
+                            theme: "colored",
+                        });
+                        setBookingStep(6)
+                        dispatch(resetBookingState());
+                    } catch (error) {
+                        console.log(error);
+
+                    }
+
+
                 }
             })
 

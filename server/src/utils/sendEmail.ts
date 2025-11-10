@@ -1,6 +1,7 @@
-import { otpEmailTemplate } from "../templates/otpEmail.template";
+import { paymentSuccessTemplate } from "../templates/bookings/paymentSuccessful";
+import { otpEmailTemplate } from "../templates/auth/otpEmail.template";
 import nodemailer from "nodemailer";
-
+import dotenv from "dotenv";
 // sgMail.setApiKey(process.env['SENDGRID_API_KEY']!);
 
 // export const sendOtpEmail = async (to:string, otp:string, purpose:string = "Verification") => {
@@ -16,6 +17,7 @@ import nodemailer from "nodemailer";
 
 
 
+dotenv.config();
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -32,3 +34,12 @@ export const sendOtpEmail = async (to:string, otp:string, purpose:string) => {
     html: otpEmailTemplate(otp, purpose),
   });
 };
+
+export const sendBookingPaymentEmail = async (to: string,amount:number, sessionType: string) => {
+   await transporter.sendMail({
+    from: `"Booking System" <${process.env["NODE_MAILER_EMAIL_USER"]}>`,
+    to,
+    subject: `${sessionType} session Payment`,
+    html: paymentSuccessTemplate({amount:amount, sessionType:sessionType}),
+  });
+}

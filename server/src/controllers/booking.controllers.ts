@@ -45,7 +45,7 @@ export async function createBooking(req: Request, res: Response) {
     const userId = req.userId; // assuming user is attached from auth middleware
 
 
-    const { date, startTime, sessionType, studioRoom, price, location } = req.body;
+    const { date, startTime, sessionType, studioRoom, price, location} = req.body;
 
     // The system will calculate end time endTime, based on number of outfits 
 
@@ -64,12 +64,12 @@ export async function createBooking(req: Request, res: Response) {
     //     message: "This time slot is already booked. Please choose another.",
     //   });
     // }
-    const exists = await Booking.findOne({
+    const existingSlot = await Booking.findOne({
       date,
       startTime,
       studioRoom,
     });
-    if (exists) {
+    if (existingSlot) {
       return res.status(400).json({ message: "Slot already booked." });
     }
 
@@ -83,7 +83,7 @@ export async function createBooking(req: Request, res: Response) {
       location
     });
 
-    return res.status(201).json({ message: "Booking successful!", booking });
+    return res.status(201).json({ message: "Slot secured successfully!", booking });
   } catch (error) {
     console.log("Error: ", error);
 
@@ -140,12 +140,16 @@ export async function updateBooking(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const updates = req.body;
+    console.log("updates: ", updates);
+    
 
     const booking = await Booking.findByIdAndUpdate(id, updates, { new: true });
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     return res.status(200).json(booking);
   } catch (error) {
+    console.log(error);
+    
     return res.status(500).json({ message: "Failed to update booking", error });
   }
 };
