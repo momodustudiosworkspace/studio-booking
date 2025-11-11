@@ -15,7 +15,6 @@ import {
   setBookingId
 } from "@/redux/slices/bookingSlice";
 import BookingCalendar from "./BookingCalendar";
-import { useCreateBookingMutation, useUpdateBookingMutation } from "@/redux/services/booking/booking.api";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
 import { useSession } from "next-auth/react";
@@ -23,6 +22,7 @@ import LinkButton from "../ui/LinkButton";
 import BookingPackages from "./BookingPackages";
 import BookingPayment from "./BookingPayment";
 import { BookingTypeResponse } from "@/types/booking.types";
+import { useCreateBookingMutation, useUpdateBookingMutation } from "@/redux/services/user/booking/booking.api";
 
 const Bookings = (): React.JSX.Element => {
   const router = useRouter();

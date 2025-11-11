@@ -1,5 +1,5 @@
 // src/redux/services/payment.api.ts
-import { baseApi } from "../api";
+import { baseApi } from "../../api";
 import {
   CreatePaymentRequest,
   CreatePaymentResponse,

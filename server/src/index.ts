@@ -11,6 +11,7 @@ import authRoutes from "./routes/auth.routes"
 import bookingRoutes from "./routes/booking.routes";
 import packagesRoutes from "./routes/packages.routes"
 import paymentRoutes from "./routes/payment.routes"
+import dashboard from "./routes/admin/dashboard.routes"
 
 
 
@@ -25,6 +26,14 @@ app.use(morgan("dev"))
 // swagger endpoints 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerOpenapiSpecification));
 
+
+// Admin 
+app.use("/api/admin/dashboard", dashboard )
+
+
+
+// User endpoint 
+
 // auth endpoints 
 app.use("/api/auth", authRoutes)
 
@@ -36,6 +45,7 @@ app.use("/api/payment", paymentRoutes);
 
 // booking packages endpoing
 app.use("/api/bookings/packages", packagesRoutes)
+
 
 const PORT = process.env['PORT'] || 5000;
 

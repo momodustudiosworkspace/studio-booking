@@ -2,7 +2,7 @@
 
 import React from "react";
 import DashboardBookingDetails from "@/components/dashbord/user/DashboardBookingDetails";
-import { useGetBookingByIdQuery } from "@/redux/services/booking/booking.api";
+import { useGetBookingByIdQuery } from "@/redux/services/user/booking/booking.api";
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   // ✅ Unwrap the Promise using React.use()

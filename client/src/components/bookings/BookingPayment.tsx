@@ -1,13 +1,13 @@
 "use client";
 import payStackInline from "@/config/paystackConfig";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { useCreatePaymentMutation, } from "@/redux/services/payment/payments.api";
 import { resetBookingState } from "@/redux/slices/bookingSlice";
 import { CreatePaymentRequest } from "@/types/payment.types";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
+import { useCreatePaymentMutation } from "@/redux/services/user/payment/payments.api";
 
 interface BookingPaymentProps{
     setBookingStep: (value: number) => void;
