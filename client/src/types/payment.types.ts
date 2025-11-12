@@ -9,14 +9,12 @@ export interface CreatePaymentRequest {
 }
 
 export interface CreatePaymentResponse {
-  // accessCode: string | null;
-  // reference: string | null;
   message: string;
   data?: {
     booking: string;
     reference: string;
     amount: number;
-    status: string;
+    status: "pending" | "success" | "failed";
     gateway_response: string;
     paidAt: string;
   };
@@ -40,4 +38,13 @@ export interface VerifyPaymentResponse {
   };
 }
 
+
+export interface AllPaymentResponse{ 
+    booking: string;
+    reference: string;
+    amount: number;
+    status: "pending" | "success" | "failed";
+    gateway_response: string;
+    paidAt: string;
+}
 

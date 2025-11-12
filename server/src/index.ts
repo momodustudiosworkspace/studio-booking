@@ -7,10 +7,19 @@ import swaggerOpenapiSpecification from "./config/swagger.config";
 import morgan from "morgan"
 
 // API routes  
-import authRoutes from "./routes/auth.routes"
-import bookingRoutes from "./routes/booking.routes";
-import packagesRoutes from "./routes/packages.routes"
-import paymentRoutes from "./routes/payment.routes"
+
+// Admin API routes 
+import adminDashboardRoutes from "./routes/admin/dashboard.routes"
+import adminBookingRoutes from "./routes/admin/booking.routes"
+import adminUsersRoutes from "./routes/admin/user.routers"
+import adminPayments from "./routes/admin/payment.routes"
+
+
+// User API routes 
+import authRoutes from "./routes/user/auth.routes"
+import bookingRoutes from "./routes/user/booking.routes";
+import packagesRoutes from "./routes/user/packages.routes"
+import paymentRoutes from "./routes/user/payment.routes"
 
 
 
@@ -25,6 +34,17 @@ app.use(morgan("dev"))
 // swagger endpoints 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerOpenapiSpecification));
 
+
+// Admin 
+app.use("/api/admin/dashboard", adminDashboardRoutes )
+app.use("/api/admin/bookings", adminBookingRoutes )
+app.use("/api/admin/users", adminUsersRoutes )
+app.use("/api/admin/payments", adminPayments )
+
+
+
+// User endpoint 
+
 // auth endpoints 
 app.use("/api/auth", authRoutes)
 
@@ -36,6 +56,7 @@ app.use("/api/payment", paymentRoutes);
 
 // booking packages endpoing
 app.use("/api/bookings/packages", packagesRoutes)
+
 
 const PORT = process.env['PORT'] || 5000;
 

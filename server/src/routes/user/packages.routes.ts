@@ -1,6 +1,6 @@
 import express from "express";
-import authMiddleWare from "../middlewares/auth.middleware";
-import { getBookingSessionPackages } from "../controllers/packages.controllers";
+import authMiddleWare from "../../middlewares/auth.middleware";
+import { getBookingSessionPackages } from "../../controllers/user/packages.controllers";
 
 const router = express.Router();
 

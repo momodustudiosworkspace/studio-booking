@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import * as crypto from 'crypto';
-import User from "../models/user.models";
-import { sendOtpEmail } from "../utils/sendEmail";
-import Opt from "../models/otp.models";
-import { generateOTP } from "../utils/generateOTP";
-import { generateAuthTokens } from "../utils/generateAuthToken";
+import User from "../../models/user.models";
+import { sendOtpEmail } from "../../utils/sendEmail";
+import Opt from "../../models/otp.models";
+import { generateOTP } from "../../utils/generateOTP";
+import { generateAuthTokens } from "../../utils/generateAuthToken";
 
 
 // register a new user 
@@ -69,7 +69,7 @@ export async function login(req: Request, res: Response) {
         const { email, password } = req.body as { email: string, password: string }
 
         if (!email || !password) {
-            return res.status(400).json({ message: "" })
+            return res.status(400).json({ message: "Email and password required" })
         }
 
         const user = await User.findOne({ email })
@@ -79,7 +79,7 @@ export async function login(req: Request, res: Response) {
         }
         const passwordValid = await bcrypt.compare(password, user.passwordHash)
 
-        if (!passwordValid) {
+        if (!passwordValid ||  !user.passwordHash) {
             return res.status(401).json({ message: "Invalid credentials" })
         }
 
@@ -88,7 +88,7 @@ export async function login(req: Request, res: Response) {
 
 
     } catch (error) {
-        return res.status(500).json({ message: `${error}` })
+        return res.status(500).json({ message: `Sign In failed, please try again.` })
     }
 }
 // Refresh toekn user 

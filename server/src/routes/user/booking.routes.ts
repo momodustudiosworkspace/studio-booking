@@ -7,8 +7,8 @@ import {
   updateBooking,
   bookingImagesUpload,
   uploadBookingImages,
-} from "../controllers/booking.controllers";
-import authMiddleWare from "../middlewares/auth.middleware";
+} from "../../controllers/user/booking.controllers";
+import authMiddleWare from "../../middlewares/auth.middleware";
 
 const router = express.Router();
 

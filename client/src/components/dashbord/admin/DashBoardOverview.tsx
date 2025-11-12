@@ -1,15 +1,30 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
-// import { useGetBookingsQuery } from "@/redux/services/booking/booking.api";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import DashboardHeader from "./DashboardHeader";
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import BookingCard from "./cards/BookingCard";
+import { useGetAdminDashBoardStatsQuery } from "@/redux/services/admin/dashboard/adminDashboard.api";
+import { useGetAllUserBookingsQuery } from "@/redux/services/admin/booking/adminBooking.api";
+import Pagination from "@/components/Pagination";
+import { formatDate } from "@/utils/dateFormatter";
+import { formatTime } from "@/utils/timeFormatter";
+import { useGetAllUserQuery } from "@/redux/services/admin/user/adminUsers.api";
+import ClientCards from "./cards/BookingClientCards";
 
 const DashBoardOverview = () => {
+  const [bookingPage, setBookingPage] = useState(1);
+  const [userPage, setUserPage] = useState(1);
+  const limit = 10;
   // Call the query hook
-  // const { data: bookings, error, isLoading, } = useGetBookingsQuery();
+  const { data: stats, error, isLoading, } = useGetAdminDashBoardStatsQuery();
+  const { data: bookings, error: bookingError, isLoading: bookingIsloading, } = useGetAllUserBookingsQuery({ page: bookingPage, limit });
+  const { data: users, error: usersError, isLoading: usersIsloading, } = useGetAllUserQuery({ page: userPage, limit });
+
+  console.log("bookings: ", bookings);
+  console.log("users: ", users);
+
 
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
@@ -21,36 +36,36 @@ const DashBoardOverview = () => {
     return [
       {
         title: "Total Bookings",
-        count: 2000,
+        count: stats?.data.totalBookings || 0,
         linkText: "From 2025",
         href: "/bookings",
         dataType: 0,
       },
       {
         title: "Total clients",
-        count: 500,
+        count: stats?.data.totalClients || 0,
         linkText: "100 new users",
         href: "/bookings",
         dataType: 0,
       },
       {
         title: "Total revenue",
-        count: 15000000,
+        count: stats?.data.totalRevenue || 0,
         linkText: "Next session soon",
         href: "/bookings",
         dataType: 1,
       },
       {
         title: "upcoming bookings",
-        count: 20,
+        count: stats?.data.totalClients || 0,
         linkText: "View all",
         href: "/bookings",
         dataType: 0,
       },
     ];
-  }, []);
-  // if (isLoading) return "Loading...";
-  // if (error) return "Failed to load data";
+  }, [stats?.data.totalBookings, stats?.data.totalClients, stats?.data.totalRevenue]);
+  if (isLoading) return "Loading...";
+  if (error) return "Failed to load data";
 
   return (
     <DashboardLayout
@@ -61,7 +76,7 @@ const DashBoardOverview = () => {
         href: "",
       }}
     >
-      <section className='w-full'>
+      <section className='w-full pb-52'>
         {/* Booking analytics  */}
         <div className='mb-14 flex w-full flex-col items-center gap-4 sm:flex-row'>
           {analytics.map((card, key) => (
@@ -76,7 +91,7 @@ const DashBoardOverview = () => {
         </div>
 
         {/* Bookings table  */}
-        <section className='max-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow mb-10'>
+        <section className='max-h-[870px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow mb-10'>
           {/* header section  */}
           <div className='mb-10 p-5 flex items-center justify-between'>
             <DashboardHeader
@@ -128,22 +143,25 @@ const DashBoardOverview = () => {
             </div>
 
             {/* Bookings lists */}
-            <div className="flex flex-col gap-10 py-5 pl-4 pr-6">
-              <BookingCard
-                id={"jwjwhwhweje"}
-                client_name={"Ekong Emmanuel"}
-                location={"outdoor"}
-                date={"19th October, 2025"}
-                time={""}
-                status='completed'
-              />
-              <BookingCard
-                id={""}
-                client_name={"Ekong Emmanuel"}
-                location={"outdoor"}
-                date={"19th October, 2025"}
-                time={""}
-                status='pending'
+            {bookingIsloading ? 'Loading data' : bookingError ? "error loading" : <div className="flex flex-col gap-10 py-5 pl-4 pr-6">
+              {bookings?.data.map((booking) => {
+                return <BookingCard key={booking._id}
+                  id={booking._id}
+                  client_name={booking.user}
+                  location={booking.location?.address}
+                  date={formatDate(booking.startTime)}
+                  time={formatTime(booking.startTime)}
+                  status={booking.status}
+                />
+
+              })}
+
+            </div>}
+            <div className="p-6">
+              <Pagination
+                currentPage={users?.pagination.page || null}
+                totalPages={users?.pagination.totalPages || null}
+                onPageChange={setBookingPage}
               />
             </div>
           </div>
@@ -151,7 +169,7 @@ const DashBoardOverview = () => {
 
 
         {/* Clients table  */}
-        <section className='max-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
+        <section className='max-h-[870px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
           {/* header section  */}
           <div className='mb-10 p-5 flex items-center justify-between'>
             <DashboardHeader
@@ -163,14 +181,14 @@ const DashBoardOverview = () => {
 
           {/* client list  */}
           <div className='flex flex-col font-medium'>
-            <div className="flex items-center font-semibold gap-[120px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4">
-              <div className='flex shrink-0 justify-between sm:w-[480px] sm:items-center'>
-                <p>Booking ID</p>
-                <p>Client Name</p>
-                <p>Location</p>
+            <div className="flex items-center font-semibold gap-[150px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4">
+              <div className='flex shrink-0 justify-between w-[550px] sm:items-center'>
+                <p>Name</p>
+                <p>Email</p>
+                <p>Joined Date</p>
               </div>
               <div className='flex items-center justify-center gap-2 sm:w-[200px]'>
-                <p>Date</p>
+                <p>Bookings</p>
               </div>
               <div className='flex items-center gap-2 sm:w-[200px]'>
                 <p>Status</p>
@@ -181,25 +199,29 @@ const DashBoardOverview = () => {
 
             </div>
 
-            {/* Bookings lists */}
-            <div className="flex flex-col gap-10 py-5 pl-4 pr-6">
-              <BookingCard
-                id={"jwjwhwhweje"}
-                client_name={"Ekong Emmanuel"}
-                location={"outdoor"}
-                date={"19th October, 2025"}
-                time={""}
-                status='completed'
+            {/* Users lists */}
+            {usersIsloading ? 'Loading data' : usersError ? "error loading" : <div className="flex flex-col gap-10 py-5 pl-4 pr-6">
+              {users?.data.map((user) => {
+                return <ClientCards key={user._id}
+                  id={user._id}
+                  client_name={`${user.first_name} ${user.last_name}`}
+                  email={user.email}
+                  joined_date={formatDate(user.createdAt)}
+                  bookings={"200"}
+                  status={user.isMember ? "active" : 'inactive'}
+                />
+
+              })}
+
+            </div>}
+            <div className="p-6">
+              <Pagination
+                currentPage={bookings?.pagination.page || null}
+                totalPages={bookings?.pagination.totalPages || null}
+                onPageChange={setUserPage}
               />
-              <BookingCard
-                id={""}
-                client_name={"Ekong Emmanuel"}
-                location={"outdoor"}
-                date={"19th October, 2025"}
-                time={""}
-                status='pending'
-              />
-          </div>
+
+            </div>
           </div>
         </section>
       </section>

@@ -6,7 +6,7 @@ import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import DashboardHeader from "./DashboardHeader";
 import BookingCardQuickAtion from "./cards/BookingCardQuickAction";
 import BookingCardService from "./cards/BookingCardService";
-import { useGetBookingsQuery } from "@/redux/services/booking/booking.api";
+import { useGetBookingsQuery } from "@/redux/services/user/booking/booking.api";
 
 const DashBoardOverview = () => {
   // Call the query hook

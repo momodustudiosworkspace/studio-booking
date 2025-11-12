@@ -55,7 +55,7 @@ const ClientCards = ({
           <p className='text-[14px] sm:text-[16px]'>{client_name}</p>
         </div>
         <div>
-          <p className='text-[14px] sm:text-[16px]'>{email}</p>
+          <p className='text-[14px] sm:text-[16px] w-[120px] truncate'>{email}</p>
         </div>
         <div className='flex items-center gap-2 sm:w-[200px] ml-10'>
           <div

@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
-import Booking from "../models/booking.models";
+import Booking from "../../models/booking.models";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "../config/cloudinary.config";
+import cloudinary from "../../config/cloudinary.config";
 import multer from "multer";
+import User from "../../models/user.models";
 
 // import { isSlotAvailable } from "../utils/isSlotAvailable"; 
 
@@ -44,8 +45,10 @@ export async function createBooking(req: Request, res: Response) {
     // const { sessionType, date, timeSlot, notes } = req.body;
     const userId = req.userId; // assuming user is attached from auth middleware
 
+    const user = await User.findOne({_id:userId})
 
-    const { date, startTime, sessionType, studioRoom, price, location } = req.body;
+
+    const { date, startTime, sessionType, studioRoom, price, location} = req.body;
 
     // The system will calculate end time endTime, based on number of outfits 
 
@@ -64,17 +67,18 @@ export async function createBooking(req: Request, res: Response) {
     //     message: "This time slot is already booked. Please choose another.",
     //   });
     // }
-    const exists = await Booking.findOne({
+    const existingSlot = await Booking.findOne({
       date,
       startTime,
       studioRoom,
     });
-    if (exists) {
+    if (existingSlot) {
       return res.status(400).json({ message: "Slot already booked." });
     }
 
     const booking = await Booking.create({
       user: userId,
+      user_fullnames : `${user?.first_name} ${user?.last_name}`,
       sessionType,
       date,
       startTime,
@@ -83,7 +87,7 @@ export async function createBooking(req: Request, res: Response) {
       location
     });
 
-    return res.status(201).json({ message: "Booking successful!", booking });
+    return res.status(201).json({ message: "Slot secured successfully!", booking });
   } catch (error) {
     console.log("Error: ", error);
 
@@ -126,7 +130,7 @@ export async function getBookingById(req: Request, res: Response) {
     if (!mongoose.Types.ObjectId.isValid(Number(id)))
       return res.status(400).json({ message: "Invalid booking ID" });
 
-    const booking = await Booking.findById(id).populate("user", "first_name last_name email");
+    const booking = await Booking.findById(id);
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     return res.status(200).json(booking);
@@ -140,12 +144,16 @@ export async function updateBooking(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const updates = req.body;
+    console.log("updates: ", updates);
+    
 
     const booking = await Booking.findByIdAndUpdate(id, updates, { new: true });
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     return res.status(200).json(booking);
   } catch (error) {
+    console.log(error);
+    
     return res.status(500).json({ message: "Failed to update booking", error });
   }
 };

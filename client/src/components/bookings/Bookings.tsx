@@ -15,13 +15,14 @@ import {
   setBookingId
 } from "@/redux/slices/bookingSlice";
 import BookingCalendar from "./BookingCalendar";
-import { useCreateBookingMutation } from "@/redux/services/booking/booking.api";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
 import { useSession } from "next-auth/react";
 import LinkButton from "../ui/LinkButton";
 import BookingPackages from "./BookingPackages";
 import BookingPayment from "./BookingPayment";
+import { BookingTypeResponse } from "@/types/booking.types";
+import { useCreateBookingMutation, useUpdateBookingMutation } from "@/redux/services/user/booking/booking.api";
 
 const Bookings = (): React.JSX.Element => {
   const router = useRouter();
@@ -35,8 +36,9 @@ const Bookings = (): React.JSX.Element => {
   );
   const [onProceed, setOnProceed] = useState<(() => void) | null>(null);
   const [paymentCompleted, setPaymentCompleted] = useState<string>("")
-  const [createBooking, { isLoading, error, isError }] =
+  const [createBooking, { isLoading: createBookingLoading, error, isError }] =
     useCreateBookingMutation();
+  const [updateBooking, { isLoading: updateBookingLoading }] = useUpdateBookingMutation()
 
   const proceedBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -182,32 +184,49 @@ const Bookings = (): React.JSX.Element => {
         // notes: bookingData.notes,
       };
 
-      // 🔥 Send to backend
-      const response = await createBooking(payload).unwrap();
+      let response: BookingTypeResponse;
 
-      console.log("response: ", response);
+      if (bookingData.bookingId) {
+        response = await updateBooking({
+          id: bookingData.bookingId,
+          booking: { ...payload, _id: bookingData.bookingId, user: session?.user.email || null },
+        }).unwrap()
 
+      }
+
+      else {
+        // 🔥 Send to backend
+        response = await createBooking(payload).unwrap();
+
+      }
       const { booking } = response
 
-      if (booking) {
-
+      if (booking._id) {
+        toast.success(AuthToast, {
+          data: {
+            title: "Booking Successfull",
+            content: `${response.message || "Booking reserved!"}`,
+          },
+          ariaLabel: "Booking session secured",
+          icon: false,
+          theme: "colored",
+        });
         dispatch(setBookingId({
           bookingId: booking._id, package: {
             price: booking?.price || null,
             title: booking.sessionType || null
           }
         }))
+        return setBookingStep(prev => prev + 1);
       }
 
 
       console.log("Response: ", response.booking);
 
-      return setBookingStep(prev => prev + 1);
-      // return dispatch(resetBookingState()); 
-
     } catch (err: any) {
       setBookingStep(prev => prev);
-      if (isError) {
+      if (isError
+      ) {
         return toast.error(AuthToast, {
           data: {
             title: "Error booking",
@@ -279,7 +298,7 @@ const Bookings = (): React.JSX.Element => {
             )}
             <div className='mt-5 flex flex-col gap-2'>
               <h1 className='text-[28px] font-extrabold capitalize'>
-                {BOOKING_STEPS[bookingStep]?.header}{bookingStep}
+                {BOOKING_STEPS[bookingStep]?.header}
               </h1>
               <div className='flex items-center gap-1'>
                 <p>{BOOKING_STEPS[bookingStep]?.paragraph}</p>
@@ -294,7 +313,7 @@ const Bookings = (): React.JSX.Element => {
 
             {BOOKING_STEPS[bookingStep]?.component}
 
-            {bookingStep !== 5 && (
+            {bookingStep < 5 && (
               <div className='mt-4 flex w-full justify-end'>
 
                 {!session?.user && bookingStep > 3 ? (
@@ -309,14 +328,14 @@ const Bookings = (): React.JSX.Element => {
                 ) : (
                   <Button
                     ref={proceedBtnRef}
-                    text={"Proceed"}
+                      text={"Proceed"}
                     onClick={handleBookingStepsProceed}
                     icon={<RedirectArrowWhite />}
                     iconPosition='right'
                     className='w-[125px]'
                     size='md'
-                      loading={isLoading}
-                      disabled={isLoading}
+                      loading={createBookingLoading || updateBookingLoading}
+                      disabled={createBookingLoading || updateBookingLoading}
                   />
                 )}
               </div>

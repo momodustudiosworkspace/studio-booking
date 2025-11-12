@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Package from "../models/package.models";
+import Package from "../../models/package.models";
 
 
 // ✅ Get all packages for booking session
