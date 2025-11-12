@@ -6,6 +6,7 @@ import LinkButton from "@/components/ui/LinkButton";
 // import { formatTime } from "@/utils/timeFormatter";
 import React from "react";
 
+
 interface BookingCardProps {
   id?: string | null | undefined;
   location?: string | null | undefined;
@@ -22,6 +23,7 @@ const BookingCard = ({
   status,
   client_name,
 }: BookingCardProps) => {
+  const bookingLocation = location === "C1 Melita Plaze, Gimbiya street, Garki" ? "indoor" : "outdoor"
   const statusStyle =
     status === "cancelled"
       ? "bg-red-200 text-red-500"
@@ -46,12 +48,12 @@ const BookingCard = ({
     <div className='flex flex-col justify-between gap-3 sm:flex-row sm:items-center sm:gap-0'>
       {/* Booking Details  */}
       <div className='flex shrink-0 justify-between sm:w-[480px] sm:items-center'>
-        <p className=''>#MS-2041</p>
+        <p className=''>#MS-{id?.slice(0, 4)}</p>
         <div>
           <p className='text-[14px] sm:text-[16px]'>{client_name}</p>
         </div>
         <div>
-          <p className='text-[14px] sm:text-[16px]'>{location}</p>
+          <p className='text-[14px] sm:text-[16px] capitalize'>{bookingLocation}</p>
         </div>
       </div>
       {/* Booking date  */}

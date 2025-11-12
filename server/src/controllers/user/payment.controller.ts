@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 // import axios from "axios";
-import Payment from "../models/payment.models";
-import Booking from "../models/booking.models";
-import { bookingNotification } from "../utils/notifications";
-import { sendBookingPaymentEmail } from "../utils/sendEmail";
+import Payment from "../../models/payment.models";
+import Booking from "../../models/booking.models";
+import { bookingNotification } from "../../utils/notifications";
+import { sendBookingPaymentEmail } from "../../utils/sendEmail";
 
 const router = express.Router();
 

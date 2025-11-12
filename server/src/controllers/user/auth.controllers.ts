@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import * as crypto from 'crypto';
-import User from "../models/user.models";
-import { sendOtpEmail } from "../utils/sendEmail";
-import Opt from "../models/otp.models";
-import { generateOTP } from "../utils/generateOTP";
-import { generateAuthTokens } from "../utils/generateAuthToken";
+import User from "../../models/user.models";
+import { sendOtpEmail } from "../../utils/sendEmail";
+import Opt from "../../models/otp.models";
+import { generateOTP } from "../../utils/generateOTP";
+import { generateAuthTokens } from "../../utils/generateAuthToken";
 
 
 // register a new user 

@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
-import Booking from "../models/booking.models";
+import Booking from "../../models/booking.models";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "../config/cloudinary.config";
+import cloudinary from "../../config/cloudinary.config";
 import multer from "multer";
+import User from "../../models/user.models";
 
 // import { isSlotAvailable } from "../utils/isSlotAvailable"; 
 
@@ -44,6 +45,8 @@ export async function createBooking(req: Request, res: Response) {
     // const { sessionType, date, timeSlot, notes } = req.body;
     const userId = req.userId; // assuming user is attached from auth middleware
 
+    const user = await User.findOne({_id:userId})
+
 
     const { date, startTime, sessionType, studioRoom, price, location} = req.body;
 
@@ -75,6 +78,7 @@ export async function createBooking(req: Request, res: Response) {
 
     const booking = await Booking.create({
       user: userId,
+      user_fullnames : `${user?.first_name} ${user?.last_name}`,
       sessionType,
       date,
       startTime,
@@ -126,7 +130,7 @@ export async function getBookingById(req: Request, res: Response) {
     if (!mongoose.Types.ObjectId.isValid(Number(id)))
       return res.status(400).json({ message: "Invalid booking ID" });
 
-    const booking = await Booking.findById(id).populate("user", "first_name last_name email");
+    const booking = await Booking.findById(id);
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     return res.status(200).json(booking);

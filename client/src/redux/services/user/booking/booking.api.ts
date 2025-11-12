@@ -24,7 +24,7 @@ export const bookingApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Bookings"],
+      invalidatesTags: ["Bookings", "AdminStats"],
     }),
     updateBooking: builder.mutation<BookingTypeResponse, BookingTypeRequest>({
        query: ({ id, booking}) => ({

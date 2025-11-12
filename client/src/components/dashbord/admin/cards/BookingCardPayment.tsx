@@ -1,26 +1,33 @@
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import LinkButton from "@/components/ui/LinkButton";
+import { formatDate } from "@/utils/dateFormatter";
+import nairaSymbol from "@/utils/symbols";
+import { formatTime } from "@/utils/timeFormatter";
 // import { formatDate } from "@/utils/dateFormatter";
 // import nairaSymbol from "@/utils/symbols";
 // import { formatTime } from "@/utils/timeFormatter";
 import React from "react";
 
 interface BookingCardPaymentProps {
-  id?: string | null | undefined;
-  location?: string | null | undefined;
-  date?: string | null | undefined;
-  client_name?: string | null | undefined;
-  time?: string | null | undefined;
+  booking: string | null | undefined;
+  reference: string | null | undefined;
+  amount: number | null | undefined;
+  paidAt: string | null | undefined
+  // id?: string | null | undefined;
+  // location?: string | null | undefined;
+  // date?: string | null | undefined;
+  // client_name?: string | null | undefined;
+  // time?: string | null | undefined;
   status: "cancelled" | "completed" | "pending" | "confirmed" | undefined;
 }
 const BookingCardPayment = ({
-  id,
-  location,
-  date,
-  time,
+  reference,
+  booking,
+  paidAt,
+  amount,
   status,
-  client_name,
+
 }: BookingCardPaymentProps) => {
   const statusStyle =
     status === "cancelled"
@@ -46,12 +53,12 @@ const BookingCardPayment = ({
     <div className='flex flex-col justify-between gap-3 sm:flex-row sm:items-center sm:gap-0'>
       {/* Booking Details  */}
       <div className='flex shrink-0 justify-between sm:w-[480px] sm:items-center'>
-        <p className=''>#MS-2041</p>
+        <p className=''>#MS-{reference?.slice(0, 4)}</p>
         <div>
-          <p className='text-[14px] sm:text-[16px]'>{client_name}</p>
+          <p className='text-[14px] sm:text-[16px]'>{booking}</p>
         </div>
         <div>
-          <p className='text-[14px] sm:text-[16px]'>{location}</p>
+          <p className='text-[14px] sm:text-[16px]'>{`${nairaSymbol()} ${amount?.toLocaleString()}`}</p>
         </div>
       </div>
       {/* Booking date  */}
@@ -64,10 +71,10 @@ const BookingCardPayment = ({
         <div>
           <div className='mb-1 flex gap-2'>
             {/* <h3 className='font-semibold capitalize'>{formatDate(date, "short")}</h3> */}
-            <h3 className='font-semibold capitalize'>{date}</h3>
+            <h3 className='font-semibold capitalize'>{formatDate(paidAt)}</h3>
           </div>
           {/* <p className='text-[14px] sm:text-[16px]'>{formatTime(time)}</p> */}
-          <p className='text-[14px] sm:text-[16px]'>{time}</p>
+          <p className='text-[14px] sm:text-[16px]'>{formatTime(paidAt)}</p>
         </div>
       </div>
       {/* Booking status  */}
@@ -81,7 +88,7 @@ const BookingCardPayment = ({
       {/* View booking details  */}
       <div className='flex gap-2 sm:items-center sm:justify-center'>
         <LinkButton
-          href={`/admin/dashboard/bookings/${id}`}
+          href={`/admin/dashboard/bookings/${reference}`}
           size='md'
           text={"View booking"}
           icon={<RedirectArrowWhite />}

@@ -1,15 +1,21 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
 // import { useGetBookingsQuery } from "@/redux/services/booking/booking.api";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import DashboardHeader from "./DashboardHeader";
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import ClientCards from "./cards/BookingClientCards";
+import { useGetAllUserQuery } from "@/redux/services/admin/user/adminUsers.api";
+import { formatDate } from "@/utils/dateFormatter";
+import Pagination from "@/components/Pagination";
 
 const DashBoardClients = () => {
+    const [userPage, setUserPage] = useState(1);
+    const limit = 10;
     // Call the query hook
-    // const { data: bookings, error, isLoading, } = useGetBookingsQuery();
+    const { data: users, error: usersError, isLoading: usersIsloading, } = useGetAllUserQuery({ page: userPage, limit });
+
 
     // ✅ Compute analytics safely and memoize
     const analytics = useMemo(() => {
@@ -21,14 +27,14 @@ const DashBoardClients = () => {
         return [
             {
                 title: "Total clients",
-                count: 2000,
+                count: users?.pagination.total || 0,
                 linkText: "From 2025",
                 href: "/bookings",
                 dataType: 0,
             },
             {
                 title: "active clients",
-                count: 500,
+                count: users?.pagination.total || 0,
                 linkText: "100 new users",
                 href: "/bookings",
                 dataType: 0,
@@ -48,7 +54,7 @@ const DashBoardClients = () => {
             //     dataType: 0,
             // },
         ];
-    }, []);
+    }, [users?.pagination.total]);
     // if (isLoading) return "Loading...";
     // if (error) return "Failed to load data";
 
@@ -127,24 +133,28 @@ const DashBoardClients = () => {
 
                         </div>
 
-                        {/* Bookings lists */}
-                        <div className="flex flex-col gap-10 py-5 pl-4 pr-6">
-                            <ClientCards
-                                id={"jwjwhwhweje"}
-                                client_name={"Ekong Emmanuel"}
-                                email={"ekong@gmail.com"}
-                                joined_date={"19th October, 2025"}
-                                bookings={"200"}
-                                status='inactive'
+                        {/* Users lists */}
+                        {usersIsloading ? 'Loading data' : usersError ? "error loading" : <div className="flex flex-col gap-10 py-5 pl-4 pr-6">
+                            {users?.data.map((user) => {
+                                return <ClientCards key={user._id}
+                                    id={user._id}
+                                    client_name={`${user.first_name} ${user.last_name}`}
+                                    email={user.email}
+                                    joined_date={formatDate(user.createdAt)}
+                                    bookings={"200"}
+                                    status={user.isMember ? "active" : 'inactive'}
+                                />
+
+                            })}
+
+                        </div>}
+                        <div className="p-6">
+                            <Pagination
+                                currentPage={users?.pagination.page || null}
+                                totalPages={users?.pagination.totalPages || null}
+                                onPageChange={setUserPage}
                             />
-                            <ClientCards
-                                id={"jwjwhwhweje"}
-                                client_name={"Ekong Emmanuel"}
-                                email={"ekong@gmail.com"}
-                                joined_date={"19th October, 2025"}
-                                bookings={"20"}
-                                status='active'
-                            />
+
                         </div>
                     </div>
                 </section>

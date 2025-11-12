@@ -1,48 +1,53 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
-import {
-    useGetBookingsQuery,
-    usePrefetch,
-} from "@/redux/services/booking/booking.api";
 import DashboardHeader from "./DashboardHeader";
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import nairaSymbol from "@/utils/symbols";
 import BookingCardPayment from "./cards/BookingCardPayment";
+import { useGetAllPaymentQuery, usePrefetch } from "@/redux/services/admin/payment/adminPayments.api";
+import Pagination from "@/components/Pagination";
+// import { formatDate } from "@/utils/dateFormatter";
+// import { formatTime } from "@/utils/timeFormatter";
 
 const DashboardPayment = () => {
-    const { data: bookings, isLoading } = useGetBookingsQuery();
+    const [paymentPage, setPaymentPage] = useState(1);
+    const limit = 10;
+    const { data: payments, isLoading } = useGetAllPaymentQuery({ page: paymentPage, limit: limit });
     const [currentTab, setCurrentTab] = useState<number>(1);
+
+    console.log("payments: ", payments);
+
     // Prefetch hook for single booking
-    const prefetchBooking = usePrefetch("getBookingById");
+    const prefetchPayment = usePrefetch("getPaymentById");
     // ✅ Compute analytics safely and memoize
     const analytics = useMemo(() => {
-        // const total = bookings?.length || 2000;
-        // const completed = bookings?.filter(b => b.status === "completed").length || 0;
-        // const upcoming = bookings?.filter(b => b.status === "pending").length || 0;
-        // const cancelled = bookings?.filter(b => b.status === "cancelled").length || 0;
+        // const total = payments?.length || 2000;
+        // const completed = payments?.filter(b => b.status === "completed").length || 0;
+        // const upcoming = payments?.filter(b => b.status === "pending").length || 0;
+        // const cancelled = payments?.filter(b => b.status === "cancelled").length || 0;
 
         return [
             {
                 title: "Total Payment",
                 count: 15000000,
                 linkText: "Completed payments",
-                href: "/bookings",
+                href: "/payments",
                 dataType: 1,
             },
             {
                 title: "today's revenue",
                 count: `${nairaSymbol()}${parseInt('50000').toLocaleString()}`,
-                linkText: "2 new bookings today",
-                href: "/bookings",
+                linkText: "2 new payments today",
+                href: "/payments",
                 dataType: 0,
             },
             {
                 title: "balance",
                 count: `${nairaSymbol()}${parseInt('480000').toLocaleString()}`,
                 linkText: "Pending payments",
-                href: "/bookings",
+                href: "/payments",
                 dataType: 0,
             },
            
@@ -52,31 +57,32 @@ const DashboardPayment = () => {
     // if (error) return "Failed to load data";
 
     // 🔹 Compute and format your bookings once
-    const formattedBookings = useMemo(() => {
-        if (!bookings) return [];
+    const formattedPayments = useMemo(() => {
+        if (!payments) return [];
 
-        return bookings.map(b => ({
-            id: b._id,
-            title: `${b.sessionType} session`,
-            location: b.location,
-            date: b.date, // e.g. "Thu Dec 04 2025"
-            time: b.startTime,
-            amount: b.price, // e.g. "123,400"
-            status: b.status, // e.g. "pending", "completed"
+        return payments?.data.map(payment => ({
+            booking: payment.booking,
+            reference: payment.reference,
+            amount: payment.amount,
+            status: payment.status,
+            paidAt: payment.paidAt
         }));
-    }, [bookings]);
+    }, [payments]);
 
-    // 🔹 Filter bookings based on status or date
-    const allBookings = formattedBookings;
+    // 🔹 Filter payments based on status or date
+    const allpayments = formattedPayments;
+
+    console.log("formattedPayments: ", formattedPayments);
+
     // const now = new Date();
-    const upcomingBookings = formattedBookings.filter(b => {
-        // const bookingDate = b.date;
-        return b.date;
+    const upcomingpayments = formattedPayments.filter(payment => {
+        // const paymentookingDate = payment.date;
+        return payment.status;
     });
 
-    const pastBookings = formattedBookings.filter(b => {
-        // const bookingDate = b.date;
-        return b.date;
+    const pastpayments = formattedPayments.filter(payment => {
+        // const paymentookingDate = payment.date;
+        return payment.status;
     });
     if (isLoading) return "Loading...";
     // if (error) return "Failed to load data";
@@ -88,21 +94,21 @@ const DashboardPayment = () => {
         { label: "Past", index: 3 },
     ];
 
-    const renderBookings = (data: typeof formattedBookings) => {
+    const renderpayments = (data: typeof formattedPayments) => {
         if (!data.length) return <p className="flex w-full h-[100px] items-center justify-center">No payments available.</p>;
-        return data.map(b => (
+        return data.map(payment => (
             <div
-                key={b.id}
-                onMouseEnter={() => prefetchBooking(b.id || "", { ifOlderThan: 60 })} // 👈 Prefetch on hover
-                onFocus={() => prefetchBooking(b.id || "", { ifOlderThan: 60 })} // 👈 Accessibility
+                key={payment.reference}
+                onMouseEnter={() => prefetchPayment(payment.reference || "", { ifOlderThan: 60 })} // 👈 Prefetch on hover
+                onFocus={() => prefetchPayment(payment.reference || "", { ifOlderThan: 60 })} // 👈 Accessibility
             >
                 <BookingCardPayment
-                    id={"jwjwhwhweje"}
-                    client_name={"Ekong Emmanuel"}
-                    location={"outdoor"}
-                    date={"19th October, 2025"}
-                    time={""}
-                    status='completed'
+                    // id={payment.reference} 
+                    booking={payment.booking}
+                    reference={payment.reference}
+                    amount={payment.amount}
+                    status={payment.status === "success" ? "completed" : "pending"}
+                    paidAt={payment.paidAt}
                 />
             </div>
         ));
@@ -130,7 +136,7 @@ const DashboardPayment = () => {
                 ))}
             </div>
             <section className='w-full'>
-                {/* Bookings table  */}
+                {/* payments table  */}
                 <section className='max-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
                     {/* header section  */}
                     <div className='p-5 flex items-start justify-between mb-1'>
@@ -200,13 +206,20 @@ const DashboardPayment = () => {
 
                         </div>
 
-                        {/* Bookings lists */}
+                        {/* payments lists */}
 
-                        {/* Bookings per tab */}
-                        <div className='flex flex-col gap-4'>
-                            {currentTab === 1 && renderBookings(allBookings)}
-                            {currentTab === 2 && renderBookings(upcomingBookings)}
-                            {currentTab === 3 && renderBookings(pastBookings)}
+                        {/* payments per tab */}
+                        <div className='flex flex-col gap-4 pl-4 pr-6 py-6'>
+                            {currentTab === 1 && renderpayments(allpayments)}
+                            {currentTab === 2 && renderpayments(upcomingpayments)}
+                            {currentTab === 3 && renderpayments(pastpayments)}
+                        </div>
+                        <div className="p-6">
+                            <Pagination
+                                currentPage={payments?.pagination.page || null}
+                                totalPages={payments?.pagination.totalPages || null}
+                                onPageChange={setPaymentPage}
+                            />
                         </div>
 
                     </div>
