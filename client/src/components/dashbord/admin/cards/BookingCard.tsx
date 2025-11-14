@@ -12,14 +12,14 @@ interface BookingCardProps {
   location?: string | null | undefined;
   date?: string | null | undefined;
   client_name?: string | null | undefined;
-  time?: string | null | undefined;
+  startTime?: string | null | undefined;
   status: "cancelled" | "completed" | "pending" | "confirmed" | undefined;
 }
 const BookingCard = ({
   id,
   location,
   date,
-  time,
+  startTime,
   status,
   client_name,
 }: BookingCardProps) => {
@@ -69,7 +69,7 @@ const BookingCard = ({
             <h3 className='font-semibold capitalize'>{date}</h3>
           </div>
           {/* <p className='text-[14px] sm:text-[16px]'>{formatTime(time)}</p> */}
-          <p className='text-[14px] sm:text-[16px]'>{time}</p>
+          <p className='text-[14px] sm:text-[16px]'>{startTime}</p>
         </div>
       </div>
       {/* Booking status  */}

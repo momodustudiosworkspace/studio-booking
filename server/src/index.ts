@@ -20,6 +20,7 @@ import authRoutes from "./routes/user/auth.routes"
 import bookingRoutes from "./routes/user/booking.routes";
 import packagesRoutes from "./routes/user/packages.routes"
 import paymentRoutes from "./routes/user/payment.routes"
+import userRouters from "./routes/user/user.routers"
 
 
 
@@ -35,7 +36,7 @@ app.use(morgan("dev"))
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerOpenapiSpecification));
 
 
-// Admin 
+// Admin endpoints
 app.use("/api/admin/dashboard", adminDashboardRoutes )
 app.use("/api/admin/bookings", adminBookingRoutes )
 app.use("/api/admin/users", adminUsersRoutes )
@@ -43,18 +44,14 @@ app.use("/api/admin/payments", adminPayments )
 
 
 
-// User endpoint 
-
-// auth endpoints 
+// User endpoint  
 app.use("/api/auth", authRoutes)
-
-// booking endpoints
 app.use("/api/bookings", bookingRoutes);
-
-// payment endpoints
 app.use("/api/payment", paymentRoutes);
+app.use("/api/user",userRouters) 
 
-// booking packages endpoing
+
+// Packages endpoint 
 app.use("/api/bookings/packages", packagesRoutes)
 
 

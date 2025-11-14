@@ -150,7 +150,7 @@ const DashBoardOverview = () => {
                   client_name={booking.user}
                   location={booking.location?.address}
                   date={formatDate(booking.startTime)}
-                  time={formatTime(booking.startTime)}
+                  startTime={formatTime(booking.startTime)}
                   status={booking.status}
                 />
 

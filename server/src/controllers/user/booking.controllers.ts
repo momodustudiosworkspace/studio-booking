@@ -8,7 +8,6 @@ import User from "../../models/user.models";
 
 // import { isSlotAvailable } from "../utils/isSlotAvailable"; 
 
-// Extend Express Request interface to include userId
 declare global {
   namespace Express {
     interface Request {
@@ -16,7 +15,6 @@ declare global {
     }
   }
 }
-
 // 🧩 Define multer + Cloudinary storage
 const storage = new CloudinaryStorage({
   cloudinary,

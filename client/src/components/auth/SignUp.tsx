@@ -17,6 +17,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo");
+  const email = searchParams.get("email")
 
   return (
     <AuthForm
@@ -30,12 +31,12 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
         initialValues={{
           fname: "",
           lname: "",
-          email: "",
+          email: email ?? "",
           password: "",
           password_confirm: "",
           agree: false,
         }}
-        onSubmit={async values => {
+        onSubmit={async (values) => {
           try {
             const res = await fetch("/api/auth/register", {
               method: "POST",
@@ -71,7 +72,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
               icon: false,
               theme: "colored",
             });
-            router.push("/auth/verify-email");
+            router.push(`/auth/verify-email?email=${values.email}`);
           } catch (error) {
             console.log("error: ", error);
             toast(`Error : ${error}`);
@@ -80,6 +81,27 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
       >
         {({ values, isSubmitting }) => (
           <Form className='flex w-full flex-col gap-10'>
+            <div className="flex sm:flex-row flex-col sm:justify-between gap-10 sm:items-center">
+              <div className='flex flex-col gap-3 font-medium text-white sm:text-black w-full'>
+                <label className='text-sm font-medium'>First name</label>
+                <Field
+                  name='fname'
+                  type='text'
+                  className='border-b-[1px] border-white bg-transparent pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black'
+                  placeholder='Enter first name'
+                />
+              </div>
+              <div className='flex flex-col gap-3 font-medium text-white sm:text-black w-full'>
+                <label className='text-sm font-medium'>Last name</label>
+                <Field
+                  name='lname'
+                  type='text'
+                  className='border-b-[1px] border-white bg-transparent pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black'
+                  placeholder='Enter last name'
+                />
+              </div>
+            </div>
+
             <div className='flex flex-col gap-3 font-medium text-white sm:text-black'>
               <label className='text-sm font-medium'>Email Address</label>
               <Field

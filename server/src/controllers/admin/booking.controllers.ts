@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import Booking from "../../models/booking.models";
+// import Payment from "../../models/payment.models";
 
 
 
@@ -16,6 +17,13 @@ export const getAllUserBookings = async (req: Request, res: Response)=> {
       Booking.find().sort({ createdAt: -1 }).skip(skip).limit(limit),
       Booking.countDocuments(),
     ]);
+      //  const totalRevenueResult = await Booking.aggregate([
+      //     { $match: { status: "success" } },
+      //     { $group: { _id: null, total: { $sum: "$amount" } } },
+      //   ]);
+        // const totalRevenue = totalRevenueResult[0]?.total || 0;
+    
+    
 
     return res.status(200).json({
       data: bookings,

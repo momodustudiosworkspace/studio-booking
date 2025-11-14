@@ -7,6 +7,7 @@ export const adminBookingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getAllPayment: builder.query<{
       data: AllPaymentResponse[];
+      // totalRevenue: { totalPayment: number; };
       pagination: { total: number; page: number; limit: number; totalPages: number };
     }, { page?: number; limit?: number }>({
       query: ({ page = 1, limit = 10 }) => `/admin/payments/all?page=${page}&limit=${limit}`,

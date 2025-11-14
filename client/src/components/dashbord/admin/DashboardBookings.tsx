@@ -71,25 +71,30 @@ const DashboardBookings = () => {
         address: b.location?.address,
         state: b.location?.state,
       },
-      date: formatDate(b.date) || null, // e.g. "Thu Dec 04 2025"
-      time: formatTime(b.startTime),
+      date: b.date || null, // e.g. "Thu Dec 04 2025"
+      startTime: b.startTime,
       amount: b.price, // e.g. "123,400"
       status: b.status, // e.g. "pending", "completed"
     }));
   }, [bookings]);
 
 
+
+  const now = new Date();
   // 🔹 Filter bookings based on status or date
   const allBookings = formattedBookings;
-  // const now = new Date();
   const upcomingBookings = formattedBookings.filter(b => {
-    // const bookingDate = b.date;
-    return b.date;
+    if (b?.date) {
+      return now < new Date(b.date);
+    }
+    return 
   });
 
   const pastBookings = formattedBookings.filter(b => {
-    // const bookingDate = b.date;
-    return b.date;
+    if (b?.date) {
+      return now > new Date(b.date);
+    }
+    return 
   });
   if (isLoading) return "Loading...";
   // if (error) return "Failed to load data";
@@ -114,8 +119,8 @@ const DashboardBookings = () => {
           id={b._id}
           client_name={`${b.user_fullnames}`}
           location={b.location?.address || ""}
-          date={b.date}
-          time={b.time}
+          date={formatDate(b.date)}
+          startTime={formatTime(b.startTime)}
           status={b.status}
         />
       </div>
