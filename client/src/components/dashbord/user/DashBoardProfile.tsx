@@ -89,7 +89,7 @@ const DashboardProfile = () => {
 
         {/* Personal information  */}
         <div className='mb-14'>
-          <h4 className='mb-5 font-semibold capitalize'>
+          <h4 className='mb-5 text-lg font-semibold capitalize'>
             personal information
           </h4>
 
@@ -98,26 +98,28 @@ const DashboardProfile = () => {
               <Formik
                 initialValues={{
                   name: "jane doe",
-                  email: "jandoe@gmail.com",
-                  phone: "+234 812 345 6789",
+                  email: userprofile?.user.email,
+                  first_name: userprofile?.user.first_name,
+                  last_name: userprofile?.user.last_name,
+                  phone: "",
                   address: "Lagos, Nigeria",
                 }}
                 onSubmit={values => {
                   console.log(values);
                 }}
               >
-                {() => (
-                  <Form className='flex w-full flex-col gap-10 text-black'>
+                {(values) => (
+                  <Form className='flex w-full flex-col sm:gap-20 gap-10 text-black'>
                     <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='relative flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
-                          Full name
+                        <label className='text-sm font-semibold text-black'>
+                          First Name
                         </label>
                         <Field
-                          name='name'
+                          name='first_name'
                           type='text'
                           className='border-b-[1px] border-black pb-2 capitalize outline-0 transition-all ease-in-out focus:border-b-2'
-                          placeholder='Enter full name'
+                          placeholder='Enter first name'
                           disabled={!editFullName}
                         />
                         <div className='absolute top-8 right-2'>
@@ -130,8 +132,32 @@ const DashboardProfile = () => {
                           </button>
                         </div>
                       </div>
+                      <div className='relative flex w-full flex-col gap-3'>
+                        <label className='text-sm font-semibold text-black'>
+                          Last Name
+                        </label>
+                        <Field
+                          name='last_name'
+                          type='text'
+                          className='border-b-[1px] border-black pb-2 capitalize outline-0 transition-all ease-in-out focus:border-b-2'
+                          placeholder='Enter last name'
+                          disabled={!editFullName}
+                        />
+                        <div className='absolute top-8 right-2'>
+                          <button
+                            type='button'
+                            onClick={() => setEditFullName(!editFullName)}
+                            className='text-sm font-medium text-black underline'
+                          >
+                            {editFullName ? "Save" : "Edit"}
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           Email Address
                         </label>
                         <Field
@@ -142,10 +168,8 @@ const DashboardProfile = () => {
                           placeholder='Enter email address'
                         />
                       </div>
-                    </div>
-                    <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='relative flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           Phone number
                         </label>
                         <Field
@@ -165,8 +189,11 @@ const DashboardProfile = () => {
                           </button>
                         </div>
                       </div>
+
+                    </div>
+                    <div>
                       <div className='relative flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           Address
                         </label>
                         <Field
@@ -187,6 +214,17 @@ const DashboardProfile = () => {
                         </div>
                       </div>
                     </div>
+                    <div className='-mt-3 flex w-full justify-end'>
+                      <Button
+                        text='Save changes'
+                        onClick={() => console.log(values)}
+                        icon={<RedirectArrowWhite />}
+                        // disabled={!values.new_password || isSubmitting}
+                        iconPosition='right'
+                        className='w-[170px]'
+                        size='md'
+                      />
+                    </div>
                   </Form>
                 )}
               </Formik>
@@ -196,7 +234,7 @@ const DashboardProfile = () => {
 
         {/* Settings  */}
         <div>
-          <h4 className='mb-5 font-semibold capitalize'>Profile Settings</h4>
+          <h4 className='mb-5 text-lg font-semibold capitalize'>Profile Settings</h4>
 
           <div className='flex items-center gap-2'>
             {
@@ -213,7 +251,7 @@ const DashboardProfile = () => {
                   <Form className='flex w-full flex-col gap-10 text-black'>
                     <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='relative flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           Current password
                         </label>
                         <Field
@@ -225,7 +263,7 @@ const DashboardProfile = () => {
                         />
                       </div>
                       <div className='flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           New password
                         </label>
                         <Field
@@ -238,12 +276,12 @@ const DashboardProfile = () => {
                     </div>
                     <div className='-mt-3 flex w-full justify-end'>
                       <Button
-                        text='Change password'
+                        text='Update password'
                         onClick={() => console.log(values)}
                         icon={<RedirectArrowWhite />}
                         disabled={!values.new_password || isSubmitting}
                         iconPosition='right'
-                        className='w-[224px]'
+                        className='w-[202px]'
                         size='md'
                       />
                     </div>

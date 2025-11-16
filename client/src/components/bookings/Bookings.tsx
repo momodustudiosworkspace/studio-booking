@@ -29,6 +29,9 @@ const Bookings = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const { data: session } = useSession();
 
+  console.log("session: ", session?.user.email);
+
+
   const bookingData = useAppSelector(state => state.booking);
 
   const [bookingStep, setBookingStep] = useState<number>(
@@ -316,7 +319,7 @@ const Bookings = (): React.JSX.Element => {
             {bookingStep < 5 && (
               <div className='mt-4 flex w-full justify-end'>
 
-                {!session?.user && bookingStep > 3 ? (
+                {!session?.user.email && bookingStep > 3 ? (
                   <LinkButton
                     href='/auth?redirectTo=bookings'
                     size='md'

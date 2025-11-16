@@ -114,13 +114,14 @@ const Footer = (): React.JSX.Element => {
           >
             {({ values }) => (
               <Form>
-                <div className='flex h-[50px] items-center justify-between rounded-full bg-neutral-700 px-2'>
+                <div className='flex h-[50px] items-center gap-3 justify-between rounded-full bg-neutral-700 px-2'>
                   <Field
                     type='email'
                     name='email'
                     placeholder='Email address'
                     className='pl-4 text-[16px] outline-none'
                   />
+
                   <Button
                     text='Subscribe'
                     size='sm'

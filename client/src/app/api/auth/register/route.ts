@@ -6,7 +6,7 @@ export async function POST(req: Request): Promise<NextResponse<unknown>> {
   try {
     const body = await req.json();
 
-    const res = await fetch(`${baseUrl }/auth/register/`, {
+    const res = await fetch(`${baseUrl}/auth/register/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

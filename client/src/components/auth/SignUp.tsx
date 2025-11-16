@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
+import { signIn } from "next-auth/react";
 
 interface SignUpProps {
   signin: boolean;
@@ -29,8 +30,8 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
     >
       <Formik
         initialValues={{
-          fname: "",
-          lname: "",
+          first_name: "",
+          last_name: "",
           email: email ?? "",
           password: "",
           password_confirm: "",
@@ -45,14 +46,9 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
             });
             const data = await res.json();
 
-            if (res?.ok && searchParams && redirectTo) {
-              // Redirect back
-              return router.push(redirectTo);
-            }
-
             if (!res.ok) {
               // toast.error(data.error || data.message || "Registration failed");
-              toast.error(AuthToast, {
+              return toast.error(AuthToast, {
                 data: {
                   title: "Registration failed",
                   content: `${data.error || data.message || "Registration failed"}`,
@@ -61,18 +57,33 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
                 icon: false,
                 theme: "colored",
               });
-              return;
+
             }
-            toast.success(AuthToast, {
-              data: {
-                title: "Registration successful",
-                content: `${data.message || "Registration successful"}`,
-              },
-              ariaLabel: "Registration successful",
-              icon: false,
-              theme: "colored",
-            });
-            router.push(`/auth/verify-email?email=${values.email}`);
+
+
+            if (res?.ok && redirectTo) {
+              toast.success(AuthToast, {
+                data: {
+                  title: "Registration successful",
+                  content: `${data.message || "Registration successful"}`,
+                },
+                ariaLabel: "Registration successful",
+                icon: false,
+                theme: "colored",
+              });
+              // Now automatically log the user in
+              await signIn("credentials", {
+                email: values?.email,
+                password: values?.password,
+                redirect: false,
+              });
+              // Redirect back
+              return router.push(redirectTo);
+            }
+
+
+            return router.push(`/auth/verify-email?email=${values.email}`);
+
           } catch (error) {
             console.log("error: ", error);
             toast(`Error : ${error}`);
@@ -85,7 +96,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
               <div className='flex flex-col gap-3 font-medium text-white sm:text-black w-full'>
                 <label className='text-sm font-medium'>First name</label>
                 <Field
-                  name='fname'
+                  name='first_name'
                   type='text'
                   className='border-b-[1px] border-white bg-transparent pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black'
                   placeholder='Enter first name'
@@ -94,7 +105,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
               <div className='flex flex-col gap-3 font-medium text-white sm:text-black w-full'>
                 <label className='text-sm font-medium'>Last name</label>
                 <Field
-                  name='lname'
+                  name='last_name'
                   type='text'
                   className='border-b-[1px] border-white bg-transparent pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black'
                   placeholder='Enter last name'

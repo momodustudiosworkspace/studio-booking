@@ -14,13 +14,13 @@ import { formatTime } from "@/utils/timeFormatter";
 const DashboardBookings = () => {
   const [bookingPage, setBookingPage] = useState(1);
   const limit = 10;
-  const { data: bookings, isLoading } = useGetAllUserBookingsQuery({ page: bookingPage, limit });
+  const { data: bookings, isLoading } = useGetAllUserBookingsQuery({ page: bookingPage, limit }, { pollingInterval: 600000, });
   const [currentTab, setCurrentTab] = useState<number>(1);
   // Prefetch hook for single booking
   const prefetchBooking = usePrefetch("getBookingById");
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
-    const total = bookings?.data.length || 2000;
+    const total = bookings?.data.length || 0;
     const completed = bookings?.data.filter(b => b.status === "completed").length || 0;
     const upcoming = bookings?.data.filter(b => b.status === "pending").length || 0;
     // const cancelled = bookings?.data.filter(b => b.status === "cancelled").length || 0;
