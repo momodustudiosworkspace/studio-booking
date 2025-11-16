@@ -18,9 +18,9 @@ const DashBoardOverview = () => {
   const [userPage, setUserPage] = useState(1);
   const limit = 10;
   // Call the query hook
-  const { data: stats, error, isLoading, } = useGetAdminDashBoardStatsQuery();
-  const { data: bookings, error: bookingError, isLoading: bookingIsloading, } = useGetAllUserBookingsQuery({ page: bookingPage, limit });
-  const { data: users, error: usersError, isLoading: usersIsloading, } = useGetAllUserQuery({ page: userPage, limit });
+  const { data: stats, error, isLoading, } = useGetAdminDashBoardStatsQuery(undefined, { pollingInterval: 600000, });
+  const { data: bookings, error: bookingError, isLoading: bookingIsloading, } = useGetAllUserBookingsQuery({ page: bookingPage, limit }, { pollingInterval: 600000, });
+  const { data: users, error: usersError, isLoading: usersIsloading, } = useGetAllUserQuery({ page: userPage, limit }, { pollingInterval: 600000, });
 
   console.log("bookings: ", bookings);
   console.log("users: ", users);
@@ -150,7 +150,7 @@ const DashBoardOverview = () => {
                   client_name={booking.user}
                   location={booking.location?.address}
                   date={formatDate(booking.startTime)}
-                  time={formatTime(booking.startTime)}
+                  startTime={formatTime(booking.startTime)}
                   status={booking.status}
                 />
 

@@ -1,7 +1,7 @@
 
-export interface UserTypesResponse{
+export interface UserTypesResponse {
   _id: string;
- first_name?: string;
+  first_name?: string;
   last_name?: string;
   email?: string;
   passwordHash?: string;
@@ -9,4 +9,14 @@ export interface UserTypesResponse{
   isAdmin?: boolean;
   createdAt?: string;
   updatedAt?: Date;
+}
+
+export interface UserProfileTypesResponse {
+    user: UserTypesResponse,
+    stats: {
+      totalBookings: number,
+      totalCompleted: number,
+      totalPending: number
+      totalCancelled: number
+    }
 }

@@ -4,34 +4,42 @@ import DashboardLayout from "./DashboardLayout";
 import { Field, Form, Formik } from "formik";
 import Button from "../../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
+import { useGetUserProfileQuery } from "@/redux/services/user/user/user.api";
 
 const DashboardProfile = () => {
   const [editFullName, setEditFullName] = useState<boolean>(false);
   const [editPhoneNumber, setEditPhoneNumber] = useState<boolean>(false);
-  const [editLocation, setEditLocation] = useState<boolean>(false);
+  const [editAddress, setEditAddress] = useState<boolean>(false);
+
+  const { data: userprofile, isLoading: userProfileLoading } = useGetUserProfileQuery()
+
+  console.log("use profile: ", userprofile);
+
   const BOOKING_DATA = [
     {
       title: "total sessions",
-      count: 8,
+      count: userprofile?.stats?.totalBookings,
     },
     {
-      title: "upcoming sessions",
-      count: 2,
-    },
-    {
-      title: "completed shoots",
-      count: 6,
+      title: "completed sessions",
+      count: userprofile?.stats?.totalCompleted,
     },
     {
       title: "pending sessions",
-      count: 1,
+      count: userprofile?.stats?.totalPending,
+    },
+    {
+      title: "cancelled sessions",
+      count: userprofile?.stats?.totalCancelled,
     },
   ];
+
+  if (userProfileLoading) return "Loading profile"
   return (
     <DashboardLayout
       headerProps={{
         headerText: "Profile",
-        paragraph: "Lorem ipsum dolor sit amet consectetur.",
+        paragraph: "View & update your profile",
         linkText: "Book your session",
         href: "/",
       }}
@@ -39,15 +47,18 @@ const DashboardProfile = () => {
       <section className='w-full rounded-lg border-[1px] border-[#F8F8F8] bg-white px-5 py-7 shadow sm:p-10'>
         {/* user data  */}
         <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
-          <div className='flex h-[74px] w-[74px] items-center justify-center rounded-full bg-black text-[31px] font-semibold text-white sm:h-[94px] sm:w-[94px] sm:text-[40px]'>
-            JD
+          <div className='flex h-[74px] w-[74px] items-center justify-center rounded-full bg-black text-[31px] font-semibold text-white sm:h-[94px] sm:w-[94px] sm:text-[40px] uppercase'>
+            {userprofile?.user && (userprofile?.user.first_name ? <span>{userprofile?.user.first_name?.slice(0, 1)}{userprofile?.user.last_name?.slice(0, 1)}</span> : <span>{userprofile?.user.email?.slice(0, 1)}{userprofile?.user.email?.slice(1, 2)}</span>)}
           </div>
-          <div>
-            <h1 className='mb-2 text-[24px] font-semibold capitalize'>
-              jane doe
+          <div className="">
+            <h1 className={`mb-2 text-[24px] sm:w-[300px] w-[200px] truncate font-semibold ${userprofile?.user?.first_name ? "capitalize" : ""}`}>
+              {
+                userprofile?.user?.first_name ? `${userprofile?.user?.first_name} ${userprofile?.user?.last_name}` : userprofile?.user?.email
+              }
+
             </h1>
-            <p className='mb-1 font-medium text-[#414141] sm:text-[16px]'>
-              janedoe@gmail.com
+            <p className='mb-1 font-medium sm:w-[300px] w-[200px] text-sm truncate text-[#414141] sm:text-[16px]'>
+              {userprofile?.user?.email}
             </p>
             <p className='font-medium text-[#414141] sm:text-[16px]'>
               +234 812 345 6789
@@ -78,7 +89,7 @@ const DashboardProfile = () => {
 
         {/* Personal information  */}
         <div className='mb-14'>
-          <h4 className='mb-5 font-semibold capitalize'>
+          <h4 className='mb-5 text-lg font-semibold capitalize'>
             personal information
           </h4>
 
@@ -87,26 +98,28 @@ const DashboardProfile = () => {
               <Formik
                 initialValues={{
                   name: "jane doe",
-                  email: "jandoe@gmail.com",
-                  phone: "+234 812 345 6789",
-                  location: "Lagos, Nigeria",
+                  email: userprofile?.user.email,
+                  first_name: userprofile?.user.first_name,
+                  last_name: userprofile?.user.last_name,
+                  phone: "",
+                  address: "Lagos, Nigeria",
                 }}
                 onSubmit={values => {
                   console.log(values);
                 }}
               >
-                {() => (
-                  <Form className='flex w-full flex-col gap-10 text-black'>
+                {(values) => (
+                  <Form className='flex w-full flex-col sm:gap-20 gap-10 text-black'>
                     <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='relative flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
-                          Full name
+                        <label className='text-sm font-semibold text-black'>
+                          First Name
                         </label>
                         <Field
-                          name='name'
+                          name='first_name'
                           type='text'
                           className='border-b-[1px] border-black pb-2 capitalize outline-0 transition-all ease-in-out focus:border-b-2'
-                          placeholder='Enter full name'
+                          placeholder='Enter first name'
                           disabled={!editFullName}
                         />
                         <div className='absolute top-8 right-2'>
@@ -119,8 +132,32 @@ const DashboardProfile = () => {
                           </button>
                         </div>
                       </div>
+                      <div className='relative flex w-full flex-col gap-3'>
+                        <label className='text-sm font-semibold text-black'>
+                          Last Name
+                        </label>
+                        <Field
+                          name='last_name'
+                          type='text'
+                          className='border-b-[1px] border-black pb-2 capitalize outline-0 transition-all ease-in-out focus:border-b-2'
+                          placeholder='Enter last name'
+                          disabled={!editFullName}
+                        />
+                        <div className='absolute top-8 right-2'>
+                          <button
+                            type='button'
+                            onClick={() => setEditFullName(!editFullName)}
+                            className='text-sm font-medium text-black underline'
+                          >
+                            {editFullName ? "Save" : "Edit"}
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           Email Address
                         </label>
                         <Field
@@ -131,10 +168,8 @@ const DashboardProfile = () => {
                           placeholder='Enter email address'
                         />
                       </div>
-                    </div>
-                    <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='relative flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           Phone number
                         </label>
                         <Field
@@ -154,27 +189,41 @@ const DashboardProfile = () => {
                           </button>
                         </div>
                       </div>
+
+                    </div>
+                    <div>
                       <div className='relative flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
-                          Location
+                        <label className='text-sm font-semibold text-black'>
+                          Address
                         </label>
                         <Field
-                          name='location'
+                          name='address'
                           type='text'
                           className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter delivery address'
-                          disabled={!editLocation}
+                          disabled={!editAddress}
                         />
                         <div className='absolute top-8 right-2'>
                           <button
                             type='button'
-                            onClick={() => setEditLocation(!editLocation)}
+                            onClick={() => setEditAddress(!editAddress)}
                             className='text-sm font-medium text-black underline'
                           >
-                            {editLocation ? "Save" : "Edit"}
+                            {editAddress ? "Save" : "Edit"}
                           </button>
                         </div>
                       </div>
+                    </div>
+                    <div className='-mt-3 flex w-full justify-end'>
+                      <Button
+                        text='Save changes'
+                        onClick={() => console.log(values)}
+                        icon={<RedirectArrowWhite />}
+                        // disabled={!values.new_password || isSubmitting}
+                        iconPosition='right'
+                        className='w-[170px]'
+                        size='md'
+                      />
                     </div>
                   </Form>
                 )}
@@ -185,7 +234,7 @@ const DashboardProfile = () => {
 
         {/* Settings  */}
         <div>
-          <h4 className='mb-5 font-semibold capitalize'>Profile Settings</h4>
+          <h4 className='mb-5 text-lg font-semibold capitalize'>Profile Settings</h4>
 
           <div className='flex items-center gap-2'>
             {
@@ -202,7 +251,7 @@ const DashboardProfile = () => {
                   <Form className='flex w-full flex-col gap-10 text-black'>
                     <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='relative flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           Current password
                         </label>
                         <Field
@@ -214,7 +263,7 @@ const DashboardProfile = () => {
                         />
                       </div>
                       <div className='flex w-full flex-col gap-3'>
-                        <label className='text-sm font-medium text-black'>
+                        <label className='text-sm font-semibold text-black'>
                           New password
                         </label>
                         <Field
@@ -227,12 +276,12 @@ const DashboardProfile = () => {
                     </div>
                     <div className='-mt-3 flex w-full justify-end'>
                       <Button
-                        text='Change password'
+                        text='Update password'
                         onClick={() => console.log(values)}
                         icon={<RedirectArrowWhite />}
                         disabled={!values.new_password || isSubmitting}
                         iconPosition='right'
-                        className='w-[224px]'
+                        className='w-[202px]'
                         size='md'
                       />
                     </div>

@@ -69,6 +69,18 @@ const BookingPayment = ({ setBookingStep, setPaymentCompleted }: BookingPaymentP
                     }
 
 
+                },
+                onCancel: () => { return },
+                onError: ({ type, message }) => {
+                    toast.error(AuthToast, {
+                        data: {
+                            title: type,
+                            content: `${message || "Payment failed!"}`,
+                        },
+                        ariaLabel: "Payment couldn't be made",
+                        icon: false,
+                        theme: "colored",
+                    });
                 }
             })
 

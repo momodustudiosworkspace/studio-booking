@@ -43,7 +43,7 @@ export const bookingApi = baseApi.injectEndpoints({
       invalidatesTags: ["Bookings"],
     }),
   }),
-  overrideExisting: false,
+  overrideExisting: true,
 });
 
 export const {

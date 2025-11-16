@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import LogoBlack from "@/assets/LogoBlack";
 import Image from "next/image";
 import { HomeIcons } from "@/assets/icons/home/HomeIcons";
+import { useSearchParams } from "next/navigation";
 
 
 interface AuthFormProps {
@@ -27,7 +28,10 @@ const AuthForm = ({
   adminAuth = false,
   authForm = true,
 }: AuthFormProps): React.JSX.Element => {
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
 
+  const callBackUrl = redirectTo ? redirectTo : "/dashboard"
   // const { data: session } = useSession();
 
 
@@ -77,8 +81,10 @@ const AuthForm = ({
 
       <div className='flex w-full flex-col sm:w-[50%] sm:items-center sm:justify-center'>
         <div className='w-full sm:w-[450px]'>
+
+          {/* Logo mobile */}
           <div className='flex w-[170px] sm:hidden'>
-            <Link href={"/"}>
+            <Link href={"/web"}>
               {" "}
               <BaseIcons value='logo-white' />
             </Link>
@@ -113,7 +119,7 @@ const AuthForm = ({
               <button
                 onClick={() =>
                   signIn("google", {
-                    callbackUrl: "/dashboard",
+                    callbackUrl: callBackUrl,
                   })
                 }
                 className='my-10 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#FAFAFA] text-[14px] hover:cursor-pointer'

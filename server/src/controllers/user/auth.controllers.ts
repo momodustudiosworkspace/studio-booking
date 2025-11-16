@@ -34,9 +34,30 @@ export async function register(req: Request, res: Response) {
 
 
         const passwordHash = await bcrypt.hash(password, 10)
+
+
+
         const user = await User.create({ first_name, last_name, email, passwordHash })
-        const { accessToken, refreshAccessToken } = generateAuthTokens(user.id)
-        return res.status(201).json({ message: "User created successfully!", accessToken: accessToken, refreshToken: refreshAccessToken, user: { id: String(user._id), first_name, last_name, email } })
+        const otp = generateOTP()
+
+
+        // Hash OTP before saving (for security)
+        const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
+
+        const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+        await Opt.create({
+            email: user.email,
+            otp: hashedOtp,
+            expiresAt,
+            purpose: "user_registration"
+        })
+
+        // Send OTP to user (email/SMS)
+        await sendOtpEmail(email, otp, "User account creation");
+        // const { accessToken, refreshAccessToken } = generateAuthTokens(user.id)
+        // return res.status(201).json({ message: "User created successfully!", accessToken: accessToken, refreshToken: refreshAccessToken, user: { id: String(user._id), first_name, last_name, email } })
+        return res.status(201).json({ message: "User created successfully!", user: { id: String(user._id), password, email } })
 
     } catch (error) {
         return res.status(500).json({ message: `Server error: ${error}` })
@@ -79,7 +100,7 @@ export async function login(req: Request, res: Response) {
         }
         const passwordValid = await bcrypt.compare(password, user.passwordHash)
 
-        if (!passwordValid ||  !user.passwordHash) {
+        if (!passwordValid || !user.passwordHash) {
             return res.status(401).json({ message: "Invalid credentials" })
         }
 
@@ -93,30 +114,30 @@ export async function login(req: Request, res: Response) {
 }
 // Refresh toekn user 
 export async function getRefreshAccessToken(req: Request, res: Response) {
-  const { refreshToken } = req.body;
+    const { refreshToken } = req.body;
 
-  if (!refreshToken)
-    return res.status(401).json({ message: "No refresh token provided" });
+    if (!refreshToken)
+        return res.status(401).json({ message: "No refresh token provided" });
 
-  try {
-    // ✅ Verify refresh token
-    const decoded = jwt.verify(
-      refreshToken,
-      process.env["JWT_REFRESH_SECRET"] as string
-    ) as { userId: string };
+    try {
+        // ✅ Verify refresh token
+        const decoded = jwt.verify(
+            refreshToken,
+            process.env["JWT_REFRESH_SECRET"] as string
+        ) as { userId: string };
 
-    // ✅ Issue new access token
-    const {accessToken, refreshAccessToken} = generateAuthTokens(decoded.userId);
+        // ✅ Issue new access token
+        const { accessToken, refreshAccessToken } = generateAuthTokens(decoded.userId);
 
-    return res.json({ accessToken: accessToken, refreshToken:refreshAccessToken });
-  } catch (error) {
-    return res.status(403).json({ message: "Invalid or expired refresh token" });
-  }
+        return res.json({ accessToken: accessToken, refreshToken: refreshAccessToken });
+    } catch (error) {
+        return res.status(403).json({ message: "Invalid or expired refresh token" });
+    }
 }
 
 // Generate Auth OTP 
 export const sendOPT = async (req: Request, res: Response) => {
-    const { email } = req.body;
+    const { email, purpose } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -134,7 +155,7 @@ export const sendOPT = async (req: Request, res: Response) => {
         email: user.email,
         otp: hashedOtp,
         expiresAt,
-        purpose: "verify_email"
+        purpose: purpose
     })
 
     // Send OTP to user (email/SMS)
@@ -161,8 +182,11 @@ export const verifyOtp = async (req: Request, res: Response) => {
     if (getOTP.expiresAt.getTime() < Date.now()) {
         return res.status(404).json({ message: "OTP has expired." });
     }
+    user.isVerified = true
+
+    await user.save()
 
     return res.status(200).json({ message: "OTP verified successfully" });
 };
 
-export default { register, login, googleAuth, sendOPT,verifyOtp, getRefreshAccessToken }
+export default { register, login, googleAuth, sendOPT, verifyOtp, getRefreshAccessToken }

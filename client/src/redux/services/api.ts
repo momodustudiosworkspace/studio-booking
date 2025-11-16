@@ -29,7 +29,7 @@ const baseQueryWithReauth: typeof rawBaseQuery = async (args, api, extraOptions)
 
     if (!refreshToken) {
       console.log("No refresh token found — signing out");
-      // signOut({ callbackUrl: "/auth" });
+      signOut({ callbackUrl: "/auth" });
       return result;
     }
 
@@ -78,7 +78,7 @@ const baseQueryWithReauth: typeof rawBaseQuery = async (args, api, extraOptions)
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Bookings", "User", "Auth", "Payments", "AdminStats"],
+  tagTypes: ["Bookings", "User", "Auth", "Payments", "AdminStats", "Profile"],
   endpoints: () => ({}),
   refetchOnReconnect: true,
   refetchOnFocus: true,

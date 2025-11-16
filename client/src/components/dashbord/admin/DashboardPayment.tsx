@@ -14,7 +14,7 @@ import Pagination from "@/components/Pagination";
 const DashboardPayment = () => {
     const [paymentPage, setPaymentPage] = useState(1);
     const limit = 10;
-    const { data: payments, isLoading } = useGetAllPaymentQuery({ page: paymentPage, limit: limit });
+    const { data: payments, isLoading } = useGetAllPaymentQuery({ page: paymentPage, limit: limit }, { pollingInterval: 600000, });
     const [currentTab, setCurrentTab] = useState<number>(1);
 
     console.log("payments: ", payments);

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { DashboardIcons, IconsType } from "./dashboard/DashboardIcons";
 import Link from "next/link";
+import LinkButton from "@/components/ui/LinkButton";
+import RedirectArrowWhite from "./RedirectArrowWhite";
 
 const MenuBar = () => {
   const [showSideBarmenu, setShowSideBarmenu] = useState<boolean>(false);
@@ -78,13 +80,13 @@ const MenuBar = () => {
       {showSideBarmenu && (
         <div className='absolute left-0 h-screen w-full bg-white'>
           <div className='flex flex-col gap-4 border-b-[1px] border-gray-400 pt-10 pb-10 pl-4'>
-            <h3 className='font-medium'>General menu</h3>
+            <h3 className='font-bold'>General menu</h3>
             {ROUTES.map(route => {
               return (
                 <Link
                   key={route.href}
                   href={route.href}
-                  className='flex items-center gap-2'
+                  className='flex font-medium items-center gap-2'
                   onClick={() => setShowSideBarmenu(false)}
                 >
                   {" "}
@@ -92,15 +94,23 @@ const MenuBar = () => {
                 </Link>
               );
             })}
+            <LinkButton
+              href='/bookings'
+              size='md'
+              text='Book your session'
+              icon={<RedirectArrowWhite />}
+              iconPosition='right'
+              className='w-[205px] shrink-0'
+            />
           </div>
           <div className='flex flex-col gap-4 pt-10 pl-4'>
-            <h3 className='font-medium'>User menu</h3>
+            <h3 className='font-bold'>User menu</h3>
             {SIDEBAR_MENU.map(menu => {
               return (
                 <Link
                   key={menu.label}
                   href={menu.href}
-                  className='flex items-center gap-2'
+                  className='flex font-medium items-center gap-2'
                   onClick={() => setShowSideBarmenu(false)}
                 >
                   {" "}

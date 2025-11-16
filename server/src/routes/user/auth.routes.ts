@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login, googleAuth } from "../../controllers/user/auth.controllers";
+import { register, login, googleAuth, verifyOtp } from "../../controllers/user/auth.controllers";
 
 const router = Router();
 
@@ -115,5 +115,7 @@ router.post("/login", login);
  *         description: Server error
  */
 router.post("/google-login", googleAuth);
+
+router.post("/verify-opt", verifyOtp)
 
 export default router;

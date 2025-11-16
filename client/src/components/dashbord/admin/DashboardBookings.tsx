@@ -14,13 +14,13 @@ import { formatTime } from "@/utils/timeFormatter";
 const DashboardBookings = () => {
   const [bookingPage, setBookingPage] = useState(1);
   const limit = 10;
-  const { data: bookings, isLoading } = useGetAllUserBookingsQuery({ page: bookingPage, limit });
+  const { data: bookings, isLoading } = useGetAllUserBookingsQuery({ page: bookingPage, limit }, { pollingInterval: 600000, });
   const [currentTab, setCurrentTab] = useState<number>(1);
   // Prefetch hook for single booking
   const prefetchBooking = usePrefetch("getBookingById");
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
-    const total = bookings?.data.length || 2000;
+    const total = bookings?.data.length || 0;
     const completed = bookings?.data.filter(b => b.status === "completed").length || 0;
     const upcoming = bookings?.data.filter(b => b.status === "pending").length || 0;
     // const cancelled = bookings?.data.filter(b => b.status === "cancelled").length || 0;
@@ -71,25 +71,30 @@ const DashboardBookings = () => {
         address: b.location?.address,
         state: b.location?.state,
       },
-      date: formatDate(b.date) || null, // e.g. "Thu Dec 04 2025"
-      time: formatTime(b.startTime),
+      date: b.date || null, // e.g. "Thu Dec 04 2025"
+      startTime: b.startTime,
       amount: b.price, // e.g. "123,400"
       status: b.status, // e.g. "pending", "completed"
     }));
   }, [bookings]);
 
 
+
+  const now = new Date();
   // 🔹 Filter bookings based on status or date
   const allBookings = formattedBookings;
-  // const now = new Date();
   const upcomingBookings = formattedBookings.filter(b => {
-    // const bookingDate = b.date;
-    return b.date;
+    if (b?.date) {
+      return now < new Date(b.date);
+    }
+    return 
   });
 
   const pastBookings = formattedBookings.filter(b => {
-    // const bookingDate = b.date;
-    return b.date;
+    if (b?.date) {
+      return now > new Date(b.date);
+    }
+    return 
   });
   if (isLoading) return "Loading...";
   // if (error) return "Failed to load data";
@@ -114,8 +119,8 @@ const DashboardBookings = () => {
           id={b._id}
           client_name={`${b.user_fullnames}`}
           location={b.location?.address || ""}
-          date={b.date}
-          time={b.time}
+          date={formatDate(b.date)}
+          startTime={formatTime(b.startTime)}
           status={b.status}
         />
       </div>
