@@ -63,7 +63,7 @@ const Navbar = ({
           <LogoBlack />
         </div>
 
-        {pathName.split("/")[1] !== "dashboard" && (
+        {pathName.split("/")[1] === "web" && (
             <div className='hidden items-center gap-10 sm:flex'>
               {ROUTES.map(route => {
                 return (
@@ -84,7 +84,7 @@ const Navbar = ({
 
         {/* {session?.user ? <UserNavbar user={session.user} /> :  */}
         {session?.user ? (
-          <UserNavbar user={session.user} />
+          <UserNavbar user={session.user} webPage={pathName.split("/")[1] === "web"} />
         ) : (
           <div>
             <div className='hidden items-center gap-5 font-medium sm:flex'>

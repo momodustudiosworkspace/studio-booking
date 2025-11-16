@@ -17,6 +17,7 @@ interface SignProps {
 const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo");
+  const getUserEmail = searchParams.get("email");
   const navigate = useRouter();
 
   return (
@@ -29,7 +30,7 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
     >
       <Formik
         initialValues={{
-          email: "",
+          email: getUserEmail || "",
           password: "",
         }}
         onSubmit={async values => {

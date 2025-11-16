@@ -5,6 +5,7 @@ import Modal from "../ui/Modal";
 import DashboardNotifications from "../dashbord/user/DashboardNotifications";
 import MenuBar from "@/assets/icons/MenuBar";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 interface UserNavbarProps {
   email: string | undefined;
@@ -16,8 +17,9 @@ interface UserNavbarProps {
 
 interface UserProps {
   user: UserNavbarProps;
+  webPage: boolean
 }
-const UserNavbar = ({ user }: UserProps) => {
+const UserNavbar = ({ user, webPage }: UserProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [openNotifications, setOpenNotification] = useState<boolean>(false);
   return (
@@ -36,7 +38,7 @@ const UserNavbar = ({ user }: UserProps) => {
           </div>
         )}
       </button>
-      <div className='hidden items-center gap-4 sm:flex'>
+      {!webPage ? <div className='hidden items-center gap-4 sm:flex'>
         <button
           className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase'
           onClick={() => redirect("/dashboard")}
@@ -48,7 +50,10 @@ const UserNavbar = ({ user }: UserProps) => {
           <p className='font-semibold'>{user.email}</p>
           <small>{user.email}</small>
         </div>
-      </div>
+      </div> : <div className="sm:flex gap-2 hidden">
+        <Link href={"/dashboard"}>Dashboard</Link>
+        <Link href={"https://www.momodustudios.com/pages/merch"}>Shop now</Link>
+      </div>}
       <div className='flex sm:hidden'>
         <MenuBar />
       </div>

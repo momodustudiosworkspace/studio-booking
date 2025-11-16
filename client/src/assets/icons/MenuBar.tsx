@@ -86,7 +86,7 @@ const MenuBar = () => {
                 <Link
                   key={route.href}
                   href={route.href}
-                  className='flex font-medium items-center gap-2'
+                  className='flex items-center gap-2'
                   onClick={() => setShowSideBarmenu(false)}
                 >
                   {" "}
@@ -102,6 +102,7 @@ const MenuBar = () => {
               iconPosition='right'
               className='w-[205px] shrink-0'
             />
+            <Link href={"https://www.momodustudios.com/pages/merch"}>Studo Merch</Link>
           </div>
           <div className='flex flex-col gap-4 pt-10 pl-4'>
             <h3 className='font-bold'>User menu</h3>
@@ -110,7 +111,7 @@ const MenuBar = () => {
                 <Link
                   key={menu.label}
                   href={menu.href}
-                  className='flex font-medium items-center gap-2'
+                  className='flex items-center gap-2'
                   onClick={() => setShowSideBarmenu(false)}
                 >
                   {" "}
