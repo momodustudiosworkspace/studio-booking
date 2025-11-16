@@ -41,10 +41,12 @@ export const createPayment = async (req: Request, res: Response) => {
       const notification = await bookingNotification({ userId: req.userId, title: `You are booked! ${findBookingId.sessionType} confirmed`, message: `You booking for ${findBookingId.startTime} has been been confirmed!`, type: "payment", bookingId: bookingId })
       console.log(notification);
 
+      res.status(201).json({ message: "Payment successful!", data: payment })
+
       await sendBookingPaymentEmail(email,amount, findBookingId.sessionType)
       
     }
-    return res.status(201).json({ message: "Payment successful!", data: payment })
+    return true
 
   } catch (error) {
     console.log(error);

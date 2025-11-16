@@ -41,7 +41,7 @@ const DashboardProfile = () => {
         headerText: "Profile",
         paragraph: "View & update your profile",
         linkText: "Book your session",
-        href: "/",
+        href: "/bookings",
       }}
     >
       <section className='w-full rounded-lg border-[1px] border-[#F8F8F8] bg-white px-5 py-7 shadow sm:p-10'>
@@ -97,7 +97,6 @@ const DashboardProfile = () => {
             {
               <Formik
                 initialValues={{
-                  name: "jane doe",
                   email: userprofile?.user.email,
                   first_name: userprofile?.user.first_name,
                   last_name: userprofile?.user.last_name,

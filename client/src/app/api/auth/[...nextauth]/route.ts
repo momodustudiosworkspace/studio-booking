@@ -16,6 +16,8 @@ declare module "next-auth/jwt" {
   interface JWT {
     accessToken: string;
     refreshToken: string;
+    first_name: string;
+    last_name: string;
     accessTokenExpires: number;
     isMember: boolean;
     isAdmin: boolean;
@@ -29,12 +31,16 @@ declare module "next-auth" {
     refreshToken: string;
     isMember: boolean;
     isAdmin: boolean;
+    first_name: string;
+    last_name:string
   }
   interface Session {
     user: {
       accessToken: string;
       refreshToken: string;
       email: string;
+      first_name: string;
+      last_name: string;
       isMember: boolean;
       isAdmin: boolean;
     } & DefaultSession["user"];
@@ -127,6 +133,8 @@ export const authOptions: NextAuthOptions = {
           refreshToken:user.refreshToken,
           isMember: user.user.isMember,
           isAdmin: user.user.isAdmin,
+          first_name: user.user.first_name,
+          last_name: user.user.last_name,
         };
       },
     }),
@@ -173,6 +181,8 @@ export const authOptions: NextAuthOptions = {
           user.email = data.user.email
           user.isAdmin = data.user.isAdmin
           user.isMember = data.user.isMember
+          user.first_name = data.user.first_name
+          user.last_name = data.user.last_name
 
           console.log("user from google: ", user);
           
@@ -193,6 +203,8 @@ export const authOptions: NextAuthOptions = {
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000;
         token.isMember = user.isMember;
         token.email = user.email
+        token.first_name = user.first_name
+        token.last_name = user.last_name
       }
 
       if (
@@ -219,7 +231,9 @@ export const authOptions: NextAuthOptions = {
           image: token.picture ?? null,
           isMember: token.isMember ?? null,
           name: token.name ?? null,
-          email:token.email ?? null
+          email:token.email ?? null,
+          first_name:token.first_name ?? null,
+          last_name:token.last_name ?? null,
         };
       }
       return session;

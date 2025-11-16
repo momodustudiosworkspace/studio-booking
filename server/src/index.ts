@@ -21,6 +21,7 @@ import bookingRoutes from "./routes/user/booking.routes";
 import packagesRoutes from "./routes/user/packages.routes"
 import paymentRoutes from "./routes/user/payment.routes"
 import userRouters from "./routes/user/user.routers"
+import { transporter } from "./config/nodeMailer.config";
 
 
 
@@ -54,6 +55,21 @@ app.use("/api/user",userRouters)
 // Packages endpoint 
 app.use("/api/bookings/packages", packagesRoutes)
 
+app.get("/api/test-email", async (_req, res) => {
+  try {
+    await transporter.sendMail({
+      from: process.env["NODE_MAILER_EMAIL_USER"],
+      to: "your-email@gmail.com",
+      subject: "Render Email Test",
+      text: "Email from Render is working!",
+    });
+
+    res.send("Email sent!");
+  } catch (err) {
+    console.error("EMAIL ERROR:", err);
+    res.status(500).send(err);
+  }
+});
 
 const PORT = process.env['PORT'] || 5000;
 

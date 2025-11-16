@@ -7,10 +7,12 @@ import DashboardHeader from "./DashboardHeader";
 import BookingCardQuickAtion from "./cards/BookingCardQuickAction";
 import BookingCardService from "./cards/BookingCardService";
 import { useGetBookingsQuery } from "@/redux/services/user/booking/booking.api";
+import { useSession } from "next-auth/react";
 
 const DashBoardOverview = () => {
   // Call the query hook
   const { data: bookings, error, isLoading } = useGetBookingsQuery();
+  const { data: session } = useSession()
 
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
@@ -117,7 +119,7 @@ const DashBoardOverview = () => {
   return (
     <DashboardLayout
       headerProps={{
-        headerText: "welcome back, emmanuel",
+        headerText: `Welcome back ${session?.user.first_name}`,
         paragraph:
           "Book in minutes, manage everything from scheduling to delivery",
         linkText: "Book your session",

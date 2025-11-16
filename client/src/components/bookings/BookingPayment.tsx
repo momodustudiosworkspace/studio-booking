@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { resetBookingState } from "@/redux/slices/bookingSlice";
 import { CreatePaymentRequest } from "@/types/payment.types";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
 import { useCreatePaymentMutation } from "@/redux/services/user/payment/payments.api";
@@ -20,13 +19,11 @@ const BookingPayment = ({ setBookingStep, setPaymentCompleted }: BookingPaymentP
     const dispatch = useAppDispatch();
 
     const [createPayment, { isLoading: createPaymentLoading }] = useCreatePaymentMutation();
-   
-    const [loading, setLoading] = useState(false);
+
 
     const handlePayment = async () => {
         console.log(session?.user.email);
 
-        setLoading(createPaymentLoading);
         try {
           
 
@@ -159,18 +156,17 @@ const BookingPayment = ({ setBookingStep, setPaymentCompleted }: BookingPaymentP
         } catch (error) {
             console.log("Payment init error:", error);
             alert("Payment initialization failed.");
-            setLoading(false);
         }
     };
 
     return (
         <div>
             <button
-                disabled={loading}
+                disabled={createPaymentLoading}
                 onClick={handlePayment}
                 className="px-4 py-2 bg-green-600 text-white rounded-lg"
             >
-                {loading ? "Processing..." : "Pay Now"}
+                {createPaymentLoading ? "Processing..." : "Pay Now"}
             </button>
         </div>
     );
