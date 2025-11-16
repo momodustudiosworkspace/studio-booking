@@ -112,7 +112,7 @@ const MenuBar = () => {
                   key={menu.label}
                   href={menu.href}
                   className='flex items-center gap-2'
-                  onClick={() => setShowSideBarmenu(false)}
+                  onClick={() => setTimeout(() => setShowSideBarmenu(false), 300)} // small }
                 >
                   {" "}
                   <DashboardIcons value={menu.icon} />

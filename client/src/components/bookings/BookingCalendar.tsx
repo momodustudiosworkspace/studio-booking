@@ -90,11 +90,11 @@ const BookingCalendar = ({
   // 🧠 Dummy backend-like data (will be replaced by RTK Query later)
   const [availableSlots] = useState<AvailableSlot[]>([
     {
-      date: "2025-10-29",
-      times: ["09:00", "11:00", "14:00", "16:00", "16:00", "16:00", "16:00"],
+      date: "2025-11-29",
+      times: ["09:00", "11:00", "14:00", "15:00", "16:00"],
     }, // 4 bookings (full)
     { date: "2025-11-28", times: ["09:00", "11:00", "14:00"] },
-    { date: "2025-11-30", times: ["10:00", "12:00", "16:00", "16:00"] },
+    { date: "2025-11-30", times: ["10:00", "12:00", "16:00", "17:00"] },
     { date: "2025-11-11", times: ["08:00", "10:00", "15:00"] },
     { date: "2025-11-30", times: ["08:00", "10:00", "12:00", "14:00"] }, // full
     { date: "2025-12-05", times: ["09:00", "11:00"] },

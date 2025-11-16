@@ -67,11 +67,24 @@ export async function register(req: Request, res: Response) {
 // Google auth 
 export async function googleAuth(req: Request, res: Response) {
     try {
-        const { email, name } = req.body;
+        const { email, name,
+            image } = req.body;
+        console.log("Google body: ", req.body);
+        // Split full name
+        let first_name = "";
+        let last_name = "";
+
+        if (name) {
+            const parts = name.trim().split(" ");
+            first_name = parts.shift();         // First element
+            last_name = parts.join(" ");        // Remaining elements (handles middle names)
+        }
+
 
         let user = await User.findOne({ email });
         if (!user) {
-            user = await User.create({ email, name });
+
+            user = await User.create({ email, first_name, last_name, image });
         }
 
 

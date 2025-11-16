@@ -1,31 +1,7 @@
 import { paymentSuccessTemplate } from "../templates/bookings/paymentSuccessful";
 import { otpEmailTemplate } from "../templates/auth/otpEmail.template";
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
 import { otpForgotPasswordTemplate } from "../templates/auth/otpForgotPassword.template";
-// sgMail.setApiKey(process.env['SENDGRID_API_KEY']!);
-
-// export const sendOtpEmail = async (to:string, otp:string, purpose:string = "Verification") => {
-//   const msg = {
-//     to,
-//     from: process.env['FROM_EMAIL']!,
-//     subject: `${purpose} Code`,
-//     html: otpEmailTemplate(otp, purpose),
-//   };
-
-//   await sgMail.send(msg);
-// };
-
-
-
-dotenv.config();
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env["NODE_MAILER_EMAIL_USER"],
-    pass: process.env["NODE_MAILER_EMAIL_PASS"],
-  },
-});
+import { transporter } from "../config/nodeMailer.config";
 
 export const sendOtpEmail = async (to:string, otp:string, purpose:string) => {
   await transporter.sendMail({
