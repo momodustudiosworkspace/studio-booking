@@ -31,7 +31,7 @@ const BookingPayment = ({ setBookingStep, setPaymentCompleted }: BookingPaymentP
           
 
             payStackInline.newTransaction({
-                key: "pk_test_b62520cb727dcbf49136dd5403536139a32054a7",
+                key: `${process.env["NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY"]!}`,
                 amount: 10000, // you can use booking.package?.price
                 email: session?.user.email || "",
                 onSuccess: async ({id, reference, message}) => {
