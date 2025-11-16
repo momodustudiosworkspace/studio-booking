@@ -25,7 +25,7 @@ const options: swaggerJSDoc.Options = {
         },
         security: [{ bearerAuth:[]}],
     },
-    apis:["src/routes/*.ts"],
+   apis: ["src/routes/**/*.ts", "src/controllers/**/*.ts"],
 }
 
 export const swaggerOpenapiSpecification = swaggerJSDoc(options)
