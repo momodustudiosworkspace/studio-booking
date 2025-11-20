@@ -5,7 +5,7 @@ import React from "react";
 import { Field, Form, Formik } from "formik";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import Button from "./ui/Button";
-import { FooterIcons } from "@/assets/icons/footer/FooterIcons";
+import { FooterIcons } from "@/assets/icons/footer/ ";
 
 const Footer = (): React.JSX.Element => {
   const FOOTER_LINKS = [
