@@ -18,7 +18,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo");
-  const email = searchParams.get("email")
+  const email = searchParams.get("email");
 
   return (
     <AuthForm
@@ -37,7 +37,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
           password_confirm: "",
           agree: false,
         }}
-        onSubmit={async (values) => {
+        onSubmit={async values => {
           try {
             const res = await fetch("/api/auth/register", {
               method: "POST",
@@ -57,9 +57,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
                 icon: false,
                 theme: "colored",
               });
-
             }
-
 
             if (res?.ok && redirectTo) {
               toast.success(AuthToast, {
@@ -81,9 +79,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
               return router.push(redirectTo);
             }
 
-
             return router.push(`/auth/verify-email?email=${values.email}`);
-
           } catch (error) {
             console.log("error: ", error);
             toast(`Error : ${error}`);
@@ -92,8 +88,8 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
       >
         {({ values, isSubmitting }) => (
           <Form className='flex w-full flex-col gap-10'>
-            <div className="flex sm:flex-row flex-col sm:justify-between gap-10 sm:items-center">
-              <div className='flex flex-col gap-3 font-medium text-white sm:text-black w-full'>
+            <div className='flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between'>
+              <div className='flex w-full flex-col gap-3 font-medium text-white sm:text-black'>
                 <label className='text-sm font-medium'>First name</label>
                 <Field
                   name='first_name'
@@ -102,7 +98,7 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
                   placeholder='Enter first name'
                 />
               </div>
-              <div className='flex flex-col gap-3 font-medium text-white sm:text-black w-full'>
+              <div className='flex w-full flex-col gap-3 font-medium text-white sm:text-black'>
                 <label className='text-sm font-medium'>Last name</label>
                 <Field
                   name='last_name'
@@ -165,7 +161,6 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
                 className='w-[124px]'
                 size='md'
                 loading={isSubmitting}
-
               />
             </div>
           </Form>

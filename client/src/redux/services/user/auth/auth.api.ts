@@ -1,6 +1,9 @@
 // src/redux/services/booking.api.ts
 
-import { VerifyOtpTypesRequest, VerifyOtpTypesResponse } from "@/types/otp.types";
+import {
+  VerifyOtpTypesRequest,
+  VerifyOtpTypesResponse,
+} from "@/types/otp.types";
 import { baseApi } from "../../api";
 
 export const authApi = baseApi.injectEndpoints({
@@ -16,6 +19,4 @@ export const authApi = baseApi.injectEndpoints({
   overrideExisting: true,
 });
 
-export const {
-    useVerifyOtpMutation
-} = authApi;
+export const { useVerifyOtpMutation } = authApi;

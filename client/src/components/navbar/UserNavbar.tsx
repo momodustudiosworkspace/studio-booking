@@ -17,7 +17,7 @@ interface UserNavbarProps {
 
 interface UserProps {
   user: UserNavbarProps;
-  webPage: boolean
+  webPage: boolean;
 }
 const UserNavbar = ({ user, webPage }: UserProps) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -38,22 +38,28 @@ const UserNavbar = ({ user, webPage }: UserProps) => {
           </div>
         )}
       </button>
-      {!webPage ? <div className='hidden items-center gap-4 sm:flex'>
-        <button
-          className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase'
-          onClick={() => redirect("/dashboard")}
-        >
-          {user.email?.[0]}
-          {user.email?.[1]}
-        </button>
-        <div>
-          <p className='font-semibold'>{user.email}</p>
-          <small>{user.email}</small>
+      {!webPage ? (
+        <div className='hidden items-center gap-4 sm:flex'>
+          <button
+            className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase'
+            onClick={() => redirect("/dashboard")}
+          >
+            {user.email?.[0]}
+            {user.email?.[1]}
+          </button>
+          <div>
+            <p className='font-semibold'>{user.email}</p>
+            <small>{user.email}</small>
+          </div>
         </div>
-      </div> : <div className="sm:flex gap-2 hidden">
-        <Link href={"/dashboard"}>Dashboard</Link>
-        <Link href={"https://www.momodustudios.com/pages/merch"}>Shop now</Link>
-      </div>}
+      ) : (
+        <div className='hidden gap-2 sm:flex'>
+          <Link href={"/dashboard"}>Dashboard</Link>
+          <Link href={"https://www.momodustudios.com/pages/merch"}>
+            Shop now
+          </Link>
+        </div>
+      )}
       <div className='flex sm:hidden'>
         <MenuBar />
       </div>

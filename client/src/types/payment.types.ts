@@ -5,7 +5,7 @@ export interface CreatePaymentRequest {
   amount: number | null;
   bookingId: string | null;
   reference: string | null;
-  status: "success" | "failed"
+  status: "success" | "failed";
 }
 
 export interface CreatePaymentResponse {
@@ -18,7 +18,6 @@ export interface CreatePaymentResponse {
     gateway_response: string;
     paidAt: string;
   };
-
 }
 
 export interface VerifyPaymentRequest {
@@ -38,13 +37,11 @@ export interface VerifyPaymentResponse {
   };
 }
 
-
-export interface AllPaymentResponse{ 
-    booking: string;
-    reference: string;
-    amount: number;
-    status: "pending" | "success" | "failed";
-    gateway_response: string;
-    paidAt: string;
+export interface AllPaymentResponse {
+  booking: string;
+  reference: string;
+  amount: number;
+  status: "pending" | "success" | "failed";
+  gateway_response: string;
+  paidAt: string;
 }
-

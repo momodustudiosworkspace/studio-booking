@@ -22,7 +22,7 @@ const ClientCards = ({
   email,
   joined_date,
   bookings,
-  status
+  status,
 }: ClientCardsProps) => {
   const [open, setOpen] = useState<boolean>(false);
   // const [openNotifications, setOpenNotification] = useState<boolean>(false);
@@ -50,14 +50,15 @@ const ClientCards = ({
     <div className='flex flex-col justify-between gap-3 sm:flex-row sm:items-center sm:gap-0'>
       {/* Booking Details  */}
       <div className='flex shrink-0 gap-10 sm:w-[690px] sm:items-center'>
-
         <div>
           <p className='text-[14px] sm:text-[16px]'>{client_name}</p>
         </div>
         <div>
-          <p className='text-[14px] sm:text-[16px] w-[120px] truncate'>{email}</p>
+          <p className='w-[120px] truncate text-[14px] sm:text-[16px]'>
+            {email}
+          </p>
         </div>
-        <div className='flex items-center gap-2 sm:w-[200px] ml-10'>
+        <div className='ml-10 flex items-center gap-2 sm:w-[200px]'>
           <div
             className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
           >
@@ -73,7 +74,7 @@ const ClientCards = ({
       </div>
       {/* Booking date  */}
 
-      <div className='flex items-center gap-2 sm:w-[200px] ml-10'>
+      <div className='ml-10 flex items-center gap-2 sm:w-[200px]'>
         <p className='text-[14px] sm:text-[16px]'>{bookings}</p>
       </div>
       {/* Booking status  */}
@@ -105,9 +106,9 @@ const ClientCards = ({
           onClose={() => setOpen(false)}
           contentClassName='sm:right-10 sm:px-0 px-4 top-44'
         >
-          <div className='w-full rounded-md bg-white px-5 py-5 sm:w-[383px] flex flex-col gap-10'>
+          <div className='flex w-full flex-col gap-10 rounded-md bg-white px-5 py-5 sm:w-[383px]'>
             <div className='flex items-center justify-between'>
-              <h3 className='font-semibold text-lg'>User profile</h3>
+              <h3 className='text-lg font-semibold'>User profile</h3>
               <button
                 className='flex h-[20px] w-[20px] items-center justify-center rounded-full bg-[#FAFAFA]'
                 onClick={() => setOpen(false)}
@@ -118,10 +119,8 @@ const ClientCards = ({
 
             {/* Profile details  */}
             <div className='max-h-[700px] overflow-y-scroll'>
-              <div className='hidden items-center gap-4 sm:flex mb-7'>
-                <div
-                  className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase'
-                >
+              <div className='mb-7 hidden items-center gap-4 sm:flex'>
+                <div className='flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white uppercase'>
                   {email?.[0]}
                   {email?.[1]}
                 </div>
@@ -136,25 +135,26 @@ const ClientCards = ({
                 text={"View bookings"}
                 icon={<RedirectArrowWhite />}
                 iconPosition='right'
-                className='w-auto mb-7'
+                className='mb-7 w-auto'
               />
-
 
               {/* profile data  */}
 
               {/* Personal data  */}
-              <div className="border-[1px] border-[#E5E5E5] rounded-md mb-5">
-                <h2 className="bg-[#F9FAFB] rounded-tl-md rounded-tr-md p-4">Personal Details</h2>
-                <div className="flex flex-col gap-3 p-4">
-                  <div className="flex justify-between items-center capitalize">
+              <div className='mb-5 rounded-md border-[1px] border-[#E5E5E5]'>
+                <h2 className='rounded-tl-md rounded-tr-md bg-[#F9FAFB] p-4'>
+                  Personal Details
+                </h2>
+                <div className='flex flex-col gap-3 p-4'>
+                  <div className='flex items-center justify-between capitalize'>
                     <p>full name</p>
                     <p>leonard victor</p>
                   </div>
-                  <div className="flex justify-between items-center ">
-                    <p className="capitalize">email address</p>
+                  <div className='flex items-center justify-between'>
+                    <p className='capitalize'>email address</p>
                     <p>user@gmail.com</p>
                   </div>
-                  <div className="flex justify-between items-center capitalize">
+                  <div className='flex items-center justify-between capitalize'>
                     <p>phone number</p>
                     <p>+234 890 347823</p>
                   </div>
@@ -162,24 +162,27 @@ const ClientCards = ({
               </div>
 
               {/* Account details  */}
-              <div className="border-[1px] border-[#E5E5E5] rounded-md">
-                <h2 className="bg-[#F9FAFB] rounded-tl-md rounded-tr-md p-4">Account details</h2>
-                <div className="flex flex-col gap-3 p-4">
-                  <div className="flex justify-between items-center capitalize">
+              <div className='rounded-md border-[1px] border-[#E5E5E5]'>
+                <h2 className='rounded-tl-md rounded-tr-md bg-[#F9FAFB] p-4'>
+                  Account details
+                </h2>
+                <div className='flex flex-col gap-3 p-4'>
+                  <div className='flex items-center justify-between capitalize'>
                     <p>join date</p>
                     <p>22-06-2022</p>
                   </div>
-                  <div className="flex justify-between items-center capitalize">
+                  <div className='flex items-center justify-between capitalize'>
                     <p>status</p>
-                    <p className="bg-[#0362001A] text-[#036200] flex items-center justify-center rounded-full px-4 py-1 text-sm font-semibold">active</p>
+                    <p className='flex items-center justify-center rounded-full bg-[#0362001A] px-4 py-1 text-sm font-semibold text-[#036200]'>
+                      active
+                    </p>
                   </div>
-                  <div className="flex justify-between items-center capitalize">
+                  <div className='flex items-center justify-between capitalize'>
                     <p>total booking</p>
-                    <p className="font-semibold">20 bookings</p>
+                    <p className='font-semibold'>20 bookings</p>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </Modal>

@@ -32,7 +32,7 @@ declare module "next-auth" {
     isMember: boolean;
     isAdmin: boolean;
     first_name: string;
-    last_name:string
+    last_name: string;
   }
   interface Session {
     user: {
@@ -46,7 +46,6 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 }
-
 
 // async function refreshAccessToken(token: JWT): Promise<JWT> {
 //   try {
@@ -125,12 +124,12 @@ export const authOptions: NextAuthOptions = {
         }
 
         console.log("User login data: ", user);
-        
+
         return {
           id: user.user._id,
           email: user.user.email,
           accessToken: user.accessToken,
-          refreshToken:user.refreshToken,
+          refreshToken: user.refreshToken,
           isMember: user.user.isMember,
           isAdmin: user.user.isAdmin,
           first_name: user.user.first_name,
@@ -176,16 +175,15 @@ export const authOptions: NextAuthOptions = {
           // (user as any).backendToken = data.token;
           // (user as any).isMember = data.user.isMember;
           // (user as any).isAdmin = data.user.isAdmin;
-          user.accessToken = data.accessToken
-          user.refreshToken = data.refreshToken
-          user.email = data.user.email
-          user.isAdmin = data.user.isAdmin
-          user.isMember = data.user.isMember
-          user.first_name = data.user.first_name
-          user.last_name = data.user.last_name
+          user.accessToken = data.accessToken;
+          user.refreshToken = data.refreshToken;
+          user.email = data.user.email;
+          user.isAdmin = data.user.isAdmin;
+          user.isMember = data.user.isMember;
+          user.first_name = data.user.first_name;
+          user.last_name = data.user.last_name;
 
           console.log("user from google: ", user);
-          
 
           return true;
         } catch (error) {
@@ -202,9 +200,9 @@ export const authOptions: NextAuthOptions = {
         token.refreshToken = user.refreshToken;
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000;
         token.isMember = user.isMember;
-        token.email = user.email
-        token.first_name = user.first_name
-        token.last_name = user.last_name
+        token.email = user.email;
+        token.first_name = user.first_name;
+        token.last_name = user.last_name;
       }
 
       if (
@@ -231,9 +229,9 @@ export const authOptions: NextAuthOptions = {
           image: token.picture ?? null,
           isMember: token.isMember ?? null,
           name: token.name ?? null,
-          email:token.email ?? null,
-          first_name:token.first_name ?? null,
-          last_name:token.last_name ?? null,
+          email: token.email ?? null,
+          first_name: token.first_name ?? null,
+          last_name: token.last_name ?? null,
         };
       }
       return session;

@@ -1,16 +1,14 @@
 import { UserProfileTypesResponse } from "@/types/user.types";
 import { baseApi } from "../../api";
 
-
-
 export const userApi = baseApi.injectEndpoints({
-    endpoints: (builder) => ({
-        getUserProfile: builder.query<UserProfileTypesResponse, void>({
-            query: () => "/user",
-            providesTags:["Profile"]
-        })
+  endpoints: builder => ({
+    getUserProfile: builder.query<UserProfileTypesResponse, void>({
+      query: () => "/user",
+      providesTags: ["Profile"],
     }),
-      overrideExisting: false,
-})
+  }),
+  overrideExisting: false,
+});
 
-export const {useGetUserProfileQuery} =  userApi
+export const { useGetUserProfileQuery } = userApi;

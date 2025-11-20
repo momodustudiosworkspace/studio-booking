@@ -2,8 +2,10 @@
 import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
 import BookingCard from "./cards/BookingCard";
-import { useGetBookingsQuery, usePrefetch } from "@/redux/services/user/booking/booking.api";
-
+import {
+  useGetBookingsQuery,
+  usePrefetch,
+} from "@/redux/services/user/booking/booking.api";
 
 const DashboardBookings = () => {
   const { data: bookings, error, isLoading } = useGetBookingsQuery();

@@ -1,7 +1,11 @@
 // src/redux/services/booking.api.ts
 
 import { baseApi } from "../../api";
-import { BookingType, BookingTypeRequest, BookingTypeResponse } from "@/types/booking.types";
+import {
+  BookingType,
+  BookingTypeRequest,
+  BookingTypeResponse,
+} from "@/types/booking.types";
 
 export const bookingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -27,12 +31,12 @@ export const bookingApi = baseApi.injectEndpoints({
       invalidatesTags: ["Bookings", "AdminStats"],
     }),
     updateBooking: builder.mutation<BookingTypeResponse, BookingTypeRequest>({
-       query: ({ id, booking}) => ({
-    url: `/bookings/${id}`,
-    method: "PUT",
-    body: booking,
-  }),
-  invalidatesTags: ["Bookings"],
+      query: ({ id, booking }) => ({
+        url: `/bookings/${id}`,
+        method: "PUT",
+        body: booking,
+      }),
+      invalidatesTags: ["Bookings"],
     }),
 
     deleteBooking: builder.mutation<void, string>({

@@ -12,7 +12,7 @@ import { useSession } from "next-auth/react";
 const DashBoardOverview = () => {
   // Call the query hook
   const { data: bookings, error, isLoading } = useGetBookingsQuery();
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {

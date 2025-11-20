@@ -8,10 +8,13 @@ import {
 } from "@/types/payment.types";
 
 export const paymentApi = baseApi.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     // 1️⃣ Initialize payment
-    createPayment: builder.mutation<CreatePaymentResponse, CreatePaymentRequest>({
-      query: (body) => ({
+    createPayment: builder.mutation<
+      CreatePaymentResponse,
+      CreatePaymentRequest
+    >({
+      query: body => ({
         url: "/payment/create",
         method: "POST",
         body,
@@ -20,8 +23,11 @@ export const paymentApi = baseApi.injectEndpoints({
     }),
 
     // 2️⃣ Verify payment
-    verifyPayment: builder.mutation<VerifyPaymentResponse, VerifyPaymentRequest>({
-      query: (body) => ({
+    verifyPayment: builder.mutation<
+      VerifyPaymentResponse,
+      VerifyPaymentRequest
+    >({
+      query: body => ({
         url: "/payment/verify",
         method: "POST",
         body,
@@ -33,4 +39,5 @@ export const paymentApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useCreatePaymentMutation, useVerifyPaymentMutation } = paymentApi;
+export const { useCreatePaymentMutation, useVerifyPaymentMutation } =
+  paymentApi;

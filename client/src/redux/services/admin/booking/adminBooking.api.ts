@@ -1,18 +1,27 @@
 // src/redux/services/booking.api.ts
 
 import { baseApi } from "../../api";
-import { BookingType,  } from "@/types/booking.types";
+import { BookingType } from "@/types/booking.types";
 
 export const adminBookingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getAllUserBookings: builder.query<{
-      data: BookingType[];
-      pagination: { total: number; page: number; limit: number; totalPages: number };
-    }, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 10 }) => `/admin/bookings/all?page=${page}&limit=${limit}`,
+    getAllUserBookings: builder.query<
+      {
+        data: BookingType[];
+        pagination: {
+          total: number;
+          page: number;
+          limit: number;
+          totalPages: number;
+        };
+      },
+      { page?: number; limit?: number }
+    >({
+      query: ({ page = 1, limit = 10 }) =>
+        `/admin/bookings/all?page=${page}&limit=${limit}`,
       providesTags: ["Bookings"],
     }),
-      getBookingById: builder.query<BookingType, string>({
+    getBookingById: builder.query<BookingType, string>({
       query: id => `/bookings/${id}`,
       providesTags: (result, _error, id) =>
         result
@@ -23,7 +32,4 @@ export const adminBookingApi = baseApi.injectEndpoints({
   // overrideExisting: false,
 });
 
-export const {
-  useGetAllUserBookingsQuery,
-  usePrefetch
-} = adminBookingApi;
+export const { useGetAllUserBookingsQuery, usePrefetch } = adminBookingApi;
