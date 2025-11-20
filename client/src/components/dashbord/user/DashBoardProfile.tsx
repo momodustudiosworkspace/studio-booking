@@ -11,7 +11,8 @@ const DashboardProfile = () => {
   const [editPhoneNumber, setEditPhoneNumber] = useState<boolean>(false);
   const [editAddress, setEditAddress] = useState<boolean>(false);
 
-  const { data: userprofile, isLoading: userProfileLoading } = useGetUserProfileQuery()
+  const { data: userprofile, isLoading: userProfileLoading } =
+    useGetUserProfileQuery();
 
   console.log("use profile: ", userprofile);
 
@@ -34,7 +35,7 @@ const DashboardProfile = () => {
     },
   ];
 
-  if (userProfileLoading) return "Loading profile"
+  if (userProfileLoading) return "Loading profile";
   return (
     <DashboardLayout
       headerProps={{
@@ -47,17 +48,29 @@ const DashboardProfile = () => {
       <section className='w-full rounded-lg border-[1px] border-[#F8F8F8] bg-white px-5 py-7 shadow sm:p-10'>
         {/* user data  */}
         <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
-          <div className='flex h-[74px] w-[74px] items-center justify-center rounded-full bg-black text-[31px] font-semibold text-white sm:h-[94px] sm:w-[94px] sm:text-[40px] uppercase'>
-            {userprofile?.user && (userprofile?.user.first_name ? <span>{userprofile?.user.first_name?.slice(0, 1)}{userprofile?.user.last_name?.slice(0, 1)}</span> : <span>{userprofile?.user.email?.slice(0, 1)}{userprofile?.user.email?.slice(1, 2)}</span>)}
+          <div className='flex h-[74px] w-[74px] items-center justify-center rounded-full bg-black text-[31px] font-semibold text-white uppercase sm:h-[94px] sm:w-[94px] sm:text-[40px]'>
+            {userprofile?.user &&
+              (userprofile?.user.first_name ? (
+                <span>
+                  {userprofile?.user.first_name?.slice(0, 1)}
+                  {userprofile?.user.last_name?.slice(0, 1)}
+                </span>
+              ) : (
+                <span>
+                  {userprofile?.user.email?.slice(0, 1)}
+                  {userprofile?.user.email?.slice(1, 2)}
+                </span>
+              ))}
           </div>
-          <div className="">
-            <h1 className={`mb-2 text-[24px] sm:w-[300px] w-[200px] truncate font-semibold ${userprofile?.user?.first_name ? "capitalize" : ""}`}>
-              {
-                userprofile?.user?.first_name ? `${userprofile?.user?.first_name} ${userprofile?.user?.last_name}` : userprofile?.user?.email
-              }
-
+          <div className=''>
+            <h1
+              className={`mb-2 w-[200px] truncate text-[24px] font-semibold sm:w-[300px] ${userprofile?.user?.first_name ? "capitalize" : ""}`}
+            >
+              {userprofile?.user?.first_name
+                ? `${userprofile?.user?.first_name} ${userprofile?.user?.last_name}`
+                : userprofile?.user?.email}
             </h1>
-            <p className='mb-1 font-medium sm:w-[300px] w-[200px] text-sm truncate text-[#414141] sm:text-[16px]'>
+            <p className='mb-1 w-[200px] truncate text-sm font-medium text-[#414141] sm:w-[300px] sm:text-[16px]'>
               {userprofile?.user?.email}
             </p>
             <p className='font-medium text-[#414141] sm:text-[16px]'>
@@ -107,8 +120,8 @@ const DashboardProfile = () => {
                   console.log(values);
                 }}
               >
-                {(values) => (
-                  <Form className='flex w-full flex-col sm:gap-20 gap-10 text-black'>
+                {values => (
+                  <Form className='flex w-full flex-col gap-10 text-black sm:gap-20'>
                     <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='relative flex w-full flex-col gap-3'>
                         <label className='text-sm font-semibold text-black'>
@@ -152,7 +165,6 @@ const DashboardProfile = () => {
                           </button>
                         </div>
                       </div>
-
                     </div>
                     <div className='flex w-full flex-col items-center justify-between gap-10 sm:flex-row'>
                       <div className='flex w-full flex-col gap-3'>
@@ -188,7 +200,6 @@ const DashboardProfile = () => {
                           </button>
                         </div>
                       </div>
-
                     </div>
                     <div>
                       <div className='relative flex w-full flex-col gap-3'>
@@ -233,7 +244,9 @@ const DashboardProfile = () => {
 
         {/* Settings  */}
         <div>
-          <h4 className='mb-5 text-lg font-semibold capitalize'>Profile Settings</h4>
+          <h4 className='mb-5 text-lg font-semibold capitalize'>
+            Profile Settings
+          </h4>
 
           <div className='flex items-center gap-2'>
             {

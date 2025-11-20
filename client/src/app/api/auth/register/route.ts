@@ -1,7 +1,6 @@
 import baseUrl from "@/config/baseUrl";
 import { NextResponse } from "next/server";
 
-
 export async function POST(req: Request): Promise<NextResponse<unknown>> {
   try {
     const body = await req.json();

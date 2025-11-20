@@ -1,4 +1,3 @@
-
 export interface UserTypesResponse {
   _id: string;
   first_name?: string;
@@ -12,11 +11,11 @@ export interface UserTypesResponse {
 }
 
 export interface UserProfileTypesResponse {
-    user: UserTypesResponse,
-    stats: {
-      totalBookings: number,
-      totalCompleted: number,
-      totalPending: number
-      totalCancelled: number
-    }
+  user: UserTypesResponse;
+  stats: {
+    totalBookings: number;
+    totalCompleted: number;
+    totalPending: number;
+    totalCancelled: number;
+  };
 }

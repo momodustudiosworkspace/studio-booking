@@ -28,7 +28,7 @@ export interface BookingState {
 }
 
 const initialState: BookingState = {
-bookingId:null,
+  bookingId: null,
   assignedTo: 0,
   bookingStep: 0,
   sessionType: "",
@@ -84,8 +84,8 @@ const bookingSlice = createSlice({
     },
 
     setBookingId: (state, action: PayloadAction<BookingState>) => {
-      state.bookingId = action.payload.bookingId || null
-      state.package = action.payload.package || null
+      state.bookingId = action.payload.bookingId || null;
+      state.package = action.payload.package || null;
     },
     resetBookingState: () => initialState,
   },

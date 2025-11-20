@@ -14,7 +14,7 @@ const VerifyEmail = (): React.JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
-  const [verifyOtp, { isLoading, isSuccess, }] = useVerifyOtpMutation()
+  const [verifyOtp, { isLoading, isSuccess }] = useVerifyOtpMutation();
   return (
     <AuthForm
       headerText='Verify email'
@@ -24,15 +24,15 @@ const VerifyEmail = (): React.JSX.Element => {
       <Formik
         initialValues={{
           otp: "",
-          email: email
+          email: email,
         }}
         onSubmit={async (values: VerifyOtpTypesRequest) => {
           try {
             if (values) {
-              const response = await verifyOtp(values).unwrap()
+              const response = await verifyOtp(values).unwrap();
               console.log(response);
               console.log("isSuccess: ", isSuccess);
-              router.push(`/auth?email=${email}`)
+              router.push(`/auth?email=${email}`);
               console.log("response: ", response);
 
               // if (!response) {
@@ -47,8 +47,6 @@ const VerifyEmail = (): React.JSX.Element => {
               //   });
               // }
             }
-
-
           } catch (error: any) {
             console.log(error);
             toast.error(AuthToast, {
@@ -72,7 +70,7 @@ const VerifyEmail = (): React.JSX.Element => {
                 type='text'
                 className='border-b-[1px] border-white bg-transparent pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black'
                 placeholder='Enter OTP'
-                maxLength={6} 
+                maxLength={6}
               />
             </div>
 
@@ -81,7 +79,6 @@ const VerifyEmail = (): React.JSX.Element => {
                 text='Proceed'
                 onClick={() => {
                   console.log("submitted otp");
-
                 }}
                 icon={<RedirectArrowWhite />}
                 disabled={values.otp.length < 6 || isLoading}

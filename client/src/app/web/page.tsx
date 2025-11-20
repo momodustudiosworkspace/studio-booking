@@ -74,7 +74,7 @@ export default function Page() {
                   entire photography experience online.
                 </p>
               </div>
-              <div className='flex w-full sm:justify-end gap-4 sm:h-[48px]'>
+              <div className='flex w-full gap-4 sm:h-[48px] sm:justify-end'>
                 <LinkButton
                   href='/bookings'
                   size='md'

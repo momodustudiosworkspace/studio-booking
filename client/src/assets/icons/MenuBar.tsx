@@ -10,7 +10,7 @@ import { signOut } from "next-auth/react";
 
 const MenuBar = () => {
   const [showSideBarmenu, setShowSideBarmenu] = useState<boolean>(false);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const SIDEBAR_MENU = [
     {
       href: "/dashboard",
@@ -106,7 +106,9 @@ const MenuBar = () => {
               iconPosition='right'
               className='w-[205px] shrink-0'
             />
-            <Link href={"https://www.momodustudios.com/pages/merch"}>Studo Merch</Link>
+            <Link href={"https://www.momodustudios.com/pages/merch"}>
+              Studo Merch
+            </Link>
           </div>
           <div className='flex flex-col gap-4 pt-10 pl-4'>
             <h3 className='font-bold'>User menu</h3>
@@ -116,7 +118,9 @@ const MenuBar = () => {
                   key={menu.label}
                   href={menu.href}
                   className='flex items-center gap-2'
-                  onClick={() => setTimeout(() => setShowSideBarmenu(false), 300)} // small }
+                  onClick={() =>
+                    setTimeout(() => setShowSideBarmenu(false), 300)
+                  } // small }
                 >
                   {" "}
                   <DashboardIcons value={menu.icon} />
@@ -125,7 +129,7 @@ const MenuBar = () => {
               );
             })}
             <button
-              className='mt-4 flex w-1/2k7  items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
+              className='w-1/2k7  mt-4 flex items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
               onClick={() => {
                 // setTimeout(() => {
                 //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries

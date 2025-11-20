@@ -6,7 +6,6 @@ import LinkButton from "@/components/ui/LinkButton";
 // import { formatTime } from "@/utils/timeFormatter";
 import React from "react";
 
-
 interface BookingCardProps {
   id?: string | null | undefined;
   location?: string | null | undefined;
@@ -23,7 +22,10 @@ const BookingCard = ({
   status,
   client_name,
 }: BookingCardProps) => {
-  const bookingLocation = location === "C1 Melita Plaze, Gimbiya street, Garki" ? "indoor" : "outdoor"
+  const bookingLocation =
+    location === "C1 Melita Plaze, Gimbiya street, Garki"
+      ? "indoor"
+      : "outdoor";
   const statusStyle =
     status === "cancelled"
       ? "bg-red-200 text-red-500"
@@ -53,11 +55,13 @@ const BookingCard = ({
           <p className='text-[14px] sm:text-[16px]'>{client_name}</p>
         </div>
         <div>
-          <p className='text-[14px] sm:text-[16px] capitalize'>{bookingLocation}</p>
+          <p className='text-[14px] capitalize sm:text-[16px]'>
+            {bookingLocation}
+          </p>
         </div>
       </div>
       {/* Booking date  */}
-      <div className='flex items-center gap-2 sm:w-[200px] ml-10'>
+      <div className='ml-10 flex items-center gap-2 sm:w-[200px]'>
         <div
           className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
         >
@@ -73,7 +77,7 @@ const BookingCard = ({
         </div>
       </div>
       {/* Booking status  */}
-      <div className='flex items-center gap-2 sm:w-[200px] pl-10'>
+      <div className='flex items-center gap-2 pl-10 sm:w-[200px]'>
         <span
           className={`${statusStyle} flex items-center justify-center rounded-full px-4 py-1 text-sm font-semibold capitalize`}
         >

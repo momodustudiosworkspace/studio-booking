@@ -13,7 +13,7 @@ interface BookingCardPaymentProps {
   booking: string | null | undefined;
   reference: string | null | undefined;
   amount: number | null | undefined;
-  paidAt: string | null | undefined
+  paidAt: string | null | undefined;
   // id?: string | null | undefined;
   // location?: string | null | undefined;
   // date?: string | null | undefined;
@@ -27,7 +27,6 @@ const BookingCardPayment = ({
   paidAt,
   amount,
   status,
-
 }: BookingCardPaymentProps) => {
   const statusStyle =
     status === "cancelled"
@@ -62,7 +61,7 @@ const BookingCardPayment = ({
         </div>
       </div>
       {/* Booking date  */}
-      <div className='flex items-center gap-2 sm:w-[200px] ml-10'>
+      <div className='ml-10 flex items-center gap-2 sm:w-[200px]'>
         <div
           className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
         >
@@ -78,7 +77,7 @@ const BookingCardPayment = ({
         </div>
       </div>
       {/* Booking status  */}
-      <div className='flex items-center gap-2 sm:w-[200px] pl-10'>
+      <div className='flex items-center gap-2 pl-10 sm:w-[200px]'>
         <span
           className={`${statusStyle} flex items-center justify-center rounded-full px-4 py-1 text-sm font-semibold capitalize`}
         >

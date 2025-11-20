@@ -1,7 +1,6 @@
-
-export interface VerifyOtpTypesResponse{
- message:string
+export interface VerifyOtpTypesResponse {
+  message: string;
 }
-export interface VerifyOtpTypesRequest{
- otp:string
+export interface VerifyOtpTypesRequest {
+  otp: string;
 }

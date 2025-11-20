@@ -17,7 +17,11 @@ const rawBaseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth: typeof rawBaseQuery = async (args, api, extraOptions) => {
+const baseQueryWithReauth: typeof rawBaseQuery = async (
+  args,
+  api,
+  extraOptions
+) => {
   let result = await rawBaseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
@@ -46,7 +50,8 @@ const baseQueryWithReauth: typeof rawBaseQuery = async (args, api, extraOptions)
 
     if (refreshResult.data) {
       const newAccessToken = (refreshResult.data as any).accessToken;
-      const newRefreshToken = (refreshResult.data as any).refreshToken ?? refreshToken;
+      const newRefreshToken =
+        (refreshResult.data as any).refreshToken ?? refreshToken;
 
       // ✅ Update session manually (NextAuth doesn’t auto-refresh client-side)
       const res = await fetch("/api/auth/session?update=1", {

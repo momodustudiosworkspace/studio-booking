@@ -24,11 +24,8 @@ const BookingsPreview = ({
 }: bookingsPreviewProps): React.JSX.Element => {
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
 
-
   useEffect(() => {
     if (!proceedBtnRef.current || !hiddenSubmitRef.current) return;
-
-
 
     proceedBtnRef.current.onclick = () => {
       console.log("Make payment");

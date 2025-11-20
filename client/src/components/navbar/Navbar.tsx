@@ -45,7 +45,6 @@ const Navbar = ({
   const pathName = usePathname();
   console.log("pathName.split('/ ')[1]:", pathName.split("/")[1]);
 
-
   // const showUserMenuBar = {
   //   email: "Testing@gmail.com",
   //   accessToken: "",
@@ -64,42 +63,44 @@ const Navbar = ({
         </div>
 
         {pathName.split("/")[1] === "web" && (
-            <div className='hidden items-center gap-10 sm:flex'>
-              {ROUTES.map(route => {
-                return (
-                  <Link
-                    key={route.id}
-                    href={route.href}
-                    className={`mx-4 text-black ${currentPage === route.id ? "font-bold underline" : "font-medium"}`}
-                    onClick={() => {
-                      setCurrentPage(route.id);
-                    }}
-                  >
-                    {route.text}
-                  </Link>
-                );
-              })}
-            </div>
+          <div className='hidden items-center gap-10 sm:flex'>
+            {ROUTES.map(route => {
+              return (
+                <Link
+                  key={route.id}
+                  href={route.href}
+                  className={`mx-4 text-black ${currentPage === route.id ? "font-bold underline" : "font-medium"}`}
+                  onClick={() => {
+                    setCurrentPage(route.id);
+                  }}
+                >
+                  {route.text}
+                </Link>
+              );
+            })}
+          </div>
         )}
 
         {/* {session?.user ? <UserNavbar user={session.user} /> :  */}
         {session?.user ? (
-          <UserNavbar user={session.user} webPage={pathName.split("/")[1] === "web"} />
+          <UserNavbar
+            user={session.user}
+            webPage={pathName.split("/")[1] === "web"}
+          />
         ) : (
           <div>
             <div className='hidden items-center gap-5 font-medium sm:flex'>
-                <div className='flex items-center gap-2'>
-                  <LinkButton
-                    href='/auth'
-                    size='md'
-                    text='Log In | Sign Up'
-                    icon={<RedirectArrowWhite />}
-                    iconPosition='right'
-                    className='w-auto shrink-0'
-                  />
-                  {/* <Link href={"/auth"}>Sign Up</Link> */}
-                </div>
-
+              <div className='flex items-center gap-2'>
+                <LinkButton
+                  href='/auth'
+                  size='md'
+                  text='Log In | Sign Up'
+                  icon={<RedirectArrowWhite />}
+                  iconPosition='right'
+                  className='w-auto shrink-0'
+                />
+                {/* <Link href={"/auth"}>Sign Up</Link> */}
+              </div>
             </div>
             <div className='flex sm:hidden'>
               <MenuBar />

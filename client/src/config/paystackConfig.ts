@@ -1,7 +1,5 @@
-import Paystack from '@paystack/inline-js';
+import Paystack from "@paystack/inline-js";
 
+const payStackInline = new Paystack();
 
-const payStackInline = new Paystack()
-
-
-export default payStackInline
+export default payStackInline;

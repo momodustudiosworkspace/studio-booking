@@ -4,19 +4,18 @@ import { AdminDashBoardStatsTypeResponse } from "@/types/admin/adminDashboard.ty
 import { baseApi } from "../../api";
 // import {   BookingTypeResponse } from "@/types/booking.types";
 
-const ADMIN_BASE_URL = "/admin/dashboard"
+const ADMIN_BASE_URL = "/admin/dashboard";
 export const adminDashboardApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getAdminDashBoardStats: builder.query<AdminDashBoardStatsTypeResponse, void>({
+    getAdminDashBoardStats: builder.query<
+      AdminDashBoardStatsTypeResponse,
+      void
+    >({
       query: () => `${ADMIN_BASE_URL}/stats`,
       providesTags: ["AdminStats"],
     }),
-
-   
   }),
   overrideExisting: false,
 });
 
-export const {
-  useGetAdminDashBoardStatsQuery,
-} = adminDashboardApi;
+export const { useGetAdminDashBoardStatsQuery } = adminDashboardApi;

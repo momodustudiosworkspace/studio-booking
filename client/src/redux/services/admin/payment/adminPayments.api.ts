@@ -1,19 +1,27 @@
-
 import { AllPaymentResponse } from "@/types/payment.types";
 import { baseApi } from "../../api";
-import { BookingType,  } from "@/types/booking.types";
+import { BookingType } from "@/types/booking.types";
 
 export const adminBookingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getAllPayment: builder.query<{
-      data: AllPaymentResponse[];
-      // totalRevenue: { totalPayment: number; };
-      pagination: { total: number; page: number; limit: number; totalPages: number };
-    }, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 10 }) => `/admin/payments/all?page=${page}&limit=${limit}`,
+    getAllPayment: builder.query<
+      {
+        data: AllPaymentResponse[];
+        // totalRevenue: { totalPayment: number; };
+        pagination: {
+          total: number;
+          page: number;
+          limit: number;
+          totalPages: number;
+        };
+      },
+      { page?: number; limit?: number }
+    >({
+      query: ({ page = 1, limit = 10 }) =>
+        `/admin/payments/all?page=${page}&limit=${limit}`,
       providesTags: ["Payments"],
     }),
-      getPaymentById: builder.query<BookingType, string>({
+    getPaymentById: builder.query<BookingType, string>({
       query: id => `/payment/${id}`,
       providesTags: (result, _error, id) =>
         result
@@ -24,8 +32,5 @@ export const adminBookingApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const {
-  useGetAllPaymentQuery,
-  useGetPaymentByIdQuery,
-  usePrefetch
-} = adminBookingApi;
+export const { useGetAllPaymentQuery, useGetPaymentByIdQuery, usePrefetch } =
+  adminBookingApi;

@@ -7,7 +7,6 @@ import Image from "next/image";
 import { HomeIcons } from "@/assets/icons/home/HomeIcons";
 import { useSearchParams } from "next/navigation";
 
-
 interface AuthFormProps {
   children: React.ReactNode;
   headerText: string;
@@ -31,9 +30,8 @@ const AuthForm = ({
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo");
 
-  const callBackUrl = redirectTo ? redirectTo : "/dashboard"
+  const callBackUrl = redirectTo ? redirectTo : "/dashboard";
   // const { data: session } = useSession();
-
 
   // if (session) {
   //   console.log(session.user.accessToken);
@@ -81,7 +79,6 @@ const AuthForm = ({
 
       <div className='flex w-full flex-col sm:w-[50%] sm:items-center sm:justify-center'>
         <div className='w-full sm:w-[450px]'>
-
           {/* Logo mobile */}
           <div className='flex w-[170px] sm:hidden'>
             <Link href={"/web"}>
