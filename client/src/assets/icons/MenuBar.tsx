@@ -4,9 +4,13 @@ import { DashboardIcons, IconsType } from "./dashboard/DashboardIcons";
 import Link from "next/link";
 import LinkButton from "@/components/ui/LinkButton";
 import RedirectArrowWhite from "./RedirectArrowWhite";
+import { useAppDispatch } from "@/hooks/hooks";
+import { userLogOut } from "@/redux/slices/authSlice";
+import { signOut } from "next-auth/react";
 
 const MenuBar = () => {
   const [showSideBarmenu, setShowSideBarmenu] = useState<boolean>(false);
+  const dispatch = useAppDispatch()
   const SIDEBAR_MENU = [
     {
       href: "/dashboard",
@@ -120,6 +124,20 @@ const MenuBar = () => {
                 </Link>
               );
             })}
+            <button
+              className='mt-4 flex w-1/2k7  items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
+              onClick={() => {
+                // setTimeout(() => {
+                //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
+                // }, 500)
+                dispatch(userLogOut());
+
+                signOut({ callbackUrl: "/auth" });
+              }}
+            >
+              <DashboardIcons value='logout-danger' />
+              Log Out
+            </button>
           </div>
         </div>
       )}

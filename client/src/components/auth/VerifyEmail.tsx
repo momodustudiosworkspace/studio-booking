@@ -86,7 +86,7 @@ const VerifyEmail = (): React.JSX.Element => {
                 icon={<RedirectArrowWhite />}
                 disabled={values.otp.length < 6 || isLoading}
                 iconPosition='right'
-                className='w-[115px]'
+                className='w-[120px]'
                 loading={isLoading}
                 size='md'
               />
