@@ -19,3 +19,11 @@ export interface UserProfileTypesResponse {
     totalCancelled: number;
   };
 }
+
+export interface UserSubscriptionEmailRequest{
+  email: string;
+}
+export interface UserSubscriptionEmailResponse{
+  message: string;
+  status: string;
+}

@@ -6,8 +6,13 @@ import { Field, Form, Formik } from "formik";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import Button from "./ui/Button";
 import { FooterIcons } from "@/assets/icons/footer/FooterIcons";
+import { useSendUserSubscriptionEmailMutation } from "@/redux/services/user/user/user.api";
+import { toast } from "react-toastify";
+import { AuthToast } from "./toast/ToastMessage";
 
 const Footer = (): React.JSX.Element => {
+  const [sendUserSubscriptionEmail, { isLoading }] = useSendUserSubscriptionEmailMutation()
+
   const FOOTER_LINKS = [
     {
       title: "Quick links",
@@ -108,8 +113,26 @@ const Footer = (): React.JSX.Element => {
         <div className='mt-3 mb-20 flex sm:hidden'>
           <Formik
             initialValues={{ email: "" }}
-            onSubmit={values => {
-              console.log("email: ", values?.email);
+            onSubmit={async (values, { resetForm }) => {
+              const response = await sendUserSubscriptionEmail(values).unwrap();
+              console.log("email user: ", values);
+
+
+
+              if (response.message || response.status === "success") {
+                resetForm()
+                toast.success(AuthToast, {
+                  data: {
+                    title: "Subscribed!",
+                    content: `${response.message || "Success! you have been added to newsletter!"}`,
+                  },
+                  ariaLabel: "Email sent to user",
+                  icon: false,
+                  theme: "colored",
+                });
+              }
+
+              console.log("response: ", response);
             }}
           >
             {({ values }) => (
@@ -126,6 +149,8 @@ const Footer = (): React.JSX.Element => {
                     text='Subscribe'
                     size='sm'
                     onClick={() => console.log(values.email)}
+                    disabled={isLoading}
+                    loading={isLoading}
                     icon={<RedirectArrowWhite />}
                     iconPosition='right'
                   />
@@ -139,8 +164,11 @@ const Footer = (): React.JSX.Element => {
         <div className='absolute right-[230px] bottom-40 hidden sm:flex'>
           <Formik
             initialValues={{ email: "" }}
-            onSubmit={values => {
+            onSubmit={async values => {
               console.log("email: ", values?.email);
+              const response = await sendUserSubscriptionEmail({ email: values.email }).unwrap();
+
+              console.log("response: ", response);
             }}
           >
             {({ values }) => (
@@ -156,6 +184,8 @@ const Footer = (): React.JSX.Element => {
                     text='Subscribe'
                     size='sm'
                     onClick={() => console.log(values.email)}
+                    disabled={isLoading}
+                    loading={isLoading}
                     icon={<RedirectArrowWhite />}
                     iconPosition='right'
                   />
