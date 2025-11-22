@@ -1,7 +1,8 @@
+import { sendEmail } from "../config/sendGrid.config";
 import { paymentSuccessTemplate } from "../templates/bookings/paymentSuccessful";
 import { otpEmailTemplate } from "../templates/auth/otpEmail.template";
 import { otpForgotPasswordTemplate } from "../templates/auth/otpForgotPassword.template";
-import { sendEmail } from "../config/sendGrid.config";
+import { newsLetterTemplate } from "../templates/user/newsLetter.template";
 
 export const sendOtpEmail = async (to: string, otp: string, purpose: string) => {
   await sendEmail({
@@ -34,3 +35,11 @@ export const sendOtpForgotPasswordEmail = async (
     html: otpForgotPasswordTemplate(otp, purpose),
   });
 };
+
+export const sendNewsletterEmail = async (to: string,) => {
+  await sendEmail({
+    to,
+    subject: `Newsletter Subscription`,
+    html: newsLetterTemplate(),
+  })
+}

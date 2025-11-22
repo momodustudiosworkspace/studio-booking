@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Booking from "../../models/booking.models";
 import User from "../../models/user.models";
+import { sendNewsletterEmail } from "../../utils/sendEmail";
 
 export const getUser = async (req: Request, res: Response) => {
     try {
@@ -53,6 +54,26 @@ export const getUser = async (req: Request, res: Response) => {
         );
     } catch (error) {
         console.error("Error fetching user stats:", error);
+        return res.status(500).json({ message: "Error occurred" });
+    }
+};
+export const sendUserSubscriptionEmail = async (req: Request, res: Response) => {
+    try {
+        const { email } = req.body;
+
+        console.log("email received: ", email);
+        
+        
+        // Send newletter email to user (email/SMS)
+        await sendNewsletterEmail(email);
+        return res.status(200).json({
+            status: "success",
+            message: "You have successfully subscribed to our newsletter!"
+        }
+
+        );
+    } catch (error) {
+        console.error("Error sending mails:", error);
         return res.status(500).json({ message: "Error occurred" });
     }
 };

@@ -174,7 +174,7 @@ export const sendOPT = async (req: Request, res: Response) => {
     // Send OTP to user (email/SMS)
     await sendOtpEmail(user.email, otp, "Password Reset");
 
-    return res.status(201).json({ message: `OTP sent to ${user.email}` })
+    return res.status(201).json({ message: `OTP sent to ${user.email}`, status: 200 })
 };
 
 
@@ -187,7 +187,7 @@ export const verifyOtp = async (req: Request, res: Response) => {
 
     const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
 
-    const getOTP = await Opt.findOne({ email });
+    const getOTP = await Opt.findOne({ email }).sort({ createdAt: -1 });
 
     if (getOTP?.otp !== hashedOtp) {
         return res.status(404).json({ message: "OTP is invalid." });
@@ -198,8 +198,41 @@ export const verifyOtp = async (req: Request, res: Response) => {
     user.isVerified = true
 
     await user.save()
+    await Opt.deleteMany({ email });
 
-    return res.status(200).json({ message: "OTP verified successfully" });
+    return res.status(200).json({ message: "OTP verified successfully", status: 200 });
 };
+
+// Update password 
+export const upDatePassword = async (req: Request, res: Response) => {
+    try {
+        const { password, email } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Hash new password
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        user.passwordHash = passwordHash;
+
+        // IMPORTANT: Save changes
+        await user.save();
+
+        return res.status(200).json({
+            message: "Password updated successfully",
+            status: 200
+        });
+
+    } catch (error) {
+        console.error("Password update error:", error);
+        return res.status(500).json({ message: "Error updating password" });
+    }
+};
+
+
+
 
 export default { register, login, googleAuth, sendOPT, verifyOtp, getRefreshAccessToken }
