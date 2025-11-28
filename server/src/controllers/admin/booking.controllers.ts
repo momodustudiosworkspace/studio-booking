@@ -17,16 +17,14 @@ export const getAllUserBookings = async (req: Request, res: Response)=> {
       Booking.find().sort({ createdAt: -1 }).skip(skip).limit(limit),
       Booking.countDocuments(),
     ]);
-      //  const totalRevenueResult = await Booking.aggregate([
-      //     { $match: { status: "success" } },
-      //     { $group: { _id: null, total: { $sum: "$amount" } } },
-      //   ]);
-        // const totalRevenue = totalRevenueResult[0]?.total || 0;
+       const totalRevenueResult = await Booking.aggregate([
+          { $match: { paymentStatus: "success" } },
+          { $group: { _id: null, total: { $sum: "$price" } } },
+        ]);
+        const totalRevenue = totalRevenueResult[0]?.total || 0;
     
-    
-
     return res.status(200).json({
-      data: bookings,
+      data:  {bookings,totalRevenue},
       pagination: {
         total,
         page,
@@ -39,3 +37,5 @@ export const getAllUserBookings = async (req: Request, res: Response)=> {
    return  res.status(500).json({ message: "Failed to fetch bookings" });
   }
 }
+
+

@@ -12,7 +12,7 @@ export interface IBooking extends Document {
   status: "pending" | "confirmed" | "completed" | "cancelled";
   notes?: string;
   price: number;
-  paymentStatus: "pending" | "paid" | "refunded";
+  paymentStatus: "pending" | "success" | "refunded";
   paymentReference?: string;
   cancelReason?: string;
   rescheduledFrom?: mongoose.Types.ObjectId;
