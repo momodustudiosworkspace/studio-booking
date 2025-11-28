@@ -7,7 +7,7 @@ export const adminBookingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getAllUserBookings: builder.query<
       {
-        data: BookingType[];
+        data: {bookings:BookingType[], totalRevenue:number};
         pagination: {
           total: number;
           page: number;

@@ -19,6 +19,7 @@ const DashBoardClients = () => {
     error: usersError,
     isLoading: usersIsloading,
   } = useGetAllUserQuery({ page: userPage, limit });
+  console.log("users data:", users);
 
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
@@ -151,7 +152,7 @@ const DashBoardClients = () => {
                       client_name={`${user.first_name} ${user.last_name}`}
                       email={user.email}
                       joined_date={formatDate(user.createdAt)}
-                      bookings={"200"}
+                      bookings={user.totalBookings}
                       status={user.isMember ? "active" : "inactive"}
                     />
                   );

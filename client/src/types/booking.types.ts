@@ -35,3 +35,5 @@ export interface BookingTypeRequest {
   booking: BookingType;
   id: string;
 }
+
+

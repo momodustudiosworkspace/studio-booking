@@ -3,7 +3,7 @@ export interface UserTypesResponse {
   first_name?: string;
   last_name?: string;
   email?: string;
-  passwordHash?: string;
+  totalBookings?: number;
   isMember?: string;
   isAdmin?: boolean;
   createdAt?: string;

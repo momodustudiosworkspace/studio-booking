@@ -37,21 +37,21 @@ const DashboardPayment = () => {
     return [
       {
         title: "Total Payment",
-        count: 15000000,
+        count: payments?.totalPayment,
         linkText: "Completed payments",
         href: "/payments",
         dataType: 1,
       },
       {
         title: "today's revenue",
-        count: `${nairaSymbol()}${parseInt("50000").toLocaleString()}`,
-        linkText: "2 new payments today",
+        count: `${nairaSymbol()}${payments?.todaysRevenue}`,
+        linkText: "2 payments today",
         href: "/payments",
         dataType: 0,
       },
       {
         title: "balance",
-        count: `${nairaSymbol()}${parseInt("480000").toLocaleString()}`,
+        count: `${nairaSymbol()}${payments?.balance}`,
         linkText: "Pending payments",
         href: "/payments",
         dataType: 0,
@@ -142,7 +142,7 @@ const DashboardPayment = () => {
           <BookingCardAnalytics
             key={key}
             title={card.title}
-            count={card.count}
+            count={card.count || 0}
             text={card.linkText}
             dataType={card.dataType}
           />

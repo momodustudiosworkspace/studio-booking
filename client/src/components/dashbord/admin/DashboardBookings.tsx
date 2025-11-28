@@ -21,16 +21,18 @@ const DashboardBookings = () => {
     { page: bookingPage, limit },
     { pollingInterval: 600000 }
   );
+
+  console.log("bookings: ", bookings);
   const [currentTab, setCurrentTab] = useState<number>(1);
   // Prefetch hook for single booking
   const prefetchBooking = usePrefetch("getBookingById");
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
-    const total = bookings?.data.length || 0;
+    const total = bookings?.data.bookings.length || 0;
     const completed =
-      bookings?.data.filter(b => b.status === "completed").length || 0;
+      bookings?.data.bookings.filter(b => b.status === "completed").length || 0;
     const upcoming =
-      bookings?.data.filter(b => b.status === "pending").length || 0;
+      bookings?.data.bookings.filter(b => b.status === "pending").length || 0;
     // const cancelled = bookings?.data.filter(b => b.status === "cancelled").length || 0;
 
     return [
@@ -57,7 +59,7 @@ const DashboardBookings = () => {
       },
       {
         title: "Revenue",
-        count: 15000000,
+        count: bookings?.data.totalRevenue || 0,
         linkText: "",
         href: "/bookings",
         dataType: 1,
@@ -71,7 +73,7 @@ const DashboardBookings = () => {
   const formattedBookings = useMemo(() => {
     if (!bookings) return [];
 
-    return bookings?.data.map(b => ({
+    return bookings?.data.bookings.map(b => ({
       _id: b._id,
       user: b.user,
       title: `${b.sessionType} session`,

@@ -21,7 +21,7 @@ const DashboardSideBar = () => {
     },
     {
       href: "/admin/dashboard/clients",
-      label: "Client",
+      label: "Clients",
       icon: "person-solid-black" as IconsType,
     },
     {
