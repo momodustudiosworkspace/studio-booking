@@ -1,9 +1,10 @@
 import React from 'react'
 import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid'
+import Image from 'next/image'
 
 const BetterWorkFlow = () => {
   return (
-            <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
+      <div className="relative isolate overflow-hidden bg-black px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
                 <div className="absolute inset-0 -z-10 overflow-hidden">
                     <svg
                         aria-hidden="true"
@@ -34,19 +35,22 @@ const BetterWorkFlow = () => {
                     <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                         <div className="lg:pr-4">
                             <div className="lg:max-w-lg">
-                                <p className="text-base/7 font-semibold text-indigo-400">Deploy faster</p>
+                          <p className="text-base/7 font-semibold text-white">
+                              Studio Journey
+                          </p>
                                 <h1 className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">
-                                    A better workflow
+                              A better studio session experience
                                 </h1>
                                 <p className="mt-6 text-xl/8 text-gray-300">
-                                    Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam
-                                    eget aliquam. Quisque id at vitae feugiat egestas.
+                              Streamline your studio sessions with our all-in-one platform designed to enhance productivity and collaboration.
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div className="-mt-12 -ml-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
-                        <img
+                  <Image
+                      width={100}
+                      height={100}
                             alt=""
                             src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
                             className="w-3xl max-w-none rounded-xl bg-gray-800 shadow-xl ring-1 ring-white/10 sm:w-228"
@@ -56,46 +60,43 @@ const BetterWorkFlow = () => {
                         <div className="lg:pr-4">
                             <div className="max-w-xl text-base/7 text-gray-400 lg:max-w-lg">
                                 <p>
-                                    Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet
-                                    vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque
-                                    erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris
-                                    semper sed amet vitae sed turpis id.
+                              Our platform offers a seamless workflow that integrates scheduling, client management, and media delivery, allowing you to focus on what matters most – capturing unforgettable moments.
                                 </p>
                                 <ul role="list" className="mt-8 space-y-8 text-gray-400">
                                     <li className="flex gap-x-3">
-                                        <CloudArrowUpIcon aria-hidden="true" className="mt-1 size-5 flex-none text-indigo-400" />
+                                  <CloudArrowUpIcon aria-hidden="true" className="mt-1 size-5 flex-none text-white" />
                                         <span>
-                                            <strong className="font-semibold text-white">Push to deploy.</strong> Lorem ipsum, dolor sit amet
-                                            consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate
-                                            blanditiis ratione.
+                                      <strong className="font-semibold text-white pr-2">
+                                          Cloud storage and sharing:
+                                      </strong>
+                                      Store and share your media files securely in the cloud, accessible from anywhere at any time.
                                         </span>
                                     </li>
                                     <li className="flex gap-x-3">
-                                        <LockClosedIcon aria-hidden="true" className="mt-1 size-5 flex-none text-indigo-400" />
+                                  <LockClosedIcon aria-hidden="true" className="mt-1 size-5 flex-none text-white" />
                                         <span>
-                                            <strong className="font-semibold text-white">SSL certificates.</strong> Anim aute id magna aliqua ad
-                                            ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.
+                                      <strong className="font-semibold text-white pr-2">
+                                          Advanced security features.
+                                      </strong>
+                                      Protect your data with industry-leading security measures, ensuring your clients&apos; privacy and trust.
                                         </span>
                                     </li>
                                     <li className="flex gap-x-3">
-                                        <ServerIcon aria-hidden="true" className="mt-1 size-5 flex-none text-indigo-400" />
+                                  <ServerIcon aria-hidden="true" className="mt-1 size-5 flex-none text-white" />
                                         <span>
-                                            <strong className="font-semibold text-white">Database backups.</strong> Ac tincidunt sapien vehicula
-                                            erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+                                      <strong className="font-semibold text-white">Database backups.</strong>
+                                      Enjoy peace of mind with automated backups, safeguarding your valuable media and client information.
                                         </span>
                                     </li>
                                 </ul>
                                 <p className="mt-8">
-                                    Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor
-                                    fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac
-                                    adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.
+                              Elevate your studio sessions with our intuitive platform, designed to simplify your workflow and enhance your creative process.
                                 </p>
-                                <h2 className="mt-16 text-2xl font-bold tracking-tight text-white">No server? No problem.</h2>
+                          <h2 className="mt-16 text-2xl font-bold tracking-tight text-white">
+                              Ready to get started?
+                          </h2>
                                 <p className="mt-6">
-                                    Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in. Convallis arcu ipsum urna nibh.
-                                    Pharetra, euismod vitae interdum mauris enim, consequat vulputate nibh. Maecenas pellentesque id sed
-                                    tellus mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi. Pellentesque nam sed nullam sed diam
-                                    turpis ipsum eu a sed convallis diam.
+                              Join countless clients, photographers and media production teams who have transformed their workflow with our platform. Sign up today and experience the difference!
                                 </p>
                             </div>
                         </div>

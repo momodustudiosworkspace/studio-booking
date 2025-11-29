@@ -7,7 +7,7 @@ const tiers = [
         href: '#',
         priceMonthly: '$29',
         description: "The perfect plan if you're just getting started with our product.",
-        features: ['25 products', 'Up to 10,000 subscribers', 'Advanced analytics', '24-hour support response time'],
+        features: ['3 studio session', 'Up to 12 studio hours', 'Advanced AI retouching model', '24-hour support response time'],
         featured: false,
     },
     {
@@ -34,7 +34,7 @@ function classNames(...classes) {
 
 export default function PricingList() {
     return (
-        <div className="relative isolate bg-gray-900 px-6 py-24 sm:py-32 lg:px-8">
+        <div className="relative isolate bg-black px-6 py-24 sm:py-32 lg:px-8">
             <div aria-hidden="true" className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl">
                 <div
                     style={{
@@ -45,7 +45,7 @@ export default function PricingList() {
                 />
             </div>
             <div className="mx-auto max-w-4xl text-center">
-                <h2 className="text-base/7 font-semibold text-indigo-400">Studio packages</h2>
+                <h2 className="text-base/7 font-semibold text-white">Studio packages</h2>
                 <p className="mt-2 text-5xl font-semibold tracking-tight text-balance text-white sm:text-6xl">
                     Choose the right plan for your studio session
                 </p>
@@ -59,7 +59,7 @@ export default function PricingList() {
                     <div
                         key={tier.id}
                         className={classNames(
-                            tier.featured ? 'relative bg-gray-800' : 'bg-white/[0.025] sm:mx-8 lg:mx-0',
+                            tier.featured ? 'relative bg-black' : 'bg-white/[0.025] sm:mx-8 lg:mx-0',
                             tier.featured
                                 ? ''
                                 : tierIdx === 0
@@ -70,7 +70,7 @@ export default function PricingList() {
                     >
                         <h3
                             id={tier.id}
-                            className={classNames(tier.featured ? 'text-indigo-400' : 'text-indigo-400', 'text-base/7 font-semibold')}
+                            className={classNames(tier.featured ? 'text-white' : 'text-white', 'text-base/7 font-semibold')}
                         >
                             {tier.name}
                         </h3>
@@ -99,7 +99,7 @@ export default function PricingList() {
                                 <li key={feature} className="flex gap-x-3">
                                     <CheckIcon
                                         aria-hidden="true"
-                                        className={classNames(tier.featured ? 'text-indigo-400' : 'text-indigo-400', 'h-6 w-5 flex-none')}
+                                        className={classNames(tier.featured ? 'text-white' : 'text-white', 'h-6 w-5 flex-none')}
                                     />
                                     {feature}
                                 </li>
@@ -110,7 +110,7 @@ export default function PricingList() {
                             aria-describedby={tier.id}
                             className={classNames(
                                 tier.featured
-                                    ? 'bg-indigo-500 text-white hover:bg-indigo-400 focus-visible:outline-indigo-500'
+                                    ? 'bg-white text-black hover:bg-white/35 focus-visible:outline-white/75'
                                     : 'bg-white/10 text-white inset-ring inset-ring-white/5 hover:bg-white/20 focus-visible:outline-white/75',
                                 'mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10',
                             )}

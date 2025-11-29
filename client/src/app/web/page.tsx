@@ -9,10 +9,15 @@ import CardTwo from "@/components/cards/CardTwo";
 import Collaborations from "@/components/Collaborations";
 import Faqs from "@/components/Faqs";
 import Hero from "@/components/Hero";
+import JoinStudioCommunity from "@/components/JoinStudioCommunity";
+import MediaSpaceAlert from "@/components/MediaSpaceAlert";
+import PodcastSession from "@/components/PodcastSession";
 import Portfolio from "@/components/Portfolio";
 import PricingList from "@/components/PricingList";
 import SectionHeader from "@/components/SectionHeader";
 import Statistics from "@/components/Statistics";
+import StudioMerch from "@/components/StudioMerch";
+import StudioServices from "@/components/StudioServices";
 import LinkButton from "@/components/ui/LinkButton";
 import Image from "next/image";
 
@@ -78,6 +83,21 @@ export default function Page() {
 
           {/* Work flow  */}
           <BetterWorkFlow />
+
+          {/* Podcast Session  */}
+          <PodcastSession />
+
+          {/* Join our studio community  */}
+          <JoinStudioCommunity />
+
+          {/* Media Alert  */}
+          <MediaSpaceAlert />
+
+          {/* Studio merch  */}
+          <StudioMerch />
+
+          {/* Studio Services */}
+          <StudioServices />
 
           {/* About us  */}
           <div className='mb-10 flex flex-col gap-6 px-5 sm:mt-20 sm:mb-20 sm:flex-row sm:justify-between'>
