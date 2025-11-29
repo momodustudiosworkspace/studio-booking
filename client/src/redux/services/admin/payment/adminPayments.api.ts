@@ -8,6 +8,9 @@ export const adminBookingApi = baseApi.injectEndpoints({
       {
         data: AllPaymentResponse[];
         // totalRevenue: { totalPayment: number; };
+        totalPayment: number;
+        todaysRevenue: number;
+        balance: number;
         pagination: {
           total: number;
           page: number;

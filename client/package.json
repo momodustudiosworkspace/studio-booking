@@ -20,6 +20,8 @@
     "@chakra-ui/avatar": "^2.3.0",
     "@chakra-ui/react": "^3.27.0",
     "@emotion/react": "^11.14.0",
+    "@headlessui/react": "^2.2.9",
+    "@heroicons/react": "^2.2.0",
     "@paystack/inline-js": "^2.22.7",
     "@reduxjs/toolkit": "^2.9.0",
     "cloudinary": "^2.7.0",

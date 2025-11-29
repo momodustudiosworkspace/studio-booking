@@ -5,9 +5,13 @@ import { Field, Form, Formik } from "formik";
 import Button from "../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import { useRouter } from "next/navigation";
+import { useSendOtpMutation } from "@/redux/services/user/auth/auth.api";
+import { toast } from "react-toastify";
+import { AuthToast } from "../toast/ToastMessage";
 
 const ForgotPassword = (): React.JSX.Element => {
   const router = useRouter();
+  const [sendOtp, { isLoading }] = useSendOtpMutation();
   return (
     <AuthForm
       headerText='Forgot password'
@@ -17,8 +21,28 @@ const ForgotPassword = (): React.JSX.Element => {
       <Formik
         initialValues={{
           email: "",
+          purpose: "password_reset",
         }}
-        onSubmit={values => console.log(values)}
+        onSubmit={async values => {
+          try {
+            const response = await sendOtp(values).unwrap();
+
+            if (response.status === 200) {
+              toast.success(AuthToast, {
+                data: {
+                  title: "OTP successful",
+                  content: `${response.message || "OTP valid"}`,
+                },
+                ariaLabel: "OTP successful",
+                icon: false,
+                theme: "colored",
+              });
+              router.push(`/auth/otp?email=${values.email}`);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }}
       >
         {({ values, isSubmitting }) => (
           <Form className='mt-20 flex w-full flex-col gap-10'>
@@ -38,12 +62,12 @@ const ForgotPassword = (): React.JSX.Element => {
               <Button
                 text='Proceed'
                 onClick={() => {
-                  router.push("/auth/otp");
                   console.log(values);
                 }}
                 icon={<RedirectArrowWhite />}
-                disabled={values.email.length < 5 || isSubmitting}
+                disabled={values.email.length < 5 || isSubmitting || isLoading}
                 iconPosition='right'
+                loading={isLoading}
                 className='w-[125px]'
                 size='md'
               />

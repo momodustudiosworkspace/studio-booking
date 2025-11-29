@@ -169,7 +169,7 @@ const DashBoardOverview = () => {
               "error loading"
             ) : (
               <div className='flex flex-col gap-10 py-5 pr-6 pl-4'>
-                {bookings?.data.map(booking => {
+                {bookings?.data.bookings.map(booking => {
                   return (
                     <BookingCard
                       key={booking._id}
@@ -238,7 +238,7 @@ const DashBoardOverview = () => {
                       client_name={`${user.first_name} ${user.last_name}`}
                       email={user.email}
                       joined_date={formatDate(user.createdAt)}
-                      bookings={"200"}
+                      bookings={user.totalBookings}
                       status={user.isMember ? "active" : "inactive"}
                     />
                   );

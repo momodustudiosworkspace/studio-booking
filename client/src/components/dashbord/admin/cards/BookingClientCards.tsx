@@ -13,7 +13,7 @@ interface ClientCardsProps {
   client_name: string | null | undefined;
   email: string | null | undefined;
   joined_date: string | null | undefined;
-  bookings: string | null | undefined;
+  bookings: number | null | undefined;
   status: "inactive" | "active" | undefined;
 }
 const ClientCards = ({

@@ -3,7 +3,7 @@ export interface UserTypesResponse {
   first_name?: string;
   last_name?: string;
   email?: string;
-  passwordHash?: string;
+  totalBookings?: number;
   isMember?: string;
   isAdmin?: boolean;
   createdAt?: string;
@@ -18,4 +18,12 @@ export interface UserProfileTypesResponse {
     totalPending: number;
     totalCancelled: number;
   };
+}
+
+export interface UserSubscriptionEmailRequest {
+  email: string;
+}
+export interface UserSubscriptionEmailResponse {
+  message: string;
+  status: string;
 }

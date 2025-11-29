@@ -16,7 +16,7 @@ export default function HomeLayout({
     <section className={`font-montserrat`}>
       <Navbar />
 
-      <div className='pt-32'>{children}</div>
+      <div>{children}</div>
       <Footer />
     </section>
   );

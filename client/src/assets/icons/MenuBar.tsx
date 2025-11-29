@@ -25,7 +25,7 @@ const MenuBar = () => {
     {
       href: "/dashboard/profile-settings",
       label: "Profile",
-      icon: "help-solid-black" as IconsType,
+      icon: "person-solid-black" as IconsType,
     },
     {
       href: "/dashboard/help",
@@ -98,6 +98,9 @@ const MenuBar = () => {
                 </Link>
               );
             })}
+            <Link href={"https://www.momodustudios.com/pages/merch"}>
+              Studio Merch
+            </Link>
             <LinkButton
               href='/bookings'
               size='md'
@@ -106,9 +109,6 @@ const MenuBar = () => {
               iconPosition='right'
               className='w-[205px] shrink-0'
             />
-            <Link href={"https://www.momodustudios.com/pages/merch"}>
-              Studo Merch
-            </Link>
           </div>
           <div className='flex flex-col gap-4 pt-10 pl-4'>
             <h3 className='font-bold'>User menu</h3>
@@ -119,7 +119,7 @@ const MenuBar = () => {
                   href={menu.href}
                   className='flex items-center gap-2'
                   onClick={() =>
-                    setTimeout(() => setShowSideBarmenu(false), 300)
+                    setTimeout(() => setShowSideBarmenu(false), 600)
                   } // small }
                 >
                   {" "}
@@ -129,7 +129,7 @@ const MenuBar = () => {
               );
             })}
             <button
-              className='w-1/2k7  mt-4 flex items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
+              className='mt-4 flex w-1/2 items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
               onClick={() => {
                 // setTimeout(() => {
                 //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries

@@ -1,9 +1,9 @@
 
 import express from "express"
-import { getAllUsers } from "../../controllers/admin/users.controllers"
+import { getUsersWithBookingCount } from "../../controllers/admin/users.controllers"
 const router = express()
 
 
-router.get("/all", getAllUsers)
+router.get("/all", getUsersWithBookingCount)
 
 export default router

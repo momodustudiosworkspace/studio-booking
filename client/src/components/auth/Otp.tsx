@@ -4,18 +4,25 @@ import AuthForm from "./AuthForm";
 import { Form, Formik } from "formik";
 import Button from "../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import OTPInput from "react-otp-input";
+import { useVerifyOtpMutation } from "@/redux/services/user/auth/auth.api";
+import { toast } from "react-toastify";
+import { AuthToast } from "../toast/ToastMessage";
 
 const Otp = (): React.JSX.Element => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const getUserEmail = searchParams.get("email");
   const [otp, setOtp] = useState("");
+
+  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
 
   const Title = (): React.JSX.Element => {
     return (
       <span>
         Enter 5 digit code sent to{" "}
-        <span className='font-medium'>test@gmail.com</span>
+        <span className='font-medium'>{getUserEmail}</span>
       </span>
     );
   };
@@ -28,8 +35,29 @@ const Otp = (): React.JSX.Element => {
       <Formik
         initialValues={{
           otp: "",
+          email: getUserEmail,
         }}
-        onSubmit={values => console.log(values)}
+        onSubmit={async values => {
+          try {
+            const response = await verifyOtp(values).unwrap();
+
+            if (response.status === 200) {
+              router.push(`/auth/create-new-password?email=${getUserEmail}`);
+            }
+          } catch (error) {
+            console.log(error);
+            const { message } = error as { message: string };
+            toast.error(AuthToast, {
+              data: {
+                title: "Verification failed",
+                content: `${message || "Invalid opt"}`,
+              },
+              ariaLabel: "Something went wrong",
+              icon: false,
+              theme: "colored",
+            });
+          }
+        }}
       >
         {({ values, isSubmitting, setFieldValue }) => (
           <Form className='mt-20 flex w-full flex-col gap-10 sm:items-start'>
@@ -68,13 +96,13 @@ const Otp = (): React.JSX.Element => {
               <Button
                 text='Verify OTP'
                 onClick={() => {
-                  router.push("/auth/create-new-password");
                   console.log(values);
                 }}
                 icon={<RedirectArrowWhite />}
                 disabled={values.otp.length < 5 || isSubmitting}
                 iconPosition='right'
                 className='w-[145px]'
+                loading={isLoading}
                 size='md'
               />
             </div>

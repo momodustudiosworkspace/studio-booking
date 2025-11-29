@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login, googleAuth, verifyOtp } from "../../controllers/user/auth.controllers";
+import { register, login, googleAuth, verifyOtp, sendOPT, upDatePassword } from "../../controllers/user/auth.controllers";
 
 const router = Router();
 
@@ -78,7 +78,6 @@ router.post("/register", register);
  */
 router.post("/login", login);
 
-
 /**
  * @openapi
  * /api/auth/google-login:
@@ -116,6 +115,9 @@ router.post("/login", login);
  */
 router.post("/google-login", googleAuth);
 
+router.post("/send-otp", sendOPT)
+
 router.post("/verify-opt", verifyOtp)
+router.post("/update-password", upDatePassword)
 
 export default router;
