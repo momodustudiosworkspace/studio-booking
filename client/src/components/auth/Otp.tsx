@@ -16,7 +16,7 @@ const Otp = (): React.JSX.Element => {
   const getUserEmail = searchParams.get("email");
   const [otp, setOtp] = useState("");
 
-  const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
+  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
 
   const Title = (): React.JSX.Element => {
     return (
@@ -39,15 +39,14 @@ const Otp = (): React.JSX.Element => {
         }}
         onSubmit={async values => {
           try {
-            const response = await verifyOtp(values).unwrap()
+            const response = await verifyOtp(values).unwrap();
 
             if (response.status === 200) {
-
               router.push(`/auth/create-new-password?email=${getUserEmail}`);
             }
           } catch (error) {
             console.log(error);
-            const { message } = error as { message: string }
+            const { message } = error as { message: string };
             toast.error(AuthToast, {
               data: {
                 title: "Verification failed",
@@ -97,7 +96,6 @@ const Otp = (): React.JSX.Element => {
               <Button
                 text='Verify OTP'
                 onClick={() => {
-
                   console.log(values);
                 }}
                 icon={<RedirectArrowWhite />}

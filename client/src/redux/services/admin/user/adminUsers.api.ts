@@ -16,8 +16,7 @@ export const adminUserApi = baseApi.injectEndpoints({
         };
       },
       { page?: number; limit?: number }
-      >
-      ({
+    >({
       query: ({ page = 1, limit = 10 }) =>
         `/admin/users/all?page=${page}&limit=${limit}`,
       providesTags: ["User"],

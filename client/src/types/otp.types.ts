@@ -7,7 +7,7 @@ export interface VerifyOtpTypesRequest {
 }
 export interface SendOtpTypesRequest {
   email: string;
-  purpose :string
+  purpose: string;
 }
 
 export interface SendOtpTypesResponse {

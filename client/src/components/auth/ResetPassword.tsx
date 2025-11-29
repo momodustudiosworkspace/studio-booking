@@ -13,7 +13,7 @@ const ResetPassword = (): React.JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const getUserEmail = searchParams.get("email");
-  const [upDatePassword, { isLoading }] = useUpDatePasswordMutation()
+  const [upDatePassword, { isLoading }] = useUpDatePasswordMutation();
   return (
     <AuthForm
       headerText='create new password'
@@ -29,11 +29,10 @@ const ResetPassword = (): React.JSX.Element => {
           try {
             const response = await upDatePassword({
               email: getUserEmail || "",
-              password: values.password
-            }).unwrap()
+              password: values.password,
+            }).unwrap();
 
             if (response.status === 200) {
-
               toast.success(AuthToast, {
                 data: {
                   title: "Password Reset",
@@ -44,12 +43,10 @@ const ResetPassword = (): React.JSX.Element => {
                 theme: "colored",
               });
 
-
               router.push(`/auth?email=${getUserEmail}`);
             }
           } catch (error) {
             console.log(error);
-
           }
         }}
       >

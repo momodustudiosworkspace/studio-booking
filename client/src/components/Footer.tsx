@@ -11,7 +11,8 @@ import { toast } from "react-toastify";
 import { AuthToast } from "./toast/ToastMessage";
 
 const Footer = (): React.JSX.Element => {
-  const [sendUserSubscriptionEmail, { isLoading }] = useSendUserSubscriptionEmailMutation()
+  const [sendUserSubscriptionEmail, { isLoading }] =
+    useSendUserSubscriptionEmailMutation();
 
   const FOOTER_LINKS = [
     {
@@ -117,10 +118,8 @@ const Footer = (): React.JSX.Element => {
               const response = await sendUserSubscriptionEmail(values).unwrap();
               console.log("email user: ", values);
 
-
-
               if (response.message || response.status === "success") {
-                resetForm()
+                resetForm();
                 toast.success(AuthToast, {
                   data: {
                     title: "Subscribed!",
@@ -137,7 +136,7 @@ const Footer = (): React.JSX.Element => {
           >
             {({ values }) => (
               <Form>
-                <div className='flex h-[50px] items-center gap-3 justify-between rounded-full bg-neutral-700 px-2'>
+                <div className='flex h-[50px] items-center justify-between gap-3 rounded-full bg-neutral-700 px-2'>
                   <Field
                     type='email'
                     name='email'
@@ -166,7 +165,9 @@ const Footer = (): React.JSX.Element => {
             initialValues={{ email: "" }}
             onSubmit={async values => {
               console.log("email: ", values?.email);
-              const response = await sendUserSubscriptionEmail({ email: values.email }).unwrap();
+              const response = await sendUserSubscriptionEmail({
+                email: values.email,
+              }).unwrap();
 
               console.log("response: ", response);
             }}

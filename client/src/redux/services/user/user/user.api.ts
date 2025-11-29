@@ -1,4 +1,8 @@
-import { UserProfileTypesResponse, UserSubscriptionEmailRequest, UserSubscriptionEmailResponse } from "@/types/user.types";
+import {
+  UserProfileTypesResponse,
+  UserSubscriptionEmailRequest,
+  UserSubscriptionEmailResponse,
+} from "@/types/user.types";
 import { baseApi } from "../../api";
 
 export const userApi = baseApi.injectEndpoints({
@@ -7,8 +11,11 @@ export const userApi = baseApi.injectEndpoints({
       query: () => "/user",
       providesTags: ["Profile"],
     }),
-    sendUserSubscriptionEmail: builder.mutation<UserSubscriptionEmailResponse, UserSubscriptionEmailRequest>({
-       query: body => ({
+    sendUserSubscriptionEmail: builder.mutation<
+      UserSubscriptionEmailResponse,
+      UserSubscriptionEmailRequest
+    >({
+      query: body => ({
         url: "/user/send/newsletter/",
         method: "POST",
         body,
@@ -18,4 +25,5 @@ export const userApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetUserProfileQuery,useSendUserSubscriptionEmailMutation } = userApi;
+export const { useGetUserProfileQuery, useSendUserSubscriptionEmailMutation } =
+  userApi;

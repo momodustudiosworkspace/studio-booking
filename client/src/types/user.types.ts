@@ -20,10 +20,10 @@ export interface UserProfileTypesResponse {
   };
 }
 
-export interface UserSubscriptionEmailRequest{
+export interface UserSubscriptionEmailRequest {
   email: string;
 }
-export interface UserSubscriptionEmailResponse{
+export interface UserSubscriptionEmailResponse {
   message: string;
   status: string;
 }

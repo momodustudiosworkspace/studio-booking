@@ -11,7 +11,7 @@ import { AuthToast } from "../toast/ToastMessage";
 
 const ForgotPassword = (): React.JSX.Element => {
   const router = useRouter();
-  const [sendOtp, { isLoading }] = useSendOtpMutation()
+  const [sendOtp, { isLoading }] = useSendOtpMutation();
   return (
     <AuthForm
       headerText='Forgot password'
@@ -21,11 +21,11 @@ const ForgotPassword = (): React.JSX.Element => {
       <Formik
         initialValues={{
           email: "",
-          purpose: "password_reset"
+          purpose: "password_reset",
         }}
         onSubmit={async values => {
           try {
-            const response = await sendOtp(values).unwrap()
+            const response = await sendOtp(values).unwrap();
 
             if (response.status === 200) {
               toast.success(AuthToast, {
@@ -41,7 +41,6 @@ const ForgotPassword = (): React.JSX.Element => {
             }
           } catch (error) {
             console.log(error);
-
           }
         }}
       >
@@ -63,7 +62,6 @@ const ForgotPassword = (): React.JSX.Element => {
               <Button
                 text='Proceed'
                 onClick={() => {
-
                   console.log(values);
                 }}
                 icon={<RedirectArrowWhite />}

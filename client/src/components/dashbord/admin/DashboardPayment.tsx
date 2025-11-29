@@ -57,7 +57,7 @@ const DashboardPayment = () => {
         dataType: 0,
       },
     ];
-  }, []);
+  }, [payments?.balance, payments?.todaysRevenue, payments?.totalPayment]);
   // if (isLoading) return "Loading...";
   // if (error) return "Failed to load data";
 

@@ -26,7 +26,10 @@ export const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
-    upDatePassword: builder.mutation<UpdatePasswordTypesResponse, UpdatePasswordTypesRequest>({
+    upDatePassword: builder.mutation<
+      UpdatePasswordTypesResponse,
+      UpdatePasswordTypesRequest
+    >({
       query: body => ({
         url: "/auth/update-password",
         method: "POST",
@@ -37,4 +40,8 @@ export const authApi = baseApi.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useVerifyOtpMutation, useSendOtpMutation, useUpDatePasswordMutation} = authApi;
+export const {
+  useVerifyOtpMutation,
+  useSendOtpMutation,
+  useUpDatePasswordMutation,
+} = authApi;
