@@ -1,6 +1,6 @@
+import React from "react";
 import nairaSymbol from "@/utils/symbols";
 import { Field, Form, Formik } from "formik";
-import React from "react";
 
 interface BookingCardAnalyticsProps {
   title: string;

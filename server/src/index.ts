@@ -13,6 +13,9 @@ import adminDashboardRoutes from "./routes/admin/dashboard.routes"
 import adminBookingRoutes from "./routes/admin/booking.routes"
 import adminUsersRoutes from "./routes/admin/user.routers"
 import adminPayments from "./routes/admin/payment.routes"
+import sessionRoutes from "./routes/admin/session.route"
+import packageRoutes from "./routes/admin/package.routes"
+
 
 
 // User API routes 
@@ -41,7 +44,9 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerOpenapiSpecificatio
 app.use("/api/admin/dashboard", adminDashboardRoutes )
 app.use("/api/admin/bookings", adminBookingRoutes )
 app.use("/api/admin/users", adminUsersRoutes )
-app.use("/api/admin/payments", adminPayments )
+app.use("/api/admin/payments", adminPayments)
+app.use("/api/admin/sessions", sessionRoutes);
+app.use("/api/admin/packages", packageRoutes);
 
 
 
