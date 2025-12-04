@@ -304,8 +304,8 @@ const Bookings = (): React.JSX.Element => {
                 <BaseIcons value='arrow-left-black' />
               </button>
             )}
-            <div className='mt-5 flex flex-col gap-2'>
-              <h1 className='text-[28px] font-extrabold capitalize'>
+            <div className='mt-5 flex flex-col gap-2 text-white'>
+              <h1 className='text-[28px] font-extrabold capitalize '>
                 {BOOKING_STEPS[bookingStep]?.header}
               </h1>
               <div className='flex items-center gap-1'>

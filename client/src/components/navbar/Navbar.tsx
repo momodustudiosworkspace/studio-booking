@@ -11,52 +11,53 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
+
 } from "@headlessui/react";
 import {
   ArrowPathIcon,
   Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
+  HomeModernIcon,
   XMarkIcon,
+  FaceSmileIcon
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   PhoneIcon,
   PlayCircleIcon,
+  BookOpenIcon,
+  BookmarkSquareIcon
 } from "@heroicons/react/20/solid";
-import Image from "next/image";
+// import Image from "next/image";
 import MomoduWhite from "@/assets/icons/MomoduWhite";
 import Link from "next/link";
 
 const products = [
   {
-    name: "Analytics",
-    description: "Get a better understanding of your traffic",
-    href: "#",
-    icon: ChartPieIcon,
+    name: "Online Booking",
+    description: "Manage bookings and appointments",
+    href: "/bookings",
+    icon: BookOpenIcon,
   },
   {
-    name: "Engagement",
-    description: "Speak directly to your customers",
+    name: "Studio Sessions",
+    description: "Create and manage studio sessions",
     href: "#",
-    icon: CursorArrowRaysIcon,
+    icon: HomeModernIcon,
   },
   {
-    name: "Security",
-    description: "Your customers’ data will be safe and secure",
+    name: "Beauty Salon",
+    description: "All-in-one salon management",
     href: "#",
-    icon: FingerPrintIcon,
+    icon: FaceSmileIcon,
   },
   {
-    name: "Integrations",
-    description: "Connect with third-party tools",
+    name: "Studio Academy",
+    description: "Join a community of talented craftmanship",
     href: "#",
-    icon: SquaresPlusIcon,
+    icon: BookmarkSquareIcon,
   },
   {
-    name: "Automations",
+    name: "Collaborations",
     description: "Build strategic funnels that will convert",
     href: "#",
     icon: ArrowPathIcon,
@@ -77,7 +78,7 @@ export default function Example() {
         className='mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8'
       >
         <div className='flex lg:flex-1'>
-          <a href='#' className='-m-1.5 p-1.5'>
+          <Link href='/web' className='-m-1.5 p-1.5'>
             <span className='sr-only'>Your Company</span>
             {/* <Image
               width={100}
@@ -87,7 +88,7 @@ export default function Example() {
               className="h-8 w-auto"
             /> */}
             <MomoduWhite />
-          </a>
+          </Link>
         </div>
         <div className='flex lg:hidden'>
           <button
@@ -111,7 +112,7 @@ export default function Example() {
 
             <PopoverPanel
               transition
-              className='absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 overflow-hidden rounded-3xl bg-gray-800 outline-1 -outline-offset-1 outline-white/10 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in'
+              className='absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 overflow-hidden rounded-3xl bg-black outline-1 -outline-offset-1 outline-white/10 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in'
             >
               <div className='p-4'>
                 {products.map(item => (
@@ -178,18 +179,12 @@ export default function Example() {
         className='lg:hidden'
       >
         <div className='fixed inset-0 z-50' />
-        <DialogPanel className='fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10'>
+        <DialogPanel className='fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10'>
           <div className='flex items-center justify-between'>
-            <a href='#' className='-m-1.5 p-1.5'>
-              <span className='sr-only'>Your Company</span>
-              <Image
-                width={100}
-                height={100}
-                alt=''
-                src='https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500'
-                className='h-8 w-auto'
-              />
-            </a>
+            <Link href='/web' className='-m-1.5 p-1.5'>
+              <span className='sr-only'>Momodu Studios</span>
+              <MomoduWhite />
+            </Link>
             <button
               type='button'
               onClick={() => setMobileMenuOpen(false)}
@@ -244,7 +239,7 @@ export default function Example() {
               </div>
               <div className='py-6'>
                 <a
-                  href='#'
+                  href='/auth'
                   className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5'
                 >
                   Log in

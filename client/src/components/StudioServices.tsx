@@ -98,7 +98,7 @@ const StudioServices = () => {
         </p>
         <ul
           role='list'
-          className='hidden flex-col divide-y divide-white/5 rounded-lg p-4 pl-2 sm:flex sm:w-full lg:w-[60%]'
+          className='hidden mb-5 flex-col divide-y divide-white/5 rounded-lg p-4 pl-2 sm:flex sm:w-full lg:w-[60%]'
         >
           {peopleOnline.map(person => (
             <li
@@ -145,7 +145,7 @@ const StudioServices = () => {
         </ul>
         <Link
           href='#'
-          className='mb-10 inline-block rounded-md border border-transparent bg-black px-8 py-3 text-center font-semibold text-white hover:bg-black/25'
+          className='my-10 inline-block rounded-md border border-transparent bg-black px-8 py-3 text-center font-semibold text-white hover:bg-black/25'
         >
           View All Services
         </Link>

@@ -5,7 +5,8 @@
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import AccessMediaFiles from "@/components/AccessMediaFiles";
 import BetterWorkFlow from "@/components/BetterWorkFlow";
-import CardTwo from "@/components/cards/CardTwo";
+import Blogs from "@/components/Blogs";
+// import CardTwo from "@/components/cards/CardTwo";/
 import Collaborations from "@/components/Collaborations";
 import Faqs from "@/components/Faqs";
 import Hero from "@/components/Hero";
@@ -14,12 +15,12 @@ import MediaSpaceAlert from "@/components/MediaSpaceAlert";
 import PodcastSession from "@/components/PodcastSession";
 import Portfolio from "@/components/Portfolio";
 import PricingList from "@/components/PricingList";
-import SectionHeader from "@/components/SectionHeader";
-import Statistics from "@/components/Statistics";
+// import SectionHeader from "@/components/SectionHeader";
+// import Statistics from "@/components/Statistics";
 import StudioMerch from "@/components/StudioMerch";
 import StudioServices from "@/components/StudioServices";
 import LinkButton from "@/components/ui/LinkButton";
-import Image from "next/image";
+// import Image from "next/image";
 
 export default function Page() {
   // const [message, setMessage] = useState("");
@@ -54,16 +55,16 @@ export default function Page() {
     },
   ];
 
-  const TESTIMONIES = [
-    {
-      title:
-        "Momodu Studios didn’t just take pictures — they told our love story",
-      subtitle: "newly wedded couples",
-      description: "newly wedded couples",
-      author: "amaka & ceasar",
-      image: "",
-    },
-  ];
+  // const TESTIMONIES = [
+  //   {
+  //     title:
+  //       "Momodu Studios didn’t just take pictures — they told our love story",
+  //     subtitle: "newly wedded couples",
+  //     description: "newly wedded couples",
+  //     author: "amaka & ceasar",
+  //     image: "",
+  //   },
+  // ];
 
   return (
     <section className='flex min-h-screen w-full justify-center'>
@@ -99,8 +100,11 @@ export default function Page() {
           {/* Studio Services */}
           <StudioServices />
 
+          {/* Blogs  */}
+          <Blogs />
+
           {/* About us  */}
-          <div className='mb-10 flex flex-col gap-6 px-5 sm:mt-20 sm:mb-20 sm:flex-row sm:justify-between'>
+          {/* <div className='mb-10 flex flex-col gap-6 px-5 sm:mt-20 sm:mb-20 sm:flex-row sm:justify-between'>
             <div className='sm:w-[415px]'>
               <SectionHeader
                 badgeText='About us'
@@ -131,12 +135,12 @@ export default function Page() {
                 frame..
               </p>
             </div>
-          </div>
+          </div> */}
 
           {/* Statictics counts  */}
-          <div className='mb-14'>
+          {/* <div className='mb-14'>
             <Statistics />
-          </div>
+          </div> */}
         </div>
 
         {/* Portfolio  */}
@@ -169,10 +173,10 @@ export default function Page() {
         </div>
 
         {/* Testimonials  */}
-        <div className='flex w-full flex-col items-center px-5 py-10 sm:px-0'>
-          <div className='flex w-full flex-col gap-8 sm:w-[1440px]'>
+        {/* <div className='flex w-full flex-col items-center px-5 py-10 sm:px-0'>
+          <div className='flex w-full flex-col gap-8 sm:w-[1440px]'> */}
             {/* mobile  */}
-            <div className='flex flex-col sm:hidden'>
+        {/* <div className='flex flex-col sm:hidden'>
               <SectionHeader
                 badgeText='Testimonials'
                 badgeWidth='w-[45%] sm:w-[170px]'
@@ -182,10 +186,10 @@ export default function Page() {
                 Our clients trust us with their most important moments — here’s
                 what they have to say.
               </p>
-            </div>
+            </div> */}
 
             {/* Desktop  */}
-            <div className='hidden w-full items-center justify-between sm:flex'>
+        {/* <div className='hidden w-full items-center justify-between sm:flex'>
               <div className='w-[300px]'>
                 <SectionHeader
                   badgeText='Testimonials'
@@ -199,8 +203,8 @@ export default function Page() {
                 Our clients trust us with their most important moments — here’s
                 what they have to say.
               </p>
-            </div>
-            {TESTIMONIES.map((testimony, key) => {
+            </div> */}
+        {/* {TESTIMONIES.map((testimony, key) => {
               return (
                 <CardTwo
                   key={key}
@@ -212,12 +216,12 @@ export default function Page() {
                   description={testimony.description}
                 />
               );
-            })}
-          </div>
-        </div>
+            })} */}
+        {/* </div>
+        </div> */}
 
         {/* Your next favorite photo is just one click away */}
-        <div className='mb-20 flex w-full flex-col items-center justify-between sm:w-[1440px]'>
+        {/* <div className='mb-20 flex w-full flex-col items-center justify-between sm:w-[1440px]'>
           <div className='flex w-full justify-start sm:hidden'>
             {" "}
             <Image
@@ -282,7 +286,7 @@ export default function Page() {
               loading='lazy'
             />
           </div>
-        </div>
+        </div> */}
 
         {/* FAQs  */}
         <div className='w-full px-5 sm:w-[1440px]'>
