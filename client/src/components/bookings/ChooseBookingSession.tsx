@@ -1,73 +1,47 @@
-import { BaseIcons, IconsType } from "@/assets/icons/BaseIcons";
+
 import { useAppDispatch } from "@/hooks/hooks";
+import { useGetSessionsQuery } from "@/redux/services/user/booking/sessions.api";
 import { setBookingSessionType } from "@/redux/slices/bookingSlice";
+import { ISession } from "@/types/session.types";
 import React, { useState } from "react";
 
+
+interface ChooseBookingSessionProps {
+  bookingSession: string | null | undefined;
+  setBookingStep: (step: number) => void;
+}
 const ChooseBookingSession = ({
   bookingSession,
-}: {
-  bookingSession: string | null | undefined;
-}): React.JSX.Element => {
+  setBookingStep
+}: ChooseBookingSessionProps): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const [selectedSession, setSelectedSession] = useState<string | null>(
     bookingSession || null
   );
 
-  const BOOKING_SESSIONS: {
-    title: string;
-    icon: IconsType;
-    id: number | null;
-  }[] = [
-    {
-      title: "Wedding",
-      icon: "wedding-black",
-      id: 1,
-    },
-    {
-      title: "Portrait",
-      icon: "person-black",
-      id: 2,
-    },
-    {
-      title: "Events",
-      icon: "events-black",
-      id: 3,
-    },
-    {
-      title: "Product",
-      icon: "shirt-black",
-      id: 4,
-    },
-    {
-      title: "Family",
-      icon: "people-black",
-      id: 5,
-    },
-    {
-      title: "Lifestyle",
-      icon: "lifestyle-black",
-      id: 6,
-    },
-  ];
+  const { data, isLoading, } = useGetSessionsQuery()
+
+  const BOOKING_SESSIONS: ISession[] = data?.data || [];
 
   return (
     <div className='grid h-[400px] w-full grid-cols-2 gap-x-5 gap-y-5 overflow-y-scroll rounded-lg bg-[#f3f3f3] p-5 sm:w-[450px]'>
-      {BOOKING_SESSIONS.map((session, key) => (
+      {isLoading ? "Loading..." : BOOKING_SESSIONS.map((session, key) => (
         <button
           key={key}
-          className={`${selectedSession === session.title ? "border-2 border-black" : ""} flex h-[86px] w-[100%] flex-col items-center justify-center gap-2 rounded-lg bg-white text-sm`}
+          className={`${selectedSession === session._id ? "border-2 border-black" : ""} flex h-[86px] w-[100%] flex-col items-center justify-center gap-2 rounded-lg bg-white text-sm`}
           onClick={() => {
             console.log(selectedSession);
-            setSelectedSession(session.title);
+            setSelectedSession(session._id);
             dispatch(
               setBookingSessionType({
-                sessionType: session.title,
+                sessionType: session._id,
+                sessionTitle: session.title,
                 date: new Date().toDateString(),
               })
             );
+            setBookingStep(1);
           }}
         >
-          <BaseIcons value={session?.icon} />
           <span className='capitalize'>{session?.title}</span>
         </button>
       ))}

@@ -30,17 +30,27 @@ const ForgotPassword = (): React.JSX.Element => {
             if (response.status === 200) {
               toast.success(AuthToast, {
                 data: {
-                  title: "OTP successful",
+                  title: "OTP sent successful",
                   content: `${response.message || "OTP valid"}`,
                 },
                 ariaLabel: "OTP successful",
                 icon: false,
                 theme: "colored",
               });
-              router.push(`/auth/otp?email=${values.email}`);
+              return router.push(`/auth/otp?email=${values.email}`);
             }
-          } catch (error) {
-            console.log(error);
+
+          } catch (error: any) {
+
+            return toast.error(AuthToast, {
+              data: {
+                title: "OTP sent failed",
+                content: `${error?.data?.message || "Something went wrong"}`,
+              },
+              ariaLabel: "User not found!",
+              icon: false,
+              theme: "colored",
+            });
           }
         }}
       >

@@ -1,19 +1,20 @@
 // src/redux/services/booking.api.ts
 
 
+import { PackagesResponse } from "@/types/packages.types";
 import { baseApi } from "../../api";
 // import {   BookingTypeResponse } from "@/types/booking.types";
 
 const ADMIN_BASE_URL = "/admin";
-export const adminDashboardApi = baseApi.injectEndpoints({
+export const adminPackagesAPI = baseApi.injectEndpoints({
   endpoints: builder => ({
-   getPackages: builder.query({
-    query: (sessionId) => ({
+      getPackages: builder.query<PackagesResponse, { sessionId: string }>({
+      query: ({ sessionId }) => ({
         url: `${ADMIN_BASE_URL}/packages`,
-        params: { sessionId }
+        params: { sessionId },
+      }),
+      providesTags: ["Packages"],
     }),
-    providesTags: ["Packages"],
-}),
 
 createPackage: builder.mutation({
     query: (body) => ({
@@ -45,4 +46,4 @@ deletePackage: builder.mutation({
   overrideExisting: false,
 });
 
-export const { useCreatePackageMutation, useDeletePackageMutation, useGetPackagesQuery, useUpdatePackageMutation } = adminDashboardApi;
+export const { useCreatePackageMutation, useDeletePackageMutation, useGetPackagesQuery, useUpdatePackageMutation } = adminPackagesAPI;

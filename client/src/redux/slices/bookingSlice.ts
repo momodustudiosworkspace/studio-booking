@@ -11,6 +11,7 @@ export interface BookingState {
   assignedTo?: number;
   bookingStep?: number | null;
   sessionType?: string | null;
+  sessionTitle?: string | null;
   date?: string | null; // stored as ISO or toDateString()
   startTime?: string | null; // stored as Date object
   package?: {
@@ -57,6 +58,7 @@ const bookingSlice = createSlice({
   reducers: {
     setBookingSessionType: (state, action: PayloadAction<BookingState>) => {
       state.sessionType = action.payload.sessionType || null;
+      state.sessionTitle = action.payload.sessionTitle || null;
     },
     setBookingLocationType: (state, action: PayloadAction<BookingState>) => {
       state.location = action.payload.location || null;

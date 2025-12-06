@@ -58,7 +58,7 @@ const Bookings = (): React.JSX.Element => {
     {
       id: 1,
       component: (
-        <ChooseBookingSession bookingSession={bookingData.sessionType} />
+        <ChooseBookingSession bookingSession={bookingData.sessionType} setBookingStep={setBookingStep} />
       ),
       header: "Choose Your Session",
       paragraph: "You can customize details in the next steps",
@@ -70,12 +70,13 @@ const Bookings = (): React.JSX.Element => {
           bookingPackage={{
             title: bookingData.package?.title || null,
             price: bookingData.package?.price || null,
+            sessionId: bookingData.sessionType || null,
           }}
           setOnProceed={setOnProceed}
           // setReserveSlot={values => setReserveSlot({ ...values })}
         />
       ),
-      header: `Select from ${bookingData.sessionType} packages`,
+      header: `Select from ${bookingData.sessionTitle} packages`,
       paragraph: "We’ll hold your slot while you complete checkout",
     },
     {

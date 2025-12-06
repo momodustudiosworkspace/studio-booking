@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import Button from "../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import nairaSymbol from "@/utils/symbols";
-
+import { useGetPackagesQuery } from "@/redux/services/admin/package/adminPackages.api";
 interface PackageProps {
   title: string | null;
   price: number | null;
+  sessionId?: string | null;
 }
 interface BookingsPackagesProps {
   bookingPackage: PackageProps | null | undefined;
@@ -17,51 +18,17 @@ interface BookingsPackagesProps {
 const BookingPackages = ({
   bookingPackage,
   setOnProceed,
-}: BookingsPackagesProps): React.JSX.Element => {
-  const dispatch = useAppDispatch();
 
+}: BookingsPackagesProps): React.JSX.Element => {
+  const { data, isLoading, } = useGetPackagesQuery({ sessionId: bookingPackage?.sessionId || "" }, { skip: !bookingPackage?.sessionId });
+
+  console.log("data: ", data?.data);
+
+  const dispatch = useAppDispatch();
   const [selectedPackage, setSelectedPackage] = useState<PackageProps | null>(
     bookingPackage || null
   );
 
-  const PACKAGES = [
-    {
-      title: "basic",
-      price: 123400,
-      services: [
-        "1 outfit, 5 edited pictures",
-        "15-30 seconds reels",
-        "20X30 enlargement frame",
-      ],
-    },
-    {
-      title: "standard",
-      price: 1234000,
-      services: [
-        "1 outfit, 5 edited pictures",
-        "15-30 seconds reels",
-        "20X30 enlargement frame",
-      ],
-    },
-    {
-      title: "super",
-      price: 123400,
-      services: [
-        "1 outfit, 5 edited pictures",
-        "15-30 seconds reels",
-        "20X30 enlargement frame",
-      ],
-    },
-    {
-      title: "ultra",
-      price: 123400,
-      services: [
-        "1 outfit, 5 edited pictures",
-        "15-30 seconds reels",
-        "20X30 enlargement frame",
-      ],
-    },
-  ];
 
   useEffect(() => {
     // Register this child’s custom proceed handler
@@ -74,10 +41,11 @@ const BookingPackages = ({
     return () => setOnProceed(null);
   }, [setOnProceed, selectedPackage, dispatch]);
 
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div>
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-3'>
-        {PACKAGES.map(packages => {
+        {data?.data.map(packages => {
           return (
             <div
               key={packages.title}
@@ -87,14 +55,14 @@ const BookingPackages = ({
                 <h3 className='uppercase'>{packages.title}</h3>
                 <h3 className='font-semibold'>
                   {nairaSymbol()}
-                  {packages.price.toLocaleString("en-US")}
+                  {(packages.price ?? 0).toLocaleString("en-US")}
                 </h3>
               </div>
               <div className='py-3 pl-6'>
-                <ul className='list-disc'>
-                  {packages.services.map(service => {
+                <ul className='list-disc text-white'>
+                  {packages.services.map((service, key) => {
                     return (
-                      <li key={service} className='my-2'>
+                      <li key={key} className='my-2'>
                         {service}
                       </li>
                     );
