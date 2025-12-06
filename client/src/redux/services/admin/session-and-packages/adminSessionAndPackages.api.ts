@@ -38,7 +38,7 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
     { page?: number; limit?: number; search?: string }
 >({
     query: ({ page = 1, limit = 20, search = "" }) => ({
-        url: `/sessions`,
+        url: `${ADMIN_BASE_URL}/sessions`,
         params: { page, limit, search },
     }),
     providesTags: ["Sessions"],

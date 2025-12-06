@@ -15,12 +15,29 @@ interface SessionPackagesProps {
         selectedSessionId: string;
         selectedSessionTitle?: string;
     }
+
 }
 const SessionPackages = ({ setOpen, open, selectedSession }: SessionPackagesProps) => {
-    const [openPackageForm, setOpenPackageForm]= useState<boolean>(false);
+    const [openPackageForm, setOpenPackageForm] = useState<boolean>(false);
+
+
+    const packageData = [
+        {
+            title: "Basic",
+        },
+        {
+            title: "standard",
+        },
+        {
+            title: "super",
+        },
+        {
+            title: "ultra",
+        }
+    ]
   return (
       <Dialog open={open} onClose={setOpen} className="relative z-50">
-          <DialogBackdrop className="fixed inset-0 bg-gray-900/50" />
+          <DialogBackdrop className="fixed inset-0 bg-black/50" />
 
           <div className="fixed inset-0 z-10 flex items-center justify-center p-4">
               <DialogPanel className="w-full max-w-lg rounded-lg bg-white shadow-xl">
@@ -38,8 +55,17 @@ const SessionPackages = ({ setOpen, open, selectedSession }: SessionPackagesProp
                           </DialogTitle>
                       </div>
 
-                      <button onClick={()=>setOpenPackageForm(!openPackageForm)}>Add package</button>
-                      <PackagesForm selectedSession={selectedSession} open={openPackageForm} setOpen={setOpenPackageForm} />
+
+                      {/* packages list  */}
+
+                      <div className='grid grid-cols-3 gap-4'>
+                          {packageData.map((package_title, key) => {
+                              return (
+                                  <button key={key} className='rounded-md bg-black px-4 py-2 text-white font-medium' onClick={() => setOpenPackageForm(!openPackageForm)}>{package_title.title}</button>
+                              )
+                          })}
+                      </div>
+                      <PackagesForm formDataId='abc' selectedSession={selectedSession} open={openPackageForm} setOpen={setOpenPackageForm} />
                   </div>
               </DialogPanel>
           </div>

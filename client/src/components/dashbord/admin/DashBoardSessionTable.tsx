@@ -96,7 +96,7 @@ const DashboardSessionTable = () => {
 
                     <tbody>
                         {isLoading ? (
-                            [...Array(5)].map((_, i) => (
+                            [...Array(6)].map((_, i) => (
                                 <tr key={i} className="animate-pulse border-b">
                                     <td className="py-5 px-4"><div className="h-4 bg-gray-200 rounded w-40" /></td>
                                     <td className="py-5 px-4"><div className="h-4 bg-gray-200 rounded w-32" /></td>

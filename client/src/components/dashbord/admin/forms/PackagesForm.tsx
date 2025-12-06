@@ -18,14 +18,30 @@ interface PackagesFormProps {
         selectedSessionId: string;
         selectedSessionTitle?: string;
     }
+    formDataId: string
 }
 
-const PackagesForm = ({ setOpen, open, selectedSession }: PackagesFormProps) => {
-    const [packageFeatures, setPackageServices] = useState<string[]>([]);
+const formData = {
+    package_title: "Basic",
+    package_services: [
+        "1 15sec instagram reel",
+        "1 20X30 portrait print",
+        "2 photographer outfit"
+    ],
+    price: 124000,
+    discount: 12400
+}
+
+const PackagesForm = ({ setOpen, open, selectedSession, formDataId }: PackagesFormProps) => {
+    const [packageFeatures, setPackageServices] = useState<string[]>(formData.package_services || []);
     const [createPackage] = useCreatePackageMutation();
+    console.log("formDataId: ", formDataId);
 
 
     const handleAddPackageFeatures = (newFeature: string, setFieldValue: any) => {
+
+        console.log("newFeature: ", newFeature);
+
         if (!newFeature.trim()) return; // Prevent empty strings
         setPackageServices((prev) => [...prev, newFeature]);
         setFieldValue("package_services", ""); // Reset Formik input
@@ -37,7 +53,7 @@ const PackagesForm = ({ setOpen, open, selectedSession }: PackagesFormProps) => 
 
     return (
         <Dialog open={open} onClose={setOpen} className="relative z-50">
-            <DialogBackdrop className="fixed inset-0 bg-gray-900/50" />
+            <DialogBackdrop className="fixed inset-0 bg-black/50" />
 
             <div className="fixed inset-0 z-10 flex items-center justify-center p-4">
                 <DialogPanel className="w-full max-w-lg rounded-lg bg-white shadow-xl">
@@ -58,10 +74,10 @@ const PackagesForm = ({ setOpen, open, selectedSession }: PackagesFormProps) => 
                         {/* FORM */}
                         <Formik
                             initialValues={{
-                                package_title: "",
-                                package_services: "",
-                                price: 0,
-                                discount :0
+                                package_title: formData.package_title || "",
+                                package_service: "",
+                                price: formData.price || 0,
+                                discount: formData.discount || 0
                             }}
                             onSubmit={async (values) => {
                                 console.log({
@@ -96,14 +112,26 @@ const PackagesForm = ({ setOpen, open, selectedSession }: PackagesFormProps) => 
                                     {/* Package Title */}
                                     <div className="flex flex-col gap-2">
                                         <label className="text-sm font-medium text-black">
-                                            Package title
+                                            Select package title
                                         </label>
-                                        <Field
-                                            name="package_title"
-                                            type="text"
-                                            className="border-b border-black pb-2 outline-0 focus:border-b-2"
-                                            placeholder="Enter package title"
-                                        />
+                                        {
+                                            values.package_title ? (
+                                                <Field
+                                                    name="package_title"
+                                                    type="text"
+                                                    className="border-b border-black pb-2 outline-0 focus:border-b-2"
+                                                    placeholder="Enter package title"
+                                                />
+                                            ) : (
+                                                <Field as="select" name="package_title" className='border-b-[1px] border-white pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black'
+                                                >
+                                                    <option value="" label="Select package title" />
+                                                    <option value="basic">Basic</option>
+                                                    <option value="standard">Standard</option>
+                                                    <option value="super">Super</option>
+                                                    <option value="ultra">Ultra</option>
+                                                </Field>)
+                                        }
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <label className="text-sm font-medium text-black">
@@ -136,7 +164,7 @@ const PackagesForm = ({ setOpen, open, selectedSession }: PackagesFormProps) => 
 
                                         <div className="flex gap-2">
                                             <Field
-                                                name="package_services"
+                                                name="package_service"
                                                 type="text"
                                                 className="flex-1 border-b border-black pb-2 outline-0 focus:border-b-2"
                                                 placeholder="Enter a feature"
@@ -146,7 +174,7 @@ const PackagesForm = ({ setOpen, open, selectedSession }: PackagesFormProps) => 
                                                 className="rounded-md bg-black px-4 py-2 text-white hover:bg-black/80 text-sm"
                                                 onClick={() =>
                                                     handleAddPackageFeatures(
-                                                        values.package_services,
+                                                        values.package_service,
                                                         setFieldValue
                                                     )
                                                 }
@@ -203,7 +231,7 @@ const PackagesForm = ({ setOpen, open, selectedSession }: PackagesFormProps) => 
                                                     : "bg-green-700 hover:bg-green-800"
                                                 }`}
                                         >
-                                            Update Package
+                                            Submit
                                         </button>
                                     </div>
                                 </Form>

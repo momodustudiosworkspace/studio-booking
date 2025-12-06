@@ -22,8 +22,7 @@ const packageSchema = new Schema<IPackage>(
   { timestamps: true }
 );
 
-// packageSchema.index({ date: 1, startTime: 1, }, { unique: true });
-// packageSchema.index({ user: 1 });
+packageSchema.index({ session: 1, title: 1 }, { unique: true });
 
 
 export const Package: Model<IPackage> = mongoose.model("Package", packageSchema);

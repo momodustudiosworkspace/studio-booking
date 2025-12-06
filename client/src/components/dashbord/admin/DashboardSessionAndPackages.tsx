@@ -41,13 +41,13 @@ const DashboardSessionAndPackages = () => {
         //      href: "/bookings",
         //      dataType: 1,
         //    },
-           {
-             title: "Upcoming Sessions",
-             count:  0,
-             linkText: "View all",
-             href: "/bookings",
-             dataType: 0,
-           },
+             //    {
+             //      title: "Upcoming Sessions",
+             //      count:  0,
+             //      linkText: "View all",
+             //      href: "/bookings",
+             //      dataType: 0,
+             //    },
          ];
        }, [
         //  stats?.data.totalBookings,
