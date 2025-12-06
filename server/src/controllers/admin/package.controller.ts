@@ -154,36 +154,31 @@ export async function deletePackage(req: Request, res: Response) {
 // **********************************************
 export async function getAllPackages(req: Request, res: Response) {
   try {
-    const { page = 1, limit = 20, search = "", sessionId } = req.query;
+    const { sessionId } = req.query;
 
-    const query: any = {};
+  
+console.log("sessionId: ", sessionId);
 
-    if (sessionId) {
-      query.session = sessionId;
-    }
+   
 
-    if (search) {
-      query.title = { $regex: search as string, $options: "i" };
-    }
+    // const total = await Package.countDocuments(query);
 
-    const total = await Package.countDocuments(query);
-
-    const packages = await Package.find(query)
-      .populate("session")
-      .sort({ createdAt: -1 })
-      .skip((Number(page) - 1) * Number(limit))
-      .limit(Number(limit));
+    const packages = await Package.find({ session: sessionId })
+      // .populate("session")
+      .sort({ title: -1 })
+      // .skip((Number(page) - 1) * Number(limit))
+      // .limit(Number(limit));
 
     return res.status(200).json({
       status: 200,
       message: "Packages fetched successfully",
       data: packages,
-      pagination: {
-        total,
-        page: Number(page),
-        limit: Number(limit),
-        pages: Math.ceil(total / Number(limit)),
-      },
+      // pagination: {
+      //   total,
+      //   page: Number(page),
+      //   limit: Number(limit),
+      //   pages: Math.ceil(total / Number(limit)),
+      // },
     });
 
   } catch (error: any) {

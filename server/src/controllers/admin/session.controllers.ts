@@ -126,35 +126,18 @@ export async function deleteSession(req: Request, res: Response) {
   }
 }
 
-export async function getAllSessions(req: Request, res: Response) {
+export async function getAllSessions(_req: Request, res: Response) {
   try {
-    const { page = 1, limit = 20, search = "" } = req.query;
-
-    const query: any = {};
-
-    // 🔍 Search by session title
-    if (search) {
-      query.title = { $regex: search as string, $options: "i" };
-    }
-
-    // Count for pagination
-    const total = await Session.countDocuments(query);
-
-    const sessions = await Session.find(query)
-      .sort({ createdAt: -1 }) // newest first
-      .skip((Number(page) - 1) * Number(limit))
-      .limit(Number(limit));
+    const sessions = await Session.find().sort({ createdAt: -1 })
+      // .sort({ createdAt: -1 }) // newest first
+      
+    console.log("Sessions: ", sessions);
 
     return res.status(200).json({
       status: 200,
       message: "Sessions fetched successfully",
       data: sessions,
-      pagination: {
-        total,
-        page: Number(page),
-        limit: Number(limit),
-        pages: Math.ceil(total / Number(limit)),
-      },
+      
     });
 
   } catch (error: any) {
