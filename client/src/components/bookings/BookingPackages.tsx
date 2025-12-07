@@ -20,7 +20,9 @@ const BookingPackages = ({
   setOnProceed,
 
 }: BookingsPackagesProps): React.JSX.Element => {
-  const { data, isLoading, } = useGetPackagesQuery({ sessionId: bookingPackage?.sessionId || "" }, { skip: !bookingPackage?.sessionId });
+  const { data, isLoading, } = useGetPackagesQuery({ sessionId: bookingPackage?.sessionId || "" }, {
+    skip: !bookingPackage?.sessionId, pollingInterval: 300000
+  });
 
   console.log("data: ", data?.data);
 
@@ -43,15 +45,17 @@ const BookingPackages = ({
 
   if (isLoading) return <div>Loading...</div>;
   return (
-    <div>
+    <div >
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-3'>
         {data?.data.map(packages => {
+
           return (
             <div
               key={packages.title}
-              className={`rounded-xl border-[2px] pb-5 shadow sm:w-[350px] ${selectedPackage?.title === packages.title ? "border-black" : "border-white"}`}
+              className={`rounded-xl border-[2px] pb-5 shadow sm:w-[350px] ${selectedPackage?.price === packages.price ? "border-black bg-white text-black" : "border-white  text-white"}`}
             >
-              <div className='flex items-center justify-between rounded-tl-xl rounded-tr-xl bg-black px-4 py-2 font-medium text-white'>
+
+              <div className={`flex items-center justify-between rounded-tl-xs rounded-tr-xs ${selectedPackage?.price === packages.price ? "border-black bg-black text-white" : "border-black text-white"} px-4 py-2 font-medium`}>
                 <h3 className='uppercase'>{packages.title}</h3>
                 <h3 className='font-semibold'>
                   {nairaSymbol()}
@@ -59,7 +63,7 @@ const BookingPackages = ({
                 </h3>
               </div>
               <div className='py-3 pl-6'>
-                <ul className='list-disc text-white'>
+                <ul className=''>
                   {packages.services.map((service, key) => {
                     return (
                       <li key={key} className='my-2'>

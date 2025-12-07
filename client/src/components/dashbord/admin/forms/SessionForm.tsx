@@ -37,26 +37,26 @@ const SessionForm = (
                     //   console.log(values);
                       
                     try {
-                        const res = await createBookingSession(values).unwrap();
+                         await createBookingSession(values).unwrap();
           
-                      if (!res?.status || res?.status !== 200) {
-                        // toast.error(data.error || data.message || "Registration failed");
-                       return toast.error(AuthToast, {
-                          data: {
-                            title: "Couldn't create session",
-                            content: `${ "Creating session failed, try again later"}`,
-                          },
-                          ariaLabel: "Something went wrong",
-                          icon: false,
-                          theme: "colored",
-                        });
+                      // if (!res?.status || res?.status !== 200) {
+                      //   // toast.error(data.error || data.message || "Registration failed");
+                      //  return toast.error(AuthToast, {
+                      //     data: {
+                      //       title: "Couldn't create session",
+                      //       content: `${ "Creating session failed, try again later"}`,
+                      //     },
+                      //     ariaLabel: "Something went wrong",
+                      //     icon: false,
+                      //     theme: "colored",
+                      //   });
                         
-                      }
+                      // }
           
-                        if (res?.status === 200) {
+                        // if (res?.status === 200) {
                           setOpen(false);
                         return toast.success("Session created successfully");
-                      } 
+                      // } 
                     } catch (error) {
                       console.log(error);
           

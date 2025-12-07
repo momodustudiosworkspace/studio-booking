@@ -18,7 +18,7 @@ const VerifyEmail = (): React.JSX.Element => {
   return (
     <AuthForm
       headerText='Verify email'
-      paragraphText={`Enter 6 digit code sent to ${email}`}
+      paragraphText={`Enter 5 digit code sent to ${email}`}
       authForm={false}
     >
       <Formik
@@ -81,7 +81,7 @@ const VerifyEmail = (): React.JSX.Element => {
                   console.log("submitted otp");
                 }}
                 icon={<RedirectArrowWhite />}
-                disabled={values.otp.length < 6 || isLoading}
+                disabled={values.otp.length < 5 || isLoading}
                 iconPosition='right'
                 className='w-[120px]'
                 loading={isLoading}

@@ -6,6 +6,9 @@ export async function createSession(req: Request, res: Response) {
   try {
     const { session_title } = req.body;
 
+    console.log(session_title);
+    
+
     // Validate required field
     if (!session_title || session_title.trim() === "") {
       return res.status(400).json({ message: "Session title is required" });

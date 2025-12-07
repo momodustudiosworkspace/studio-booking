@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const JoinStudioCommunity = () => {
@@ -68,20 +69,20 @@ const JoinStudioCommunity = () => {
               </p>
             </div>
             <div className='mt-5 flex items-center justify-center gap-x-6 lg:justify-start'>
-              <a
-                href='#'
+              <Link
+                href='/auth'
                 className='rounded-md bg-gray-700 px-3.5 py-2.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
               >
                 {" "}
                 Join Now
-              </a>
-              <a
+              </Link>
+              <Link
                 href='#'
                 className='text-sm/6 font-semibold text-white hover:text-gray-100'
               >
                 Learn more
                 <span aria-hidden='true'>→</span>
-              </a>
+              </Link>
             </div>
           </div>
           <div className='relative mt-16 h-80 lg:mt-8'>

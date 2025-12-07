@@ -1,9 +1,9 @@
 import express from "express";
-import { createPackage, deletePackage, getAllPackages, getPackage, updatePackage } from "../../controllers/admin/package.controller";
+import { createOrUpdatePackage, deletePackage, getAllPackages, getPackage, updatePackage } from "../../controllers/admin/package.controller";
 
 const router = express.Router();
 
-router.post("/", createPackage);
+router.post("/", createOrUpdatePackage);
 router.get("/", getAllPackages);
 router.get("/:id", getPackage);
 router.put("/:id", updatePackage);

@@ -4,52 +4,81 @@ import { GetAllSessionsResponse } from "@/types/session.types";
 import { baseApi } from "../../api";
 
 
+
+
 const ADMIN_BASE_URL = "/admin";
+
 export const sessionAndPackagesApi = baseApi.injectEndpoints({
-    endpoints: builder => ({
+  endpoints: builder => ({
 
+    // CREATE
+    createBookingSession: builder.mutation<
+      { status: number },
+      { session_title: string }
+    >({
+      query: body => ({
+        url: `${ADMIN_BASE_URL}/sessions/`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: [{ type: "Sessions", id: "LIST" }],
+    }),
 
-        createBookingSession: builder.mutation<{ status: number }, { session_title: string }>({
-            query: body => ({
-                url: `${ADMIN_BASE_URL}/sessions/`,
-                method: "POST",
-                body,
-            }),
-            invalidatesTags: ["Sessions"],
-        }),
-        updateSession: builder.mutation<{ id: string }, { id: string, title: string }>({
-            query: ({ id, title }) => ({
-                url: `${ADMIN_BASE_URL}/sessions/${id}`,
-                method: "PUT",
-                body: title,
-            }),
-            invalidatesTags: ["Sessions"],
-        }),
+    // UPDATE
+    updateSession: builder.mutation<
+      { id: string },
+      { id: string; title: string }
+    >({
+      query: ({ id, title }) => ({
+        url: `${ADMIN_BASE_URL}/sessions/${id}`,
+        method: "PUT",
+        body: { title }, // FIX
+      }),
+      invalidatesTags: [{ type: "Sessions", id: "LIST" }],
+    }),
 
-        deleteSessions: builder.mutation<void, string>({
-            query: id => ({
-                url: `${ADMIN_BASE_URL}/sessions/${id}`,
-                method: "DELETE",
-            }),
-            invalidatesTags: ["Sessions"],
-        }),
-       getAllSessions: builder.query<
-    GetAllSessionsResponse,
-    { page?: number; limit?: number; search?: string }
->({
-    query: ({ page = 1, limit = 20, search = "" }) => ({
+    // DELETE
+    deleteSessions: builder.mutation<void, string>({
+      query: id => ({
+        url: `${ADMIN_BASE_URL}/sessions/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "Sessions", id: "LIST" }],
+    }),
+
+    // GET ALL
+    getAllSessions: builder.query<
+      GetAllSessionsResponse,
+      { page?: number; limit?: number; search?: string }
+    >({
+      query: ({ page = 1, limit = 20, search = "" }) => ({
         url: `${ADMIN_BASE_URL}/sessions`,
         params: { page, limit, search },
+      }),
+      providesTags: result =>
+        result?.data
+          ? [
+              ...result.data.map(s => ({
+                type: "Sessions" as const,
+                id: s._id,
+              })),
+              { type: "Sessions", id: "LIST" },
+            ]
+          : [{ type: "Sessions", id: "LIST" }],
     }),
-    providesTags: ["Sessions"],
-}),
-        getSessionById: builder.query<any, string>({
-            query: (id) => `/sessions/${id}`,
-            providesTags: ["Sessions"],
-        }),
+
+    // GET ONE
+    getSessionById: builder.query<any, string>({
+      query: id => `${ADMIN_BASE_URL}/sessions/${id}`, // FIX URL
+      providesTags: (_result, _error, id) => [
+        { type: "Sessions", id },
+      ],
     }),
-    overrideExisting: true,
+  }),
+
+  overrideExisting: true,
 });
+
 
 export const {
     useCreateBookingSessionMutation,

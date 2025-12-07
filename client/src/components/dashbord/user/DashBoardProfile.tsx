@@ -5,6 +5,7 @@ import { Field, Form, Formik } from "formik";
 import Button from "../../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import { useGetUserProfileQuery } from "@/redux/services/user/user/user.api";
+import { useSession } from "next-auth/react";
 
 const DashboardProfile = () => {
   const [editFullName, setEditFullName] = useState<boolean>(false);
@@ -15,6 +16,9 @@ const DashboardProfile = () => {
     useGetUserProfileQuery();
 
   console.log("use profile: ", userprofile);
+  const session = useSession()
+  console.log("Sesion: ", session);
+
 
   const BOOKING_DATA = [
     {

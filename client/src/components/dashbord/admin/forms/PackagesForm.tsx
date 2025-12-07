@@ -89,7 +89,8 @@ const PackagesForm = ({ setOpen, open, selectedSession, formDataId }: PackagesFo
                                     
                                     const res =   await createPackage({
                                           session: selectedSession.selectedSessionId,
-                                          title: values.package_title,
+                                        title: values.package_title,
+                                        session_title: selectedSession.selectedSessionTitle,
                                           price: values.price,
                                           discount: values.discount,
                                           services: packageFeatures,

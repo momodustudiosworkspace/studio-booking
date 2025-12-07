@@ -5,6 +5,7 @@ export interface IBooking extends Document {
   user_fullnames: string;
   assignedTo?: mongoose.Types.ObjectId;
   sessionType: string;
+  sessionTitle: string;
   date: Date;
   startTime: Date;
   endTime: Date;
@@ -36,6 +37,7 @@ const bookingSchema = new Schema<IBooking>(
     assignedTo: { type: Schema.Types.ObjectId, ref: "User" },
     user_fullnames: { type: String, required: true, trim: true },
     sessionType: { type: String, required: true, trim: true },
+    sessionTitle: { type: String, required: true, trim: true },
     date: { type: Date },
     startTime: { type: Date },
     endTime: { type: Date },

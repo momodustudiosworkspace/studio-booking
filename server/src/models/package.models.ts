@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface IPackage extends Document {
   session: mongoose.Types.ObjectId;
+  session_title: string;
   title: string;
   price: number;
   discount: number;
@@ -12,7 +13,8 @@ export interface IPackage extends Document {
 
 const packageSchema = new Schema<IPackage>(
   {
-    session: { type: Schema.Types.ObjectId, ref:"Session", required: true },
+    session: { type: Schema.Types.ObjectId, ref: "Session", required: true },
+    session_title: {type: String, required: true },
     title : {type: String, required: true },
     price: { type: Number, },
     discount: { type: Number, },

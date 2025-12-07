@@ -103,16 +103,16 @@ const BookingsLocation = ({
             }
           }}
         >
-          <Form className='flex flex-col gap-10 text-black'>
+          <Form className='flex flex-col gap-10 text-white'>
             {/* Date field */}
             <div className='flex flex-col gap-3'>
-              <label className='text-sm font-medium text-black'>
+              <label className='text-sm font-medium text-white'>
                 Select state
               </label>
               <Field
                 name='state'
                 as='select'
-                className='border-b-[1px] border-black pb-2 text-sm outline-0 transition-all ease-in-out focus:border-b-2'
+                className='border-b-[1px] border-white pb-2 text-sm outline-0 transition-all ease-in-out focus:border-b-2'
               >
                 <option value=''>Select state</option>
                 <option value='abuja'>Abuja</option>
@@ -122,11 +122,11 @@ const BookingsLocation = ({
 
             {/* Time field */}
             <div className='flex flex-col gap-3'>
-              <label className='text-sm font-medium text-black'>Address</label>
+              <label className='text-sm font-medium text-white'>Address</label>
               <Field
                 name='address'
                 type='text'
-                className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                className='border-b-[1px] border-white pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
               />
             </div>
 

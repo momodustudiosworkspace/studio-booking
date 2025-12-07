@@ -144,7 +144,7 @@ const StudioServices = () => {
           ))}
         </ul>
         <Link
-          href='#'
+          href='https://www.momodustudios.com/pages/about-us'
           className='my-10 inline-block rounded-md border border-transparent bg-black px-8 py-3 text-center font-semibold text-white hover:bg-black/25'
         >
           View All Services

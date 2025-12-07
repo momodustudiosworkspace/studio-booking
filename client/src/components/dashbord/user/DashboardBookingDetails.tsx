@@ -46,7 +46,7 @@ const DashboardBookingDetails = ({
       <DashboardLayout
         headerProps={{
           // headerText: "potrait session- ms1234",
-          headerText: `${booking.sessionType} session - ms${booking._id?.slice(0, 6)}`,
+          headerText: `${booking.sessionTitle} session - ms${booking._id?.slice(0, 6)}`,
           badge: `${booking.status}`,
           badgeStatus: booking.status,
           badgeClass: "",
@@ -78,7 +78,7 @@ const DashboardBookingDetails = ({
             <div className='mt-10 flex w-full flex-col gap-7'>
               <div className='flex w-full items-center justify-between capitalize'>
                 <p className='font-bold'>service</p>
-                <p className='font-medium'>{booking.sessionType} shoot</p>
+                <p className='font-medium'>{booking.sessionTitle} shoot</p>
               </div>
               <div className='flex w-full items-center justify-between capitalize'>
                 <p className='font-bold'>date & time</p>

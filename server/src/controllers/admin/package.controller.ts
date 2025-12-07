@@ -4,9 +4,14 @@ import Package from "../../models/package.models";
 // **********************************************
 // ✅ Create Package
 // **********************************************
-export async function createPackage(req: Request, res: Response) {
+export async function createOrUpdatePackage(req: Request, res: Response) {
   try {
-    const { session, title, price, discount, services } = req.body;
+    const { session, title, price, discount, services, session_title } = req.body;
+
+    console.log("Session: ", session);
+    console.log("title: ", title);
+    console.log("services: ", services);
+
 
     if (!session) {
       return res.status(400).json({ message: "Session ID is required" });
@@ -23,16 +28,26 @@ export async function createPackage(req: Request, res: Response) {
     // Check duplicate package title for same session
     const existing = await Package.findOne({ title, session });
     if (existing) {
-      return res.status(409).json({
-        status: 409,
-        message: "A package with this title already exists for this session",
+      existing.title = title;
+      if (price !== undefined) existing.price = price;
+      if (discount !== undefined) existing.discount = discount;
+      if (services !== undefined) existing.services = services;
+
+      await existing.save();
+
+      return res.status(200).json({
+        status: 200,
+        message: "Package updated successfully",
+        data: existing,
       });
+
     }
 
     const pkg = await Package.create({
       session,
       title,
       price,
+      session_title,
       discount: discount ?? 0,
       services: services ?? [],
     });
@@ -156,18 +171,17 @@ export async function getAllPackages(req: Request, res: Response) {
   try {
     const { sessionId } = req.query;
 
-  
-console.log("sessionId: ", sessionId);
 
-   
+    console.log("sessionId: ", sessionId);
+
+
 
     // const total = await Package.countDocuments(query);
 
-    const packages = await Package.find({ session: sessionId })
-      // .populate("session")
-      .sort({ title: -1 })
-      // .skip((Number(page) - 1) * Number(limit))
-      // .limit(Number(limit));
+    const packages = await Package.find({ session: sessionId }).sort({ title: "asc" })
+    // .populate("session")
+    // .skip((Number(page) - 1) * Number(limit))
+    // .limit(Number(limit));
 
     return res.status(200).json({
       status: 200,

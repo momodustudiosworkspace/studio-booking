@@ -31,7 +31,7 @@ import {
 import MomoduWhite from "@/assets/icons/MomoduWhite";
 import Link from "next/link";
 
-const products = [
+const PRODUCTS_LIST = [
   {
     name: "Online Booking",
     description: "Manage bookings and appointments",
@@ -63,8 +63,35 @@ const products = [
     icon: ArrowPathIcon,
   },
 ];
+const PROFILE_LINKS = [
+  {
+    name: "Dashboard",
+    description: "Book in minutes, manage everything from scheduling to delivery",
+    href: "/dashboard",
+    icon: BookOpenIcon,
+  },
+  {
+    name: "Bookings",
+    description: "View, manage, and download everything in one place",
+    href: "/dashboard/bookings",
+    icon: HomeModernIcon,
+  },
+  {
+    name: "Profile",
+    description: "View & update your profile",
+    href: "/dashboard/profile-settings",
+    icon: FaceSmileIcon,
+  },
+  {
+    name: "Help",
+    description: "Join a community of talented craftmanship to find help",
+    href: "/dashboard",
+    icon: BookmarkSquareIcon,
+  },
+
+];
 const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
+  { name: "Youtube Channel", href: "#", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 
@@ -102,7 +129,7 @@ export default function Example() {
         </div>
         <PopoverGroup className='hidden lg:flex lg:gap-x-12'>
           <Popover className='relative'>
-            <PopoverButton className='flex items-center gap-x-1 text-sm/6 font-semibold text-white'>
+            <PopoverButton className='flex outline-none border-none focus:border-none focus:outline-none items-center gap-x-1 text-sm/6 font-semibold text-white'>
               Product
               <ChevronDownIcon
                 aria-hidden='true'
@@ -115,7 +142,7 @@ export default function Example() {
               className='absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 overflow-hidden rounded-3xl bg-black outline-1 -outline-offset-1 outline-white/10 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in'
             >
               <div className='p-4'>
-                {products.map(item => (
+                {PRODUCTS_LIST.map(item => (
                   <div
                     key={item.name}
                     className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-white/5'
@@ -166,7 +193,63 @@ export default function Example() {
           <a href='#' className='text-sm/6 font-semibold text-white'>
             Company
           </a>
+          <Popover className='relative'>
+            <PopoverButton className='flex outline-none border-none focus:border-none focus:outline-none items-center gap-x-1 text-sm/6 font-semibold text-white'>
+              Profile
+              <ChevronDownIcon
+                aria-hidden='true'
+                className='size-5 flex-none text-gray-500'
+              />
+            </PopoverButton>
+
+            <PopoverPanel
+              transition
+              className='absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 overflow-hidden rounded-3xl bg-black outline-1 -outline-offset-1 outline-white/10 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in'
+            >
+              <div className='p-4'>
+                {PROFILE_LINKS.map(item => (
+                  <div
+                    key={item.name}
+                    className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-white/5'
+                  >
+                    <div className='flex size-11 flex-none items-center justify-center rounded-lg bg-gray-700/50 group-hover:bg-gray-700'>
+                      <item.icon
+                        aria-hidden='true'
+                        className='size-6 text-gray-400 group-hover:text-white'
+                      />
+                    </div>
+                    <div className='flex-auto'>
+                      <a
+                        href={item.href}
+                        className='block font-semibold text-white'
+                      >
+                        {item.name}
+                        <span className='absolute inset-0' />
+                      </a>
+                      <p className='mt-1 text-gray-400'>{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
+                {callsToAction.map(item => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
+                  >
+                    <item.icon
+                      aria-hidden='true'
+                      className='size-5 flex-none text-gray-500'
+                    />
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </PopoverPanel>
+          </Popover>
         </PopoverGroup>
+
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
           <Link href='/auth' className='text-sm/6 font-semibold text-white'>
             Log in <span aria-hidden='true'>&rarr;</span>
@@ -206,7 +289,7 @@ export default function Example() {
                     />
                   </DisclosureButton>
                   <DisclosurePanel className='mt-2 space-y-2'>
-                    {[...products, ...callsToAction].map(item => (
+                    {[...PRODUCTS_LIST, ...callsToAction].map(item => (
                       <DisclosureButton
                         key={item.name}
                         as='a'
@@ -236,6 +319,61 @@ export default function Example() {
                 >
                   Company
                 </a>
+                <Popover className='relative'>
+                  <PopoverButton className='flex outline-none border-none focus:border-none focus:outline-none items-center gap-x-1 font-semibold text-white'>
+                    Profile
+                    <ChevronDownIcon
+                      aria-hidden='true'
+                      className='size-5 flex-none text-gray-500'
+                    />
+                  </PopoverButton>
+
+                  <PopoverPanel
+                    transition
+                    className='absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 overflow-hidden rounded-3xl bg-black outline-1 -outline-offset-1 outline-white/10 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in'
+                  >
+                    <div className='p-4'>
+                      {PROFILE_LINKS.map(item => (
+                        <div
+                          key={item.name}
+                          className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-white/5'
+                        >
+                          <div className='flex size-11 flex-none items-center justify-center rounded-lg bg-gray-700/50 group-hover:bg-gray-700'>
+                            <item.icon
+                              aria-hidden='true'
+                              className='size-6 text-gray-400 group-hover:text-white'
+                            />
+                          </div>
+                          <div className='flex-auto'>
+                            <a
+                              href={item.href}
+                              className='block font-semibold text-white'
+                            >
+                              {item.name}
+                              <span className='absolute inset-0' />
+                            </a>
+                            <p className='mt-1 text-gray-400'>{item.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
+                      {callsToAction.map(item => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
+                        >
+                          <item.icon
+                            aria-hidden='true'
+                            className='size-5 flex-none text-gray-500'
+                          />
+                          {item.name}
+                        </a>
+                      ))}
+                    </div>
+                  </PopoverPanel>
+                </Popover>
               </div>
               <div className='py-6'>
                 <a

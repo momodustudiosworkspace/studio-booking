@@ -46,7 +46,7 @@ export async function createBooking(req: Request, res: Response) {
     const user = await User.findOne({_id:userId})
 
 
-    const { date, startTime, sessionType, studioRoom, price, location} = req.body;
+    const { date, startTime, sessionType, studioRoom, price, location, sessionTitle} = req.body;
 
     // The system will calculate end time endTime, based on number of outfits 
 
@@ -78,6 +78,7 @@ export async function createBooking(req: Request, res: Response) {
       user: userId,
       user_fullnames : `${user?.first_name} ${user?.last_name}`,
       sessionType,
+      sessionTitle,
       date,
       startTime,
       price,
@@ -141,7 +142,10 @@ export async function getBookingById(req: Request, res: Response) {
 export async function updateBooking(req: Request, res: Response) {
   try {
     const { id } = req.params;
+     const userId = req.userId; // assuming user is attached from auth middleware
+
     const updates = req.body;
+    updates.user = userId
     console.log("updates: ", updates);
     
 
