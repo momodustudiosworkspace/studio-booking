@@ -30,6 +30,9 @@ import {
 // import Image from "next/image";
 import MomoduWhite from "@/assets/icons/MomoduWhite";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
+import { userLogOut } from "@/redux/slices/authSlice";
+import { signOut } from "next-auth/react";
 
 const PRODUCTS_LIST = [
   {
@@ -94,10 +97,15 @@ const callsToAction = [
   { name: "Youtube Channel", href: "#", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
+const profileCallsToAction = [
+  { name: "Youtube Channel", href: "#", icon: PlayCircleIcon },
+  { name: "log out", href: "#", icon: PhoneIcon },
+];
 
-export default function Example() {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const dispatch = useAppDispatch();
+  const userAuth = useAppSelector(state => state.auth)
   return (
     <header className='fixed z-50 w-full bg-black/20 backdrop-blur-sm'>
       <nav
@@ -193,7 +201,12 @@ export default function Example() {
           <a href='#' className='text-sm/6 font-semibold text-white'>
             Company
           </a>
-          <Popover className='relative'>
+
+        </PopoverGroup>
+
+        <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
+          {userAuth.isLoggedIn ?
+            <Popover className='relative'>
             <PopoverButton className='flex outline-none border-none focus:border-none focus:outline-none items-center gap-x-1 text-sm/6 font-semibold text-white'>
               Profile
               <ChevronDownIcon
@@ -232,28 +245,21 @@ export default function Example() {
                 ))}
               </div>
               <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
-                {callsToAction.map(item => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
-                  >
-                    <item.icon
-                      aria-hidden='true'
-                      className='size-5 flex-none text-gray-500'
-                    />
-                    {item.name}
-                  </a>
+                  {profileCallsToAction.map(item => (
+                    <button key={item.name} className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50' onClick={() => {
+                      dispatch(userLogOut());
+                      signOut({ callbackUrl: "/auth" });
+
+                    }} >  <item.icon
+                        aria-hidden='true'
+                        className='size-5 flex-none text-gray-500'
+                      />{item.name}</button>
                 ))}
               </div>
             </PopoverPanel>
-          </Popover>
-        </PopoverGroup>
-
-        <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-          <Link href='/auth' className='text-sm/6 font-semibold text-white'>
+            </Popover> : <Link href='/auth' className='text-sm/6 font-semibold text-white'>
             Log in <span aria-hidden='true'>&rarr;</span>
-          </Link>
+            </Link>}
         </div>
       </nav>
       <Dialog
