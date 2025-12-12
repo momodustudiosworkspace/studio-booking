@@ -9,6 +9,7 @@ export interface BookingType {
   user: string | null; // or populated user object if you populate
   user_fullnames?: string | null;
   assignedTo?: number | null;
+  sessionTitle?: string | null;
   sessionType?: string | null;
   package?: string | null;
   date?: string | null;

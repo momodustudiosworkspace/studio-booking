@@ -234,6 +234,8 @@ export const authOptions: NextAuthOptions = {
           last_name: token.last_name ?? null,
         };
       }
+      console.log(token.first_name, token.last_name);
+      
       return session;
     },
   },

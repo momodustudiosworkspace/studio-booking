@@ -12,14 +12,14 @@ interface LocationProps {
 interface bookingsPreviewProps {
   location: LocationProps | null | undefined;
   price: number | null | undefined;
-  sesstionType: string | null | undefined;
+  sessionTitle: string | null | undefined;
   proceedBtnRef: React.RefObject<HTMLButtonElement | null>;
 }
 
 const BookingsPreview = ({
   location,
   price,
-  sesstionType,
+  sessionTitle,
   proceedBtnRef,
 }: bookingsPreviewProps): React.JSX.Element => {
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
@@ -53,7 +53,7 @@ const BookingsPreview = ({
               <div className='flex items-center gap-2'>
                 <BookingsIcons value='person-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
-                  {sesstionType} shoot
+                  {sessionTitle} shoot
                 </p>
               </div>
               <div className='flex items-center gap-2'>

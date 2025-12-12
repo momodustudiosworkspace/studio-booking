@@ -40,6 +40,16 @@ const DashboardSideBar = () => {
     //   icon: "report-analytics-solid-black" as IconsType,
     // },
     {
+      href: "/admin/dashboard/sessions-and-packages",
+      label: "Session & Packages",
+      icon: "report-analytics-solid-black" as IconsType,
+    },
+    {
+      href: "/not-found",
+      label: "Staff Management",
+      icon: "report-analytics-solid-black" as IconsType,
+    },
+    {
       href: "/dashboard/help",
       label: "Help",
       icon: "help-solid-black" as IconsType,

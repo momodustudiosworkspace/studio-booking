@@ -93,10 +93,10 @@ const BookingCalendar = ({
       date: "2025-11-29",
       times: ["09:00", "11:00", "14:00", "15:00", "16:00"],
     }, // 4 bookings (full)
-    { date: "2025-11-28", times: ["09:00", "11:00", "14:00"] },
-    { date: "2025-11-30", times: ["10:00", "12:00", "16:00", "17:00"] },
-    { date: "2025-11-11", times: ["08:00", "10:00", "15:00"] },
-    { date: "2025-11-30", times: ["08:00", "10:00", "12:00", "14:00"] }, // full
+    { date: "2025-12-28", times: ["09:00", "11:00", "14:00"] },
+    { date: "2025-12-30", times: ["10:00", "12:00", "16:00", "17:00"] },
+    { date: "2025-12-11", times: ["08:00", "10:00", "15:00"] },
+    { date: "2025-12-30", times: ["08:00", "10:00", "12:00", "14:00"] }, // full
     { date: "2025-12-05", times: ["09:00", "11:00"] },
   ]);
 
@@ -179,7 +179,7 @@ const BookingCalendar = ({
           Select available date
         </h2>
 
-        <div className='rounded-xl border border-black p-3 shadow-md transition-shadow duration-200 hover:shadow-lg [&_.react-datepicker]:w-full [&_.react-datepicker]:max-w-full [&_.react-datepicker__day]:flex-1 [&_.react-datepicker__day]:!text-center [&_.react-datepicker__day--disabled]:!text-gray-300 [&_.react-datepicker__day--disabled]:!line-through [&_.react-datepicker__day--selected]:!bg-black [&_.react-datepicker__day--selected]:!text-white [&_.react-datepicker__day:hover]:!bg-black [&_.react-datepicker__day:hover]:!text-white [&_.react-datepicker__header]:!bg-black [&_.react-datepicker__header]:!text-white [&_.react-datepicker__month]:w-full [&_.react-datepicker__month]:max-w-full [&_.react-datepicker__month-container]:w-full [&_.react-datepicker__month-container]:max-w-full [&_.react-datepicker__week]:flex [&_.react-datepicker__week]:!w-full [&_.react-datepicker__week]:!justify-between'>
+        <div className='rounded-xl border border-white p-3 shadow-md transition-shadow duration-200 hover:shadow-lg [&_.react-datepicker]:w-full [&_.react-datepicker]:max-w-full [&_.react-datepicker__day]:flex-1 [&_.react-datepicker__day]:!text-center [&_.react-datepicker__day--disabled]:!text-gray-300 [&_.react-datepicker__day--disabled]:!line-through [&_.react-datepicker__day--selected]:!bg-black [&_.react-datepicker__day--selected]:!text-white [&_.react-datepicker__day:hover]:!bg-black [&_.react-datepicker__day:hover]:!text-white [&_.react-datepicker__header]:!bg-black [&_.react-datepicker__header]:!text-white [&_.react-datepicker__month]:w-full [&_.react-datepicker__month]:max-w-full [&_.react-datepicker__month-container]:w-full [&_.react-datepicker__month-container]:max-w-full [&_.react-datepicker__week]:flex [&_.react-datepicker__week]:!w-full [&_.react-datepicker__week]:!justify-between'>
           <DatePicker
             selected={selectedDate}
             onChange={date => setSelectedDate(date)}
@@ -193,7 +193,7 @@ const BookingCalendar = ({
             showMonthDropdown
             showYearDropdown
             dropdownMode='select'
-            className='w-full rounded-lg border border-black bg-black px-3 py-2 text-center text-white'
+            className='w-full rounded-lg border border-white bg-black px-3 py-2 text-center text-white'
           />
         </div>
       </div>
@@ -214,7 +214,7 @@ const BookingCalendar = ({
                     onClick={() => setSelectedTime(time)}
                     className={`rounded-lg border px-4 py-2 transition-all duration-150 ${
                       selectedTime === time
-                        ? "border-black bg-black text-white"
+                      ? "border-white bg-black text-white"
                         : "border-gray-400 bg-white text-black hover:border-black"
                     }`}
                   >
@@ -230,10 +230,10 @@ const BookingCalendar = ({
 
         {/* Selected Summary */}
         {selectedTime && (
-          <div className='mt-2'>
-            <p className='font-medium text-black'>
+          <div className='mt-5'>
+            <p className='font-medium text-white'>
               You selected:
-              <span className='ml-2 font-semibold text-black underline'>
+              <span className='ml-2 font-semibold text-white underline'>
                 {selectedDate?.toDateString()} at{" "}
                 {selectedTime || selectedBookingStartTime}
               </span>

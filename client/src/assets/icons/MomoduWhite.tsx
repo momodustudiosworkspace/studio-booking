@@ -3,7 +3,7 @@ import React from "react";
 const MomoduWhite = () => {
   return (
     <svg
-      width='181'
+      width='141'
       height='64'
       viewBox='0 0 181 64'
       fill='none'

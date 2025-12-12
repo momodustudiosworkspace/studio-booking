@@ -19,7 +19,7 @@ const DashboardBookings = () => {
 
     return bookings.map(b => ({
       id: b._id,
-      title: `${b.sessionType} session`,
+      title: `${b.sessionTitle} session`,
       location: b.location,
       date: b.date, // e.g. "Thu Dec 04 2025"
       time: b.startTime,

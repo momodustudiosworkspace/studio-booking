@@ -58,7 +58,7 @@ const Bookings = (): React.JSX.Element => {
     {
       id: 1,
       component: (
-        <ChooseBookingSession bookingSession={bookingData.sessionType} />
+        <ChooseBookingSession bookingSession={bookingData.sessionType} setBookingStep={setBookingStep} />
       ),
       header: "Choose Your Session",
       paragraph: "You can customize details in the next steps",
@@ -70,12 +70,13 @@ const Bookings = (): React.JSX.Element => {
           bookingPackage={{
             title: bookingData.package?.title || null,
             price: bookingData.package?.price || null,
+            sessionId: bookingData.sessionType || null,
           }}
           setOnProceed={setOnProceed}
           // setReserveSlot={values => setReserveSlot({ ...values })}
         />
       ),
-      header: `Select from ${bookingData.sessionType} packages`,
+      header: `Select from ${bookingData.sessionTitle} packages`,
       paragraph: "We’ll hold your slot while you complete checkout",
     },
     {
@@ -108,7 +109,7 @@ const Bookings = (): React.JSX.Element => {
         <BookingsPreview
           location={bookingData.location}
           price={bookingData.package?.price}
-          sesstionType={bookingData.sessionType}
+          sessionTitle={bookingData.sessionTitle}
           proceedBtnRef={proceedBtnRef}
         />
       ),
@@ -189,6 +190,7 @@ const Bookings = (): React.JSX.Element => {
         sessionType: bookingData.sessionType || null,
         price: bookingData.package?.price || null,
         location: bookingData.location || null,
+        sessionTitle: bookingData.sessionTitle || null
         // notes: bookingData.notes,
       };
 
@@ -200,7 +202,7 @@ const Bookings = (): React.JSX.Element => {
           booking: {
             ...payload,
             _id: bookingData.bookingId,
-            user: session?.user.email || null,
+            user: bookingData.bookingId || null,
           },
         }).unwrap();
       } else {
@@ -248,7 +250,7 @@ const Bookings = (): React.JSX.Element => {
       return toast.error(AuthToast, {
         data: {
           title: "Booking failed",
-          content: `${err?.data?.message || "User not logged in"}`,
+          content: `${err?.data?.message || "Failed to complete booking"}`,
         },
         ariaLabel: "Something went wrong",
         icon: false,
@@ -293,7 +295,7 @@ const Bookings = (): React.JSX.Element => {
           <div className='mt-20 mb-10 flex flex-col gap-4'>
             {bookingStep !== 6 && (
               <button
-                className='flex h-10 w-10 items-center justify-center rounded-full bg-[#FAFAFA]'
+                className={`flex h-10 w-10 items-center justify-center rounded-full bg-[#FAFAFA] ${bookingStep === 1 && "mt-32"}`}
                 onClick={() => {
                   if (bookingStep === 0) {
                     return router.push("/web");
@@ -304,8 +306,8 @@ const Bookings = (): React.JSX.Element => {
                 <BaseIcons value='arrow-left-black' />
               </button>
             )}
-            <div className='mt-5 flex flex-col gap-2'>
-              <h1 className='text-[28px] font-extrabold capitalize'>
+            <div className='mt-5 flex flex-col gap-2 text-white'>
+              <h1 className='text-[28px] font-extrabold capitalize '>
                 {BOOKING_STEPS[bookingStep]?.header}
               </h1>
               <div className='flex items-center gap-1'>
@@ -321,7 +323,7 @@ const Bookings = (): React.JSX.Element => {
 
             {BOOKING_STEPS[bookingStep]?.component}
 
-            {bookingStep < 5 && (
+            {(bookingStep != 0 && bookingStep < 5) && (
               <div className='mt-4 flex w-full justify-end'>
                 {!session?.user.email && bookingStep > 3 ? (
                   <LinkButton
@@ -333,6 +335,7 @@ const Bookings = (): React.JSX.Element => {
                     className='w-auto shrink-0'
                   />
                 ) : (
+
                   <Button
                     ref={proceedBtnRef}
                     text={"Proceed"}

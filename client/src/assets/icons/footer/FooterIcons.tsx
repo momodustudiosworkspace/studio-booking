@@ -7,7 +7,7 @@ export const FooterIcons = ({ value }: Type) => {
   if (value === "desktop-logo-white") {
     return (
       <svg
-        width='395'
+        width='205'
         height='139'
         viewBox='0 0 395 139'
         fill='none'

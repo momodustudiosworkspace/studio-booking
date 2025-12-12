@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/navbar/Navbar";
+// import Navbar from "@/components/navbar/Navbar";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -30,7 +30,7 @@ export default async function Layout({
       className={`font-montserrat flex min-h-screen w-full flex-col bg-[#fff]`}
     >
       <div className='flex h-[80px] max-w-screen justify-center bg-white'>
-        <Navbar />
+        {/* <Navbar /> */}
       </div>
       <div className='mt-10 flex max-w-screen justify-center'>
         <div className='flex w-[1800px] items-start gap-5 px-4 pb-32 sm:px-20'>

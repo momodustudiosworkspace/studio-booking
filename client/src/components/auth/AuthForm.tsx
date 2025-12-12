@@ -23,7 +23,7 @@ const AuthForm = ({
   setSignin,
   headerText,
   paragraphText,
-  imgUrl,
+  // imgUrl,
   adminAuth = false,
   authForm = true,
 }: AuthFormProps): React.JSX.Element => {
@@ -46,15 +46,98 @@ const AuthForm = ({
         <div className='absolute h-full w-full'></div>
 
         {/* User auth  */}
-        {!adminAuth && !imgUrl && (
-          <Image
-            src={imgUrl ? imgUrl : "/auth/auth-image.jpg"}
-            alt=''
-            width={200}
-            height={100}
-            className='h-full w-full object-cover object-left'
-            quality={100}
-          />
+        {!adminAuth && (
+          // <Image
+          //   src={imgUrl ? imgUrl : "/auth/auth-image.jpg"}
+          //   alt=''
+          //   width={200}
+          //   height={100}
+          //   className='h-full w-full object-cover object-left'
+          //   quality={100}
+          // />
+          <div className="w-full h-full bg-black">
+            <div
+              aria-hidden='true'
+              className='pointer-events-none lg:absolute lg:inset-y-0 lg:w-full lg:max-w-7xl'
+            >
+              <div className='absolute transform pt-52 sm:top-0  sm:translate-x-8 lg:top-1/2 lg:left-28 lg:translate-x-8 lg:-translate-y-1/2 lg:pt-0'>
+                <div className='flex items-center space-x-6 lg:space-x-8'>
+                  <div className='grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8'>
+                    <div className='h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100'>
+                      <Image
+                        width={100}
+                        height={100}
+                        alt=''
+                        src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg'
+                        className='size-full object-cover'
+                      />
+                    </div>
+                    {/* <div className='h-64 w-44 overflow-hidden rounded-lg'>
+                      <Image
+                        width={100}
+                        height={100}
+                        alt=''
+                        src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg'
+                        className='size-full object-cover'
+                      />
+                    </div> */}
+                  </div>
+                  <div className='grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8'>
+                    {/* <div className='h-64 w-44 overflow-hidden rounded-lg'>
+                      <Image
+                        width={100}
+                        height={100}
+                        alt=''
+                        src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg'
+                        className='size-full object-cover'
+                      />
+                    </div> */}
+                    <div className='h-64 w-44 overflow-hidden rounded-lg'>
+                      <Image
+                        width={100}
+                        height={100}
+                        alt=''
+                        src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg'
+                        className='size-full object-cover'
+                      />
+                    </div>
+                    <div className='h-64 w-44 overflow-hidden rounded-lg'>
+                      <Image
+                        width={100}
+                        height={100}
+                        alt=''
+                        src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg'
+                        className='size-full object-cover'
+                      />
+                    </div>
+                  </div>
+                  <div className='grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8'>
+                    <div className='h-64 w-44 overflow-hidden rounded-lg'>
+                      <Image
+                        width={100}
+                        height={100}
+                        alt=''
+                        src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg'
+                        className='size-full object-cover'
+                      />
+                    </div>
+                    {/* <div className='h-64 w-44 overflow-hidden rounded-lg'>
+                      <Image
+                        width={100}
+                        height={100}
+                        alt=''
+                        src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg'
+                        className='size-full object-cover'
+                      />
+                    </div> */}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute bottom-20 left-1/2 max-w-md">
+                <h3 className="text-white">Manage all of your media data in one place.</h3>
+              </div>
+            </div>
+          </div>
         )}
         {
           // Admin auth

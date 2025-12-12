@@ -100,7 +100,7 @@ const Hero = () => {
               </div>
 
               <Link
-                href='#'
+                href='/dashboard/profile-settings'
                 className='mb-10 inline-block rounded-md border border-transparent bg-white px-8 py-3 text-center font-semibold text-black hover:bg-white/25'
               >
                 Organize your journey
