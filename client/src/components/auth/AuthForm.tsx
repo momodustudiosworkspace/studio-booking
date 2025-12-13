@@ -192,9 +192,18 @@ const AuthForm = ({
             )}
           </div>
 
+
+          <div className='mt-10 mb-5 w-full items-center sm:mt-0 sm:flex sm:items-start'>
+            {children}
+          </div>
           {/* Google auth button  */}
           {authForm && !adminAuth && (
             <>
+              <div className='mb-10 flex items-center justify-between gap-1'>
+                <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
+                <p className='text-md'>or</p>
+                <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
+              </div>
               {" "}
               <button
                 onClick={() =>
@@ -209,16 +218,9 @@ const AuthForm = ({
                   Sign {signin ? "in" : "up"} with Google
                 </span>
               </button>
-              <div className='mb-10 flex items-center justify-between gap-1'>
-                <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
-                <p className='text-md'>or</p>
-                <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
-              </div>
+
             </>
           )}
-          <div className='mt-10 mb-5 w-full items-center sm:mt-0 sm:flex sm:items-start'>
-            {children}
-          </div>
         </div>
       </div>
     </div>
