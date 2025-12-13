@@ -235,7 +235,7 @@ export const authOptions: NextAuthOptions = {
         };
       }
       console.log(token.first_name, token.last_name);
-      
+
       return session;
     },
   },

@@ -5,7 +5,7 @@ import { baseApi } from "../../api";
 
 export const sessionAPI = baseApi.injectEndpoints({
   endpoints: builder => ({
-        getSessions: builder.query<GetAllSessionsResponse, void>({
+    getSessions: builder.query<GetAllSessionsResponse, void>({
       query: () => "/admin/sessions",
       providesTags: ["Sessions"],
     }),

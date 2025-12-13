@@ -98,7 +98,7 @@ const StudioServices = () => {
         </p>
         <ul
           role='list'
-          className='hidden mb-5 flex-col divide-y divide-white/5 rounded-lg p-4 pl-2 sm:flex sm:w-full lg:w-[60%]'
+          className='mb-5 hidden flex-col divide-y divide-white/5 rounded-lg p-4 pl-2 sm:flex sm:w-full lg:w-[60%]'
         >
           {peopleOnline.map(person => (
             <li

@@ -17,12 +17,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     userLogin: (state, action: PayloadAction<AuthState>) => {
-      state.isLoggedIn = true
+      state.isLoggedIn = true;
       state.token = action.payload.token;
     },
     setToken: (state, action: PayloadAction<AuthState>) => {
       state.token = action.payload.token;
-      state.isLoggedIn = action.payload.isLoggedIn
+      state.isLoggedIn = action.payload.isLoggedIn;
     },
     userLogOut: () => {
       return initialState;

@@ -39,9 +39,7 @@ const ForgotPassword = (): React.JSX.Element => {
               });
               return router.push(`/auth/otp?email=${values.email}`);
             }
-
           } catch (error: any) {
-
             return toast.error(AuthToast, {
               data: {
                 title: "OTP sent failed",

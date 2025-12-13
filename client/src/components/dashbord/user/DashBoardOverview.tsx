@@ -17,7 +17,6 @@ const DashBoardOverview = () => {
   console.log("bookings: ", bookings);
   console.log("isLoading: ", isLoading);
 
-
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
     const total = bookings?.length || 0;

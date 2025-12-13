@@ -3,14 +3,10 @@
 import { GetAllSessionsResponse } from "@/types/session.types";
 import { baseApi } from "../../api";
 
-
-
-
 const ADMIN_BASE_URL = "/admin";
 
 export const sessionAndPackagesApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-
     // CREATE
     createBookingSession: builder.mutation<
       { status: number },
@@ -70,21 +66,17 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
     // GET ONE
     getSessionById: builder.query<any, string>({
       query: id => `${ADMIN_BASE_URL}/sessions/${id}`, // FIX URL
-      providesTags: (_result, _error, id) => [
-        { type: "Sessions", id },
-      ],
+      providesTags: (_result, _error, id) => [{ type: "Sessions", id }],
     }),
   }),
 
   overrideExisting: true,
 });
 
-
 export const {
-    useCreateBookingSessionMutation,
-    useGetAllSessionsQuery,
-    useGetSessionByIdQuery,
-    useUpdateSessionMutation,
-    useDeleteSessionsMutation
-
+  useCreateBookingSessionMutation,
+  useGetAllSessionsQuery,
+  useGetSessionByIdQuery,
+  useUpdateSessionMutation,
+  useDeleteSessionsMutation,
 } = sessionAndPackagesApi;
