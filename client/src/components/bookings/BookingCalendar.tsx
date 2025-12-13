@@ -214,7 +214,7 @@ const BookingCalendar = ({
                     onClick={() => setSelectedTime(time)}
                     className={`rounded-lg border px-4 py-2 transition-all duration-150 ${
                       selectedTime === time
-                      ? "border-white bg-black text-white"
+                        ? "border-white bg-black text-white"
                         : "border-gray-400 bg-white text-black hover:border-black"
                     }`}
                   >

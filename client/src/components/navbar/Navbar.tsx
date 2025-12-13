@@ -11,21 +11,20 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
-
 } from "@headlessui/react";
 import {
   ArrowPathIcon,
   Bars3Icon,
   HomeModernIcon,
   XMarkIcon,
-  FaceSmileIcon
+  FaceSmileIcon,
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   PhoneIcon,
   PlayCircleIcon,
   BookOpenIcon,
-  BookmarkSquareIcon
+  BookmarkSquareIcon,
 } from "@heroicons/react/20/solid";
 // import Image from "next/image";
 import MomoduWhite from "@/assets/icons/MomoduWhite";
@@ -69,7 +68,8 @@ const PRODUCTS_LIST = [
 const PROFILE_LINKS = [
   {
     name: "Dashboard",
-    description: "Book in minutes, manage everything from scheduling to delivery",
+    description:
+      "Book in minutes, manage everything from scheduling to delivery",
     href: "/dashboard",
     icon: BookOpenIcon,
   },
@@ -91,7 +91,6 @@ const PROFILE_LINKS = [
     href: "/dashboard",
     icon: BookmarkSquareIcon,
   },
-
 ];
 const callsToAction = [
   { name: "Youtube Channel", href: "#", icon: PlayCircleIcon },
@@ -105,7 +104,7 @@ const profileCallsToAction = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const userAuth = useAppSelector(state => state.auth)
+  const userAuth = useAppSelector(state => state.auth);
   return (
     <header className='fixed z-50 w-full bg-black/20 backdrop-blur-sm'>
       <nav
@@ -137,7 +136,7 @@ export default function Navbar() {
         </div>
         <PopoverGroup className='hidden lg:flex lg:gap-x-12'>
           <Popover className='relative'>
-            <PopoverButton className='flex outline-none border-none focus:border-none focus:outline-none items-center gap-x-1 text-sm/6 font-semibold text-white'>
+            <PopoverButton className='flex items-center gap-x-1 border-none text-sm/6 font-semibold text-white outline-none focus:border-none focus:outline-none'>
               Product
               <ChevronDownIcon
                 aria-hidden='true'
@@ -201,65 +200,74 @@ export default function Navbar() {
           <a href='#' className='text-sm/6 font-semibold text-white'>
             Company
           </a>
-
         </PopoverGroup>
 
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-          {userAuth.isLoggedIn ?
+          {userAuth.isLoggedIn ? (
             <Popover className='relative'>
-            <PopoverButton className='flex outline-none border-none focus:border-none focus:outline-none items-center gap-x-1 text-sm/6 font-semibold text-white'>
-              Profile
-              <ChevronDownIcon
-                aria-hidden='true'
-                className='size-5 flex-none text-gray-500'
-              />
-            </PopoverButton>
+              <PopoverButton className='flex items-center gap-x-1 border-none text-sm/6 font-semibold text-white outline-none focus:border-none focus:outline-none'>
+                Profile
+                <ChevronDownIcon
+                  aria-hidden='true'
+                  className='size-5 flex-none text-gray-500'
+                />
+              </PopoverButton>
 
-            <PopoverPanel
-              transition
-              className='absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 overflow-hidden rounded-3xl bg-black outline-1 -outline-offset-1 outline-white/10 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in'
-            >
-              <div className='p-4'>
-                {PROFILE_LINKS.map(item => (
-                  <div
-                    key={item.name}
-                    className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-white/5'
-                  >
-                    <div className='flex size-11 flex-none items-center justify-center rounded-lg bg-gray-700/50 group-hover:bg-gray-700'>
+              <PopoverPanel
+                transition
+                className='absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 overflow-hidden rounded-3xl bg-black outline-1 -outline-offset-1 outline-white/10 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in'
+              >
+                <div className='p-4'>
+                  {PROFILE_LINKS.map(item => (
+                    <div
+                      key={item.name}
+                      className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-white/5'
+                    >
+                      <div className='flex size-11 flex-none items-center justify-center rounded-lg bg-gray-700/50 group-hover:bg-gray-700'>
+                        <item.icon
+                          aria-hidden='true'
+                          className='size-6 text-gray-400 group-hover:text-white'
+                        />
+                      </div>
+                      <div className='flex-auto'>
+                        <a
+                          href={item.href}
+                          className='block font-semibold text-white'
+                        >
+                          {item.name}
+                          <span className='absolute inset-0' />
+                        </a>
+                        <p className='mt-1 text-gray-400'>{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
+                  {profileCallsToAction.map(item => (
+                    <button
+                      key={item.name}
+                      className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
+                      onClick={() => {
+                        dispatch(userLogOut());
+                        signOut({ callbackUrl: "/auth" });
+                      }}
+                    >
+                      {" "}
                       <item.icon
                         aria-hidden='true'
-                        className='size-6 text-gray-400 group-hover:text-white'
-                      />
-                    </div>
-                    <div className='flex-auto'>
-                      <a
-                        href={item.href}
-                        className='block font-semibold text-white'
-                      >
-                        {item.name}
-                        <span className='absolute inset-0' />
-                      </a>
-                      <p className='mt-1 text-gray-400'>{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
-                  {profileCallsToAction.map(item => (
-                    <button key={item.name} className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50' onClick={() => {
-                      dispatch(userLogOut());
-                      signOut({ callbackUrl: "/auth" });
-
-                    }} >  <item.icon
-                        aria-hidden='true'
                         className='size-5 flex-none text-gray-500'
-                      />{item.name}</button>
-                ))}
-              </div>
-            </PopoverPanel>
-            </Popover> : <Link href='/auth' className='text-sm/6 font-semibold text-white'>
-            Log in <span aria-hidden='true'>&rarr;</span>
-            </Link>}
+                      />
+                      {item.name}
+                    </button>
+                  ))}
+                </div>
+              </PopoverPanel>
+            </Popover>
+          ) : (
+            <Link href='/auth' className='text-sm/6 font-semibold text-white'>
+              Log in <span aria-hidden='true'>&rarr;</span>
+            </Link>
+          )}
         </div>
       </nav>
       <Dialog
@@ -326,7 +334,7 @@ export default function Navbar() {
                   Company
                 </a>
                 <Popover className='relative'>
-                  <PopoverButton className='flex outline-none border-none focus:border-none focus:outline-none items-center gap-x-1 font-semibold text-white'>
+                  <PopoverButton className='flex items-center gap-x-1 border-none font-semibold text-white outline-none focus:border-none focus:outline-none'>
                     Profile
                     <ChevronDownIcon
                       aria-hidden='true'
@@ -358,7 +366,9 @@ export default function Navbar() {
                               {item.name}
                               <span className='absolute inset-0' />
                             </a>
-                            <p className='mt-1 text-gray-400'>{item.description}</p>
+                            <p className='mt-1 text-gray-400'>
+                              {item.description}
+                            </p>
                           </div>
                         </div>
                       ))}

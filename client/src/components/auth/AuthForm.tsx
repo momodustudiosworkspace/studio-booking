@@ -55,12 +55,12 @@ const AuthForm = ({
           //   className='h-full w-full object-cover object-left'
           //   quality={100}
           // />
-          <div className="w-full h-full bg-black">
+          <div className='h-full w-full bg-black'>
             <div
               aria-hidden='true'
               className='pointer-events-none lg:absolute lg:inset-y-0 lg:w-full lg:max-w-7xl'
             >
-              <div className='absolute transform pt-52 sm:top-0  sm:translate-x-8 lg:top-1/2 lg:left-28 lg:translate-x-8 lg:-translate-y-1/2 lg:pt-0'>
+              <div className='absolute transform pt-52 sm:top-0 sm:translate-x-8 lg:top-1/2 lg:left-28 lg:translate-x-8 lg:-translate-y-1/2 lg:pt-0'>
                 <div className='flex items-center space-x-6 lg:space-x-8'>
                   <div className='grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8'>
                     <div className='h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100'>
@@ -133,8 +133,10 @@ const AuthForm = ({
                   </div>
                 </div>
               </div>
-              <div className="absolute bottom-20 left-1/2 max-w-md">
-                <h3 className="text-white">Manage all of your media data in one place.</h3>
+              <div className='absolute bottom-20 left-1/2 max-w-md'>
+                <h3 className='text-white'>
+                  Manage all of your media data in one place.
+                </h3>
               </div>
             </div>
           </div>
@@ -192,10 +194,17 @@ const AuthForm = ({
             )}
           </div>
 
+          <div className='mt-10 mb-5 w-full items-center sm:mt-0 sm:flex sm:items-start'>
+            {children}
+          </div>
           {/* Google auth button  */}
           {authForm && !adminAuth && (
             <>
-              {" "}
+              <div className='mb-10 flex items-center justify-between gap-1'>
+                <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
+                <p className='text-md'>or</p>
+                <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
+              </div>{" "}
               <button
                 onClick={() =>
                   signIn("google", {
@@ -209,16 +218,8 @@ const AuthForm = ({
                   Sign {signin ? "in" : "up"} with Google
                 </span>
               </button>
-              <div className='mb-10 flex items-center justify-between gap-1'>
-                <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
-                <p className='text-md'>or</p>
-                <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
-              </div>
             </>
           )}
-          <div className='mt-10 mb-5 w-full items-center sm:mt-0 sm:flex sm:items-start'>
-            {children}
-          </div>
         </div>
       </div>
     </div>

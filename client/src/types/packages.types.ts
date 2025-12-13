@@ -1,15 +1,10 @@
-
-
 export interface PackagesTypeResponse {
-    session: string;
-    title: string;
-    price: number;
-    discount: number;
-    services: string[];
- 
+  session: string;
+  title: string;
+  price: number;
+  discount: number;
+  services: string[];
 }
-
-
 
 export interface PackageType {
   session: string;

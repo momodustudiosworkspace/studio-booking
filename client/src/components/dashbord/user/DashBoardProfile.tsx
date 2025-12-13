@@ -16,9 +16,8 @@ const DashboardProfile = () => {
     useGetUserProfileQuery();
 
   console.log("use profile: ", userprofile);
-  const session = useSession()
+  const session = useSession();
   console.log("Sesion: ", session);
-
 
   const BOOKING_DATA = [
     {

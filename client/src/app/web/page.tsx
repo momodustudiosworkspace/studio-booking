@@ -175,7 +175,7 @@ export default function Page() {
         {/* Testimonials  */}
         {/* <div className='flex w-full flex-col items-center px-5 py-10 sm:px-0'>
           <div className='flex w-full flex-col gap-8 sm:w-[1440px]'> */}
-            {/* mobile  */}
+        {/* mobile  */}
         {/* <div className='flex flex-col sm:hidden'>
               <SectionHeader
                 badgeText='Testimonials'
@@ -188,7 +188,7 @@ export default function Page() {
               </p>
             </div> */}
 
-            {/* Desktop  */}
+        {/* Desktop  */}
         {/* <div className='hidden w-full items-center justify-between sm:flex'>
               <div className='w-[300px]'>
                 <SectionHeader

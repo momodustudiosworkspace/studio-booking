@@ -58,7 +58,10 @@ const Bookings = (): React.JSX.Element => {
     {
       id: 1,
       component: (
-        <ChooseBookingSession bookingSession={bookingData.sessionType} setBookingStep={setBookingStep} />
+        <ChooseBookingSession
+          bookingSession={bookingData.sessionType}
+          setBookingStep={setBookingStep}
+        />
       ),
       header: "Choose Your Session",
       paragraph: "You can customize details in the next steps",
@@ -190,7 +193,7 @@ const Bookings = (): React.JSX.Element => {
         sessionType: bookingData.sessionType || null,
         price: bookingData.package?.price || null,
         location: bookingData.location || null,
-        sessionTitle: bookingData.sessionTitle || null
+        sessionTitle: bookingData.sessionTitle || null,
         // notes: bookingData.notes,
       };
 
@@ -307,7 +310,7 @@ const Bookings = (): React.JSX.Element => {
               </button>
             )}
             <div className='mt-5 flex flex-col gap-2 text-white'>
-              <h1 className='text-[28px] font-extrabold capitalize '>
+              <h1 className='text-[28px] font-extrabold capitalize'>
                 {BOOKING_STEPS[bookingStep]?.header}
               </h1>
               <div className='flex items-center gap-1'>
@@ -323,7 +326,7 @@ const Bookings = (): React.JSX.Element => {
 
             {BOOKING_STEPS[bookingStep]?.component}
 
-            {(bookingStep != 0 && bookingStep < 5) && (
+            {bookingStep != 0 && bookingStep < 5 && (
               <div className='mt-4 flex w-full justify-end'>
                 {!session?.user.email && bookingStep > 3 ? (
                   <LinkButton
@@ -335,7 +338,6 @@ const Bookings = (): React.JSX.Element => {
                     className='w-auto shrink-0'
                   />
                 ) : (
-
                   <Button
                     ref={proceedBtnRef}
                     text={"Proceed"}
