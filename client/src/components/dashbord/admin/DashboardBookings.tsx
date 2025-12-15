@@ -81,6 +81,7 @@ const DashboardBookings = () => {
         address: b.location?.address,
         state: b.location?.state,
       },
+      user_fullnames: b.user_fullnames?.toLowerCase(),
       date: b.date || null, // e.g. "Thu Dec 04 2025"
       startTime: b.startTime,
       amount: b.price, // e.g. "123,400"

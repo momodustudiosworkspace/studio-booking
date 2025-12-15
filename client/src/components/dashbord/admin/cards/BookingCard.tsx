@@ -52,7 +52,7 @@ const BookingCard = ({
       <div className='flex shrink-0 justify-between sm:w-[480px] sm:items-center'>
         <p className=''>#MS-{id?.slice(0, 4)}</p>
         <div>
-          <p className='text-[14px] sm:text-[16px]'>{client_name}</p>
+          <p className='text-[14px] sm:text-[16px] capitalize'>{client_name}</p>
         </div>
         <div>
           <p className='text-[14px] capitalize sm:text-[16px]'>

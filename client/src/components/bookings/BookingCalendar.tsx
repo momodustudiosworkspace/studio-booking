@@ -15,11 +15,12 @@ import { BaseIcons } from "@/assets/icons/BaseIcons";
 import { MONTHS } from "@/data";
 import { setBookingDateTime } from "@/redux/slices/bookingSlice";
 import { useAppDispatch } from "@/hooks/hooks";
+import { useGetCalendarBookingsQuery } from "@/redux/services/user/booking/booking.api";
 
-type AvailableSlot = {
-  date: string; // e.g., "2025-10-28"
-  times: string[]; // e.g., ["09:00", "11:00"]
-};
+// type AvailableSlot = {
+//   date: string; // e.g., "2025-10-28"
+//   times: string[]; // e.g., ["09:00", "11:00"]
+// };
 
 const years = Array.from(
   { length: 16 }, // total of 16 years
@@ -87,75 +88,104 @@ const BookingCalendar = ({
   setOnProceed,
 }: BookingsCalendarProps) => {
   const dispatch = useAppDispatch();
+
+  const [visibleMonth, setVisibleMonth] = useState({
+    year: getYear(new Date()),
+    month: getMonth(new Date()),
+  });
+
+
   // 🧠 Dummy backend-like data (will be replaced by RTK Query later)
-  const [availableSlots] = useState<AvailableSlot[]>([
-    {
-      date: "2025-11-29",
-      times: ["09:00", "11:00", "14:00", "15:00", "16:00"],
-    }, // 4 bookings (full)
-    { date: "2025-12-28", times: ["09:00", "11:00", "14:00"] },
-    { date: "2025-12-30", times: ["10:00", "12:00", "16:00", "17:00"] },
-    { date: "2025-12-11", times: ["08:00", "10:00", "15:00"] },
-    { date: "2025-12-30", times: ["08:00", "10:00", "12:00", "14:00"] }, // full
-    { date: "2025-12-05", times: ["09:00", "11:00"] },
-  ]);
+  // const [availableSlots] = useState<AvailableSlot[]>([
+  //   {
+  //     date: "2025-11-29",
+  //     times: ["09:00", "11:00", "14:00", "15:00", "16:00"],
+  //   }, // 4 bookings (full)
+  //   { date: "2025-12-28", times: ["09:00", "11:00", "14:00"] },
+  //   { date: "2025-12-30", times: ["10:00", "12:00", "16:00", "17:00"] },
+  //   { date: "2025-12-11", times: ["08:00", "10:00", "15:00"] },
+  //   { date: "2025-12-30", times: ["08:00", "10:00", "12:00", "14:00"] }, // full
+  //   { date: "2025-12-05", times: ["09:00", "11:00"] },
+  // ]);
+
+  const { data: availableSlots = [], isFetching } =
+    useGetCalendarBookingsQuery(visibleMonth);
 
   // Initialize with Redux date (convert from string to Date)
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     selectedBookingDate ? new Date(selectedBookingDate) : null
   );
-  const [availableTimes, setAvailableTimes] = useState<string[]>([]);
+
   const [selectedTime, setSelectedTime] = useState<string | null>(
     selectedBookingStartTime || null
   );
+  const DAILY_TIME_SLOTS = [
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "14:00",
+    "15:00",
+  ]; // = 6 slot
 
-  // ✅ Disable logic
-  const isDayDisabled = (date: Date) => {
-    const today = startOfToday();
-    if (isBefore(date, today)) return true; // past dates disabled
-
-    const slot = availableSlots.find(s => isSameDay(parseISO(s.date), date));
-
-    // fully booked if 4 or more times
-    if (slot && slot.times.length >= 10) return true;
-
-    return false;
-  };
-
-  // ✅ Update available times when user selects a date
-  useEffect(() => {
-    if (!selectedDate) {
-      setAvailableTimes([]);
-      return;
-    }
-
-    // if (selectedDate && selectedTime) {
-    //     dispatch(setBookingDateTime({ date: selectedDate, startTime: selectedTime }));
-    // }
+  // ✅ DERIVED — NO STATE
+  const availableTimes = React.useMemo(() => {
+    if (!selectedDate) return [];
 
     const slot = availableSlots.find(s =>
       isSameDay(parseISO(s.date), selectedDate)
     );
 
-    setAvailableTimes(slot?.times || []);
-
-    console.log("selectedBookingStartTime: ", selectedBookingStartTime);
-
-    if (selectedBookingStartTime) {
-      const time = new Date(selectedBookingStartTime).toLocaleTimeString(
-        "en-NG",
-        {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "Africa/Lagos",
-        }
-      );
-      return setSelectedTime(time);
+    // 🟢 No bookings → all 6 slots available
+    if (!slot) {
+      return DAILY_TIME_SLOTS;
     }
-    setSelectedTime(null);
-  }, [selectedDate, availableSlots, selectedBookingStartTime]);
 
+    // 🟡 Some bookings → remove booked times
+    return DAILY_TIME_SLOTS.filter(
+      time => !slot.times.includes(time)
+    );
+  }, [selectedDate, availableSlots, DAILY_TIME_SLOTS]);
+  // const availableTimes = React.useMemo(() => {
+  //   if (!selectedDate) return [];
+
+  //   const slot = availableSlots.find(s =>
+  //     isSameDay(parseISO(s.date), selectedDate)
+  //   );
+
+  //   return slot?.times ?? [];
+  // }, [selectedDate, availableSlots]);
+
+  const isDayDisabled = (date: Date) => {
+    const today = startOfToday();
+    if (isBefore(date, today)) return true;
+
+    const slot = availableSlots.find(s =>
+      isSameDay(parseISO(s.date), date)
+    );
+
+    return slot?.isFull ?? false;
+  };
+
+  // ✅ Update available times when user selects a date
+  useEffect(() => {
+    if (!selectedBookingStartTime) {
+      setSelectedTime(null);
+      return;
+    }
+
+    const time = new Date(selectedBookingStartTime).toLocaleTimeString(
+      "en-NG",
+      {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZone: "Africa/Lagos",
+      }
+    );
+
+    setSelectedTime(time);
+  }, [selectedBookingStartTime]);
   useEffect(() => {
     // Register this child’s custom proceed handler
     setOnProceed(() => () => {
@@ -179,12 +209,19 @@ const BookingCalendar = ({
           Select available date
         </h2>
 
-        <div className='rounded-xl border border-white p-3 shadow-md transition-shadow duration-200 hover:shadow-lg [&_.react-datepicker]:w-full [&_.react-datepicker]:max-w-full [&_.react-datepicker__day]:flex-1 [&_.react-datepicker__day]:!text-center [&_.react-datepicker__day--disabled]:!text-gray-300 [&_.react-datepicker__day--disabled]:!line-through [&_.react-datepicker__day--selected]:!bg-black [&_.react-datepicker__day--selected]:!text-white [&_.react-datepicker__day:hover]:!bg-black [&_.react-datepicker__day:hover]:!text-white [&_.react-datepicker__header]:!bg-black [&_.react-datepicker__header]:!text-white [&_.react-datepicker__month]:w-full [&_.react-datepicker__month]:max-w-full [&_.react-datepicker__month-container]:w-full [&_.react-datepicker__month-container]:max-w-full [&_.react-datepicker__week]:flex [&_.react-datepicker__week]:!w-full [&_.react-datepicker__week]:!justify-between'>
-          <DatePicker
+
+        {isFetching ? <p className="text-white">Fetching booking calendar...</p>
+          : <div className='rounded-xl border border-white p-3 shadow-md transition-shadow duration-200 hover:shadow-lg [&_.react-datepicker]:w-full [&_.react-datepicker]:max-w-full [&_.react-datepicker__day]:flex-1 [&_.react-datepicker__day]:!text-center [&_.react-datepicker__day--disabled]:!text-gray-300 [&_.react-datepicker__day--disabled]:!line-through [&_.react-datepicker__day--selected]:!bg-black [&_.react-datepicker__day--selected]:!text-white [&_.react-datepicker__day:hover]:!bg-black [&_.react-datepicker__day:hover]:!text-white [&_.react-datepicker__header]:!bg-black [&_.react-datepicker__header]:!text-white [&_.react-datepicker__month]:w-full [&_.react-datepicker__month]:max-w-full [&_.react-datepicker__month-container]:w-full [&_.react-datepicker__month-container]:max-w-full [&_.react-datepicker__week]:flex [&_.react-datepicker__week]:!w-full [&_.react-datepicker__week]:!justify-between'> <DatePicker
             selected={selectedDate}
             onChange={date => setSelectedDate(date)}
             filterDate={date => !isDayDisabled(date)} // disables past & full days
             inline
+            onMonthChange={date =>
+              setVisibleMonth({
+                year: getYear(date),
+                month: getMonth(date),
+              })
+            }
             renderCustomHeader={CustomHeader}
             locale={enUS}
             calendarStartDay={1} // Start week on Monday
@@ -196,6 +233,7 @@ const BookingCalendar = ({
             className='w-full rounded-lg border border-white bg-black px-3 py-2 text-center text-white'
           />
         </div>
+        }
       </div>
 
       {/* display date and time selected  */}

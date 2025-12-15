@@ -25,9 +25,9 @@ const PageMessage = ({
       <BaseIcons value='cancel-solid-red' />
     );
   return (
-    <div className='flex w-full flex-col items-center justify-center gap-4 text-center sm:w-[550px]'>
+    <div className='flex w-full flex-col items-center text-white justify-center gap-4 text-center sm:w-[550px]'>
       <div>{icon}</div>
-      <h1 className='font-semibold sm:text-[42px]'>{messageHeader}</h1>
+      <h1 className='font-semibold sm:text-[42px] '>{messageHeader}</h1>
       <p>{messageParagraph}</p>
       {btnText && (
         <LinkButton

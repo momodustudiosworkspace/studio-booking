@@ -19,6 +19,9 @@ const ChooseBookingSession = ({
 
   const { data, isLoading } = useGetSessionsQuery();
 
+  console.log("Session Page: ", isLoading, data);
+
+
   const BOOKING_SESSIONS: ISession[] = data?.data || [];
 
   return (
