@@ -113,7 +113,7 @@ export default function Navbar() {
       >
         <div className='flex lg:flex-1'>
           <Link href='/web' className='-m-1.5 p-1.5'>
-            <span className='sr-only'>Your Company</span>
+            <span className='sr-only'>Momodu Studios</span>
             {/* <Image
               width={100}
               height={100}
@@ -392,12 +392,24 @@ export default function Navbar() {
                 </Popover>
               </div>
               <div className='py-6'>
-                <a
+                {userAuth.isLoggedIn ? <button
+                  className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5'
+                  onClick={() => {
+                    // setTimeout(() => {
+                    //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
+                    // }, 500)
+                    dispatch(userLogOut());
+
+                    signOut({ callbackUrl: "/auth" });
+                  }} >
+                  Log out
+                </button> : <Link
                   href='/auth'
                   className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5'
                 >
                   Log in
-                </a>
+                </Link>}
+
               </div>
             </div>
           </div>

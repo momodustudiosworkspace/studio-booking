@@ -32,7 +32,7 @@ export default async function Layout({
       <div className='flex h-[80px] max-w-screen justify-center bg-white'>
         <Navbar />
       </div>
-      <div className='mt-10 flex max-w-screen justify-center'>
+      <div className='sm:mt-10 mt-32 flex max-w-screen justify-center'>
         <div className='flex w-[1800px] items-start gap-5 px-4 pb-32 sm:px-20'>
           <DashboardSideBar />
           <div className='max-h-screen w-full sm:overflow-y-scroll'>
