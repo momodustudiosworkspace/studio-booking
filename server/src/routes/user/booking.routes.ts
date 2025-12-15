@@ -7,6 +7,7 @@ import {
   updateBooking,
   bookingImagesUpload,
   uploadBookingImages,
+  getCalendarBookings,
 } from "../../controllers/user/booking.controllers";
 import authMiddleWare from "../../middlewares/auth.middleware";
 
@@ -97,6 +98,7 @@ router.post("/", authMiddleWare, createBooking);
  *         description: Server error
  */
 router.get("/", authMiddleWare, getUserBookings);
+router.get("/calendar", getCalendarBookings);
 
 /**
  * @openapi

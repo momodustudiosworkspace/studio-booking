@@ -199,3 +199,58 @@ export async function uploadBookingImages(req: any, res: Response) {
     return res.status(500).json({ message: "Image upload failed", error });
   }
 };
+
+export const getCalendarBookings = async (req: any, res: Response) => {
+  const year = Number(req.query.year);
+  const month = Number(req.query.month); // 0–11
+
+  if (Number.isNaN(year) || Number.isNaN(month)) {
+    return res.status(400).json({ message: "Invalid year or month" });
+  }
+
+  const start = new Date(Date.UTC(year, month, 1));
+  const end = new Date(Date.UTC(year, month + 1, 1));
+
+  const slots = await Booking.aggregate([
+    {
+      $match: {
+        status: { $ne: "cancelled" },
+        date: { $gte: start, $lt: end },
+      },
+    },
+    {
+      $addFields: {
+        bookingDate: {
+          $dateToString: {
+            format: "%Y-%m-%d",
+            date: "$date",
+          },
+        },
+        bookingTime: {
+          $dateToString: {
+            format: "%H:%M",
+            date: "$startTime",
+          },
+        },
+      },
+    },
+    {
+      $group: {
+        _id: "$bookingDate",
+        times: { $addToSet: "$bookingTime" },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        date: "$_id",
+        times: 1,
+        isFull: { $gte: [{ $size: "$times" }, 10] },
+      },
+    },
+    { $sort: { date: 1 } },
+  ]);
+
+  return res.json(slots);
+};
+

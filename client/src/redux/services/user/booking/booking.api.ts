@@ -2,6 +2,7 @@
 
 import { baseApi } from "../../api";
 import {
+  BookingSLotsCalendar,
   BookingType,
   BookingTypeRequest,
   BookingTypeResponse,
@@ -46,6 +47,16 @@ export const bookingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Bookings"],
     }),
+      getCalendarBookings: builder.query<
+      BookingSLotsCalendar[],
+      { year: number; month: number }
+    >({
+      query: ({ year, month }) =>
+        `/bookings/calendar?year=${year}&month=${month}`,
+      providesTags: (_result, _error, arg) => [
+        { type: "Bookings", id: `calendar-${arg.year}-${arg.month}` },
+      ],
+    }),
   }),
   overrideExisting: true,
 });
@@ -56,5 +67,6 @@ export const {
   useCreateBookingMutation,
   useUpdateBookingMutation,
   useDeleteBookingMutation,
+  useGetCalendarBookingsQuery,
   usePrefetch,
 } = bookingApi;

@@ -36,3 +36,9 @@ export interface BookingTypeRequest {
   booking: BookingType;
   id: string;
 }
+
+export interface BookingSLotsCalendar{
+  date: string;
+  times: string[];
+  isFull: boolean;
+}
