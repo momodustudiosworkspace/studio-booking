@@ -34,7 +34,7 @@ const Portfolio = (): React.JSX.Element => {
     },
   ];
   return (
-    <section>
+    <section className="mx-auto max-w-7xl px-6 lg:px-8">
       <div className='flex flex-col sm:hidden'>
         <SectionHeader
           variation='dark'

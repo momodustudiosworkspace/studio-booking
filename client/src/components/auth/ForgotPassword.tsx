@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useSendOtpMutation } from "@/redux/services/user/auth/auth.api";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
+import Link from "next/link";
 
 const ForgotPassword = (): React.JSX.Element => {
   const router = useRouter();
@@ -66,7 +67,9 @@ const ForgotPassword = (): React.JSX.Element => {
               />
             </div>
 
-            <div className='flex w-full justify-end'>
+            <div className='flex w-full justify-between items-center'>
+              <Link href="/auth" className="underline"
+              >Back to Login</Link>
               <Button
                 text='Proceed'
                 onClick={() => {

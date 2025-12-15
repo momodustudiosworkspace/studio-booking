@@ -144,9 +144,9 @@ export default function Page() {
         </div>
 
         {/* Portfolio  */}
-        <div className='flex w-full flex-col items-center bg-black px-5 py-10 text-white'>
+        <div className='flex w-full flex-col items-center bg-black py-10 text-white '>
           <Portfolio />
-          <div className='mt-10 grid w-full grid-cols-1 gap-8 pr-24 pl-5 sm:w-[1440px] sm:grid-cols-4 sm:gap-x-20'>
+          <div className='mt-10 grid w-full grid-cols-1 gap-8 pr-24 pl-5 mx-auto max-w-7xl px-6 lg:px-8 sm:grid-cols-4 sm:gap-x-20'>
             {BOOK_SESSION.map((book, key) => (
               <div key={key} className='flex flex-col gap-2'>
                 <h3 className='text-[16px] font-semibold capitalize'>
@@ -289,7 +289,7 @@ export default function Page() {
         </div> */}
 
         {/* FAQs  */}
-        <div className='w-full px-5 sm:w-[1440px]'>
+        <div className='w-full mx-auto max-w-7xl px-6 lg:px-8'>
           <div className='mt-10 mb-10 sm:mb-20'>
             <Faqs />
           </div>

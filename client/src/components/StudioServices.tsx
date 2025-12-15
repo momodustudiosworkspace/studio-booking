@@ -86,7 +86,7 @@ const peopleOnline = [
 ];
 const StudioServices = () => {
   return (
-    <div className='mx-5 flex max-w-7xl flex-col gap-8 rounded-lg sm:mx-auto sm:flex-row lg:p-8'>
+    <div className='mx-5 mb-20 flex max-w-7xl flex-col gap-8 rounded-lg sm:mx-auto sm:flex-row lg:p-8'>
       <div>
         <h1 className='text-4xl font-bold'>Quick Access</h1>
         <h1 className='mb-5 text-4xl font-bold'>to Studio Services</h1>

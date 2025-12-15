@@ -177,7 +177,7 @@ const AuthForm = ({
             </div>
           )}
 
-          <div className='mt-20 flex flex-col gap-2'>
+          <div className='mt-20 mb-10 flex flex-col gap-2'>
             <h1 className='text-[28px] font-extrabold'>{headerText}</h1>
             {!adminAuth && (
               <div className='flex items-center gap-1'>
