@@ -8,6 +8,8 @@ export interface IUser extends Document {
   image: string;
   isVerified: boolean;
   isMember: boolean;
+  phoneNumber: string;
+  address: string;
   isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -23,6 +25,8 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
     passwordHash: { type: String, required: false },
     image: {type: String, required: false},
     isVerified: { type: Boolean, required: false, default:false },
+    phoneNumber: { type: String, required: false, default:"Update phone number" },
+    address: { type: String, required: false, default:"Update delivery address" },
   },
   {
     timestamps: true,
