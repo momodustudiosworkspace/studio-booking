@@ -84,9 +84,9 @@ const DashboardBookings = () => {
           {TABS.map(tab => (
             <button
               key={tab.index}
-              className={`pb-1 text-sm font-medium capitalize ${
+              className={`pb-1 text-sm font-medium  text-white capitalize ${
                 currentTab === tab.index
-                  ? "border-b-[3px] border-black font-semibold"
+                ? "border-b-[3px] border-white font-semibold"
                   : ""
               }`}
               onClick={() => setCurrentTab(tab.index)}

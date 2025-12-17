@@ -53,9 +53,9 @@ const PRODUCTS_LIST = [
     icon: FaceSmileIcon,
   },
   {
-    name: "Studio Academy",
+    name: "Online Studio Course",
     description: "Join a community of talented craftmanship",
-    href: "#",
+    href: "https://thehustleinstitute.com/",
     icon: BookmarkSquareIcon,
   },
   {
@@ -85,19 +85,19 @@ const PROFILE_LINKS = [
     href: "/dashboard/profile-settings",
     icon: FaceSmileIcon,
   },
-  {
-    name: "Help",
-    description: "Join a community of talented craftmanship to find help",
-    href: "/dashboard",
-    icon: BookmarkSquareIcon,
-  },
+  // {
+  //   name: "Help",
+  //   description: "Join a community of talented craftmanship to find help",
+  //   href: "/dashboard",
+  //   icon: BookmarkSquareIcon,
+  // },
 ];
 const callsToAction = [
-  { name: "Youtube Channel", href: "#", icon: PlayCircleIcon },
+  { name: "Youtube Channel", href: "https://www.youtube.com/channel/UCw21vvzOUnqDX5tR9E15YmA", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 const profileCallsToAction = [
-  { name: "Youtube Channel", href: "#", icon: PlayCircleIcon },
+  { name: "Youtube Channel", href: "https://www.youtube.com/channel/UCw21vvzOUnqDX5tR9E15YmA", icon: PlayCircleIcon, type: "link" },
   { name: "log out", href: "#", icon: PhoneIcon },
 ];
 
@@ -244,9 +244,19 @@ export default function Navbar() {
                 </div>
                 <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
                   {profileCallsToAction.map(item => (
-                    <button
+
+                    <div
+
                       key={item.name}
                       className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
+
+                    >
+                      {
+                        item.type === "link" ? <Link href={item.href}>{item.name}</Link> :
+
+                          <button
+                            className='flex items-center justify-center gap-x-2.5 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
+
                       onClick={() => {
                         dispatch(userLogOut());
                         signOut({ callbackUrl: "/auth" });
@@ -259,6 +269,9 @@ export default function Navbar() {
                       />
                       {item.name}
                     </button>
+
+                      }
+                    </div>
                   ))}
                 </div>
               </PopoverPanel>

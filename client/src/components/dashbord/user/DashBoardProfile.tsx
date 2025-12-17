@@ -82,6 +82,121 @@ const DashboardProfile = () => {
         href: "/bookings",
       }}
     >
+      <div className="bg-black rounded-lg p-4">
+        <div className='flex flex-col items-center gap-2 sm:flex-row mb-10'>
+          {BOOKING_DATA.map(booking => {
+            return (
+              <div
+                key={booking.title}
+                className='w-full rounded-lg bg-black border-gray-400 border-1 text-white px-5 py-5 sm:h-[104px]'
+              >
+                <p className='font-medium capitalize sm:text-[14px]'>
+                  {booking.title}
+                </p>
+                <h1 className='text-[40px] font-bold'>{booking.count}</h1>
+              </div>
+            );
+          })}
+        </div>
+        <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
+          <div className='flex h-[74px] w-[74px] items-center justify-center rounded-full bg-white text-[31px] font-semibold text-black uppercase sm:h-[94px] sm:w-[94px] sm:text-[40px]'>
+            {userprofile?.user &&
+              (userprofile?.user.first_name ? (
+                <span>
+                  {userprofile?.user.first_name?.slice(0, 1)}
+                  {userprofile?.user.last_name?.slice(0, 1)}
+                </span>
+              ) : (
+                <span>
+                  {userprofile?.user.email?.slice(0, 1)}
+                  {userprofile?.user.email?.slice(1, 2)}
+                </span>
+              ))}
+          </div>
+          <div className=''>
+            <h1
+              className={`mb-2 w-[200px] truncate text-[24px] text-white font-semibold sm:w-[300px] ${userprofile?.user?.first_name ? "capitalize" : ""}`}
+            >
+              {userprofile?.user?.first_name
+                ? `${userprofile?.user?.first_name} ${userprofile?.user?.last_name}`
+                : userprofile?.user?.email}
+            </h1>
+            <p className='mb-1 w-[200px] truncate text-sm font-medium text-[#414141] sm:w-[300px] sm:text-[16px]'>
+              {userprofile?.user?.email}
+            </p>
+            <p className='font-medium text-[#414141] sm:text-[16px]'>
+              +234 {userprofile?.user?.phoneNumber?.slice(1,)}
+            </p>
+          </div>
+        </div>
+        <div className="">
+          <h3 className="text-base/7 font-semibold text-white">Applicant Information</h3>
+          <p className="mt-1 max-w-2xl text-sm/6 text-gray-400">Personal details and application.</p>
+        </div>
+        <div className="mt-6 border-t border-white/10">
+          <dl className="divide-y divide-white/10">
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Full name</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.first_name} {userprofile?.user.last_name}</dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Phone Number</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.phoneNumber}</dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Email address</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.email}</dd>
+            </div>
+            {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Salary expectation</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">$120,000</dd>
+            </div> */}
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Delivery Address</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">
+                {userprofile?.user.address}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Account Verification Status</dt>
+              <dd className="mt-1 text-sm text-white sm:col-span-2 sm:mt-0">
+                {userprofile?.user.isMember ? "Account verified" : <button>Verify Account</button>}
+                {/* <ul role="list" className="divide-y divide-white/5 rounded-md border border-white/10">
+                  <li className="flex items-center justify-between py-4 pr-5 pl-4 text-sm/6">
+                    <div className="flex w-0 flex-1 items-center">
+                      <PaperClipIcon aria-hidden="true" className="size-5 shrink-0 text-gray-500" />
+                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
+                        <span className="truncate font-medium text-white">resume_back_end_developer.pdf</span>
+                        <span className="shrink-0 text-gray-500">2.4mb</span>
+                      </div>
+                    </div>
+                    <div className="ml-4 shrink-0">
+                      <a href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
+                        Download
+                      </a>
+                    </div>
+                  </li>
+                  <li className="flex items-center justify-between py-4 pr-5 pl-4 text-sm/6">
+                    <div className="flex w-0 flex-1 items-center">
+                      <PaperClipIcon aria-hidden="true" className="size-5 shrink-0 text-gray-500" />
+                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
+                        <span className="truncate font-medium text-white">coverletter_back_end_developer.pdf</span>
+                        <span className="shrink-0 text-gray-500">4.5mb</span>
+                      </div>
+                    </div>
+                    <div className="ml-4 shrink-0">
+                      <a href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
+                        Download
+                      </a>
+                    </div>
+                  </li>
+                </ul> */}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
       <section className='w-full rounded-lg border-[1px] border-[#F8F8F8] bg-white px-5 py-7 shadow sm:p-10'>
         {/* user data  */}
         <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
@@ -368,6 +483,8 @@ const DashboardProfile = () => {
           </div>
         </div>
       </section>
+
+
     </DashboardLayout>
   );
 };

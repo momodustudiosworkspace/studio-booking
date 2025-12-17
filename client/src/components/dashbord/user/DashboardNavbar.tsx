@@ -6,7 +6,7 @@ import {
 import { useAppDispatch } from "@/hooks/hooks";
 // import { baseApi } from "@/redux/services/api";
 import { userLogOut } from "@/redux/slices/authSlice";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -16,6 +16,8 @@ import MomoduWhite from "@/assets/icons/MomoduWhite";
 
 const DashboardNavbar = () => {
   const dispatch = useAppDispatch();
+
+  const { data: session } = useSession()
 
   const navigation = [
     {
@@ -28,6 +30,11 @@ const DashboardNavbar = () => {
          name: "Bookings",
          icon: "camera-solid-black" as IconsType,
        },
+    {
+      href: "/dashboard/notifications",
+      name: "Notifications",
+      icon: "camera-solid-black" as IconsType,
+    },
       //  {
       //    href: "/dashboard/profile-settings",
       //    name: "Profile",
@@ -48,8 +55,8 @@ const DashboardNavbar = () => {
     }},
   ]
   const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
+    name: `${session?.user.first_name} ${session?.user.first_name}`,
+    email: session?.user.email,
     imageUrl:
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   }

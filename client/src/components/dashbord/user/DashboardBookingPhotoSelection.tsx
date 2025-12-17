@@ -48,7 +48,7 @@ const DashboardBookingPhotoSelection = ({
   }, [selectedPhotos, setTotalSelectedPhotos]);
 
   return (
-    <div className='grid w-full grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-4'>
+    <div className='grid w-full grid-cols-2 gap-x-2 gap-y-2 sm:grid-cols-5'>
       {photos.map((photo, index) => {
         const isSelected = selectedPhotos.includes(index);
         const selectionNumber = isSelected
@@ -58,7 +58,7 @@ const DashboardBookingPhotoSelection = ({
         return (
           <div
             key={index}
-            className={`group relative w-full overflow-hidden rounded-lg transition-all duration-300 hover:cursor-pointer sm:ml-4 sm:h-[420px] sm:w-[310px]`}
+            className={`group relative w-full overflow-hidden rounded-lg transition-all duration-300 hover:cursor-pointer sm:h-[320px] sm:w-[229px] `}
           >
             <Image
               src={photo}

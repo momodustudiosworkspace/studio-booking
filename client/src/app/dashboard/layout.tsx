@@ -26,13 +26,13 @@ export default async function Layout({
   }
   return (
     <section
-      className={`font-montserrat flex min-h-screen w-full flex-col bg-[#FAFAFA]`}
+      className={`font-montserrat flex min-h-screen w-full bg-black flex-col`}
     >
       <div className='w-full flex-col'>
         <div className='flex justify-center items-center bg-black w-full flex-col'>
           <DashboardNavbar />
         </div>
-        <div className='max-h-screen sm:overflow-y-scroll'>
+        <div className='max-h-screen sm:overflow-y-scroll bg-black'>
           {children}
         </div>
 

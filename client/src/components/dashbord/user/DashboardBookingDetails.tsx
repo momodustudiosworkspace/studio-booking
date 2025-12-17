@@ -67,16 +67,7 @@ const DashboardBookingDetails = ({
 
   }
   return (
-    <div className='-mt-24'>
-      <button
-        className='flex h-[32px] w-[32px] items-center justify-center rounded-full bg-white'
-        onClick={() => {
-          redirect("/dashboard/bookings");
-        }}
-      >
-        <DashboardIcons value='arrow-left-outlined-black' />
-      </button>
-
+    <div className=''>
       <DashboardLayout
         headerProps={{
           // headerText: "potrait session- ms1234",
@@ -90,6 +81,14 @@ const DashboardBookingDetails = ({
           href: "/",
         }}
       >
+        <button
+          className='flex h-[32px] mb-10 w-[32px] items-center justify-center rounded-full bg-white'
+          onClick={() => {
+            redirect("/dashboard/bookings");
+          }}
+        >
+          <DashboardIcons value='arrow-left-outlined-black' />
+        </button>
         <div className='flex flex-col-reverse gap-2 sm:flex-row'>
           {/* Timeline  */}
           <div className='h-[720px] w-full rounded-lg bg-white p-4 shadow sm:h-[610px] sm:w-[50%]'>
@@ -171,7 +170,7 @@ const DashboardBookingDetails = ({
         </div>
 
         {/* Photo selection and download  */}
-        <div className='rounded-lg bg-white py-5 sm:px-5'>
+        <div className='rounded-lg bg-white py-5 sm:px-5 mt-2'>
           <div className='mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
             <DashboardHeader
               headerText={`${timeLineLevel < 6 ? "proof gallery" : "final images"}`}

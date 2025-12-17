@@ -30,13 +30,13 @@ const BookingCard = ({
 }: BookingCardProps) => {
   const statusStyle =
     status === "cancelled"
-      ? "bg-red-200 text-red-500"
+      ? "bg-red-500"
       : status === "pending"
         ? "bg-[#0362001A] text-[#036200]"
         : status === "confirmed"
           ? "bg-blue-300 text-blue-600"
           : status === "completed"
-            ? "bg-[#0362001A] text-[#036200]"
+            ? "bg-green-700 text-white"
             : "";
   const statusText =
     status === "cancelled"
@@ -49,7 +49,7 @@ const BookingCard = ({
             ? "confirmed"
             : "";
   return (
-    <div className='flex flex-col justify-between gap-3 rounded-md bg-white p-4 shadow sm:flex-row sm:items-center sm:gap-0'>
+    <div className='flex flex-col justify-between gap-3 rounded-md border-gray-400 border-1 text-white p-4 shadow sm:flex-row sm:items-center sm:gap-0'>
       {/* Booking Details  */}
       <div className='flex shrink-0 gap-4 sm:w-[500px] sm:items-center'>
         <div

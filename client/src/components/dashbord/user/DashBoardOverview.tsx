@@ -149,7 +149,7 @@ const DashBoardOverview = () => {
         <div className='flex flex-col gap-4'>
           <DashboardHeader
             headerText='quick actions'
-            paragraph='Lorem ipsum dolor sit amet consectetur.'
+            paragraph='Book, get quotations and send messages to studio quickly'
           />
           <div className='mb-14 flex flex-col items-center gap-4 sm:flex-row'>
             {BOOKING_QUICK_LINKS_CARDS.map((card, key) => {

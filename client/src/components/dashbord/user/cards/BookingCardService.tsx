@@ -14,7 +14,7 @@ const BookingCardService = ({
   href,
 }: BookingCardServiceprops) => {
   return (
-    <div className='flex min-h-[297px] w-full flex-col gap-3 rounded-md bg-white p-4 shadow sm:w-[335px]'>
+    <div className='flex min-h-[297px] w-full flex-col gap-3 rounded-md bg-white p-4 shadow sm:w-[290px]'>
       <Image
         src='/home/hero-section-one.png'
         alt='/'
