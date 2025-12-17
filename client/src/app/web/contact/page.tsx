@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <section className='flex min-h-screen w-full justify-center sm:pt-5'>
+    <section className='flex min-h-screen w-full justify-center sm:pt-20'>
       <section className='w-full sm:w-[1440px]'>
         <div className='flex flex-col gap-10 px-5 py-10 sm:px-0'>
           <div className='flex flex-col items-end sm:flex-row sm:justify-between'>
@@ -29,8 +29,8 @@ export default function Page() {
                 <div className='flex flex-col sm:flex-row sm:gap-20'>
                   <div className='mb-8'>
                     <span className='text-[#414141]'>call center</span>
-                    <p className='text-[19px] font-medium'>09169305000</p>
-                    <p className='text-[19px] font-medium'>09169305000</p>
+                    <p className='text-[19px] font-medium'>+234 816 524 7800</p>
+                    <p className='text-[19px] font-medium'>+234 816 524 7800</p>
                   </div>
                   <div className='mb-8'>
                     <span className='text-[#414141]'>Email address</span>
@@ -38,7 +38,7 @@ export default function Page() {
                       admin@momodustudios.com
                     </p>
                     <p className='text-[19px] font-medium'>
-                      scoails@momodustudios.com
+                      socials@momodustudios.com
                     </p>
                   </div>
                 </div>

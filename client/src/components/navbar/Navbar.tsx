@@ -161,13 +161,13 @@ export default function Navbar() {
                       />
                     </div>
                     <div className='flex-auto'>
-                      <a
+                      <Link
                         href={item.href}
                         className='block font-semibold text-white'
                       >
                         {item.name}
                         <span className='absolute inset-0' />
-                      </a>
+                      </Link>
                       <p className='mt-1 text-gray-400'>{item.description}</p>
                     </div>
                   </div>
@@ -175,7 +175,7 @@ export default function Navbar() {
               </div>
               <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
                 {callsToAction.map(item => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
                     className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
@@ -185,21 +185,21 @@ export default function Navbar() {
                       className='size-5 flex-none text-gray-500'
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </PopoverPanel>
           </Popover>
 
-          <a href='#' className='text-sm/6 font-semibold text-white'>
+          <Link href='#' className='text-sm/6 font-semibold text-white'>
             Features
-          </a>
-          <a href='#' className='text-sm/6 font-semibold text-white'>
+          </Link>
+          <Link href='https://www.momodustudios.com/pages/merch' className='text-sm/6 font-semibold text-white'>
             Marketplace
-          </a>
-          <a href='#' className='text-sm/6 font-semibold text-white'>
+          </Link>
+          <Link href='#' className='text-sm/6 font-semibold text-white'>
             Company
-          </a>
+          </Link>
         </PopoverGroup>
 
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
@@ -230,13 +230,13 @@ export default function Navbar() {
                         />
                       </div>
                       <div className='flex-auto'>
-                        <a
+                        <Link
                           href={item.href}
                           className='block font-semibold text-white'
                         >
                           {item.name}
                           <span className='absolute inset-0' />
-                        </a>
+                        </Link>
                         <p className='mt-1 text-gray-400'>{item.description}</p>
                       </div>
                     </div>
@@ -328,24 +328,24 @@ export default function Navbar() {
                     ))}
                   </DisclosurePanel>
                 </Disclosure>
-                <a
+                <Link
                   href='#'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5'
                 >
                   Features
-                </a>
-                <a
-                  href='#'
+                </Link>
+                <Link
+                  href='https://www.momodustudios.com/pages/merch'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5'
                 >
                   Marketplace
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5'
                 >
                   Company
-                </a>
+                </Link>
                 <Popover className='relative'>
                   <PopoverButton className='flex items-center gap-x-1 border-none font-semibold text-white outline-none focus:border-none focus:outline-none'>
                     Profile
@@ -372,13 +372,13 @@ export default function Navbar() {
                             />
                           </div>
                           <div className='flex-auto'>
-                            <a
+                            <Link
                               href={item.href}
                               className='block font-semibold text-white'
                             >
                               {item.name}
                               <span className='absolute inset-0' />
-                            </a>
+                            </Link>
                             <p className='mt-1 text-gray-400'>
                               {item.description}
                             </p>
@@ -388,7 +388,7 @@ export default function Navbar() {
                     </div>
                     <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
                       {callsToAction.map(item => (
-                        <a
+                        <Link
                           key={item.name}
                           href={item.href}
                           className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
@@ -398,7 +398,7 @@ export default function Navbar() {
                             className='size-5 flex-none text-gray-500'
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </PopoverPanel>
