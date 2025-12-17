@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/navbar/Navbar";
-import DashboardSideBar from "@/components/dashbord/user/DashboardSideBar";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import DashboardNavbar from "@/components/dashbord/user/DashboardNavbar";
 // import { getServerSession } from "next-auth";
 // import { redirect } from "next/navigation";
 // import { authOptions } from "../api/auth/[...nextauth]/route";
@@ -27,18 +26,16 @@ export default async function Layout({
   }
   return (
     <section
-      className={`font-montserrat flex min-h-screen w-full flex-col bg-[#FAFAFA]`}
+      className={`font-montserrat flex min-h-screen w-full bg-black flex-col`}
     >
-      <div className='flex h-[80px] max-w-screen justify-center bg-white'>
-        <Navbar />
-      </div>
-      <div className='sm:mt-10 mt-32 flex max-w-screen justify-center'>
-        <div className='flex w-[1800px] items-start gap-5 px-4 pb-32 sm:px-20'>
-          <DashboardSideBar />
-          <div className='max-h-screen w-full sm:overflow-y-scroll'>
-            {children}
-          </div>
+      <div className='w-full flex-col'>
+        <div className='flex justify-center items-center bg-black w-full flex-col'>
+          <DashboardNavbar />
         </div>
+        <div className='max-h-screen sm:overflow-y-scroll bg-black'>
+          {children}
+        </div>
+
       </div>
     </section>
   );

@@ -120,7 +120,7 @@ const DashboardPayment = () => {
           booking={payment.booking}
           reference={payment.reference}
           amount={payment.amount}
-          status={payment.status === "success" ? "completed" : "pending"}
+          status={payment.status}
           paidAt={payment.paidAt}
         />
       </div>

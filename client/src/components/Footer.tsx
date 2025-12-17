@@ -40,7 +40,7 @@ const Footer = (): React.JSX.Element => {
       title: "contacts",
       links: [
         {
-          text: "15 Adeyemi Street, Victoria Island, Lagos, Nigeria",
+          text: "C1, Melita Plaza, Gimbiya Street, Garki, Area 11, Abuja, Nigeria",
           href: "",
         },
         {
@@ -48,7 +48,7 @@ const Footer = (): React.JSX.Element => {
           href: "",
         },
         {
-          text: "+234 800 123 4567",
+          text: "+234 816 524 7800",
           // call: true,
           href: "",
         },
@@ -160,7 +160,7 @@ const Footer = (): React.JSX.Element => {
         </div>
 
         {/* Desktop footer form  */}
-        <div className='absolute right-[230px] bottom-40 hidden sm:flex'>
+        {/* <div className='hidden sm:flex'>
           <Formik
             initialValues={{ email: "" }}
             onSubmit={async values => {
@@ -194,7 +194,7 @@ const Footer = (): React.JSX.Element => {
               </Form>
             )}
           </Formik>
-        </div>
+        </div> */}
 
         <div className='flex w-full flex-col items-center border-t-[1px] border-gray-800 sm:w-[1440px] sm:flex-row sm:justify-between sm:pt-5'>
           <div>

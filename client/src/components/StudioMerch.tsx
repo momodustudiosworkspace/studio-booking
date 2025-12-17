@@ -1,4 +1,6 @@
+import { ArrowLongRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const products = [
@@ -81,6 +83,9 @@ const StudioMerch = () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="mt-10">
+          <Link href={"https://www.momodustudios.com/pages/merch"} className="flex items-center gap-2">See more <ArrowLongRightIcon aria-hidden='true' className='size-6' /></Link>
         </div>
       </div>
     </div>

@@ -5,6 +5,8 @@ export interface UserTypesResponse {
   email?: string;
   totalBookings?: number;
   isMember?: string;
+  address?: string;
+  phoneNumber?: string;
   isAdmin?: boolean;
   createdAt?: string;
   updatedAt?: Date;
@@ -26,4 +28,18 @@ export interface UserSubscriptionEmailRequest {
 export interface UserSubscriptionEmailResponse {
   message: string;
   status: string;
+}
+
+export interface UpdateUserProfileResponse {
+  status: "success";
+  message: string;
+  user: UserTypesResponse;
+}
+
+export interface UpdateUserProfileRequest {
+  first_name?: string;
+  last_name?: string;
+  phoneNumber?: string;
+  address?: string;
+  image?: string;
 }

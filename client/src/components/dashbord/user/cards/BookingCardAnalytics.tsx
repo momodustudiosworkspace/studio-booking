@@ -30,7 +30,7 @@ const BookingCardAnalytics = ({
           ? "bg-blue-300"
           : "bg-[#FAFAFA]";
   return (
-    <div className='h-[188px] w-full rounded-md bg-white p-5 shadow'>
+    <div className='h-[188px] w-full rounded-md text-white border-gray-400 border-1 p-5 shadow'>
       <div
         className={`${bgStatus} mb-5 flex h-[40px] w-[40px] items-center justify-center rounded-full`}
       >

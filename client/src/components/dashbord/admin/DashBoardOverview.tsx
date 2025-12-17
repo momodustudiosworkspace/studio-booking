@@ -174,7 +174,7 @@ const DashBoardOverview = () => {
                     <BookingCard
                       key={booking._id}
                       id={booking._id}
-                      client_name={booking.user}
+                      client_name={booking.user_fullnames}
                       location={booking.location?.address}
                       date={formatDate(booking.startTime)}
                       startTime={formatTime(booking.startTime)}

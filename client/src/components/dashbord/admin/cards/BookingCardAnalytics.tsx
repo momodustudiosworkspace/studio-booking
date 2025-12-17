@@ -1,6 +1,6 @@
 import React from "react";
 import nairaSymbol from "@/utils/symbols";
-import { Field, Form, Formik } from "formik";
+// import { Field, Form, Formik } from "formik";
 
 interface BookingCardAnalyticsProps {
   title: string;
@@ -22,7 +22,7 @@ const BookingCardAnalytics = ({
           {dataType === 1 && nairaSymbol()}
           {count.toLocaleString()}
         </h1>
-        {dataType === 1 && (
+        {/* {dataType === 1 && (
           <Formik
             initialValues={{
               filter_date: "",
@@ -43,7 +43,7 @@ const BookingCardAnalytics = ({
               </Field>
             </Form>
           </Formik>
-        )}
+        )} */}
       </div>
       <div className='text-sm font-semibold'>{text}</div>
     </div>

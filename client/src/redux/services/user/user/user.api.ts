@@ -1,4 +1,6 @@
 import {
+  UpdateUserProfileRequest,
+  UpdateUserProfileResponse,
   UserProfileTypesResponse,
   UserSubscriptionEmailRequest,
   UserSubscriptionEmailResponse,
@@ -10,8 +12,20 @@ export const userApi = baseApi.injectEndpoints({
     getUserProfile: builder.query<UserProfileTypesResponse, void>({
       query: () => "/user",
       providesTags: ["Profile"],
+    }), 
+     updateUserProfile: builder.mutation<
+      UpdateUserProfileResponse,
+      UpdateUserProfileRequest
+    >({
+      query: (body) => ({
+        url: "/user",
+        method: "PUT",
+        body,
+      }),
+      
+      invalidatesTags: ["Profile"],
     }),
-    sendUserSubscriptionEmail: builder.mutation<
+      sendUserSubscriptionEmail: builder.mutation<
       UserSubscriptionEmailResponse,
       UserSubscriptionEmailRequest
     >({
@@ -22,8 +36,8 @@ export const userApi = baseApi.injectEndpoints({
       }),
     }),
   }),
-  overrideExisting: false,
+  overrideExisting: true,
 });
 
-export const { useGetUserProfileQuery, useSendUserSubscriptionEmailMutation } =
+export const { useGetUserProfileQuery,useUpdateUserProfileMutation, useSendUserSubscriptionEmailMutation } =
   userApi;

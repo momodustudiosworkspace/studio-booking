@@ -12,6 +12,7 @@ import Faqs from "@/components/Faqs";
 import Hero from "@/components/Hero";
 import JoinStudioCommunity from "@/components/JoinStudioCommunity";
 import MediaSpaceAlert from "@/components/MediaSpaceAlert";
+import NewsLetter from "@/components/NewsLetter";
 import PodcastSession from "@/components/PodcastSession";
 import Portfolio from "@/components/Portfolio";
 import PricingList from "@/components/PricingList";
@@ -88,14 +89,17 @@ export default function Page() {
           {/* Podcast Session  */}
           <PodcastSession />
 
+          {/* NewsLetter  */}
+          <NewsLetter />
+
+          {/* Studio merch  */}
+          <StudioMerch />
+
           {/* Join our studio community  */}
           <JoinStudioCommunity />
 
           {/* Media Alert  */}
           <MediaSpaceAlert />
-
-          {/* Studio merch  */}
-          <StudioMerch />
 
           {/* Studio Services */}
           <StudioServices />

@@ -1,22 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import DashboardLayout from "./DashboardLayout";
 import { Field, Form, Formik } from "formik";
 import Button from "../../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
-import { useGetUserProfileQuery } from "@/redux/services/user/user/user.api";
-import { useSession } from "next-auth/react";
+import { useGetUserProfileQuery, useUpdateUserProfileMutation } from "@/redux/services/user/user/user.api";
+import { signOut, useSession } from "next-auth/react";
+import { UpdateUserProfileRequest } from "@/types/user.types";
+import { useUpDatePasswordMutation } from "@/redux/services/user/auth/auth.api";
+import { toast } from "react-toastify";
+import { AuthToast } from "@/components/toast/ToastMessage";
+import { useAppDispatch } from "@/hooks/hooks";
+import { userLogOut } from "@/redux/slices/authSlice";
 
 const DashboardProfile = () => {
-  const [editFullName, setEditFullName] = useState<boolean>(false);
-  const [editPhoneNumber, setEditPhoneNumber] = useState<boolean>(false);
-  const [editAddress, setEditAddress] = useState<boolean>(false);
+  // const [editFullName, setEditFullName] = useState<boolean>(false);
+  // const [editPhoneNumber, setEditPhoneNumber] = useState<boolean>(false);
+  // const [editAddress, setEditAddress] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { data: session } = useSession()
 
   const { data: userprofile, isLoading: userProfileLoading } =
     useGetUserProfileQuery();
 
+  const [updateUserProfile, { isLoading }] =
+    useUpdateUserProfileMutation();
+
+
+  const [upDatePassword] = useUpDatePasswordMutation();
+
+
   console.log("use profile: ", userprofile);
-  const session = useSession();
+
   console.log("Sesion: ", session);
 
   const BOOKING_DATA = [
@@ -39,6 +54,25 @@ const DashboardProfile = () => {
   ];
 
   if (userProfileLoading) return "Loading profile";
+
+
+  const handleSubmit = async (
+    values: UpdateUserProfileRequest,
+
+  ) => {
+    try {
+      const response = await updateUserProfile(values).unwrap();
+
+      console.log("Updated user:", response.user);
+      alert(response.message);
+
+    } catch (error: any) {
+      console.error("Update failed:", error);
+      alert(error?.data?.message || "Update failed");
+    } finally {
+
+    }
+  };
   return (
     <DashboardLayout
       headerProps={{
@@ -48,6 +82,121 @@ const DashboardProfile = () => {
         href: "/bookings",
       }}
     >
+      <div className="bg-black rounded-lg p-4">
+        <div className='flex flex-col items-center gap-2 sm:flex-row mb-10'>
+          {BOOKING_DATA.map(booking => {
+            return (
+              <div
+                key={booking.title}
+                className='w-full rounded-lg bg-black border-gray-400 border-1 text-white px-5 py-5 sm:h-[104px]'
+              >
+                <p className='font-medium capitalize sm:text-[14px]'>
+                  {booking.title}
+                </p>
+                <h1 className='text-[40px] font-bold'>{booking.count}</h1>
+              </div>
+            );
+          })}
+        </div>
+        <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
+          <div className='flex h-[74px] w-[74px] items-center justify-center rounded-full bg-white text-[31px] font-semibold text-black uppercase sm:h-[94px] sm:w-[94px] sm:text-[40px]'>
+            {userprofile?.user &&
+              (userprofile?.user.first_name ? (
+                <span>
+                  {userprofile?.user.first_name?.slice(0, 1)}
+                  {userprofile?.user.last_name?.slice(0, 1)}
+                </span>
+              ) : (
+                <span>
+                  {userprofile?.user.email?.slice(0, 1)}
+                  {userprofile?.user.email?.slice(1, 2)}
+                </span>
+              ))}
+          </div>
+          <div className=''>
+            <h1
+              className={`mb-2 w-[200px] truncate text-[24px] text-white font-semibold sm:w-[300px] ${userprofile?.user?.first_name ? "capitalize" : ""}`}
+            >
+              {userprofile?.user?.first_name
+                ? `${userprofile?.user?.first_name} ${userprofile?.user?.last_name}`
+                : userprofile?.user?.email}
+            </h1>
+            <p className='mb-1 w-[200px] truncate text-sm font-medium text-[#414141] sm:w-[300px] sm:text-[16px]'>
+              {userprofile?.user?.email}
+            </p>
+            <p className='font-medium text-[#414141] sm:text-[16px]'>
+              +234 {userprofile?.user?.phoneNumber?.slice(1,)}
+            </p>
+          </div>
+        </div>
+        <div className="">
+          <h3 className="text-base/7 font-semibold text-white">Applicant Information</h3>
+          <p className="mt-1 max-w-2xl text-sm/6 text-gray-400">Personal details and application.</p>
+        </div>
+        <div className="mt-6 border-t border-white/10">
+          <dl className="divide-y divide-white/10">
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Full name</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.first_name} {userprofile?.user.last_name}</dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Phone Number</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.phoneNumber}</dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Email address</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.email}</dd>
+            </div>
+            {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Salary expectation</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">$120,000</dd>
+            </div> */}
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Delivery Address</dt>
+              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">
+                {userprofile?.user.address}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-100">Account Verification Status</dt>
+              <dd className="mt-1 text-sm text-white sm:col-span-2 sm:mt-0">
+                {userprofile?.user.isMember ? "Account verified" : <button>Verify Account</button>}
+                {/* <ul role="list" className="divide-y divide-white/5 rounded-md border border-white/10">
+                  <li className="flex items-center justify-between py-4 pr-5 pl-4 text-sm/6">
+                    <div className="flex w-0 flex-1 items-center">
+                      <PaperClipIcon aria-hidden="true" className="size-5 shrink-0 text-gray-500" />
+                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
+                        <span className="truncate font-medium text-white">resume_back_end_developer.pdf</span>
+                        <span className="shrink-0 text-gray-500">2.4mb</span>
+                      </div>
+                    </div>
+                    <div className="ml-4 shrink-0">
+                      <a href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
+                        Download
+                      </a>
+                    </div>
+                  </li>
+                  <li className="flex items-center justify-between py-4 pr-5 pl-4 text-sm/6">
+                    <div className="flex w-0 flex-1 items-center">
+                      <PaperClipIcon aria-hidden="true" className="size-5 shrink-0 text-gray-500" />
+                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
+                        <span className="truncate font-medium text-white">coverletter_back_end_developer.pdf</span>
+                        <span className="shrink-0 text-gray-500">4.5mb</span>
+                      </div>
+                    </div>
+                    <div className="ml-4 shrink-0">
+                      <a href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
+                        Download
+                      </a>
+                    </div>
+                  </li>
+                </ul> */}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
       <section className='w-full rounded-lg border-[1px] border-[#F8F8F8] bg-white px-5 py-7 shadow sm:p-10'>
         {/* user data  */}
         <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
@@ -114,12 +263,13 @@ const DashboardProfile = () => {
               <Formik
                 initialValues={{
                   email: userprofile?.user.email,
-                  first_name: userprofile?.user.first_name,
-                  last_name: userprofile?.user.last_name,
-                  phone: "",
-                  address: "Lagos, Nigeria",
+                  first_name: userprofile?.user.first_name || "",
+                  last_name: userprofile?.user.last_name || "",
+                  phoneNumber: userprofile?.user.phoneNumber || "",
+                  address: userprofile?.user.address || "Update delivery address",
                 }}
-                onSubmit={values => {
+                onSubmit={async values => {
+                  await handleSubmit(values)
                   console.log(values);
                 }}
               >
@@ -135,16 +285,16 @@ const DashboardProfile = () => {
                           type='text'
                           className='border-b-[1px] border-black pb-2 capitalize outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter first name'
-                          disabled={!editFullName}
+                          // disabled={!editFullName}
                         />
                         <div className='absolute top-8 right-2'>
-                          <button
+                          {/* <button
                             type='button'
                             onClick={() => setEditFullName(!editFullName)}
                             className='text-sm font-medium text-black underline'
                           >
                             {editFullName ? "Save" : "Edit"}
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                       <div className='relative flex w-full flex-col gap-3'>
@@ -156,16 +306,16 @@ const DashboardProfile = () => {
                           type='text'
                           className='border-b-[1px] border-black pb-2 capitalize outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter last name'
-                          disabled={!editFullName}
+                          // disabled={!editFullName}
                         />
                         <div className='absolute top-8 right-2'>
-                          <button
+                          {/* <button
                             type='button'
                             onClick={() => setEditFullName(!editFullName)}
                             className='text-sm font-medium text-black underline'
                           >
                             {editFullName ? "Save" : "Edit"}
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -178,7 +328,7 @@ const DashboardProfile = () => {
                           name='email'
                           disabled
                           type='email'
-                          className='disabled border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                          className='disabled border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out text-gray-600 focus:border-b-2'
                           placeholder='Enter email address'
                         />
                       </div>
@@ -187,20 +337,20 @@ const DashboardProfile = () => {
                           Phone number
                         </label>
                         <Field
-                          name='phone'
+                          name='phoneNumber'
                           type='text'
                           className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter phone number'
-                          disabled={!editPhoneNumber}
+                          // disabled={!editPhoneNumber}
                         />
                         <div className='absolute top-8 right-2'>
-                          <button
+                          {/* <button
                             type='button'
                             onClick={() => setEditPhoneNumber(!editPhoneNumber)}
                             className='text-sm font-medium text-black underline'
                           >
                             {editPhoneNumber ? "Save" : "Edit"}
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -214,16 +364,16 @@ const DashboardProfile = () => {
                           type='text'
                           className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter delivery address'
-                          disabled={!editAddress}
+                          // disabled={!editAddress}
                         />
                         <div className='absolute top-8 right-2'>
-                          <button
+                          {/* <button
                             type='button'
                             onClick={() => setEditAddress(!editAddress)}
                             className='text-sm font-medium text-black underline'
                           >
                             {editAddress ? "Save" : "Edit"}
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -232,7 +382,7 @@ const DashboardProfile = () => {
                         text='Save changes'
                         onClick={() => console.log(values)}
                         icon={<RedirectArrowWhite />}
-                        // disabled={!values.new_password || isSubmitting}
+                        disabled={isLoading}
                         iconPosition='right'
                         className='w-[170px]'
                         size='md'
@@ -258,8 +408,34 @@ const DashboardProfile = () => {
                   current_password: "************************",
                   new_password: "",
                 }}
-                onSubmit={values => {
+                onSubmit={async values => {
                   console.log(values);
+                  try {
+                    const response = await upDatePassword({
+                      email: session?.user.email || "",
+                      password: values.new_password,
+                    }).unwrap();
+
+                    if (response.status === 200) {
+                      toast.success(AuthToast, {
+                        data: {
+                          title: "Password Reset",
+                          content: `${response.message || "Password change successful"}`,
+                        },
+                        ariaLabel: "OTP successful",
+                        icon: false,
+                        theme: "colored",
+                      });
+
+
+                      dispatch(userLogOut());
+
+                      signOut({ callbackUrl: "/auth" });
+
+                    }
+                  } catch (error) {
+                    console.log(error);
+                  }
                 }}
               >
                 {({ values, isSubmitting }) => (
@@ -307,6 +483,8 @@ const DashboardProfile = () => {
           </div>
         </div>
       </section>
+
+
     </DashboardLayout>
   );
 };

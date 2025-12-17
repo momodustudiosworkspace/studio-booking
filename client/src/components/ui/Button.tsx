@@ -5,7 +5,7 @@ interface ButtonProps {
   text: string;
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
-  variant?: "primary" | "secondary" | "outline" | "white";
+  variant?: "primary" | "secondary" | "outline" | "white" | "danger";
   size?: "sm" | "md" | "lg";
   responsiveSize?: string;
   className?: string;
@@ -38,6 +38,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       outline:
         "bg-transparent text-black border border-black hover:bg-black hover:text-white",
       white: "bg-white text-black",
+      danger: "bg-red-600 text-white"
     };
     const sizeClasses = {
       sm: "p-2 pl-3 text-sm",
