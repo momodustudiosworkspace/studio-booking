@@ -49,16 +49,16 @@ const DashboardSideBar = () => {
       label: "Staff Management",
       icon: "report-analytics-solid-black" as IconsType,
     },
-    {
-      href: "/dashboard/help",
-      label: "Help",
-      icon: "help-solid-black" as IconsType,
-    },
-    {
-      href: "/admin/dashboard/settings",
-      label: "Settings",
-      icon: "settings-solid-black" as IconsType,
-    },
+    // {
+    //   href: "/dashboard/help",
+    //   label: "Help",
+    //   icon: "help-solid-black" as IconsType,
+    // },
+    // {
+    //   href: "/admin/dashboard/settings",
+    //   label: "Settings",
+    //   icon: "settings-solid-black" as IconsType,
+    // },
   ];
 
   const pathname = usePathname();

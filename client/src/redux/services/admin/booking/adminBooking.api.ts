@@ -29,7 +29,7 @@ export const adminBookingApi = baseApi.injectEndpoints({
           : [{ type: "Bookings", id }],
     }),
   }),
-  // overrideExisting: false,
+  overrideExisting: true,
 });
 
 export const { useGetAllUserBookingsQuery, usePrefetch } = adminBookingApi;

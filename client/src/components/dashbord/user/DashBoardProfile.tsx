@@ -1,22 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import DashboardLayout from "./DashboardLayout";
 import { Field, Form, Formik } from "formik";
 import Button from "../../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
-import { useGetUserProfileQuery } from "@/redux/services/user/user/user.api";
-import { useSession } from "next-auth/react";
+import { useGetUserProfileQuery, useUpdateUserProfileMutation } from "@/redux/services/user/user/user.api";
+import { signOut, useSession } from "next-auth/react";
+import { UpdateUserProfileRequest } from "@/types/user.types";
+import { useUpDatePasswordMutation } from "@/redux/services/user/auth/auth.api";
+import { toast } from "react-toastify";
+import { AuthToast } from "@/components/toast/ToastMessage";
+import { useAppDispatch } from "@/hooks/hooks";
+import { userLogOut } from "@/redux/slices/authSlice";
 
 const DashboardProfile = () => {
-  const [editFullName, setEditFullName] = useState<boolean>(false);
-  const [editPhoneNumber, setEditPhoneNumber] = useState<boolean>(false);
-  const [editAddress, setEditAddress] = useState<boolean>(false);
+  // const [editFullName, setEditFullName] = useState<boolean>(false);
+  // const [editPhoneNumber, setEditPhoneNumber] = useState<boolean>(false);
+  // const [editAddress, setEditAddress] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { data: session } = useSession()
 
   const { data: userprofile, isLoading: userProfileLoading } =
     useGetUserProfileQuery();
 
+  const [updateUserProfile, { isLoading }] =
+    useUpdateUserProfileMutation();
+
+
+  const [upDatePassword] = useUpDatePasswordMutation();
+
+
   console.log("use profile: ", userprofile);
-  const session = useSession();
+
   console.log("Sesion: ", session);
 
   const BOOKING_DATA = [
@@ -39,6 +54,25 @@ const DashboardProfile = () => {
   ];
 
   if (userProfileLoading) return "Loading profile";
+
+
+  const handleSubmit = async (
+    values: UpdateUserProfileRequest,
+
+  ) => {
+    try {
+      const response = await updateUserProfile(values).unwrap();
+
+      console.log("Updated user:", response.user);
+      alert(response.message);
+
+    } catch (error: any) {
+      console.error("Update failed:", error);
+      alert(error?.data?.message || "Update failed");
+    } finally {
+
+    }
+  };
   return (
     <DashboardLayout
       headerProps={{
@@ -114,12 +148,13 @@ const DashboardProfile = () => {
               <Formik
                 initialValues={{
                   email: userprofile?.user.email,
-                  first_name: userprofile?.user.first_name,
-                  last_name: userprofile?.user.last_name,
-                  phone: "",
-                  address: "Lagos, Nigeria",
+                  first_name: userprofile?.user.first_name || "",
+                  last_name: userprofile?.user.last_name || "",
+                  phoneNumber: userprofile?.user.phoneNumber || "",
+                  address: userprofile?.user.address || "Update delivery address",
                 }}
-                onSubmit={values => {
+                onSubmit={async values => {
+                  await handleSubmit(values)
                   console.log(values);
                 }}
               >
@@ -135,16 +170,16 @@ const DashboardProfile = () => {
                           type='text'
                           className='border-b-[1px] border-black pb-2 capitalize outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter first name'
-                          disabled={!editFullName}
+                          // disabled={!editFullName}
                         />
                         <div className='absolute top-8 right-2'>
-                          <button
+                          {/* <button
                             type='button'
                             onClick={() => setEditFullName(!editFullName)}
                             className='text-sm font-medium text-black underline'
                           >
                             {editFullName ? "Save" : "Edit"}
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                       <div className='relative flex w-full flex-col gap-3'>
@@ -156,16 +191,16 @@ const DashboardProfile = () => {
                           type='text'
                           className='border-b-[1px] border-black pb-2 capitalize outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter last name'
-                          disabled={!editFullName}
+                          // disabled={!editFullName}
                         />
                         <div className='absolute top-8 right-2'>
-                          <button
+                          {/* <button
                             type='button'
                             onClick={() => setEditFullName(!editFullName)}
                             className='text-sm font-medium text-black underline'
                           >
                             {editFullName ? "Save" : "Edit"}
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -178,7 +213,7 @@ const DashboardProfile = () => {
                           name='email'
                           disabled
                           type='email'
-                          className='disabled border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                          className='disabled border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out text-gray-600 focus:border-b-2'
                           placeholder='Enter email address'
                         />
                       </div>
@@ -187,20 +222,20 @@ const DashboardProfile = () => {
                           Phone number
                         </label>
                         <Field
-                          name='phone'
+                          name='phoneNumber'
                           type='text'
                           className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter phone number'
-                          disabled={!editPhoneNumber}
+                          // disabled={!editPhoneNumber}
                         />
                         <div className='absolute top-8 right-2'>
-                          <button
+                          {/* <button
                             type='button'
                             onClick={() => setEditPhoneNumber(!editPhoneNumber)}
                             className='text-sm font-medium text-black underline'
                           >
                             {editPhoneNumber ? "Save" : "Edit"}
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -214,16 +249,16 @@ const DashboardProfile = () => {
                           type='text'
                           className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter delivery address'
-                          disabled={!editAddress}
+                          // disabled={!editAddress}
                         />
                         <div className='absolute top-8 right-2'>
-                          <button
+                          {/* <button
                             type='button'
                             onClick={() => setEditAddress(!editAddress)}
                             className='text-sm font-medium text-black underline'
                           >
                             {editAddress ? "Save" : "Edit"}
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -232,7 +267,7 @@ const DashboardProfile = () => {
                         text='Save changes'
                         onClick={() => console.log(values)}
                         icon={<RedirectArrowWhite />}
-                        // disabled={!values.new_password || isSubmitting}
+                        disabled={isLoading}
                         iconPosition='right'
                         className='w-[170px]'
                         size='md'
@@ -258,8 +293,34 @@ const DashboardProfile = () => {
                   current_password: "************************",
                   new_password: "",
                 }}
-                onSubmit={values => {
+                onSubmit={async values => {
                   console.log(values);
+                  try {
+                    const response = await upDatePassword({
+                      email: session?.user.email || "",
+                      password: values.new_password,
+                    }).unwrap();
+
+                    if (response.status === 200) {
+                      toast.success(AuthToast, {
+                        data: {
+                          title: "Password Reset",
+                          content: `${response.message || "Password change successful"}`,
+                        },
+                        ariaLabel: "OTP successful",
+                        icon: false,
+                        theme: "colored",
+                      });
+
+
+                      dispatch(userLogOut());
+
+                      signOut({ callbackUrl: "/auth" });
+
+                    }
+                  } catch (error) {
+                    console.log(error);
+                  }
                 }}
               >
                 {({ values, isSubmitting }) => (

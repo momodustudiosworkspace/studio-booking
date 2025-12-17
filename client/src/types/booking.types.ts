@@ -6,7 +6,7 @@ interface BookingLocationOptions {
 }
 export interface BookingType {
   _id: string | null;
-  user: string | null; // or populated user object if you populate
+  user?: string | null; // or populated user object if you populate
   user_fullnames?: string | null;
   assignedTo?: number | null;
   sessionTitle?: string | null;

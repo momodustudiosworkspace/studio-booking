@@ -32,15 +32,12 @@ const DashboardBookings = () => {
   // 🔹 Filter bookings based on status or date
   const allBookings = formattedBookings;
   // const now = new Date();
-  const upcomingBookings = formattedBookings.filter(b => {
-    // const bookingDate = b.date;
-    return b.date;
-  });
 
-  const pastBookings = formattedBookings.filter(b => {
-    // const bookingDate = b.date;
-    return b.date;
-  });
+
+  // const pastBookings = formattedBookings.filter(b => {
+  //   // const bookingDate = b.date;
+  //   return b.date;
+  // });
   if (isLoading) return "Loading...";
   if (error) return "Failed to load data";
 
@@ -102,8 +99,8 @@ const DashboardBookings = () => {
         {/* Bookings per tab */}
         <div className='flex flex-col gap-4'>
           {currentTab === 1 && renderBookings(allBookings)}
-          {currentTab === 2 && renderBookings(upcomingBookings)}
-          {currentTab === 3 && renderBookings(pastBookings)}
+          {currentTab === 2 && renderBookings(formattedBookings.filter(b => b.status === "pending"))}
+          {currentTab === 3 && renderBookings(formattedBookings.filter(b => b.status === "completed"))}
         </div>
       </section>
     </DashboardLayout>

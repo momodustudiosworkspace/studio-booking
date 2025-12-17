@@ -33,7 +33,7 @@ const DashboardBookings = () => {
       bookings?.data.bookings.filter(b => b.status === "completed").length || 0;
     const upcoming =
       bookings?.data.bookings.filter(b => b.status === "pending").length || 0;
-    // const cancelled = bookings?.data.filter(b => b.status === "cancelled").length || 0;
+    const cancelled = bookings?.data.bookings.filter(b => b.status === "cancelled").length || 0;
 
     return [
       {
@@ -58,12 +58,19 @@ const DashboardBookings = () => {
         dataType: 0,
       },
       {
-        title: "Revenue",
-        count: bookings?.data.totalRevenue || 0,
+        title: "Cancelled bookings",
+        count: cancelled,
         linkText: "",
         href: "/bookings",
-        dataType: 1,
+        dataType: 0,
       },
+      // {
+      //   title: "Revenue",
+      //   count: bookings?.data.totalRevenue || 0,
+      //   linkText: "",
+      //   href: "/bookings",
+      //   dataType: 1,
+      // },
     ];
   }, [bookings?.data]);
   // if (isLoading) return "Loading...";
@@ -89,22 +96,17 @@ const DashboardBookings = () => {
     }));
   }, [bookings]);
 
-  const now = new Date();
+  // const now = new Date();
   // 🔹 Filter bookings based on status or date
   const allBookings = formattedBookings;
-  const upcomingBookings = formattedBookings.filter(b => {
-    if (b?.date) {
-      return now < new Date(b.date);
-    }
-    return;
-  });
+  // const upcomingBookings = formattedBookings.filter(b => {
+  //   if (b?.date) {
+  //     return now < new Date(b.date);
+  //   }
+  //   return;
+  // });
 
-  const pastBookings = formattedBookings.filter(b => {
-    if (b?.date) {
-      return now > new Date(b.date);
-    }
-    return;
-  });
+
   if (isLoading) return "Loading...";
   // if (error) return "Failed to load data";
 
@@ -236,8 +238,8 @@ const DashboardBookings = () => {
             {/* Bookings per tab */}
             <div className='flex flex-col gap-4 p-6'>
               {currentTab === 1 && renderBookings(allBookings)}
-              {currentTab === 2 && renderBookings(upcomingBookings)}
-              {currentTab === 3 && renderBookings(pastBookings)}
+              {currentTab === 2 && renderBookings(bookings?.data.bookings.filter(b => b.status === "pending"))}
+              {currentTab === 3 && renderBookings(bookings?.data.bookings.filter(b => b.status === "completed"))}
               <div className='py-6'>
                 <Pagination
                   currentPage={bookings?.pagination.page || null}

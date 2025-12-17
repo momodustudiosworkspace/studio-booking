@@ -29,11 +29,11 @@ const DashboardSideBar = () => {
       label: "Profile",
       icon: "person-solid-black" as IconsType,
     },
-    {
-      href: "/dashboard/help",
-      label: "Help",
-      icon: "help-solid-black" as IconsType,
-    },
+    // {
+    //   href: "/dashboard/help",
+    //   label: "Help",
+    //   icon: "help-solid-black" as IconsType,
+    // },
   ];
 
   const pathname = usePathname();

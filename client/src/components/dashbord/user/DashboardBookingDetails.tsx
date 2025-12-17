@@ -13,9 +13,13 @@ import { BookingType } from "@/types/booking.types";
 import { formatDate } from "@/utils/dateFormatter";
 import { formatTime } from "@/utils/timeFormatter";
 import nairaSymbol from "@/utils/symbols";
+import Button from "@/components/ui/Button";
+import { useUpdateBookingMutation } from "@/redux/services/user/booking/booking.api";
+import { toast } from "react-toastify";
+import { AuthToast } from "@/components/toast/ToastMessage";
 
 interface DashboardBookingDetailsProps {
-  booking?: BookingType;
+  booking: BookingType;
   isLoading: boolean;
 }
 const DashboardBookingDetails = ({
@@ -23,6 +27,9 @@ const DashboardBookingDetails = ({
   isLoading,
 }: DashboardBookingDetailsProps) => {
   const [totalSelectedPhotos, setTotalSelectedPhotos] = useState<number>(0);
+
+  const [updateBooking, { isLoading: updateBookingLoading }] =
+    useUpdateBookingMutation();
 
   // Set a condition for the link:
   // if upcoming, clinets can cancel if completed clients can rebook and get discount
@@ -32,6 +39,33 @@ const DashboardBookingDetails = ({
   if (isLoading) return <p>Loading booking details...</p>;
   if (!booking) return <p>No booking found.</p>;
 
+
+  const handleCancelBooking = async () => {
+    if (!booking._id) return;
+
+    try {
+      const response = await updateBooking({
+        id: booking._id,
+        booking: {
+          _id: booking._id,
+          user: booking._id || null,
+          status: "cancelled"
+        },
+      }).unwrap();
+      toast.success(AuthToast, {
+        data: {
+          title: "Booking cancelled Successfull",
+          content: `${response.message || "Booking cancelled!"}`,
+        },
+        ariaLabel: "Booking session secured",
+        icon: false,
+        theme: "colored",
+      });
+    } catch (error) {
+      alert(error)
+    }
+
+  }
   return (
     <div className='-mt-24'>
       <button
@@ -56,7 +90,7 @@ const DashboardBookingDetails = ({
           href: "/",
         }}
       >
-        <div className='flex flex-col gap-2 sm:flex-row'>
+        <div className='flex flex-col-reverse gap-2 sm:flex-row'>
           {/* Timeline  */}
           <div className='h-[720px] w-full rounded-lg bg-white p-4 shadow sm:h-[610px] sm:w-[50%]'>
             <DashboardHeader
@@ -117,16 +151,21 @@ const DashboardBookingDetails = ({
                   <p className='font-medium'>{nairaSymbol()}0.00</p>
                 </div>
               </div>
-              <div>
-                <LinkButton
-                  href={`/dashboard/photo-studio/bookings/2`}
+              {booking.status !== "cancelled" && <div>
+                <Button
                   size='md'
-                  text={"Message studio"}
+                  variant="danger"
+                  text={"Cancel booking"}
                   icon={<RedirectArrowWhite />}
+                  loading={updateBookingLoading}
                   iconPosition='right'
                   className='w-auto'
+                  onClick={async () =>
+                    await handleCancelBooking()
+
+                  }
                 />
-              </div>
+              </div>}
             </div>
           </div>
         </div>
