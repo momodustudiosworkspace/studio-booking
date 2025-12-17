@@ -19,7 +19,9 @@ interface BookingCardPaymentProps {
   // date?: string | null | undefined;
   // client_name?: string | null | undefined;
   // time?: string | null | undefined;
-  status: "cancelled" | "completed" | "pending" | "confirmed" | undefined;
+  status: "pending" | "success" | "failed" | undefined;
+
+
 }
 const BookingCardPayment = ({
   reference,
@@ -29,19 +31,19 @@ const BookingCardPayment = ({
   status,
 }: BookingCardPaymentProps) => {
   const statusStyle =
-    status === "cancelled"
+    status === "failed"
       ? "bg-red-200 text-red-500"
-      : status === "completed"
+      : status === "success"
         ? "bg-[#0362001A] text-[#036200]"
-        : status === "confirmed"
-          ? "bg-blue-300 text-blue-600"
+        // : status === "confirmed"
+        //   ? "bg-blue-300 text-blue-600"
           : status === "pending"
             ? "bg-[#E595001A] text-[#E59500]"
             : "";
   const statusText =
-    status === "cancelled"
-      ? "cancelled"
-      : status === "completed"
+    status === "failed"
+      ? "failed"
+      : status === "success"
         ? "completed"
         : status === "pending"
           ? "pending"
@@ -81,7 +83,7 @@ const BookingCardPayment = ({
         <span
           className={`${statusStyle} flex items-center justify-center rounded-full px-4 py-1 text-sm font-semibold capitalize`}
         >
-          {statusText}
+          {statusText} 
         </span>
       </div>
       {/* View booking details  */}

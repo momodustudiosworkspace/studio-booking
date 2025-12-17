@@ -77,6 +77,7 @@ const BookingCard = ({
         </div>
       </div>
       {/* Booking status  */}
+      {statusText}
       <div className='flex items-center gap-2 pl-10 sm:w-[200px]'>
         <span
           className={`${statusStyle} flex items-center justify-center rounded-full px-4 py-1 text-sm font-semibold capitalize`}

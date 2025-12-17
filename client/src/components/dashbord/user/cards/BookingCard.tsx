@@ -36,7 +36,7 @@ const BookingCard = ({
         : status === "confirmed"
           ? "bg-blue-300 text-blue-600"
           : status === "completed"
-            ? "bg-[#E595001A] text-[#E59500]"
+            ? "bg-[#0362001A] text-[#036200]"
             : "";
   const statusText =
     status === "cancelled"

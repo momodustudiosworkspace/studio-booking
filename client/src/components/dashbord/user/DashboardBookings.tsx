@@ -13,6 +13,7 @@ const DashboardBookings = () => {
   // Prefetch hook for single booking
   const prefetchBooking = usePrefetch("getBookingById");
 
+
   // 🔹 Compute and format your bookings once
   const formattedBookings = useMemo(() => {
     if (!bookings) return [];
