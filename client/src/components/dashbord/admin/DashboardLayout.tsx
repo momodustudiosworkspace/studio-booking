@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useAppDispatch } from "@/hooks/hooks";
 import { setToken } from "@/redux/slices/authSlice";
 
+
 interface DashboardLayoutProps {
   children: React.ReactNode;
   headerProps: {
@@ -22,6 +23,7 @@ interface DashboardLayoutProps {
     href: string;
   };
 }
+// const DashboardLayout = ({ children, headerProps }: DashboardLayoutProps) => {
 const DashboardLayout = ({ children, headerProps }: DashboardLayoutProps) => {
   const { data: session } = useSession();
   const tokenDispatch = useAppDispatch();
@@ -34,20 +36,48 @@ const DashboardLayout = ({ children, headerProps }: DashboardLayoutProps) => {
     }
   }, [session, tokenDispatch]);
 
+
   return (
-    <section className='flex w-full flex-col gap-10'>
-      <DashboardHeader
-        badge={headerProps.badge}
-        badgeStatus={headerProps.badgeStatus}
-        badgeClass={headerProps.badgeClass}
-        headerText={headerProps.headerText}
-        paragraph={headerProps.paragraph}
-        linkText={headerProps.linkText}
-        href={headerProps.href}
-      />
-      {children}
-    </section>
-  );
-};
+
+    <div className="min-h-full">
+      <header className="relative after:pointer-events-none after:absolute after:inset-x-0 after:inset-y-0 after:border-y after:border-white/10">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="tracking-tight text-black">
+            <DashboardHeader
+              badge={headerProps.badge}
+              badgeStatus={headerProps.badgeStatus}
+              badgeClass={headerProps.badgeClass}
+              headerText={headerProps.headerText}
+              paragraph={headerProps.paragraph}
+              linkText={headerProps.linkText}
+              href={headerProps.href}
+            />
+          </div>
+        </div>
+      </header>
+      <main>
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          {children}
+        </div>
+      </main>
+    </div>
+
+  )
+}
+
+// <section className='flex w-full flex-col gap-10'>
+//   <DashboardHeader
+//     badge={headerProps.badge}
+//     badgeStatus={headerProps.badgeStatus}
+//     badgeClass={headerProps.badgeClass}
+//     headerText={headerProps.headerText}
+//     paragraph={headerProps.paragraph}
+//     linkText={headerProps.linkText}
+//     href={headerProps.href}
+//   />
+//   {children}
+// </section>
+// );
+// };
 
 export default DashboardLayout;
