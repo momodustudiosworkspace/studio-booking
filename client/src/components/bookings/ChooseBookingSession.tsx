@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
 
@@ -26,7 +26,7 @@ const ChooseBookingSession = ({
   const dispatch = useAppDispatch();
   const { data, isLoading } = useGetSessionsQuery();
 
-  const BOOKING_SESSIONS: ISession[] = data?.data || [];
+  const BOOKING_SESSIONS = useMemo(() => data?.data || [], [data?.data]);
 
   const [selectedSession, setSelectedSession] = useState<string | null>(
     bookingSession ?? null

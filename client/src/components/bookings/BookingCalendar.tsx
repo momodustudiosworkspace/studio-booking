@@ -111,6 +111,9 @@ const BookingCalendar = ({
   const { data: availableSlots = [], isFetching } =
     useGetCalendarBookingsQuery(visibleMonth);
 
+  console.log("availableSlots: ", availableSlots);
+
+
   // Initialize with Redux date (convert from string to Date)
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     selectedBookingDate ? new Date(selectedBookingDate) : null
@@ -125,27 +128,36 @@ const BookingCalendar = ({
   const availableTimes = React.useMemo(() => {
     if (!selectedDate) return [];
     const DAILY_TIME_SLOTS = [
+      "08:00",
       "09:00",
       "10:00",
       "11:00",
       "12:00",
       "14:00",
       "15:00",
-    ]; // = 6 slot
-    const slot = availableSlots.find(s =>
-      isSameDay(parseISO(s.date), selectedDate)
+      "16:00",
+    ];
+
+    const slotForDay = availableSlots.find(slot =>
+      isSameDay(parseISO(slot.date), selectedDate)
     );
 
-    // 🟢 No bookings → all 6 slots available
-    if (!slot) {
+    // ❌ Day is fully booked → no slots
+    if (slotForDay?.isFull) {
+      return [];
+    }
+
+    // 🟢 No record from backend → all slots available
+    if (!slotForDay) {
       return DAILY_TIME_SLOTS;
     }
 
-    // 🟡 Some bookings → remove booked times
+    // 🟡 Remove already-booked times
     return DAILY_TIME_SLOTS.filter(
-      time => !slot.times.includes(time)
+      time => !slotForDay.times.includes(time)
     );
   }, [selectedDate, availableSlots]);
+
   const isDayDisabled = useCallback((date: Date) => {
     const today = startOfToday();
     if (isBefore(date, today)) return true;
@@ -258,7 +270,7 @@ const BookingCalendar = ({
             <DatePicker
               selected={selectedDate}
               onChange={date => setSelectedDate(date)}
-              filterDate={date => !isDayDisabled(date)}
+              filterDate={date => !isDayDisabled(date)} // disables past & full days
               inline
               onMonthChange={date =>
                 setVisibleMonth({
@@ -268,15 +280,14 @@ const BookingCalendar = ({
               }
               renderCustomHeader={CustomHeader}
               locale={enUS}
-              calendarStartDay={1}
-              placeholderText="Select an available date"
-              minDate={new Date(2025, 0, 1)}
+              calendarStartDay={1} // Start week on Monday
+              placeholderText='Select an available date'
+              minDate={new Date(2025, 0, 1)} // allow all months forward
               showMonthDropdown
               showYearDropdown
-              dropdownMode="select"
-              className="hidden"
+              dropdownMode='select'
+              className='w-full rounded-lg border border-white bg-black px-3 py-2 text-center text-white'
             />
-
         </div>
         }
       </div>
