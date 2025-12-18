@@ -41,10 +41,10 @@ const DashboardBookingTimeline = () => {
 
           {/* Text Content */}
           <div className='-mt-2 ml-8 border-b-[1px] border-gray-300 pb-6'>
-            <h3 className='text-lg font-semibold text-gray-800 capitalize'>
+            <h3 className='text-lg font-semibold text-gray-400 capitalize'>
               {item.title}
             </h3>
-            <p className='mt-1 text-sm leading-relaxed text-gray-600'>
+            <p className='mt-1 text-sm leading-relaxed text-white'>
               {item.description}
             </p>
           </div>

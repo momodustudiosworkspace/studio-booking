@@ -201,8 +201,8 @@ export default function Navbar() {
           <Link href='https://www.momodustudios.com/pages/merch' className='text-sm/6 font-semibold text-white'>
             Marketplace
           </Link>
-          <Link href='#' className='text-sm/6 font-semibold text-white'>
-            Company
+          <Link href='https://www.momodustudios.com/pages/about-us' className='text-sm/6 font-semibold text-white'>
+            About us
           </Link>
         </PopoverGroup>
 
@@ -351,7 +351,7 @@ export default function Navbar() {
                   href='#'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5'
                 >
-                  Company
+                  About us
                 </Link>
                 <Popover className='relative'>
                   <PopoverButton className='flex items-center gap-x-1 border-none font-semibold text-white outline-none focus:border-none focus:outline-none'>

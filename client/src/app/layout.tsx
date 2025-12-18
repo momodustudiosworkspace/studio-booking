@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-vertical-timeline-component/style.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import { authOptions } from "./api/auth/[...nextauth]/route";
+import CookieBanner from "@/components/CookieBanner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -91,6 +92,7 @@ export default async function RootLayout({
       >
         <SessionProviderWrapper session={session}>
           {children}
+          <CookieBanner />
           <ToastContainer
             position='top-right'
             autoClose={8000}
