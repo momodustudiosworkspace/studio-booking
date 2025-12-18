@@ -38,7 +38,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       outline:
         "bg-transparent text-black border border-black hover:bg-black hover:text-white",
       white: "bg-white text-black",
-      danger: "bg-red-600 text-white"
+      danger: "bg-red-700 text-white"
     };
     const sizeClasses = {
       sm: "p-2 pl-3 text-sm",

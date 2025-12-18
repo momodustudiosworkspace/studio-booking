@@ -75,7 +75,7 @@ const Bookings = (): React.JSX.Element => {
             price: bookingData.package?.price || null,
             sessionId: bookingData.sessionType || null,
           }}
-          setOnProceed={setOnProceed}
+          setBookingStep={setBookingStep}
           // setReserveSlot={values => setReserveSlot({ ...values })}
         />
       ),
@@ -113,6 +113,7 @@ const Bookings = (): React.JSX.Element => {
           location={bookingData.location}
           price={bookingData.package?.price}
           sessionTitle={bookingData.sessionTitle}
+          defaultLoacation={bookingData.defaultLocation}
           proceedBtnRef={proceedBtnRef}
         />
       ),
@@ -326,7 +327,7 @@ const Bookings = (): React.JSX.Element => {
 
             {BOOKING_STEPS[bookingStep]?.component}
 
-            {bookingStep != 0 && bookingStep < 5 && (
+            {(bookingStep >= 2 && bookingStep <= 4) && (
               <div className='mt-4 flex w-full justify-end'>
                 {!session?.user.email && bookingStep > 3 ? (
                   <LinkButton

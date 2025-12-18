@@ -8,42 +8,42 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <section className='flex min-h-screen w-full justify-center sm:pt-20'>
-      <section className='w-full sm:w-[1440px]'>
+    <section className='flex min-h-screen w-full bg-black text-white justify-center pt-40 '>
+      <section className='w-full mx-auto max-w-7xl lg:px-8'>
         <div className='flex flex-col gap-10 px-5 py-10 sm:px-0'>
           <div className='flex flex-col items-end sm:flex-row sm:justify-between'>
             <div>
               {/* hero  */}
-              <h1 className='mb-6 w-full text-left text-[34px] font-extrabold sm:text-[120px]'>
+              <h1 className='mb-6 w-full text-left text-[24px] font-extrabold sm:text-[90px]'>
                 Contact Us
               </h1>
 
               <div className='w-full sm:w-[560px]'>
                 <SectionHeader
-                  headerText='we are always ready to help you and answer your questions'
-                  paragraphText='Lorem ipsum dolor sit amet consectetur. Pharetra id ultricies amet non. Turpis amet facilisis sem sit. Elementum egestas pretium vitae quis justo.'
+                  headerText='Get in touch with us for all your studio booking needs'
+                  paragraphText='Have questions about our services, need to book a session, or want to collaborate? Our team is here to help. Reach out via phone, email, or our social channels, and we&apos;ll get back to you promptly to ensure your experience is seamless and enjoyable.'
                 />
               </div>
               {/* call center  */}
               <div className='mt-10'>
                 <div className='flex flex-col sm:flex-row sm:gap-20'>
                   <div className='mb-8'>
-                    <span className='text-[#414141]'>call center</span>
-                    <p className='text-[19px] font-medium'>+234 816 524 7800</p>
-                    <p className='text-[19px] font-medium'>+234 816 524 7800</p>
+                    <span className='text-gray-500'>call center</span>
+                    <p className='text-[16px] font-medium'>+234 816 524 7800</p>
+                    <p className='text-[16px] font-medium'>+234 816 524 7800</p>
                   </div>
                   <div className='mb-8'>
-                    <span className='text-[#414141]'>Email address</span>
-                    <p className='text-[19px] font-medium'>
+                    <span className='text-gray-500'>Email address</span>
+                    <p className='text-[16px] font-medium'>
                       admin@momodustudios.com
                     </p>
-                    <p className='text-[19px] font-medium'>
+                    <p className='text-[16px] font-medium'>
                       socials@momodustudios.com
                     </p>
                   </div>
                 </div>
                 <div className='mb-8'>
-                  <span className='text-[#414141]'>Social network</span>
+                  <span className='text-gray-500'>Social network</span>
                   <div className='mt-2 flex items-center gap-4'>
                     <Link
                       href={"/"}
@@ -61,7 +61,7 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <div className='w-full sm:w-[596px]'>
+            <div className='w-full sm:w-[496px]'>
               <ContactForm />
             </div>
           </div>

@@ -16,40 +16,40 @@ const ContactForm = (): React.JSX.Element => {
       onSubmit={values => console.log(values)}
     >
       {({ values }) => (
-        <Form className='flex w-full flex-col gap-10'>
+        <Form className='flex w-full flex-col gap-10 text-white'>
           <div className='flex flex-col gap-10 sm:flex-row sm:justify-between'>
-            <div className='flex w-full flex-col gap-3 font-medium text-black'>
+            <div className='flex w-full flex-col gap-3 font-medium text-white'>
               <label>First Name</label>
               <Field
                 name='fname'
-                className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                className='border-b-[1px] border-white pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                 placeholder='Enter first name'
               />
             </div>
-            <div className='flex w-full flex-col gap-3 font-medium text-black'>
+            <div className='flex w-full flex-col gap-3 font-medium text-white'>
               <label>Last Name</label>
               <Field
                 name='lname'
-                className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                className='border-b-[1px] border-white pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                 placeholder='Enter last name'
               />
             </div>
           </div>
-          <div className='flex flex-col gap-3 font-medium text-black'>
+          <div className='flex flex-col gap-3 font-medium text-white'>
             <label>Email</label>
             <Field
               name='email'
               type='email'
-              className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+              className='border-b-[1px] border-white pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
               placeholder='Enter email address'
             />
           </div>
-          <div className='flex flex-col gap-3 font-medium text-black'>
+          <div className='flex flex-col gap-3 font-medium text-white'>
             <label>Message</label>
             <Field
               as='textarea'
               name='message'
-              className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+              className='border-b-[1px] border-white pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
               placeholder='Enter message'
             />
           </div>

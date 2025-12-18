@@ -6,6 +6,7 @@ import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import AccessMediaFiles from "@/components/AccessMediaFiles";
 import BetterWorkFlow from "@/components/BetterWorkFlow";
 import Blogs from "@/components/Blogs";
+// import CarouselContainer from "@/components/CarouselContainer"; 
 // import CardTwo from "@/components/cards/CardTwo";/
 import Collaborations from "@/components/Collaborations";
 import Faqs from "@/components/Faqs";
@@ -73,6 +74,8 @@ export default function Page() {
         <div className='flex w-full flex-col'>
           {/* Hero  */}
           <Hero />
+
+          {/* <CarouselContainer /> */}
 
           {/* Collaborations  */}
           <Collaborations />

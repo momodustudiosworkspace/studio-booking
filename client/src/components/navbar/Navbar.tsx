@@ -32,6 +32,7 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { userLogOut } from "@/redux/slices/authSlice";
 import { signOut } from "next-auth/react";
+import HeaderBanner from "../HeaderBanner";
 
 const PRODUCTS_LIST = [
   {
@@ -107,6 +108,9 @@ export default function Navbar() {
   const userAuth = useAppSelector(state => state.auth);
   return (
     <header className='fixed z-50 w-full bg-black/20 backdrop-blur-sm'>
+      <div className="sm:block hidden">
+        <HeaderBanner />
+      </div>
       <nav
         aria-label='Global'
         className='mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8'
@@ -197,8 +201,8 @@ export default function Navbar() {
           <Link href='https://www.momodustudios.com/pages/merch' className='text-sm/6 font-semibold text-white'>
             Marketplace
           </Link>
-          <Link href='#' className='text-sm/6 font-semibold text-white'>
-            Company
+          <Link href='https://www.momodustudios.com/pages/about-us' className='text-sm/6 font-semibold text-white'>
+            About us
           </Link>
         </PopoverGroup>
 
@@ -283,6 +287,9 @@ export default function Navbar() {
           )}
         </div>
       </nav>
+      <div className="sm:hidden block">
+        <HeaderBanner />
+      </div>
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
@@ -344,7 +351,7 @@ export default function Navbar() {
                   href='#'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5'
                 >
-                  Company
+                  About us
                 </Link>
                 <Popover className='relative'>
                   <PopoverButton className='flex items-center gap-x-1 border-none font-semibold text-white outline-none focus:border-none focus:outline-none'>

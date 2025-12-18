@@ -15,7 +15,6 @@ export default function HomeLayout({
   return (
     <section className={`font-montserrat`}>
       <Navbar />
-
       <div>{children}</div>
       <Footer />
     </section>

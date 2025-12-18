@@ -21,6 +21,7 @@ declare module "next-auth/jwt" {
     accessTokenExpires: number;
     isMember: boolean;
     isAdmin: boolean;
+    phoneNumber:string
   }
 }
 
@@ -33,6 +34,7 @@ declare module "next-auth" {
     isAdmin: boolean;
     first_name: string;
     last_name: string;
+    phoneNumber:string
   }
   interface Session {
     user: {
@@ -43,6 +45,7 @@ declare module "next-auth" {
       last_name: string;
       isMember: boolean;
       isAdmin: boolean;
+      phoneNumber:string
     } & DefaultSession["user"];
   }
 }
@@ -134,6 +137,8 @@ export const authOptions: NextAuthOptions = {
           isAdmin: user.user.isAdmin,
           first_name: user.user.first_name,
           last_name: user.user.last_name,
+          phoneNumber: user.user.phoneNumber
+
         };
       },
     }),
@@ -203,6 +208,7 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.first_name = user.first_name;
         token.last_name = user.last_name;
+        token.phoneNumber = user.phoneNumber
       }
 
       if (
@@ -232,6 +238,7 @@ export const authOptions: NextAuthOptions = {
           email: token.email ?? null,
           first_name: token.first_name ?? null,
           last_name: token.last_name ?? null,
+          phoneNumber:token.phoneNumber
         };
       }
       console.log(token.first_name, token.last_name);

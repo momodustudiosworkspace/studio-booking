@@ -67,172 +67,172 @@ const DashboardBookingDetails = ({
 
   }
   return (
-    <div className=''>
-      <DashboardLayout
-        headerProps={{
-          // headerText: "potrait session- ms1234",
-          headerText: `${booking.sessionTitle} session - ms${booking._id?.slice(0, 6)}`,
-          badge: `${booking.status}`,
-          badgeStatus: booking.status,
-          badgeClass: "",
-          paragraph:
-            "sat, sept 13,2025 | Momodu studios, victoria island, Lagos",
-          linkText: "Reschedule",
-          href: "/",
+
+    <DashboardLayout
+      headerProps={{
+        // headerText: "potrait session- ms1234",
+        headerText: `${booking.sessionTitle} session - ms${booking._id?.slice(0, 6)}`,
+        badge: `${booking.status}`,
+        badgeStatus: booking.status,
+        badgeClass: "",
+        paragraph:
+          "sat, sept 13,2025 | Momodu studios, victoria island, Lagos",
+        linkText: "Reschedule",
+        href: "/",
+      }}
+    >
+      <button
+        className='flex h-[32px] mb-10 w-[32px] items-center justify-center rounded-full bg-white'
+        onClick={() => {
+          redirect("/dashboard/bookings");
         }}
       >
-        <button
-          className='flex h-[32px] mb-10 w-[32px] items-center justify-center rounded-full bg-white'
-          onClick={() => {
-            redirect("/dashboard/bookings");
-          }}
-        >
-          <DashboardIcons value='arrow-left-outlined-black' />
-        </button>
-        <div className='flex flex-col-reverse gap-2 sm:flex-row'>
-          {/* Timeline  */}
-          <div className='h-[720px] w-full rounded-lg bg-white p-4 shadow sm:h-[610px] sm:w-[50%]'>
-            <DashboardHeader
-              headerText={"timeline"}
-              paragraph={"track every step from booking to delivery"}
-            />
+        <DashboardIcons value='arrow-left-outlined-black' />
+      </button>
+      <div className='flex flex-col-reverse sm:gap-32 gap-10 sm:flex-row'>
+        {/* Timeline  */}
+        <div className='h-[720px] w-full p-4 shadow sm:h-[610px] sm:w-[50%] sm:border-none border-t-[1px] border-gray-50'>
+          <DashboardHeader
+            headerText={"timeline"}
+            paragraph={"track every step from booking to delivery"}
+          />
 
-            <div className='relative mt-10'>
-              <DashboardBookingTimeline />
-            </div>
+          <div className='relative mt-10 '>
+            <DashboardBookingTimeline />
           </div>
+        </div>
 
-          {/* Details  */}
-          <div className='h-[610px] w-full rounded-lg bg-white p-4 shadow sm:w-[50%]'>
-            <DashboardHeader
-              headerText={"booking summary"}
-              paragraph={"your session at a glance "}
-            />
-            <div className='mt-10 flex w-full flex-col gap-7'>
+        {/* Details  */}
+        <div className='h-[610px] w-full text-white p-4 shadow sm:w-[50%] sm:border-none border-t-[1px] border-gray-50'>
+          <DashboardHeader
+            headerText={"booking summary"}
+            paragraph={"your session at a glance "}
+          />
+          <div className='mt-10 flex w-full flex-col gap-7'>
+            <div className='flex w-full items-center justify-between capitalize'>
+              <p className='font-bold'>service</p>
+              <p className='font-medium'>{booking.sessionTitle} shoot</p>
+            </div>
+            <div className='flex w-full items-center justify-between capitalize'>
+              <p className='font-bold'>date & time</p>
+              <p className='font-medium'>
+                {formatDate(booking.date)}, {formatTime(booking.startTime)}
+              </p>
+            </div>
+            <div className='flex w-full items-center gap-10 capitalize sm:justify-between'>
+              <p className='font-bold'>location</p>
+              <p className='font-medium'>{booking.location?.address}</p>
+            </div>
+            <div className='flex w-full items-center justify-end capitalize'>
+              {/* <p className='font-bold'>photographer</p> */}
+              {/* <p className='font-medium'>ekong emmanuel</p> */}
+              {/* <p className='font-bold'></p> */}
+              <p className='font-medium'>{booking.location?.state}</p>
+            </div>
+            <div className='flex flex-col gap-7 rounded-md py-5'>
               <div className='flex w-full items-center justify-between capitalize'>
-                <p className='font-bold'>service</p>
-                <p className='font-medium'>{booking.sessionTitle} shoot</p>
-              </div>
-              <div className='flex w-full items-center justify-between capitalize'>
-                <p className='font-bold'>date & time</p>
+                <p className='font-bold'>total</p>
                 <p className='font-medium'>
-                  {formatDate(booking.date)}, {formatTime(booking.startTime)}
+                  {nairaSymbol()}
+                  {booking.price?.toLocaleString()}
                 </p>
               </div>
-              <div className='flex w-full items-center gap-10 capitalize sm:justify-between'>
-                <p className='font-bold'>location</p>
-                <p className='font-medium'>{booking.location?.address}</p>
+              <div className='flex w-full items-center justify-between capitalize'>
+                <p className='font-bold'>paid</p>
+                <p className='font-medium'>
+                  {nairaSymbol()}
+                  {booking.price?.toLocaleString()}
+                </p>
               </div>
-              <div className='flex w-full items-center justify-end capitalize'>
-                {/* <p className='font-bold'>photographer</p> */}
-                {/* <p className='font-medium'>ekong emmanuel</p> */}
-                {/* <p className='font-bold'></p> */}
-                <p className='font-medium'>{booking.location?.state}</p>
-              </div>
-              <div className='flex flex-col gap-7 rounded-md bg-[#FAFAFA] px-4 py-5'>
-                <div className='flex w-full items-center justify-between capitalize'>
-                  <p className='font-bold'>total</p>
-                  <p className='font-medium'>
-                    {nairaSymbol()}
-                    {booking.price?.toLocaleString()}
-                  </p>
-                </div>
-                <div className='flex w-full items-center justify-between capitalize'>
-                  <p className='font-bold'>paid</p>
-                  <p className='font-medium'>
-                    {nairaSymbol()}
-                    {booking.price?.toLocaleString()}
-                  </p>
-                </div>
 
-                <div className='flex w-full items-center justify-between capitalize'>
-                  <p className='font-bold'>balance</p>
-                  <p className='font-medium'>{nairaSymbol()}0.00</p>
-                </div>
+              <div className='flex w-full items-center justify-between capitalize'>
+                <p className='font-bold'>balance</p>
+                <p className='font-medium'>{nairaSymbol()}0.00</p>
               </div>
-              {booking.status !== "cancelled" && <div>
-                <Button
-                  size='md'
-                  variant="danger"
-                  text={"Cancel booking"}
-                  icon={<RedirectArrowWhite />}
-                  loading={updateBookingLoading}
-                  iconPosition='right'
-                  className='w-auto'
-                  onClick={async () =>
-                    await handleCancelBooking()
-
-                  }
-                />
-              </div>}
             </div>
+            {booking.status !== "cancelled" && <div>
+              <Button
+                size='md'
+                variant="danger"
+                text={"Cancel booking"}
+                icon={<RedirectArrowWhite />}
+                loading={updateBookingLoading}
+                iconPosition='right'
+                className='w-auto'
+                onClick={async () =>
+                  await handleCancelBooking()
+
+                }
+              />
+            </div>}
           </div>
         </div>
+      </div>
 
-        {/* Photo selection and download  */}
-        <div className='rounded-lg bg-white py-5 sm:px-5 mt-2'>
-          <div className='mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
-            <DashboardHeader
-              headerText={`${timeLineLevel < 6 ? "proof gallery" : "final images"}`}
-              paragraph={`${timeLineLevel < 6 ? "select images to be edited from your studio session" : "your images from your session is ready"}`}
-            />
+      {/* Photo selection and download  */}
+      <div className='rounded-lg text-white py-5 sm:px-5 mt-2'>
+        <div className='mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
+          <DashboardHeader
+            headerText={`${timeLineLevel < 6 ? "proof gallery" : "final images"}`}
+            paragraph={`${timeLineLevel < 6 ? "select images to be edited from your studio session" : "your images from your session is ready"}`}
+          />
 
-            {timeLineLevel >= 6 ? (
-              <div className='shrink-0'>
-                <LinkButton
-                  href={`/dashboard/photo-studio/bookings/2`}
-                  size='md'
-                  text={"Download all"}
-                  icon={<RedirectArrowWhite />}
-                  iconPosition='right'
-                  className='w-auto'
-                />
-              </div>
-            ) : (
-              <div className='shrink-0'>
-                <p>
-                  {" "}
-                  Select <span className='font-semibold'>4</span> pictures{" "}
-                </p>
-                <p>
-                  Total selected:{" "}
-                  <span className='font-semibold'>{totalSelectedPhotos}</span>
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* DashboardBookingPhotoSelection  */}
-          <div className='max-h-[800px] w-full overflow-y-scroll pt-5'>
-            <DashboardBookingPhotoSelection
-              setTotalSelectedPhotos={setTotalSelectedPhotos}
-            />
-          </div>
-          <div className='mt-10 flex items-center gap-3'>
-            <LinkButton
-              href={`/dashboard/photo-studio/bookings/2`}
-              size='md'
-              text={"Message studio"}
-              icon={<RedirectArrowWhite />}
-              iconPosition='right'
-              className='w-auto'
-            />
-            {timeLineLevel >= 6 && (
-              <div>
-                <LinkButton
-                  href={`/dashboard/photo-studio/bookings/2`}
-                  size='md'
-                  text={"Feedback"}
-                  variant='outline'
-                  iconPosition='right'
-                  className='w-auto'
-                />
-              </div>
-            )}
-          </div>
+          {timeLineLevel >= 6 ? (
+            <div className='shrink-0'>
+              <LinkButton
+                href={`/dashboard/photo-studio/bookings/2`}
+                size='md'
+                text={"Download all"}
+                icon={<RedirectArrowWhite />}
+                iconPosition='right'
+                className='w-auto'
+              />
+            </div>
+          ) : (
+            <div className='shrink-0'>
+              <p>
+                {" "}
+                Select <span className='font-semibold'>4</span> pictures{" "}
+              </p>
+              <p>
+                Total selected:{" "}
+                <span className='font-semibold'>{totalSelectedPhotos}</span>
+              </p>
+            </div>
+          )}
         </div>
-      </DashboardLayout>
-    </div>
+
+        {/* DashboardBookingPhotoSelection  */}
+        <div className='max-h-[800px] w-full overflow-y-scroll pt-5'>
+          <DashboardBookingPhotoSelection
+            setTotalSelectedPhotos={setTotalSelectedPhotos}
+          />
+        </div>
+        <div className='mt-10 flex items-center gap-3'>
+          <LinkButton
+            href={`/dashboard/photo-studio/bookings/2`}
+            size='md'
+            text={"Message studio"}
+            icon={<RedirectArrowWhite />}
+            iconPosition='right'
+            className='w-auto'
+          />
+          {timeLineLevel >= 6 && (
+            <div>
+              <LinkButton
+                href={`/dashboard/photo-studio/bookings/2`}
+                size='md'
+                text={"Feedback"}
+                variant='outline'
+                iconPosition='right'
+                className='w-auto'
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </DashboardLayout>
+
   );
 };
 
