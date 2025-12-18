@@ -24,11 +24,11 @@ const Footer = (): React.JSX.Element => {
         },
         {
           text: "portfolio",
-          href: "/web/portfolio/2",
+          href: "https://www.momodustudios.com/",
         },
         {
           text: "about us",
-          href: "/web",
+          href: "https://www.momodustudios.com/pages/about-us",
         },
         {
           text: "Contact us",

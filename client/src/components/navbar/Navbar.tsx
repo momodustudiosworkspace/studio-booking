@@ -32,6 +32,7 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { userLogOut } from "@/redux/slices/authSlice";
 import { signOut } from "next-auth/react";
+import HeaderBanner from "../HeaderBanner";
 
 const PRODUCTS_LIST = [
   {
@@ -107,6 +108,9 @@ export default function Navbar() {
   const userAuth = useAppSelector(state => state.auth);
   return (
     <header className='fixed z-50 w-full bg-black/20 backdrop-blur-sm'>
+      <div className="sm:block hidden">
+        <HeaderBanner />
+      </div>
       <nav
         aria-label='Global'
         className='mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8'
@@ -283,6 +287,9 @@ export default function Navbar() {
           )}
         </div>
       </nav>
+      <div className="sm:hidden block">
+        <HeaderBanner />
+      </div>
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
