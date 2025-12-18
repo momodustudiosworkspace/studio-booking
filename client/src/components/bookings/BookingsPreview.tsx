@@ -3,6 +3,7 @@
 import { BookingsIcons } from "@/assets/icons/bookings/BookingsIcons";
 import nairaSymbol from "@/utils/symbols";
 import { Form, Formik } from "formik";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useRef } from "react";
 
 interface LocationProps {
@@ -12,6 +13,7 @@ interface LocationProps {
 interface bookingsPreviewProps {
   location: LocationProps | null | undefined;
   price: number | null | undefined;
+  defaultLoacation: number | null | undefined;
   sessionTitle: string | null | undefined;
   proceedBtnRef: React.RefObject<HTMLButtonElement | null>;
 }
@@ -20,9 +22,12 @@ const BookingsPreview = ({
   location,
   price,
   sessionTitle,
+  defaultLoacation,
   proceedBtnRef,
 }: bookingsPreviewProps): React.JSX.Element => {
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
+  const { data: session } = useSession()
+  console.log("session: ", session);
 
   useEffect(() => {
     if (!proceedBtnRef.current || !hiddenSubmitRef.current) return;
@@ -60,7 +65,7 @@ const BookingsPreview = ({
                 <BookingsIcons value='phone-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
                   {/* user phone number  */}
-                  +234 908 124 4447
+                  {session?.user.phoneNumber}
                 </p>
               </div>
               <div className='flex items-center gap-2'>
@@ -72,15 +77,16 @@ const BookingsPreview = ({
             </div>
           </div>
           <div className='rounded-xl bg-[#FAFAFA] p-6'>
-            <h3 className='mb-5 font-semibold capitalize'>pricing details</h3>
-            <div className='flex flex-col gap-5'>
+            <h3 className=' font-semibold capitalize'>pricing details</h3>
+            {defaultLoacation != 1 ? <small className="">An extra charge of 10% may apply for outdoor shoots. </small> : ""}
+            <div className='flex flex-col gap-5 mt-3'>
               <div className='flex items-center justify-between'>
                 <p className='text-[16px] font-medium text-[#414141] capitalize'>
                   price
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
                   {nairaSymbol()}
-                  {price?.toLocaleString("en-US")}
+                  {price?.toLocaleString("en-US")} {defaultLoacation === 2 && `+ ${nairaSymbol()}${price && (price * 0.1).toLocaleString("en-US")}`}
                 </p>
               </div>
               <div className='flex items-center justify-between'>
@@ -113,7 +119,7 @@ const BookingsPreview = ({
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
                   {nairaSymbol()}
-                  {price?.toLocaleString("en-US")}
+                  {price && defaultLoacation === 2 ? (price + (price * 0.1)).toLocaleString("en-US") : price?.toLocaleString()}
                 </p>
               </div>
             </div>

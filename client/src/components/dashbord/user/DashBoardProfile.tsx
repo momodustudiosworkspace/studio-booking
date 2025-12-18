@@ -125,7 +125,9 @@ const DashboardProfile = () => {
               {userprofile?.user?.email}
             </p>
             <p className='font-medium text-[#414141] sm:text-[16px]'>
-              +234 {userprofile?.user?.phoneNumber?.slice(1,)}
+              {userprofile?.user?.phoneNumber
+                ? `+234 ${userprofile.user.phoneNumber.slice(1)}`
+                : "—"}
             </p>
           </div>
         </div>
@@ -199,7 +201,7 @@ const DashboardProfile = () => {
 
       <section className='w-full rounded-lg border-[1px] border-[#F8F8F8] bg-white px-5 py-7 shadow sm:p-10'>
         {/* user data  */}
-        <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
+        {/* <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
           <div className='flex h-[74px] w-[74px] items-center justify-center rounded-full bg-black text-[31px] font-semibold text-white uppercase sm:h-[94px] sm:w-[94px] sm:text-[40px]'>
             {userprofile?.user &&
               (userprofile?.user.first_name ? (
@@ -229,10 +231,10 @@ const DashboardProfile = () => {
               +234 812 345 6789
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Session Overview  */}
-        <div className='mb-14'>
+        {/* <div className='mb-14'>
           <h4 className='mb-5 font-semibold capitalize'>session overview</h4>
 
           <div className='flex flex-col items-center gap-2 sm:flex-row'>
@@ -250,7 +252,7 @@ const DashboardProfile = () => {
               );
             })}
           </div>
-        </div>
+        </div> */}
 
         {/* Personal information  */}
         <div className='mb-14'>
@@ -262,11 +264,11 @@ const DashboardProfile = () => {
             {
               <Formik
                 initialValues={{
-                  email: userprofile?.user.email,
-                  first_name: userprofile?.user.first_name || "",
-                  last_name: userprofile?.user.last_name || "",
-                  phoneNumber: userprofile?.user.phoneNumber || "",
-                  address: userprofile?.user.address || "Update delivery address",
+                  email: userprofile?.user?.email ?? "",
+                  first_name: userprofile?.user?.first_name ?? "",
+                  last_name: userprofile?.user?.last_name ?? "",
+                  phoneNumber: userprofile?.user?.phoneNumber ?? "",
+                  address: userprofile?.user?.address ?? "",
                 }}
                 onSubmit={async values => {
                   await handleSubmit(values)
