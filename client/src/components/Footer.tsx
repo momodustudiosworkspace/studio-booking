@@ -66,7 +66,7 @@ const Footer = (): React.JSX.Element => {
   ];
   return (
     <div className='relative bg-black px-5 py-10 text-white sm:px-0'>
-      <div className='relative flex flex-col items-center max-w-7xl mx-auto'>
+      <div className='relative mx-auto flex max-w-7xl flex-col items-center'>
         <div className='my-4 mb-5 flex flex-col items-center justify-center sm:mb-20'>
           <Link href={"/"} className='flex sm:hidden'>
             {" "}

@@ -6,7 +6,7 @@ import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import AccessMediaFiles from "@/components/AccessMediaFiles";
 import BetterWorkFlow from "@/components/BetterWorkFlow";
 import Blogs from "@/components/Blogs";
-// import CarouselContainer from "@/components/CarouselContainer"; 
+// import CarouselContainer from "@/components/CarouselContainer";
 // import CardTwo from "@/components/cards/CardTwo";/
 import Collaborations from "@/components/Collaborations";
 import Faqs from "@/components/Faqs";
@@ -151,9 +151,9 @@ export default function Page() {
         </div>
 
         {/* Portfolio  */}
-        <div className='flex w-full flex-col items-center bg-black py-10 text-white '>
+        <div className='flex w-full flex-col items-center bg-black py-10 text-white'>
           <Portfolio />
-          <div className='mt-10 grid w-full grid-cols-1 gap-8 pr-24 pl-5 mx-auto max-w-7xl px-6 lg:px-8 sm:grid-cols-4 sm:gap-x-20'>
+          <div className='mx-auto mt-10 grid w-full max-w-7xl grid-cols-1 gap-8 px-6 pr-24 pl-5 sm:grid-cols-4 sm:gap-x-20 lg:px-8'>
             {BOOK_SESSION.map((book, key) => (
               <div key={key} className='flex flex-col gap-2'>
                 <h3 className='text-[16px] font-semibold capitalize'>
@@ -296,7 +296,7 @@ export default function Page() {
         </div> */}
 
         {/* FAQs  */}
-        <div className='w-full mx-auto max-w-7xl px-6 lg:px-8'>
+        <div className='mx-auto w-full max-w-7xl px-6 lg:px-8'>
           <div className='mt-10 mb-10 sm:mb-20'>
             <Faqs />
           </div>

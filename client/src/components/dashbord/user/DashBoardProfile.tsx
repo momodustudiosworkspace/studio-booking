@@ -4,7 +4,10 @@ import DashboardLayout from "./DashboardLayout";
 import { Field, Form, Formik } from "formik";
 import Button from "../../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
-import { useGetUserProfileQuery, useUpdateUserProfileMutation } from "@/redux/services/user/user/user.api";
+import {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+} from "@/redux/services/user/user/user.api";
 import { signOut, useSession } from "next-auth/react";
 import { UpdateUserProfileRequest } from "@/types/user.types";
 import { useUpDatePasswordMutation } from "@/redux/services/user/auth/auth.api";
@@ -18,17 +21,14 @@ const DashboardProfile = () => {
   // const [editPhoneNumber, setEditPhoneNumber] = useState<boolean>(false);
   // const [editAddress, setEditAddress] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   const { data: userprofile, isLoading: userProfileLoading } =
     useGetUserProfileQuery();
 
-  const [updateUserProfile, { isLoading }] =
-    useUpdateUserProfileMutation();
-
+  const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
 
   const [upDatePassword] = useUpDatePasswordMutation();
-
 
   console.log("use profile: ", userprofile);
 
@@ -55,22 +55,16 @@ const DashboardProfile = () => {
 
   if (userProfileLoading) return "Loading profile";
 
-
-  const handleSubmit = async (
-    values: UpdateUserProfileRequest,
-
-  ) => {
+  const handleSubmit = async (values: UpdateUserProfileRequest) => {
     try {
       const response = await updateUserProfile(values).unwrap();
 
       console.log("Updated user:", response.user);
       alert(response.message);
-
     } catch (error: any) {
       console.error("Update failed:", error);
       alert(error?.data?.message || "Update failed");
     } finally {
-
     }
   };
   return (
@@ -82,13 +76,13 @@ const DashboardProfile = () => {
         href: "/bookings",
       }}
     >
-      <div className="bg-black rounded-lg p-4">
-        <div className='flex flex-col items-center gap-2 sm:flex-row mb-10'>
+      <div className='rounded-lg bg-black p-4'>
+        <div className='mb-10 flex flex-col items-center gap-2 sm:flex-row'>
           {BOOKING_DATA.map(booking => {
             return (
               <div
                 key={booking.title}
-                className='w-full rounded-lg bg-black border-gray-400 border-1 text-white px-5 py-5 sm:h-[104px]'
+                className='w-full rounded-lg border-1 border-gray-400 bg-black px-5 py-5 text-white sm:h-[104px]'
               >
                 <p className='font-medium capitalize sm:text-[14px]'>
                   {booking.title}
@@ -115,7 +109,7 @@ const DashboardProfile = () => {
           </div>
           <div className=''>
             <h1
-              className={`mb-2 w-[200px] truncate text-[24px] text-white font-semibold sm:w-[300px] ${userprofile?.user?.first_name ? "capitalize" : ""}`}
+              className={`mb-2 w-[200px] truncate text-[24px] font-semibold text-white sm:w-[300px] ${userprofile?.user?.first_name ? "capitalize" : ""}`}
             >
               {userprofile?.user?.first_name
                 ? `${userprofile?.user?.first_name} ${userprofile?.user?.last_name}`
@@ -131,39 +125,60 @@ const DashboardProfile = () => {
             </p>
           </div>
         </div>
-        <div className="">
-          <h3 className="text-base/7 font-semibold text-white">Applicant Information</h3>
-          <p className="mt-1 max-w-2xl text-sm/6 text-gray-400">Personal details and application.</p>
+        <div className=''>
+          <h3 className='text-base/7 font-semibold text-white'>
+            Applicant Information
+          </h3>
+          <p className='mt-1 max-w-2xl text-sm/6 text-gray-400'>
+            Personal details and application.
+          </p>
         </div>
-        <div className="mt-6 border-t border-white/10">
-          <dl className="divide-y divide-white/10">
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm/6 font-medium text-gray-100">Full name</dt>
-              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.first_name} {userprofile?.user.last_name}</dd>
+        <div className='mt-6 border-t border-white/10'>
+          <dl className='divide-y divide-white/10'>
+            <div className='px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>
+              <dt className='text-sm/6 font-medium text-gray-100'>Full name</dt>
+              <dd className='mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0'>
+                {userprofile?.user.first_name} {userprofile?.user.last_name}
+              </dd>
             </div>
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm/6 font-medium text-gray-100">Phone Number</dt>
-              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.phoneNumber}</dd>
+            <div className='px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>
+              <dt className='text-sm/6 font-medium text-gray-100'>
+                Phone Number
+              </dt>
+              <dd className='mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0'>
+                {userprofile?.user.phoneNumber}
+              </dd>
             </div>
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm/6 font-medium text-gray-100">Email address</dt>
-              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">{userprofile?.user.email}</dd>
+            <div className='px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>
+              <dt className='text-sm/6 font-medium text-gray-100'>
+                Email address
+              </dt>
+              <dd className='mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0'>
+                {userprofile?.user.email}
+              </dd>
             </div>
             {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
               <dt className="text-sm/6 font-medium text-gray-100">Salary expectation</dt>
               <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">$120,000</dd>
             </div> */}
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm/6 font-medium text-gray-100">Delivery Address</dt>
-              <dd className="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">
+            <div className='px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>
+              <dt className='text-sm/6 font-medium text-gray-100'>
+                Delivery Address
+              </dt>
+              <dd className='mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0'>
                 {userprofile?.user.address}
               </dd>
             </div>
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm/6 font-medium text-gray-100">Account Verification Status</dt>
-              <dd className="mt-1 text-sm text-white sm:col-span-2 sm:mt-0">
-                {userprofile?.user.isMember ? "Account verified" : <button>Verify Account</button>}
-
+            <div className='px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>
+              <dt className='text-sm/6 font-medium text-gray-100'>
+                Account Verification Status
+              </dt>
+              <dd className='mt-1 text-sm text-white sm:col-span-2 sm:mt-0'>
+                {userprofile?.user.isMember ? (
+                  "Account verified"
+                ) : (
+                  <button>Verify Account</button>
+                )}
               </dd>
             </div>
           </dl>
@@ -171,8 +186,6 @@ const DashboardProfile = () => {
       </div>
 
       <section className='w-full rounded-lg border-[1px] border-[#F8F8F8] bg-white px-5 py-7 shadow sm:p-10'>
-
-
         {/* Personal information  */}
         <div className='mb-14'>
           <h4 className='mb-5 text-lg font-semibold capitalize'>
@@ -190,7 +203,7 @@ const DashboardProfile = () => {
                   address: userprofile?.user?.address ?? "",
                 }}
                 onSubmit={async values => {
-                  await handleSubmit(values)
+                  await handleSubmit(values);
                   console.log(values);
                 }}
               >
@@ -249,7 +262,7 @@ const DashboardProfile = () => {
                           name='email'
                           disabled
                           type='email'
-                          className='disabled border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out text-gray-600 focus:border-b-2'
+                          className='disabled border-b-[1px] border-black pb-2 text-gray-600 outline-0 transition-all ease-in-out focus:border-b-2'
                           placeholder='Enter email address'
                         />
                       </div>
@@ -348,11 +361,9 @@ const DashboardProfile = () => {
                         theme: "colored",
                       });
 
-
                       dispatch(userLogOut());
 
                       signOut({ callbackUrl: "/auth" });
-
                     }
                   } catch (error) {
                     console.log(error);
@@ -404,8 +415,6 @@ const DashboardProfile = () => {
           </div>
         </div>
       </section>
-
-
     </DashboardLayout>
   );
 };

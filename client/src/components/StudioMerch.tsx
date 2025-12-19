@@ -53,9 +53,7 @@ const StudioMerch = () => {
         <h2 className='text-2xl font-bold tracking-tight text-gray-900'>
           Members also purchased
         </h2>
-        <p>
-          Get up to 20% discount on your first studio session.
-        </p>
+        <p>Get up to 20% discount on your first studio session.</p>
 
         <div className='mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
           {products.map(product => (
@@ -84,8 +82,14 @@ const StudioMerch = () => {
             </div>
           ))}
         </div>
-        <div className="mt-10">
-          <Link href={"https://www.momodustudios.com/pages/merch"} className="flex items-center gap-2">See more <ArrowLongRightIcon aria-hidden='true' className='size-6' /></Link>
+        <div className='mt-10'>
+          <Link
+            href={"https://www.momodustudios.com/pages/merch"}
+            className='flex items-center gap-2'
+          >
+            See more{" "}
+            <ArrowLongRightIcon aria-hidden='true' className='size-6' />
+          </Link>
         </div>
       </div>
     </div>

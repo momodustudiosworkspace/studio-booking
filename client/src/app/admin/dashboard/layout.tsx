@@ -26,18 +26,12 @@ export default async function Layout({
     redirect("/auth"); // Or wherever your login page is
   }
   return (
-    <section
-      className={`font-montserrat flex min-h-screen w-full flex-col`}
-    >
-
+    <section className={`font-montserrat flex min-h-screen w-full flex-col`}>
       <div className='w-full flex-col'>
-        <div className='flex justify-center items-center bg-black w-full flex-col'>
+        <div className='flex w-full flex-col items-center justify-center bg-black'>
           <DashboardNavbar />
         </div>
-        <div className='max-h-screen sm:overflow-y-scroll'>
-            {children}
-          </div>
-
+        <div className='max-h-screen sm:overflow-y-scroll'>{children}</div>
       </div>
     </section>
   );

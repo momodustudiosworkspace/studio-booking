@@ -49,7 +49,7 @@ const BookingCard = ({
             ? "confirmed"
             : "";
   return (
-    <div className='flex flex-col justify-between gap-3 rounded-md border-gray-400 border-1 text-white p-4 shadow sm:flex-row sm:items-center sm:gap-0'>
+    <div className='flex flex-col justify-between gap-3 rounded-md border-1 border-gray-400 p-4 text-white shadow sm:flex-row sm:items-center sm:gap-0'>
       {/* Booking Details  */}
       <div className='flex shrink-0 gap-4 sm:w-[500px] sm:items-center'>
         <div
