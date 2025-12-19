@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Dialog,
@@ -7,9 +7,16 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 const MediaSpaceAlert = () => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
+
+
+  useEffect(() => {
+    const pageAlertTimer = setTimeout(() => setOpen(true), 5000)
+
+    return () => clearTimeout(pageAlertTimer)
+  }, [])
 
   return (
     <div>
@@ -34,35 +41,46 @@ const MediaSpaceAlert = () => {
               <div className='bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
                 <div className='sm:flex sm:items-start'>
                   <div className='mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-500/10 sm:mx-0 sm:size-10'>
-                    <ExclamationTriangleIcon
+                    {/* <ExclamationTriangleIcon
                       aria-hidden='true'
                       className='size-6 text-red-400'
-                    />
+                    /> */}
+                    <CheckCircleIcon aria-hidden='true' className='size-6 text-green-400' />
                   </div>
                   <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
                     <DialogTitle
                       as='h3'
                       className='text-base font-semibold text-white'
                     >
-                      Media Storage Limit Reached
+                      {/* Media Storage Limit Reached  */}
+                      Media storage
                     </DialogTitle>
                     <div className='mt-2'>
                       <p className='text-sm text-gray-400'>
-                        Your media storage has reached its limit. To continue
+                        Didi you know that you can organize your media files in our cloud for seamless access and use of your media assets across all social platforms?
+                        {/* Your media storage has reached its limit. To continue
                         uploading and storing media files, please consider
-                        upgrading your plan or deleting unnecessary files.
+                        upgrading your plan or deleting unnecessary files. */}
+
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className='bg-gray-700/25 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
-                <button
+                {/* <button
                   type='button'
                   onClick={() => setOpen(false)}
                   className='inline-flex w-full justify-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white hover:bg-green-400 sm:ml-3 sm:w-auto'
                 >
                   Upgrade Plan
+                </button> */}
+                <button
+                  type='button'
+                  onClick={() => setOpen(false)}
+                  className='inline-flex w-full justify-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white hover:bg-green-400 sm:ml-3 sm:w-auto'
+                >
+                  Got it!
                 </button>
                 <button
                   type='button'
@@ -70,8 +88,16 @@ const MediaSpaceAlert = () => {
                   onClick={() => setOpen(false)}
                   className='mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto'
                 >
-                  Dismiss
+                  Dismiss 
                 </button>
+                {/* <button
+                  type='button'
+                  data-autofocus
+                  onClick={() => setOpen(false)}
+                  className='mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto'
+                >
+                  Dismiss
+                </button> */}
               </div>
             </DialogPanel>
           </div>

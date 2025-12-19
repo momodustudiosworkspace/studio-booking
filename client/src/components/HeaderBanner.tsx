@@ -1,4 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const HeaderBanner = () => {
@@ -33,9 +34,8 @@ const HeaderBanner = () => {
         />
       </div>
       <div className='flex flex-wrap items-center gap-x-4 gap-y-2'>
-        <p className='flex items-center text-sm/6 text-gray-100'>
+        <p className='flex items-center text-sm text-gray-100'>
           <strong className='font-semibold'>Studio Space Available</strong>
-
           <span className='hidden items-center sm:inline-flex'>
             {" "}
             <svg
@@ -49,12 +49,12 @@ const HeaderBanner = () => {
             photography, and podcasts. Limited availability!
           </span>
         </p>
-        <a
-          href='#'
+        <Link
+          href='/bookings'
           className='flex-none rounded-full bg-white/10 px-3.5 py-1 text-sm font-semibold text-white shadow-xs inset-ring-white/20 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
         >
           Book Now <span aria-hidden='true'>&rarr;</span>
-        </a>
+        </Link>
       </div>
       <div className='flex flex-1 justify-end'>
         <button
