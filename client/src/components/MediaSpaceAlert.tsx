@@ -57,7 +57,7 @@ const MediaSpaceAlert = () => {
                     </DialogTitle>
                     <div className='mt-2'>
                       <p className='text-sm text-gray-400'>
-                        Didi you know that you can organize your media files in our cloud for seamless access and use of your media assets across all social platforms?
+                        Did you know that you can organize your media files in our cloud for seamless access and use of your media assets across all social platforms?
                         {/* Your media storage has reached its limit. To continue
                         uploading and storing media files, please consider
                         upgrading your plan or deleting unnecessary files. */}

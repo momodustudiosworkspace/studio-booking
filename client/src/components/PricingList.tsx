@@ -1,11 +1,12 @@
+import nairaSymbol from "@/utils/symbols";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
 const tiers = [
   {
-    name: "Hobby",
+    name: "Individual",
     id: "tier-hobby",
     href: "#",
-    priceMonthly: "$29",
+    priceMonthly: `${nairaSymbol()}250,000`,
     description:
       "The perfect plan if you're just getting started with our product.",
     features: [
@@ -20,7 +21,7 @@ const tiers = [
     name: "Enterprise",
     id: "tier-enterprise",
     href: "#",
-    priceMonthly: "$99",
+    priceMonthly: `${nairaSymbol()}420,000`,
     description: "Dedicated support and infrastructure for your company.",
     features: [
       "Unlimited products",
@@ -57,7 +58,7 @@ export default function PricingList() {
         <h2 className='text-base/7 font-semibold text-white'>
           Studio packages
         </h2>
-        <p className='mt-2 text-5xl font-semibold tracking-tight text-balance text-white sm:text-6xl'>
+        <p className='mt-2 sm:font-sem text-3xlibold tracking-tight text-balance text-white sm:text-6xl'>
           Choose the right plan for your studio session
         </p>
       </div>
@@ -94,7 +95,7 @@ export default function PricingList() {
               <span
                 className={classNames(
                   tier.featured ? "text-white" : "text-white",
-                  "text-5xl font-semibold tracking-tight"
+                  "sm:text-5xl text-3xl font-semibold tracking-tight"
                 )}
               >
                 {tier.priceMonthly}

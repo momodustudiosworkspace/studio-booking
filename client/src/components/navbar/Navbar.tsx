@@ -33,6 +33,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { userLogOut } from "@/redux/slices/authSlice";
 import { signOut } from "next-auth/react";
 import HeaderBanner from "../HeaderBanner";
+import { baseApi } from "@/redux/services/api";
 
 const PRODUCTS_LIST = [
   {
@@ -272,7 +273,8 @@ export default function Navbar() {
                       ) : (
                         <button
                           className='flex items-center justify-center gap-x-2.5 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
-                          onClick={() => {
+                            onClick={() => {
+                              dispatch(baseApi.util.resetApiState());
                             dispatch(userLogOut());
                             signOut({ callbackUrl: "/auth" });
                           }}
@@ -429,6 +431,7 @@ export default function Navbar() {
                       // setTimeout(() => {
                       //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
                       // }, 500)
+                      dispatch(baseApi.util.resetApiState());
                       dispatch(userLogOut());
 
                       signOut({ callbackUrl: "/auth" });

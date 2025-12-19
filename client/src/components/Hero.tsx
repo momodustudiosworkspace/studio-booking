@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className='relative overflow-hidden bg-black pt-32 pb-96 sm:pt-72 lg:pb-20 mb-44'>
+    <div className='relative overflow-hidden bg-black pt-32 sm:pt-72 lg:pb-20'>
       <div className='pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48'>
         <div className='relative mx-auto max-w-7xl sm:static sm:px-6 lg:px-8'>
           <div className='sm:max-w-lg px-4 sm:px-0'>
@@ -17,7 +17,7 @@ const Hero = () => {
               creatives. Manage & organize your journey
             </p>
           </div>
-          <div className="px-4 sm:px-0">
+          <div className="px-4 sm:px-0 sm:h-auto h-[800px]">
             <div className='mt-10'>
               {/* Decorative image grid */}
               <div

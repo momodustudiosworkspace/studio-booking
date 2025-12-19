@@ -7,7 +7,7 @@ export const sessionAPI = baseApi.injectEndpoints({
   endpoints: builder => ({
     getSessions: builder.query<GetAllSessionsResponse, void>({
       query: () => "/admin/sessions",
-      providesTags: ["Sessions"],
+       providesTags: [{ type: "Sessions", id: "LIST" }],
     }),
   }),
   overrideExisting: false,
