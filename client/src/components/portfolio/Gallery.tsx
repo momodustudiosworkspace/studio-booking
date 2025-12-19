@@ -50,7 +50,7 @@ export default function Gallery(): React.JSX.Element {
                     onClick={() => fetchMedia(true)}
                     className="mt-4 px-4 py-2 bg-black text-white rounded"
                 >
-                    {loading ? "Loading..." : "Load More"}
+                    {loading ? <p className="text-white">Loading...</p> : "Load More"}
                 </button>
             )} */}
     </div>

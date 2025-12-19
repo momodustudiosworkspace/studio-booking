@@ -59,7 +59,7 @@ const DashBoardClients = () => {
       // },
     ];
   }, [users?.pagination.total]);
-  // if (isLoading) return "Loading...";
+  // if (isLoading) return <p className="text-white">Loading...</p>;
   // if (error) return "Failed to load data";
 
   return (

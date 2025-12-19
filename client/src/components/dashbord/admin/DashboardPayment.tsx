@@ -58,7 +58,7 @@ const DashboardPayment = () => {
       },
     ];
   }, [payments?.balance, payments?.todaysRevenue, payments?.totalPayment]);
-  // if (isLoading) return "Loading...";
+  // if (isLoading) return <p className="text-white">Loading...</p>;
   // if (error) return "Failed to load data";
 
   // 🔹 Compute and format your bookings once
@@ -89,7 +89,7 @@ const DashboardPayment = () => {
     // const paymentookingDate = payment.date;
     return payment.status;
   });
-  if (isLoading) return "Loading...";
+  if (isLoading) return <p className="text-white">Loading...</p>;
   // if (error) return "Failed to load data";
 
   const TABS = [
