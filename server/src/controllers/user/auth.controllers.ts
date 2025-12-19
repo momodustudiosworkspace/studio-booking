@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import * as crypto from 'crypto';
 import User from "../../models/user.models";
 import { sendOtpEmail } from "../../utils/sendEmail";
-import Opt from "../../models/otp.models";
+import Otp from "../../models/otp.models";
 import { generateOTP } from "../../utils/generateOTP";
 import { generateAuthTokens } from "../../utils/generateAuthToken";
 
@@ -46,7 +46,7 @@ export async function register(req: Request, res: Response) {
 
         const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-        await Opt.create({
+        await Otp.create({
             email: user.email,
             otp: hashedOtp,
             expiresAt,
@@ -149,7 +149,7 @@ export async function getRefreshAccessToken(req: Request, res: Response) {
 }
 
 // Generate Auth OTP 
-export const sendOPT = async (req: Request, res: Response) => {
+export const sendOtp = async (req: Request, res: Response) => {
     const { email, purpose } = req.body;
 
     const user = await User.findOne({ email });
@@ -164,7 +164,7 @@ export const sendOPT = async (req: Request, res: Response) => {
 
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-    await Opt.create({
+    await Otp.create({
         email: user.email,
         otp: hashedOtp,
         expiresAt,
@@ -187,7 +187,7 @@ export const verifyOtp = async (req: Request, res: Response) => {
 
     const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
 
-    const getOTP = await Opt.findOne({ email }).sort({ createdAt: -1 });
+    const getOTP = await Otp.findOne({ email }).sort({ createdAt: -1 });
 
     if (getOTP?.otp !== hashedOtp) {
         return res.status(404).json({ message: "OTP is invalid." });
@@ -198,7 +198,7 @@ export const verifyOtp = async (req: Request, res: Response) => {
     user.isVerified = true
 
     await user.save()
-    await Opt.deleteMany({ email });
+    await Otp.deleteMany({ email });
 
     return res.status(200).json({ message: "OTP verified successfully", status: 200 });
 };
@@ -235,4 +235,4 @@ export const upDatePassword = async (req: Request, res: Response) => {
 
 
 
-export default { register, login, googleAuth, sendOPT, verifyOtp, getRefreshAccessToken }
+export default { register, login, googleAuth, sendOtp, verifyOtp, getRefreshAccessToken }

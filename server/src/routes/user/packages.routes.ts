@@ -4,16 +4,22 @@ import { getBookingSessionPackages } from "../../controllers/user/packages.contr
 
 const router = express.Router();
 
-
+/**
+ * @openapi
+ * tags:
+ *   name: User Packages
+ *   description: Package retrieval endpoints for user bookings
+ */
 
 /**
  * @openapi
- * /api/bookings:
+ * /api/bookings/packages:
  *   post:
- *     summary: Create a new booking
- *     tags: [Bookings]
+ *     summary: Get packages for a specific session
+ *     tags: [Packages]
  *     security:
- *       - bearerAuth: []   # 👈 requires Authorization header
+ *       - bearerAuth: []
+ *     description: Retrieve all available packages for a selected session type during the booking process
  *     requestBody:
  *       required: true
  *       content:
@@ -21,31 +27,68 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             required:
- *               - sessionType
- *               - date
+ *               - session_id
  *             properties:
- *               sessionType:
+ *               session_id:
  *                 type: string
- *                 example: "Wedding"
- *               date:
- *                 type: string
- *                 format: date
- *                 example: "2025-12-24"
- *               timeSlot:
- *                 type: string
- *                 example: "10:00 AM - 12:00 PM"
- *               notes:
- *                 type: string
- *                 example: "Outdoor shoot at Lekki Beach"
+ *                 description: The ID of the session type
+ *                 example: "60d5ec49c1234567890abcde"
  *     responses:
- *       201:
- *         description: Booking created successfully
+ *       200:
+ *         description: Packages retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: number
+ *                   example: 200
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       title:
+ *                         type: string
+ *                         example: "Basic Package"
+ *                       description:
+ *                         type: string
+ *                       price:
+ *                         type: number
+ *                         example: 50
+ *                       duration:
+ *                         type: number
+ *                         description: Duration in hours
+ *                         example: 2
+ *                       session_id:
+ *                         type: string
+ *                       features:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                         example: ["Basic editing", "Quick delivery"]
+ *                       includes:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                         example: ["1 revision", "Final files"]
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *       400:
+ *         description: Missing session_id or invalid data
  *       401:
- *         description: Unauthorized
+ *         description: Unauthorized - authentication required
+ *       404:
+ *         description: Session not found or no packages available
  *       500:
  *         description: Server error
  */
-
 router.post("/", authMiddleWare, getBookingSessionPackages);
 
 export default router;

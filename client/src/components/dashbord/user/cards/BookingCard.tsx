@@ -111,7 +111,7 @@ const BookingCard = ({
       {/* View booking details  */}
       <div className='flex gap-2 sm:items-center sm:justify-center'>
         <LinkButton
-          href={`/dashboard/photo-studio/bookings/${id}`}
+          href={`/dashboard/booking/${id}`}
           size='md'
           text={"View"}
           icon={<RedirectArrowWhite />}

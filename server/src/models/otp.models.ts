@@ -24,7 +24,7 @@ otpSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 }); // auto-delete
 otpSchema.index({ email: 1 });
 
 
-export const Opt: Model<IOtp> = mongoose.model("Otp", otpSchema);
-export default Opt;
+export const Otp: Model<IOtp> = mongoose.model("Otp", otpSchema);
+export default Otp;
 
 

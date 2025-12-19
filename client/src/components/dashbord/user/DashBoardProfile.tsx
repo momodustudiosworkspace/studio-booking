@@ -163,36 +163,7 @@ const DashboardProfile = () => {
               <dt className="text-sm/6 font-medium text-gray-100">Account Verification Status</dt>
               <dd className="mt-1 text-sm text-white sm:col-span-2 sm:mt-0">
                 {userprofile?.user.isMember ? "Account verified" : <button>Verify Account</button>}
-                {/* <ul role="list" className="divide-y divide-white/5 rounded-md border border-white/10">
-                  <li className="flex items-center justify-between py-4 pr-5 pl-4 text-sm/6">
-                    <div className="flex w-0 flex-1 items-center">
-                      <PaperClipIcon aria-hidden="true" className="size-5 shrink-0 text-gray-500" />
-                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
-                        <span className="truncate font-medium text-white">resume_back_end_developer.pdf</span>
-                        <span className="shrink-0 text-gray-500">2.4mb</span>
-                      </div>
-                    </div>
-                    <div className="ml-4 shrink-0">
-                      <a href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
-                        Download
-                      </a>
-                    </div>
-                  </li>
-                  <li className="flex items-center justify-between py-4 pr-5 pl-4 text-sm/6">
-                    <div className="flex w-0 flex-1 items-center">
-                      <PaperClipIcon aria-hidden="true" className="size-5 shrink-0 text-gray-500" />
-                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
-                        <span className="truncate font-medium text-white">coverletter_back_end_developer.pdf</span>
-                        <span className="shrink-0 text-gray-500">4.5mb</span>
-                      </div>
-                    </div>
-                    <div className="ml-4 shrink-0">
-                      <a href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
-                        Download
-                      </a>
-                    </div>
-                  </li>
-                </ul> */}
+
               </dd>
             </div>
           </dl>
@@ -200,59 +171,7 @@ const DashboardProfile = () => {
       </div>
 
       <section className='w-full rounded-lg border-[1px] border-[#F8F8F8] bg-white px-5 py-7 shadow sm:p-10'>
-        {/* user data  */}
-        {/* <div className='mb-10 flex items-center gap-4 border-b-[1px] border-[#F1F1F1] pb-7'>
-          <div className='flex h-[74px] w-[74px] items-center justify-center rounded-full bg-black text-[31px] font-semibold text-white uppercase sm:h-[94px] sm:w-[94px] sm:text-[40px]'>
-            {userprofile?.user &&
-              (userprofile?.user.first_name ? (
-                <span>
-                  {userprofile?.user.first_name?.slice(0, 1)}
-                  {userprofile?.user.last_name?.slice(0, 1)}
-                </span>
-              ) : (
-                <span>
-                  {userprofile?.user.email?.slice(0, 1)}
-                  {userprofile?.user.email?.slice(1, 2)}
-                </span>
-              ))}
-          </div>
-          <div className=''>
-            <h1
-              className={`mb-2 w-[200px] truncate text-[24px] font-semibold sm:w-[300px] ${userprofile?.user?.first_name ? "capitalize" : ""}`}
-            >
-              {userprofile?.user?.first_name
-                ? `${userprofile?.user?.first_name} ${userprofile?.user?.last_name}`
-                : userprofile?.user?.email}
-            </h1>
-            <p className='mb-1 w-[200px] truncate text-sm font-medium text-[#414141] sm:w-[300px] sm:text-[16px]'>
-              {userprofile?.user?.email}
-            </p>
-            <p className='font-medium text-[#414141] sm:text-[16px]'>
-              +234 812 345 6789
-            </p>
-          </div>
-        </div> */}
 
-        {/* Session Overview  */}
-        {/* <div className='mb-14'>
-          <h4 className='mb-5 font-semibold capitalize'>session overview</h4>
-
-          <div className='flex flex-col items-center gap-2 sm:flex-row'>
-            {BOOKING_DATA.map(booking => {
-              return (
-                <div
-                  key={booking.title}
-                  className='w-full rounded-lg bg-[#FAFAFA] px-5 py-5 sm:h-[104px]'
-                >
-                  <p className='font-medium capitalize sm:text-[14px]'>
-                    {booking.title}
-                  </p>
-                  <h1 className='text-[40px] font-bold'>{booking.count}</h1>
-                </div>
-              );
-            })}
-          </div>
-        </div> */}
 
         {/* Personal information  */}
         <div className='mb-14'>
