@@ -7,7 +7,7 @@ export default function NotFound() {
       <h1 className='text-4xl font-bold'>404</h1>
       <p className='text-lg'>Sorry, this page does not exist.</p>
       <LinkButton
-        href='/web'
+        href='/'
         icon={<RedirectArrowWhite />}
         iconPosition='right'
         text='Go back home'

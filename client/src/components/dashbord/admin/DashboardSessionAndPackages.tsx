@@ -85,11 +85,13 @@ const DashboardSessionAndPackages = () => {
       </div>
       <div>
         {/* Additional content for sessions and packages can be added here */}
-        <div className='flex items-start'>
+        <div className='flex items-start '>
           {/* Create Session  */}
-          <div className='flex w-full items-center justify-between'>
-            <h2 className='text-xl font-bold'>Manage Sessions</h2>
-
+          <div className='flex w-full items-center justify-between rounded-lg shadow bg-white p-6'>
+            <div>
+              <h2 className='text-xl font-bold'>Manage Sessions</h2>
+              <p className='mt-1 text-sm text-gray-400'>Create and manage studio session</p>
+            </div>
             <Button
               text='+ Create session'
               onClick={() => setOpen(true)}

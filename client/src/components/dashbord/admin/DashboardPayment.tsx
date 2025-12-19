@@ -44,7 +44,7 @@ const DashboardPayment = () => {
       },
       {
         title: "today's revenue",
-        count: `${nairaSymbol()}${payments?.todaysRevenue}`,
+        count: `${nairaSymbol()}${payments?.todaysRevenue.toLocaleString()}`,
         linkText: "2 payments today",
         href: "/payments",
         dataType: 0,

@@ -34,7 +34,7 @@ export interface IBooking extends Document {
 const bookingSchema = new Schema<IBooking>(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    assignedTo: { type: Schema.Types.ObjectId, ref: "User" },
+    assignedTo: { type: Schema.Types.ObjectId, ref: "Staff" },
     user_fullnames: { type: String, required: true, trim: true },
     sessionType: { type: String, required: true, trim: true },
     sessionTitle: { type: String, required: true, trim: true },

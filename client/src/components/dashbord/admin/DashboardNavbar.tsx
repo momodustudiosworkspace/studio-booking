@@ -49,7 +49,7 @@ const DashboardNavbar = () => {
       icon: "report-analytics-solid-black" as IconsType,
     },
     {
-      href: "/not-found",
+      href: "/admin/dashboard/staff-management",
       name: "Staff Management",
       icon: "report-analytics-solid-black" as IconsType,
     },

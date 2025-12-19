@@ -2,7 +2,7 @@
 import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
 
-import BookingCard from "./cards/BookingCard";
+// import BookingCard from "./cards/BookingCard";
 import DashboardHeader from "./DashboardHeader";
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
@@ -13,6 +13,9 @@ import {
 import Pagination from "@/components/Pagination";
 import { formatDate } from "@/utils/dateFormatter";
 import { formatTime } from "@/utils/timeFormatter";
+import DashboardAssignStaffDropDown from "./DashboardAssignStaffDropDown";
+// import { formatDate } from "@/utils/dateFormatter";
+// import { formatTime } from "@/utils/timeFormatter";
 
 const DashboardBookings = () => {
   const [bookingPage, setBookingPage] = useState(1);
@@ -21,6 +24,7 @@ const DashboardBookings = () => {
     { page: bookingPage, limit },
     { pollingInterval: 600000 }
   );
+
 
   console.log("bookings: ", bookings);
   const [currentTab, setCurrentTab] = useState<number>(1);
@@ -88,6 +92,7 @@ const DashboardBookings = () => {
         address: b.location?.address,
         state: b.location?.state,
       },
+      assignedTo: b.assignedTo,
       user_fullnames: b.user_fullnames?.toLowerCase(),
       date: b.date || null, // e.g. "Thu Dec 04 2025"
       startTime: b.startTime,
@@ -106,6 +111,8 @@ const DashboardBookings = () => {
   //   return;
   // });
 
+  console.log("formattedBookings: ", formattedBookings);
+
 
   if (isLoading) return "Loading...";
   // if (error) return "Failed to load data";
@@ -123,22 +130,115 @@ const DashboardBookings = () => {
           No bookings available.
         </p>
       );
-    return data.map(b => (
-      <div
-        key={b._id}
-        onMouseEnter={() => prefetchBooking(b._id || "", { ifOlderThan: 60 })} // 👈 Prefetch on hover
-        onFocus={() => prefetchBooking(b._id || "", { ifOlderThan: 60 })} // 👈 Accessibility
-      >
-        <BookingCard
-          id={b._id}
-          client_name={`${b.user_fullnames}`}
-          location={b.location?.address || ""}
-          date={formatDate(b.date)}
-          startTime={formatTime(b.startTime)}
-          status={b.status}
-        />
-      </div>
-    ));
+
+    return <table className="w-full border-collapse text-left">
+      <thead>
+        <tr className="border-b bg-gray-50">
+          <th className="px-4 py-5">Client Name</th>
+          <th className="px-4 py-5">Location</th>
+          <th className="px-4 py-5">Date</th>
+          <th className="px-4 py-5">Status</th>
+          <th className="px-4 py-5">Assigned to</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {isLoading ? (
+          [...Array(limit)].map((_, i) => (
+            <tr key={i} className="animate-pulse border-b">
+              <td className="px-4 py-5">
+                <div className="h-4 w-40 rounded bg-gray-200" />
+              </td>
+              <td className="px-4 py-5">
+                <div className="h-4 w-48 rounded bg-gray-200" />
+              </td>
+              <td className="px-4 py-5">
+                <div className="h-4 w-24 rounded bg-gray-200" />
+              </td>
+              <td className="px-4 py-5">
+                <div className="h-4 w-20 rounded bg-gray-200" />
+              </td>
+            </tr>
+          ))
+        ) : data.length === 0 ? (
+          <tr>
+            <td colSpan={4} className="py-6 text-center text-gray-500">
+              No data found
+            </td>
+          </tr>
+        ) : (
+          data.map((data) => (
+            <tr
+              key={data._id}
+              className="border-b hover:bg-gray-50"
+              onMouseEnter={() => prefetchBooking(data._id || "", { ifOlderThan: 60 })} // 👈 Prefetch on hover
+              onFocus={() => prefetchBooking(data._id || "", { ifOlderThan: 60 })} // 👈 Accessibility
+            >
+              <td className="px-4 py-5 font-medium capitalize">
+                {data.user_fullnames}
+              </td>
+
+              <td className="px-4 py-5">{data.location.address === "C1 Melita Plaze, Gimbiya street, Garki"
+                ? "indoor"
+                : "outdoor"}</td>
+
+              <td className="px-4 py-5 capitalize">
+
+                <div className='flex items-center gap-2 sm:w-[200px]'>
+                  <div
+                    className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
+                  >
+                    <DashboardIcons value='calendar-grid-outlined-black' />
+                  </div>
+                  <div>
+                    <div className='mb-1 flex gap-2'>
+                      {/* <h3 className='font-semibold capitalize'>{formatDate(date, "short")}</h3> */}
+                      <h3 className='font-semibold capitalize'>{formatDate(data.date)}</h3>
+                    </div>
+                    {/* <p className='text-[14px] sm:text-[16px]'>{formatTime(time)}</p> */}
+                    <p className='text-[14px] sm:text-[16px]'>{formatTime(data.startTime)}</p>
+                  </div>
+                </div>
+              </td>
+
+              <td className="px-4 py-5">
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-medium ${data.status === "completed"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-yellow-100 text-yellow-700"
+                    }`}
+                >
+                  {data.status}
+                </span>
+              </td>
+              <td className="px-4 py-5">
+
+                <DashboardAssignStaffDropDown assignedStaffId={data.assignedTo} bookingId={data._id}
+                />
+
+              </td>
+
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+    // return data.map(b => (
+    //   <div
+    //     key={b._id}
+    //     onMouseEnter={() => prefetchBooking(b._id || "", { ifOlderThan: 60 })} // 👈 Prefetch on hover
+    //     onFocus={() => prefetchBooking(b._id || "", { ifOlderThan: 60 })} // 👈 Accessibility
+    //   >
+    //     <BookingCard
+    //       id={b._id}
+    //       client_name={`${b.user_fullnames}`}
+    //       location={b.location?.address || ""}
+    //       date={formatDate(b.date)}
+    //       startTime={formatTime(b.startTime)}
+    //       status={b.status}
+    //     />
+    //   </div>
+    // ));
   };
 
   return (
@@ -217,7 +317,7 @@ const DashboardBookings = () => {
 
           {/* booking list  */}
           <div className='flex flex-col font-medium'>
-            <div className='flex items-center gap-[120px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4 font-semibold'>
+            {/* <div className='flex items-center gap-[120px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4 font-semibold'>
               <div className='flex shrink-0 justify-between sm:w-[490px] sm:items-center'>
                 <p>Booking ID</p>
                 <p>Client Name</p>
@@ -232,7 +332,7 @@ const DashboardBookings = () => {
               <div className='flex gap-2 sm:items-center sm:justify-center'>
                 <p>Action</p>
               </div>
-            </div>
+            </div> */}
 
             {/* Bookings lists */}
             {/* Bookings per tab */}

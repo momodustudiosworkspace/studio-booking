@@ -16,7 +16,7 @@ const router = express.Router();
 /**
  * @openapi
  * tags:
- *   name: Bookings
+ *   name: User Bookings
  *   description: Booking management endpoints (CRUD)
  */
 

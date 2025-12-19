@@ -28,8 +28,17 @@ export const adminBookingApi = baseApi.injectEndpoints({
           ? [{ type: "Bookings", id: result._id ?? id }]
           : [{ type: "Bookings", id }],
     }),
+    assignStaffToBooking: builder.mutation<BookingType, { bookingId: string; staffId: string }>({
+      query: ({ bookingId, staffId }) => ({
+        url: `/admin/bookings/${bookingId}/assign-staff`,
+        method: 'PATCH',
+        body: { staffId },
+      }),
+      invalidatesTags: ['Bookings'], // So the bookings list refreshes
+    })
+
   }),
   overrideExisting: true,
 });
 
-export const { useGetAllUserBookingsQuery, usePrefetch } = adminBookingApi;
+export const { useGetAllUserBookingsQuery, useAssignStaffToBookingMutation, usePrefetch } = adminBookingApi;

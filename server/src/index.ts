@@ -15,6 +15,7 @@ import adminUsersRoutes from "./routes/admin/user.routers"
 import adminPayments from "./routes/admin/payment.routes"
 import sessionRoutes from "./routes/admin/session.route"
 import packageRoutes from "./routes/admin/package.routes"
+import staffRoutes from "./routes/admin/staff.routes"
 
 
 
@@ -47,6 +48,7 @@ app.use("/api/admin/users", adminUsersRoutes )
 app.use("/api/admin/payments", adminPayments)
 app.use("/api/admin/sessions", sessionRoutes);
 app.use("/api/admin/packages", packageRoutes);
+app.use("/api/admin/staff", staffRoutes);
 
 
 
