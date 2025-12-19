@@ -5,12 +5,12 @@ export function staffInivitationEmailTemplate({ firstName, invitationLink }: { f
       <p>Hi ${firstName},</p>
       <p>You have been invited to join our studio team at Momodust Studios. Click the link below to accept your invitation and complete your profile setup.</p>
       <p>
-        <a href="${`http://localhost:3000/staff/invite/accept?token=${invitationLink}`}" style="background-color: #000; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">
+        <a href="${`https://bookings.momodustudios.com/staff/invite/accept?token=${invitationLink}`}" style="background-color: #000; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">
           Accept Invitation
         </a>
       </p>
       <p>Or copy and paste this link in your browser:</p>
-      <p>${`http://localhost:3000/staff/invite/accept?token=${invitationLink}`}</p>
+      <p>${`https://bookings.momodustudios.com/staff/invite/accept?token=${invitationLink}`}</p>
       <p style="color: #666; font-size: 12px; margin-top: 20px;">This link expires in 7 days.</p>
     </div>
   `;
