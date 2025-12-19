@@ -39,11 +39,11 @@ const DashboardNavbar = () => {
       name: "Bookings",
       icon: "camera-solid-black" as IconsType,
     },
-    {
-      href: "/dashboard/notifications",
-      name: "Notifications",
-      icon: "camera-solid-black" as IconsType,
-    },
+    // {
+    //   href: "/dashboard/notifications",
+    //   name: "Notifications",
+    //   icon: "camera-solid-black" as IconsType,
+    // },
     //  {
     //    href: "/dashboard/profile-settings",
     //    name: "Profile",
@@ -71,7 +71,7 @@ const DashboardNavbar = () => {
     name: `${session?.user.first_name} ${session?.user.first_name}`,
     email: session?.user.email,
     imageUrl:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      session?.user.image,
   };
   const pathname = usePathname();
 
@@ -157,7 +157,7 @@ const DashboardNavbar = () => {
                     width={100}
                     height={100}
                     alt=''
-                    src={user.imageUrl}
+                    src={user.imageUrl || ""}
                     className='size-8 rounded-full outline -outline-offset-1 outline-white/10'
                   />
                 </MenuButton>
@@ -236,7 +236,7 @@ const DashboardNavbar = () => {
                 width={100}
                 height={100}
                 alt=''
-                src={user.imageUrl}
+                src={user.imageUrl || ""}
                 className='size-10 rounded-full outline -outline-offset-1 outline-white/10'
               />
             </div>
@@ -244,7 +244,7 @@ const DashboardNavbar = () => {
               <div className='text-base/5 font-medium text-white'>
                 {user.name}
               </div>
-              <div className='text-sm font-medium text-gray-400'>
+              <div className='max-w-[200px] truncate text-sm font-medium text-gray-400'>
                 {user.email}
               </div>
             </div>
@@ -259,7 +259,7 @@ const DashboardNavbar = () => {
           </div>
           <div className='mt-3 space-y-1 px-2'>
             {userNavigation.map(item => (
-              <Disclosure.Button
+              <DisclosureButton
                 key={item.name}
                 as='button'
                 type='button'
@@ -274,7 +274,7 @@ const DashboardNavbar = () => {
                 className='block w-full rounded-md px-3 py-2 text-left text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white'
               >
                 {item.name}
-              </Disclosure.Button>
+              </DisclosureButton>
             ))}
           </div>
         </div>

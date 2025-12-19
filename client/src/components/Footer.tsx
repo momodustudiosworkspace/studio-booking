@@ -205,7 +205,7 @@ const Footer = (): React.JSX.Element => {
 
           <div className='flex items-center gap-6'>
             <Link
-              href={"/"}
+              href={"https://www.instagram.com/momodu_studios/"}
               className='flex h-10 w-10 items-center justify-center rounded-full bg-white'
             >
               <BaseIcons value='instagram-black' />

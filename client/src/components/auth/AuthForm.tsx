@@ -72,7 +72,7 @@ const AuthForm = ({
                         className='size-full object-cover'
                       />
                     </div>
-                    {/* <div className='h-64 w-44 overflow-hidden rounded-lg'>
+                    <div className='h-64 w-44 overflow-hidden rounded-lg'>
                       <Image
                         width={100}
                         height={100}
@@ -80,7 +80,7 @@ const AuthForm = ({
                         src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg'
                         className='size-full object-cover'
                       />
-                    </div> */}
+                    </div>
                   </div>
                   <div className='grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8'>
                     {/* <div className='h-64 w-44 overflow-hidden rounded-lg'>

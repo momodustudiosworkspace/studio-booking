@@ -125,7 +125,7 @@ export default function DashboardAssignStaffDropDown({
               )}
             </ListboxOption>
           ))}
-          <p className='text-white'> {bookingId}</p>
+
         </ListboxOptions>
       </div>
     </Listbox>
