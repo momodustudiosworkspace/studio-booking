@@ -273,7 +273,7 @@ export default function Navbar() {
                         <button
                           className='flex items-center justify-center gap-x-2.5 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
                           onClick={() => {
-                            dispatch(userLogOut());
+                            // dispatch(userLogOut());
                             signOut({ callbackUrl: "/auth" });
                           }}
                         >
@@ -429,7 +429,7 @@ export default function Navbar() {
                       // setTimeout(() => {
                       //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
                       // }, 500)
-                      dispatch(userLogOut());
+                      // dispatch(userLogOut());
 
                       signOut({ callbackUrl: "/auth" });
                     }}

@@ -194,13 +194,13 @@ const AuthForm = ({
             )}
           </div>
 
-          <div className='mt-10 mb-5 w-full items-center sm:mt-0 sm:flex sm:items-start'>
+          <div className='mt-5 mb-5 w-full items-center sm:mt-0 sm:flex sm:items-start'>
             {children}
           </div>
           {/* Google auth button  */}
           {authForm && !adminAuth && (
             <>
-              <div className='mb-10 flex items-center justify-between gap-1'>
+              <div className='mb-5 flex items-center justify-between gap-1'>
                 <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
                 <p className='text-md'>or</p>
                 <div className='h-[0.5px] w-[150px] bg-gray-300 sm:bg-black'></div>
@@ -211,7 +211,7 @@ const AuthForm = ({
                     callbackUrl: callBackUrl,
                   })
                 }
-                className='my-10 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#FAFAFA] text-[14px] hover:cursor-pointer'
+                className='mb-10 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#FAFAFA] text-[14px] hover:cursor-pointer'
               >
                 <BaseIcons value='google' />{" "}
                 <span className='font-semibold text-black'>
