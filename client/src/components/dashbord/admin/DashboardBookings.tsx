@@ -77,7 +77,7 @@ const DashboardBookings = () => {
       // },
     ];
   }, [bookings?.data]);
-  // if (isLoading) return "Loading...";
+  // if (isLoading) return <p className="text-white">Loading...</p>;
   // if (error) return "Failed to load data";
 
   // 🔹 Compute and format your bookings once
@@ -113,7 +113,7 @@ const DashboardBookings = () => {
 
   console.log("formattedBookings: ", formattedBookings);
 
-  if (isLoading) return "Loading...";
+  if (isLoading) return <p className="text-white">Loading...</p>;
   // if (error) return "Failed to load data";
 
   const TABS = [
