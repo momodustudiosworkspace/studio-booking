@@ -9,7 +9,7 @@ export interface IOtp extends Document {
   expiresAt: Date,
 }
 
-const otpSchema = new Schema<IOtp>(
+const otpSchema:Schema<IOtp> = new Schema<IOtp>(
   {
     email: String,
   otp: String,

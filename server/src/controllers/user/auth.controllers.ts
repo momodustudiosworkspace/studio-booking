@@ -182,25 +182,44 @@ export const sendOtp = async (req: Request, res: Response) => {
 export const verifyOtp = async (req: Request, res: Response) => {
     const { email, otp } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found" });
+    console.log(email,otp);
+    
 
+    const user = await User.findOne({ email });
     const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
 
-    const getOTP = await Otp.findOne({ email }).sort({ createdAt: -1 });
+    console.log("user: ", user);
+    console.log("hashedOtp: ", hashedOtp);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    if (getOTP?.otp !== hashedOtp) {
-        return res.status(404).json({ message: "OTP is invalid." });
+
+    const otpRecords = await Otp.find({ email })
+        .sort({ createdAt: -1 })
+        .limit(1);
+
+    const getOTP = otpRecords[0];
+    if (!getOTP) {
+        return res.status(404).json({ message: "OTP not found." });
     }
+
+    if (getOTP.otp !== hashedOtp) {
+        return res.status(400).json({ message: "OTP is invalid." });
+    }
+
     if (getOTP.expiresAt.getTime() < Date.now()) {
-        return res.status(404).json({ message: "OTP has expired." });
+        await Otp.deleteMany({ email });
+        return res.status(400).json({ message: "OTP has expired." });
     }
-    user.isVerified = true
 
-    await user.save()
+    user.isVerified = true;
+    await user.save();
+
     await Otp.deleteMany({ email });
 
-    return res.status(200).json({ message: "OTP verified successfully", status: 200 });
+    return res.status(200).json({
+        message: "OTP verified successfully",
+        status: 200
+    });
 };
 
 // Update password 

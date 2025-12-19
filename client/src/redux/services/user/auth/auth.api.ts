@@ -21,7 +21,7 @@ export const authApi = baseApi.injectEndpoints({
     }),
     verifyOtp: builder.mutation<VerifyOtpTypesResponse, VerifyOtpTypesRequest>({
       query: body => ({
-        url: "/auth/verify-opt",
+        url: "/auth/verify-otp",
         method: "POST",
         body,
       }),
