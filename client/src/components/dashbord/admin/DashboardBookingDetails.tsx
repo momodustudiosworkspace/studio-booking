@@ -29,8 +29,8 @@ const DashboardBookingDetails = ({
 
   // if client is late based on bookign time and checkin time let the checking timeline be red
   const timeLineLevel = 5;
-  if (isLoading) return <p>Loading booking details...</p>;
-  if (!booking) return <p>No booking found.</p>;
+  if (isLoading) return <p className="text-white">Loading booking details...</p>;
+  if (!booking) return <p className="text-white">No booking found.</p>;
 
   return (
     <div className='-mt-24'>

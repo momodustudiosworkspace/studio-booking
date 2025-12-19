@@ -125,7 +125,7 @@ const DashboardBookings = () => {
   const renderBookings = (data: any) => {
     if (!data.length)
       return (
-        <p className='flex h-[100px] w-full items-center justify-center'>
+        <p className='flex h-[100px] w-full items-center justify-center text-white'>
           No bookings available.
         </p>
       );

@@ -86,7 +86,7 @@ const DashBoardOverview = () => {
     stats?.data.totalRevenue,
   ]);
   if (isLoading) return <p className="text-white">Loading...</p>;
-  if (error) return "Failed to load data";
+  if (error) return <p className="text-white">Failed to load data</p>;
 
   return (
     <DashboardLayout
