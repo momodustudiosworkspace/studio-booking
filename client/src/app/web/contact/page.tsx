@@ -8,8 +8,8 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <section className='flex min-h-screen w-full bg-black text-white justify-center pt-40 '>
-      <section className='w-full mx-auto max-w-7xl lg:px-8'>
+    <section className='flex min-h-screen w-full justify-center bg-black pt-40 text-white'>
+      <section className='mx-auto w-full max-w-7xl lg:px-8'>
         <div className='flex flex-col gap-10 px-5 py-10 sm:px-0'>
           <div className='flex flex-col items-end sm:flex-row sm:justify-between'>
             <div>
@@ -21,7 +21,7 @@ export default function Page() {
               <div className='w-full sm:w-[560px]'>
                 <SectionHeader
                   headerText='Get in touch with us for all your studio booking needs'
-                  paragraphText='Have questions about our services, need to book a session, or want to collaborate? Our team is here to help. Reach out via phone, email, or our social channels, and we&apos;ll get back to you promptly to ensure your experience is seamless and enjoyable.'
+                  paragraphText="Have questions about our services, need to book a session, or want to collaborate? Our team is here to help. Reach out via phone, email, or our social channels, and we'll get back to you promptly to ensure your experience is seamless and enjoyable."
                 />
               </div>
               {/* call center  */}

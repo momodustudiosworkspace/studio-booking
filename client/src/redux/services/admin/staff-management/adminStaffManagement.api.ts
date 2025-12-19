@@ -13,8 +13,11 @@ import {
 export const adminStaffManagementApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     // ✅ Invite staff member
-    inviteStaff: builder.mutation<StaffApiResponse<InviteStaffRequest>, InviteStaffRequest>({
-      query: (data) => ({
+    inviteStaff: builder.mutation<
+      StaffApiResponse<InviteStaffRequest>,
+      InviteStaffRequest
+    >({
+      query: data => ({
         url: "/admin/staff/invite",
         method: "POST",
         body: data,
@@ -23,8 +26,11 @@ export const adminStaffManagementApi = baseApi.injectEndpoints({
     }),
 
     // ✅ Accept staff invitation
-    acceptInvitation: builder.mutation<StaffApiResponse<StaffResponse>, AcceptInvitationRequest>({
-      query: (data) => ({
+    acceptInvitation: builder.mutation<
+      StaffApiResponse<StaffResponse>,
+      AcceptInvitationRequest
+    >({
+      query: data => ({
         url: "/admin/staff/accept-invitation",
         method: "POST",
         body: data,
@@ -56,7 +62,7 @@ export const adminStaffManagementApi = baseApi.injectEndpoints({
 
     // ✅ Get staff member by ID
     getStaffById: builder.query<StaffApiResponse<StaffResponse>, string>({
-      query: (id) => `/admin/staff/${id}`,
+      query: id => `/admin/staff/${id}`,
       providesTags: (result, _error, id) =>
         result
           ? [{ type: "Staff", id: result.data?._id ?? id }]
@@ -113,7 +119,7 @@ export const adminStaffManagementApi = baseApi.injectEndpoints({
 
     // ✅ Delete/Deactivate staff member
     deleteStaff: builder.mutation<StaffApiResponse<void>, string>({
-      query: (id) => ({
+      query: id => ({
         url: `/admin/staff/${id}`,
         method: "DELETE",
       }),

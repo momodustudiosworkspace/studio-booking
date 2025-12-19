@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useInviteStaffMutation } from "@/redux/services/admin/staff-management/adminStaffManagement.api";
 import { AuthToast } from "@/components/toast/ToastMessage";
 import { Field, Form, Formik } from "formik";
@@ -26,19 +26,19 @@ interface StaffFormProps {
 // });
 
 interface StaffFormProps {
-    setOpen: (open: boolean) => void;
+  setOpen: (open: boolean) => void;
 }
 const StaffForm = ({ setOpen }: StaffFormProps) => {
   const [inviteStaff, { isLoading }] = useInviteStaffMutation();
 
   return (
-    <div className="isolate px-6 lg:px-8">
+    <div className='isolate px-6 lg:px-8'>
       <div
-        aria-hidden="true"
-        className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+        aria-hidden='true'
+        className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80'
       ></div>
-      <div className="mx-auto">
-        <p className="mt-2 mb-5 text-black"></p>
+      <div className='mx-auto'>
+        <p className='mt-2 mb-5 text-black'></p>
       </div>
       <Formik
         initialValues={{
@@ -47,16 +47,23 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
           email: "",
           role: "engineer",
         }}
-        // validationSchema={staffValidationSchema} 
-        onSubmit={async (values) => {
+        // validationSchema={staffValidationSchema}
+        onSubmit={async values => {
           try {
             const response = await inviteStaff({
               ...values,
-              role: values.role as "engineer" | "photographer" | "producer" | "manager" | "admin",
+              role: values.role as
+                | "engineer"
+                | "photographer"
+                | "producer"
+                | "manager"
+                | "admin",
             }).unwrap();
 
             setOpen(false);
-            return toast.success(response.message || "Staff invitation sent successfully");
+            return toast.success(
+              response.message || "Staff invitation sent successfully"
+            );
           } catch (error: any) {
             console.log("Error inviting staff:", error);
 
@@ -73,104 +80,106 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
         }}
       >
         {({ values, isSubmitting, errors, touched }) => (
-          <Form className="flex w-full flex-col gap-10 text-white sm:text-black">
+          <Form className='flex w-full flex-col gap-10 text-white sm:text-black'>
             {/* First Name */}
-            <div className="flex flex-col gap-3">
-              <label className="text-sm font-medium text-white sm:text-black">
+            <div className='flex flex-col gap-3'>
+              <label className='text-sm font-medium text-white sm:text-black'>
                 First Name *
               </label>
               <Field
-                name="first_name"
-                type="text"
+                name='first_name'
+                type='text'
                 className={`border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black ${
                   errors.first_name && touched.first_name
                     ? "border-red-500"
                     : "border-white"
                 }`}
-                placeholder="Enter first name"
+                placeholder='Enter first name'
               />
               {errors.first_name && touched.first_name && (
-                <span className="text-xs text-red-500">{errors.first_name}</span>
+                <span className='text-xs text-red-500'>
+                  {errors.first_name}
+                </span>
               )}
             </div>
 
             {/* Last Name */}
-            <div className="flex flex-col gap-3">
-              <label className="text-sm font-medium text-white sm:text-black">
+            <div className='flex flex-col gap-3'>
+              <label className='text-sm font-medium text-white sm:text-black'>
                 Last Name *
               </label>
               <Field
-                name="last_name"
-                type="text"
+                name='last_name'
+                type='text'
                 className={`border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black ${
                   errors.last_name && touched.last_name
                     ? "border-red-500"
                     : "border-white"
                 }`}
-                placeholder="Enter last name"
+                placeholder='Enter last name'
               />
               {errors.last_name && touched.last_name && (
-                <span className="text-xs text-red-500">{errors.last_name}</span>
+                <span className='text-xs text-red-500'>{errors.last_name}</span>
               )}
             </div>
 
             {/* Email */}
-            <div className="flex flex-col gap-3">
-              <label className="text-sm font-medium text-white sm:text-black">
+            <div className='flex flex-col gap-3'>
+              <label className='text-sm font-medium text-white sm:text-black'>
                 Email Address *
               </label>
               <Field
-                name="email"
-                type="email"
+                name='email'
+                type='email'
                 className={`border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black ${
                   errors.email && touched.email
                     ? "border-red-500"
                     : "border-white"
                 }`}
-                placeholder="Enter email address"
+                placeholder='Enter email address'
               />
               {errors.email && touched.email && (
-                <span className="text-xs text-red-500">{errors.email}</span>
+                <span className='text-xs text-red-500'>{errors.email}</span>
               )}
             </div>
 
             {/* Role */}
-            <div className="flex flex-col gap-3">
-              <label className="text-sm font-medium text-white sm:text-black">
+            <div className='flex flex-col gap-3'>
+              <label className='text-sm font-medium text-white sm:text-black'>
                 Staff Role *
               </label>
               <Field
-                as="select"
-                name="role"
+                as='select'
+                name='role'
                 className={`border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black ${
                   errors.role && touched.role
                     ? "border-red-500"
                     : "border-white"
                 } bg-white text-black`}
               >
-                <option value="engineer">Engineer</option>
-                <option value="photographer">Photographer</option>
-                <option value="producer">Producer</option>
-                <option value="manager">Manager</option>
-                <option value="admin">Admin</option>
+                <option value='engineer'>Engineer</option>
+                <option value='photographer'>Photographer</option>
+                <option value='producer'>Producer</option>
+                <option value='manager'>Manager</option>
+                <option value='admin'>Admin</option>
               </Field>
               {errors.role && touched.role && (
-                <span className="text-xs text-red-500">{errors.role}</span>
+                <span className='text-xs text-red-500'>{errors.role}</span>
               )}
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-end gap-3">
+            <div className='flex justify-end gap-3'>
               <button
-                type="button"
-                className="flex gap-2 rounded-md bg-black px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-black/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                type='button'
+                className='flex gap-2 rounded-md bg-black px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-black/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black'
                 onClick={() => setOpen(false)}
               >
                 <span>✕</span>
                 <span>Close</span>
               </button>
               <button
-                type="submit"
+                type='submit'
                 disabled={
                   isSubmitting ||
                   !values.first_name ||

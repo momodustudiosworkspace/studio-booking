@@ -35,10 +35,10 @@ const DashboardLayout = ({ children, headerProps }: DashboardLayoutProps) => {
   }, [session, tokenDispatch]);
 
   return (
-    <div className="min-h-full bg-black">
-      <header className="relative after:pointer-events-none after:absolute after:inset-x-0 after:inset-y-0 after:border-y after:border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="tracking-tight text-white">
+    <div className='min-h-full bg-black'>
+      <header className='relative after:pointer-events-none after:absolute after:inset-x-0 after:inset-y-0 after:border-y after:border-white/10'>
+        <div className='mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8'>
+          <div className='tracking-tight text-white'>
             <DashboardHeader
               badge={headerProps.badge}
               badgeStatus={headerProps.badgeStatus}
@@ -52,7 +52,7 @@ const DashboardLayout = ({ children, headerProps }: DashboardLayoutProps) => {
         </div>
       </header>
       <main>
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className='mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8'>
           {children}
         </div>
       </main>

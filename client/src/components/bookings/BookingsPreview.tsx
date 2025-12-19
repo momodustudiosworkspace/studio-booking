@@ -26,7 +26,7 @@ const BookingsPreview = ({
   proceedBtnRef,
 }: bookingsPreviewProps): React.JSX.Element => {
   const hiddenSubmitRef = useRef<HTMLButtonElement>(null);
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   console.log("session: ", session);
 
   useEffect(() => {
@@ -77,16 +77,24 @@ const BookingsPreview = ({
             </div>
           </div>
           <div className='rounded-xl bg-[#FAFAFA] p-6'>
-            <h3 className=' font-semibold capitalize'>pricing details</h3>
-            {defaultLoacation != 1 ? <small className="">An extra charge of 10% may apply for outdoor shoots. </small> : ""}
-            <div className='flex flex-col gap-5 mt-3'>
+            <h3 className='font-semibold capitalize'>pricing details</h3>
+            {defaultLoacation != 1 ? (
+              <small className=''>
+                An extra charge of 10% may apply for outdoor shoots.{" "}
+              </small>
+            ) : (
+              ""
+            )}
+            <div className='mt-3 flex flex-col gap-5'>
               <div className='flex items-center justify-between'>
                 <p className='text-[16px] font-medium text-[#414141] capitalize'>
                   price
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
                   {nairaSymbol()}
-                  {price?.toLocaleString("en-US")} {defaultLoacation === 2 && `+ ${nairaSymbol()}${price && (price * 0.1).toLocaleString("en-US")}`}
+                  {price?.toLocaleString("en-US")}{" "}
+                  {defaultLoacation === 2 &&
+                    `+ ${nairaSymbol()}${price && (price * 0.1).toLocaleString("en-US")}`}
                 </p>
               </div>
               <div className='flex items-center justify-between'>
@@ -119,7 +127,9 @@ const BookingsPreview = ({
                 </p>
                 <p className='text-[16px] font-semibold text-[#414141] capitalize'>
                   {nairaSymbol()}
-                  {price && defaultLoacation === 2 ? (price + (price * 0.1)).toLocaleString("en-US") : price?.toLocaleString()}
+                  {price && defaultLoacation === 2
+                    ? (price + price * 0.1).toLocaleString("en-US")
+                    : price?.toLocaleString()}
                 </p>
               </div>
             </div>

@@ -39,7 +39,6 @@ const DashboardBookingDetails = ({
   if (isLoading) return <p>Loading booking details...</p>;
   if (!booking) return <p>No booking found.</p>;
 
-
   const handleCancelBooking = async () => {
     if (!booking._id) return;
 
@@ -49,7 +48,7 @@ const DashboardBookingDetails = ({
         booking: {
           _id: booking._id,
           user: booking._id || null,
-          status: "cancelled"
+          status: "cancelled",
         },
       }).unwrap();
       toast.success(AuthToast, {
@@ -62,12 +61,10 @@ const DashboardBookingDetails = ({
         theme: "colored",
       });
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-
-  }
+  };
   return (
-
     <DashboardLayout
       headerProps={{
         // headerText: "potrait session- ms1234",
@@ -75,35 +72,34 @@ const DashboardBookingDetails = ({
         badge: `${booking.status}`,
         badgeStatus: booking.status,
         badgeClass: "",
-        paragraph:
-          "sat, sept 13,2025 | Momodu studios, victoria island, Lagos",
+        paragraph: "sat, sept 13,2025 | Momodu studios, victoria island, Lagos",
         linkText: "Reschedule",
         href: "/",
       }}
     >
       <button
-        className='flex h-[32px] mb-10 w-[32px] items-center justify-center rounded-full bg-white'
+        className='mb-10 flex h-[32px] w-[32px] items-center justify-center rounded-full bg-white'
         onClick={() => {
           redirect("/dashboard/bookings");
         }}
       >
         <DashboardIcons value='arrow-left-outlined-black' />
       </button>
-      <div className='flex flex-col-reverse sm:gap-32 gap-10 sm:flex-row'>
+      <div className='flex flex-col-reverse gap-10 sm:flex-row sm:gap-32'>
         {/* Timeline  */}
-        <div className='h-[720px] w-full p-4 shadow sm:h-[610px] sm:w-[50%] sm:border-none border-t-[1px] border-gray-50'>
+        <div className='h-[720px] w-full border-t-[1px] border-gray-50 p-4 shadow sm:h-[610px] sm:w-[50%] sm:border-none'>
           <DashboardHeader
             headerText={"timeline"}
             paragraph={"track every step from booking to delivery"}
           />
 
-          <div className='relative mt-10 '>
+          <div className='relative mt-10'>
             <DashboardBookingTimeline />
           </div>
         </div>
 
         {/* Details  */}
-        <div className='h-[610px] w-full text-white p-4 shadow sm:w-[50%] sm:border-none border-t-[1px] border-gray-50'>
+        <div className='h-[610px] w-full border-t-[1px] border-gray-50 p-4 text-white shadow sm:w-[50%] sm:border-none'>
           <DashboardHeader
             headerText={"booking summary"}
             paragraph={"your session at a glance "}
@@ -150,27 +146,26 @@ const DashboardBookingDetails = ({
                 <p className='font-medium'>{nairaSymbol()}0.00</p>
               </div>
             </div>
-            {booking.status !== "cancelled" && <div>
-              <Button
-                size='md'
-                variant="danger"
-                text={"Cancel booking"}
-                icon={<RedirectArrowWhite />}
-                loading={updateBookingLoading}
-                iconPosition='right'
-                className='w-auto'
-                onClick={async () =>
-                  await handleCancelBooking()
-
-                }
-              />
-            </div>}
+            {booking.status !== "cancelled" && (
+              <div>
+                <Button
+                  size='md'
+                  variant='danger'
+                  text={"Cancel booking"}
+                  icon={<RedirectArrowWhite />}
+                  loading={updateBookingLoading}
+                  iconPosition='right'
+                  className='w-auto'
+                  onClick={async () => await handleCancelBooking()}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Photo selection and download  */}
-      <div className='rounded-lg text-white py-5 sm:px-5 mt-2'>
+      <div className='mt-2 rounded-lg py-5 text-white sm:px-5'>
         <div className='mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
           <DashboardHeader
             headerText={`${timeLineLevel < 6 ? "proof gallery" : "final images"}`}
@@ -232,7 +227,6 @@ const DashboardBookingDetails = ({
         </div>
       </div>
     </DashboardLayout>
-
   );
 };
 

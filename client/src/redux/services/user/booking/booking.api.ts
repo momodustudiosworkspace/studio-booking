@@ -47,7 +47,7 @@ export const bookingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Bookings"],
     }),
-      getCalendarBookings: builder.query<
+    getCalendarBookings: builder.query<
       BookingSLotsCalendar[],
       { year: number; month: number }
     >({

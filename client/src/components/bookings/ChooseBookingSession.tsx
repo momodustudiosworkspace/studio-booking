@@ -66,68 +66,62 @@ const ChooseBookingSession = ({
   };
 
   if (isLoading) {
-    return <div className="p-5">Loading...</div>;
+    return <div className='p-5'>Loading...</div>;
   }
 
   return (
-    <div className="w-[350px] sm:w-[750px] rounded-lg">
+    <div className='w-[350px] rounded-lg sm:w-[750px]'>
       {/* Main Carousel */}
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-5">
+      <div className='overflow-hidden' ref={emblaRef}>
+        <div className='flex gap-5'>
           {BOOKING_SESSIONS.map((session, index) => (
-            <div
-              key={session._id}
-              className="min-w-[80%] sm:min-w-[40%]"
-            >
+            <div key={session._id} className='min-w-[80%] sm:min-w-[40%]'>
               <button
                 onClick={() => handleSelect(session, index)}
-                className={`group relative h-[380px] w-full overflow-hidden rounded-lg transition
-    ${selectedSession === session._id
+                className={`group relative h-[380px] w-full overflow-hidden rounded-lg transition ${
+                  selectedSession === session._id
                     ? "ring-2 ring-black"
                     : "ring-1 ring-transparent"
-                  }`}
+                }`}
               >
                 {/* Background Image */}
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110"
+                  className='absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110'
                   style={{
                     backgroundImage: `url("/home/hero-section-one.png")`,
                   }}
                 />
 
                 {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 transition-opacity duration-500 ease-in-out group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90" />
+                <div className='absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 transition-opacity duration-500 ease-in-out group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90' />
 
                 {/* Content */}
-                <div className="relative z-10 flex h-full flex-col justify-between p-6 text-white transition-all duration-500 ease-in-out group-hover:items-center group-hover:text-center">
+                <div className='relative z-10 flex h-full flex-col justify-between p-6 text-white transition-all duration-500 ease-in-out group-hover:items-center group-hover:text-center'>
                   {/* Title */}
-                  <h3 className="text-2xl font-bold capitalize leading-tight transition-transform duration-500 ease-in-out group-hover:translate-y-2">
+                  <h3 className='text-2xl leading-tight font-bold capitalize transition-transform duration-500 ease-in-out group-hover:translate-y-2'>
                     {session.title}
                   </h3>
 
                   {/* Tagline */}
-                  <p className="mt-2 text-xs opacity-80 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 translate-y-4">
+                  <p className='mt-2 translate-y-4 text-xs opacity-80 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100'>
                     Book your session
                   </p>
                 </div>
               </button>
-
             </div>
           ))}
         </div>
       </div>
 
       {/* Thumbs / Indicators */}
-      <div className="mt-4 flex justify-center gap-2">
+      <div className='mt-4 flex justify-center gap-2'>
         {BOOKING_SESSIONS.map((session, index) => (
           <button
             key={session._id}
             onClick={() => emblaApi?.scrollTo(index)}
-            className={`h-2 w-2 rounded-full transition
-              ${selectedSession === session._id
-                ? "bg-white"
-                : "bg-gray-500"
-              }`}
+            className={`h-2 w-2 rounded-full transition ${
+              selectedSession === session._id ? "bg-white" : "bg-gray-500"
+            }`}
           />
         ))}
       </div>

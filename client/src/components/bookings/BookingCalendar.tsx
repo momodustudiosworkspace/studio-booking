@@ -94,7 +94,6 @@ const BookingCalendar = ({
     month: getMonth(new Date()),
   });
 
-
   // 🧠 Dummy backend-like data (will be replaced by RTK Query later)
   // const [availableSlots] = useState<AvailableSlot[]>([
   //   {
@@ -113,7 +112,6 @@ const BookingCalendar = ({
 
   console.log("availableSlots: ", availableSlots);
 
-
   // Initialize with Redux date (convert from string to Date)
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     selectedBookingDate ? new Date(selectedBookingDate) : null
@@ -122,7 +120,6 @@ const BookingCalendar = ({
   const [selectedTime, setSelectedTime] = useState<string | null>(
     selectedBookingStartTime || null
   );
-
 
   // ✅ DERIVED — NO STATE
   const availableTimes = React.useMemo(() => {
@@ -153,21 +150,20 @@ const BookingCalendar = ({
     }
 
     // 🟡 Remove already-booked times
-    return DAILY_TIME_SLOTS.filter(
-      time => !slotForDay.times.includes(time)
-    );
+    return DAILY_TIME_SLOTS.filter(time => !slotForDay.times.includes(time));
   }, [selectedDate, availableSlots]);
 
-  const isDayDisabled = useCallback((date: Date) => {
-    const today = startOfToday();
-    if (isBefore(date, today)) return true;
+  const isDayDisabled = useCallback(
+    (date: Date) => {
+      const today = startOfToday();
+      if (isBefore(date, today)) return true;
 
-    const slot = availableSlots.find(s =>
-      isSameDay(parseISO(s.date), date)
-    );
+      const slot = availableSlots.find(s => isSameDay(parseISO(s.date), date));
 
-    return slot?.isFull ?? false;
-  }, [availableSlots])
+      return slot?.isFull ?? false;
+    },
+    [availableSlots]
+  );
   useEffect(() => {
     if (selectedDate) return; // already selected
     if (isFetching) return;
@@ -180,8 +176,6 @@ const BookingCalendar = ({
       setSelectedDate(today);
     }
   }, [isFetching, selectedDate, availableSlots, isDayDisabled]);
-
-
 
   // ✅ Update available times when user selects a date
   useEffect(() => {
@@ -225,48 +219,10 @@ const BookingCalendar = ({
           Select available date
         </h2>
 
-
-        {isFetching ? <p className="text-white">Fetching booking calendar...</p>
-          : <div
-            className="
-    rounded-xl border border-gray-300 p-3
-    [&_.react-datepicker]:bg-transparent
-    [&_.react-datepicker]:border-0
-    [&_.react-datepicker]:w-full
-    [&_.react-datepicker__month-container]:w-full
-    [&_.react-datepicker__month]:w-full
-
-    [&_.react-datepicker__header]:bg-transparent
-    [&_.react-datepicker__header]:border-b
-    [&_.react-datepicker__header]:border-gray-300
-    [&_.react-datepicker__header]:text-black
-
-    [&_.react-datepicker__week]:flex
-    [&_.react-datepicker__week]:justify-between
-
-    [&_.react-datepicker__day]:flex
-    [&_.react-datepicker__day]:items-center
-    [&_.react-datepicker__day]:justify-center
-    [&_.react-datepicker__day]:border
-    [&_.react-datepicker__day]:border-gray-300
-    [&_.react-datepicker__day]:rounded-md
-    [&_.react-datepicker__day]:text-white
-    [&_.react-datepicker__day]:transition-colors
-
-    [&_.react-datepicker__day--disabled]:text-gray-400
-    [&_.react-datepicker__day--disabled]:line-through
-    [&_.react-datepicker__day--disabled]:bg-transparent
-
-    [&_.react-datepicker__day--selected]:bg-black
-    [&_.react-datepicker__day--selected]:text-white
-    [&_.react-datepicker__day--selected]:border-black
-
-    [&_.react-datepicker__day:hover:not(.react-datepicker__day--disabled)]:bg-gray-800
-    [&_.react-datepicker__day:hover:not(.react-datepicker__day--disabled)]:text-white
-  "
-          >
-
-
+        {isFetching ? (
+          <p className='text-white'>Fetching booking calendar...</p>
+        ) : (
+          <div className='rounded-xl border border-gray-300 p-3 [&_.react-datepicker]:w-full [&_.react-datepicker]:border-0 [&_.react-datepicker]:bg-transparent [&_.react-datepicker__day]:flex [&_.react-datepicker__day]:items-center [&_.react-datepicker__day]:justify-center [&_.react-datepicker__day]:rounded-md [&_.react-datepicker__day]:border [&_.react-datepicker__day]:border-gray-300 [&_.react-datepicker__day]:text-white [&_.react-datepicker__day]:transition-colors [&_.react-datepicker__day--disabled]:bg-transparent [&_.react-datepicker__day--disabled]:text-gray-400 [&_.react-datepicker__day--disabled]:line-through [&_.react-datepicker__day--selected]:border-black [&_.react-datepicker__day--selected]:bg-black [&_.react-datepicker__day--selected]:text-white [&_.react-datepicker__day:hover:not(.react-datepicker__day--disabled)]:bg-gray-800 [&_.react-datepicker__day:hover:not(.react-datepicker__day--disabled)]:text-white [&_.react-datepicker__header]:border-b [&_.react-datepicker__header]:border-gray-300 [&_.react-datepicker__header]:bg-transparent [&_.react-datepicker__header]:text-black [&_.react-datepicker__month]:w-full [&_.react-datepicker__month-container]:w-full [&_.react-datepicker__week]:flex [&_.react-datepicker__week]:justify-between'>
             <DatePicker
               selected={selectedDate}
               onChange={date => setSelectedDate(date)}
@@ -288,8 +244,8 @@ const BookingCalendar = ({
               dropdownMode='select'
               className='w-full rounded-lg border border-white bg-black px-3 py-2 text-center text-white'
             />
-        </div>
-        }
+          </div>
+        )}
       </div>
 
       {/* display date and time selected  */}

@@ -13,7 +13,6 @@ const DashboardBookings = () => {
   // Prefetch hook for single booking
   const prefetchBooking = usePrefetch("getBookingById");
 
-
   // 🔹 Compute and format your bookings once
   const formattedBookings = useMemo(() => {
     if (!bookings) return [];
@@ -32,7 +31,6 @@ const DashboardBookings = () => {
   // 🔹 Filter bookings based on status or date
   const allBookings = formattedBookings;
   // const now = new Date();
-
 
   // const pastBookings = formattedBookings.filter(b => {
   //   // const bookingDate = b.date;
@@ -84,9 +82,9 @@ const DashboardBookings = () => {
           {TABS.map(tab => (
             <button
               key={tab.index}
-              className={`pb-1 text-sm font-medium  text-white capitalize ${
+              className={`pb-1 text-sm font-medium text-white capitalize ${
                 currentTab === tab.index
-                ? "border-b-[3px] border-white font-semibold"
+                  ? "border-b-[3px] border-white font-semibold"
                   : ""
               }`}
               onClick={() => setCurrentTab(tab.index)}
@@ -99,8 +97,14 @@ const DashboardBookings = () => {
         {/* Bookings per tab */}
         <div className='flex flex-col gap-4'>
           {currentTab === 1 && renderBookings(allBookings)}
-          {currentTab === 2 && renderBookings(formattedBookings.filter(b => b.status === "pending"))}
-          {currentTab === 3 && renderBookings(formattedBookings.filter(b => b.status === "completed"))}
+          {currentTab === 2 &&
+            renderBookings(
+              formattedBookings.filter(b => b.status === "pending")
+            )}
+          {currentTab === 3 &&
+            renderBookings(
+              formattedBookings.filter(b => b.status === "completed")
+            )}
         </div>
       </section>
     </DashboardLayout>

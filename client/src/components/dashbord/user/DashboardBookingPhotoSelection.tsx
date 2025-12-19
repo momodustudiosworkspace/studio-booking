@@ -58,7 +58,7 @@ const DashboardBookingPhotoSelection = ({
         return (
           <div
             key={index}
-            className={`group relative w-full overflow-hidden rounded-lg transition-all duration-300 hover:cursor-pointer sm:h-[320px] sm:w-[229px] `}
+            className={`group relative w-full overflow-hidden rounded-lg transition-all duration-300 hover:cursor-pointer sm:h-[320px] sm:w-[229px]`}
           >
             <Image
               src={photo}

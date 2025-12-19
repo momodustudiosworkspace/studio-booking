@@ -20,7 +20,7 @@ interface BookingsPackagesProps {
 const BookingPackages = ({
   bookingPackage,
   // setOnProceed,
-  setBookingStep
+  setBookingStep,
 }: BookingsPackagesProps): React.JSX.Element => {
   const { data, isLoading } = useGetPackagesQuery(
     { sessionId: bookingPackage?.sessionId || "" },
@@ -38,10 +38,7 @@ const BookingPackages = ({
   // );
 
   const handleSelect = (packageSelected: PackageProps) => {
-
-    dispatch(
-      setBookingPackage({ package: packageSelected })
-    );
+    dispatch(setBookingPackage({ package: packageSelected }));
 
     setBookingStep(2);
   };
@@ -96,7 +93,8 @@ const BookingPackages = ({
                     "text-5xl font-semibold tracking-tight"
                   )}
                 >
-                  {nairaSymbol()}{packages.price.toLocaleString()}
+                  {nairaSymbol()}
+                  {packages.price.toLocaleString()}
                 </span>
                 <span
                   className={classNames(
@@ -157,7 +155,6 @@ const BookingPackages = ({
 };
 
 export default BookingPackages;
-
 
 // <div className='flex w-full justify-end pr-4'>
 //   <Button

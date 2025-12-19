@@ -31,7 +31,7 @@ const DashboardHeader = ({
             ? "bg-[#E595001A] text-[#E59500]"
             : "";
   return (
-    <div className='flex w-full text-white flex-col gap-5 sm:flex-row sm:items-end sm:justify-between'>
+    <div className='flex w-full flex-col gap-5 text-white sm:flex-row sm:items-end sm:justify-between'>
       <div>
         <div className='flex items-center gap-3'>
           <h1 className='text-[22px] font-bold capitalize sm:text-[24px]'>
@@ -39,7 +39,7 @@ const DashboardHeader = ({
           </h1>
           {badge && (
             <span
-              className={`${badgeClass} ${bagdeStatusStyle} text-white flex items-center justify-center rounded-full px-2 py-1 text-xs font-semibold capitalize`}
+              className={`${badgeClass} ${bagdeStatusStyle} flex items-center justify-center rounded-full px-2 py-1 text-xs font-semibold text-white capitalize`}
             >
               {badge}
             </span>

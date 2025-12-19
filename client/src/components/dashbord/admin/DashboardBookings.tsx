@@ -25,7 +25,6 @@ const DashboardBookings = () => {
     { pollingInterval: 600000 }
   );
 
-
   console.log("bookings: ", bookings);
   const [currentTab, setCurrentTab] = useState<number>(1);
   // Prefetch hook for single booking
@@ -37,7 +36,8 @@ const DashboardBookings = () => {
       bookings?.data.bookings.filter(b => b.status === "completed").length || 0;
     const upcoming =
       bookings?.data.bookings.filter(b => b.status === "pending").length || 0;
-    const cancelled = bookings?.data.bookings.filter(b => b.status === "cancelled").length || 0;
+    const cancelled =
+      bookings?.data.bookings.filter(b => b.status === "cancelled").length || 0;
 
     return [
       {
@@ -113,7 +113,6 @@ const DashboardBookings = () => {
 
   console.log("formattedBookings: ", formattedBookings);
 
-
   if (isLoading) return "Loading...";
   // if (error) return "Failed to load data";
 
@@ -131,98 +130,110 @@ const DashboardBookings = () => {
         </p>
       );
 
-    return <table className="w-full border-collapse text-left">
-      <thead>
-        <tr className="border-b bg-gray-50">
-          <th className="px-4 py-5">Client Name</th>
-          <th className="px-4 py-5">Location</th>
-          <th className="px-4 py-5">Date</th>
-          <th className="px-4 py-5">Status</th>
-          <th className="px-4 py-5">Assigned to</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {isLoading ? (
-          [...Array(limit)].map((_, i) => (
-            <tr key={i} className="animate-pulse border-b">
-              <td className="px-4 py-5">
-                <div className="h-4 w-40 rounded bg-gray-200" />
-              </td>
-              <td className="px-4 py-5">
-                <div className="h-4 w-48 rounded bg-gray-200" />
-              </td>
-              <td className="px-4 py-5">
-                <div className="h-4 w-24 rounded bg-gray-200" />
-              </td>
-              <td className="px-4 py-5">
-                <div className="h-4 w-20 rounded bg-gray-200" />
-              </td>
-            </tr>
-          ))
-        ) : data.length === 0 ? (
-          <tr>
-            <td colSpan={4} className="py-6 text-center text-gray-500">
-              No data found
-            </td>
+    return (
+      <table className='w-full border-collapse text-left'>
+        <thead>
+          <tr className='border-b bg-gray-50'>
+            <th className='px-4 py-5'>Client Name</th>
+            <th className='px-4 py-5'>Location</th>
+            <th className='px-4 py-5'>Date</th>
+            <th className='px-4 py-5'>Status</th>
+            <th className='px-4 py-5'>Assigned to</th>
           </tr>
-        ) : (
-          data.map((data) => (
-            <tr
-              key={data._id}
-              className="border-b hover:bg-gray-50"
-              onMouseEnter={() => prefetchBooking(data._id || "", { ifOlderThan: 60 })} // 👈 Prefetch on hover
-              onFocus={() => prefetchBooking(data._id || "", { ifOlderThan: 60 })} // 👈 Accessibility
-            >
-              <td className="px-4 py-5 font-medium capitalize">
-                {data.user_fullnames}
+        </thead>
+
+        <tbody>
+          {isLoading ? (
+            [...Array(limit)].map((_, i) => (
+              <tr key={i} className='animate-pulse border-b'>
+                <td className='px-4 py-5'>
+                  <div className='h-4 w-40 rounded bg-gray-200' />
+                </td>
+                <td className='px-4 py-5'>
+                  <div className='h-4 w-48 rounded bg-gray-200' />
+                </td>
+                <td className='px-4 py-5'>
+                  <div className='h-4 w-24 rounded bg-gray-200' />
+                </td>
+                <td className='px-4 py-5'>
+                  <div className='h-4 w-20 rounded bg-gray-200' />
+                </td>
+              </tr>
+            ))
+          ) : data.length === 0 ? (
+            <tr>
+              <td colSpan={4} className='py-6 text-center text-gray-500'>
+                No data found
               </td>
-
-              <td className="px-4 py-5">{data.location.address === "C1 Melita Plaze, Gimbiya street, Garki"
-                ? "indoor"
-                : "outdoor"}</td>
-
-              <td className="px-4 py-5 capitalize">
-
-                <div className='flex items-center gap-2 sm:w-[200px]'>
-                  <div
-                    className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
-                  >
-                    <DashboardIcons value='calendar-grid-outlined-black' />
-                  </div>
-                  <div>
-                    <div className='mb-1 flex gap-2'>
-                      {/* <h3 className='font-semibold capitalize'>{formatDate(date, "short")}</h3> */}
-                      <h3 className='font-semibold capitalize'>{formatDate(data.date)}</h3>
-                    </div>
-                    {/* <p className='text-[14px] sm:text-[16px]'>{formatTime(time)}</p> */}
-                    <p className='text-[14px] sm:text-[16px]'>{formatTime(data.startTime)}</p>
-                  </div>
-                </div>
-              </td>
-
-              <td className="px-4 py-5">
-                <span
-                  className={`rounded-full px-3 py-1 text-xs font-medium ${data.status === "completed"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-yellow-100 text-yellow-700"
-                    }`}
-                >
-                  {data.status}
-                </span>
-              </td>
-              <td className="px-4 py-5">
-
-                <DashboardAssignStaffDropDown assignedStaffId={data.assignedTo} bookingId={data._id}
-                />
-
-              </td>
-
             </tr>
-          ))
-        )}
-      </tbody>
-    </table>
+          ) : (
+            data.map(data => (
+              <tr
+                key={data._id}
+                className='border-b hover:bg-gray-50'
+                onMouseEnter={() =>
+                  prefetchBooking(data._id || "", { ifOlderThan: 60 })
+                } // 👈 Prefetch on hover
+                onFocus={() =>
+                  prefetchBooking(data._id || "", { ifOlderThan: 60 })
+                } // 👈 Accessibility
+              >
+                <td className='px-4 py-5 font-medium capitalize'>
+                  {data.user_fullnames}
+                </td>
+
+                <td className='px-4 py-5'>
+                  {data.location.address ===
+                  "C1 Melita Plaze, Gimbiya street, Garki"
+                    ? "indoor"
+                    : "outdoor"}
+                </td>
+
+                <td className='px-4 py-5 capitalize'>
+                  <div className='flex items-center gap-2 sm:w-[200px]'>
+                    <div
+                      className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
+                    >
+                      <DashboardIcons value='calendar-grid-outlined-black' />
+                    </div>
+                    <div>
+                      <div className='mb-1 flex gap-2'>
+                        {/* <h3 className='font-semibold capitalize'>{formatDate(date, "short")}</h3> */}
+                        <h3 className='font-semibold capitalize'>
+                          {formatDate(data.date)}
+                        </h3>
+                      </div>
+                      {/* <p className='text-[14px] sm:text-[16px]'>{formatTime(time)}</p> */}
+                      <p className='text-[14px] sm:text-[16px]'>
+                        {formatTime(data.startTime)}
+                      </p>
+                    </div>
+                  </div>
+                </td>
+
+                <td className='px-4 py-5'>
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs font-medium ${
+                      data.status === "completed"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {data.status}
+                  </span>
+                </td>
+                <td className='px-4 py-5'>
+                  <DashboardAssignStaffDropDown
+                    assignedStaffId={data.assignedTo}
+                    bookingId={data._id}
+                  />
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    );
     // return data.map(b => (
     //   <div
     //     key={b._id}
@@ -338,8 +349,14 @@ const DashboardBookings = () => {
             {/* Bookings per tab */}
             <div className='flex flex-col gap-4 p-6'>
               {currentTab === 1 && renderBookings(allBookings)}
-              {currentTab === 2 && renderBookings(bookings?.data.bookings.filter(b => b.status === "pending"))}
-              {currentTab === 3 && renderBookings(bookings?.data.bookings.filter(b => b.status === "completed"))}
+              {currentTab === 2 &&
+                renderBookings(
+                  bookings?.data.bookings.filter(b => b.status === "pending")
+                )}
+              {currentTab === 3 &&
+                renderBookings(
+                  bookings?.data.bookings.filter(b => b.status === "completed")
+                )}
               <div className='py-6'>
                 <Pagination
                   currentPage={bookings?.pagination.page || null}

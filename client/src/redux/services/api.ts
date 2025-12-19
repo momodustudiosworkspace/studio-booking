@@ -92,7 +92,7 @@ export const baseApi = createApi({
     "Profile",
     "Sessions",
     "Packages",
-    "Staff"
+    "Staff",
   ],
   endpoints: () => ({}),
   refetchOnReconnect: true,

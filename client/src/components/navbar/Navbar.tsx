@@ -94,11 +94,20 @@ const PROFILE_LINKS = [
   // },
 ];
 const callsToAction = [
-  { name: "Youtube Channel", href: "https://www.youtube.com/channel/UCw21vvzOUnqDX5tR9E15YmA", icon: PlayCircleIcon },
+  {
+    name: "Youtube Channel",
+    href: "https://www.youtube.com/channel/UCw21vvzOUnqDX5tR9E15YmA",
+    icon: PlayCircleIcon,
+  },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 const profileCallsToAction = [
-  { name: "Youtube Channel", href: "https://www.youtube.com/channel/UCw21vvzOUnqDX5tR9E15YmA", icon: PlayCircleIcon, type: "link" },
+  {
+    name: "Youtube Channel",
+    href: "https://www.youtube.com/channel/UCw21vvzOUnqDX5tR9E15YmA",
+    icon: PlayCircleIcon,
+    type: "link",
+  },
   { name: "log out", href: "#", icon: PhoneIcon },
 ];
 
@@ -108,7 +117,7 @@ export default function Navbar() {
   const userAuth = useAppSelector(state => state.auth);
   return (
     <header className='fixed z-50 w-full bg-black/20 backdrop-blur-sm'>
-      <div className="sm:block hidden">
+      <div className='hidden sm:block'>
         <HeaderBanner />
       </div>
       <nav
@@ -198,10 +207,16 @@ export default function Navbar() {
           <Link href='#' className='text-sm/6 font-semibold text-white'>
             Features
           </Link>
-          <Link href='https://www.momodustudios.com/pages/merch' className='text-sm/6 font-semibold text-white'>
+          <Link
+            href='https://www.momodustudios.com/pages/merch'
+            className='text-sm/6 font-semibold text-white'
+          >
             Marketplace
           </Link>
-          <Link href='https://www.momodustudios.com/pages/about-us' className='text-sm/6 font-semibold text-white'>
+          <Link
+            href='https://www.momodustudios.com/pages/about-us'
+            className='text-sm/6 font-semibold text-white'
+          >
             About us
           </Link>
         </PopoverGroup>
@@ -248,33 +263,28 @@ export default function Navbar() {
                 </div>
                 <div className='grid grid-cols-2 divide-x divide-white/10 bg-gray-700/50'>
                   {profileCallsToAction.map(item => (
-
                     <div
-
                       key={item.name}
                       className='flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
-
                     >
-                      {
-                        item.type === "link" ? <Link href={item.href}>{item.name}</Link> :
-
-                          <button
-                            className='flex items-center justify-center gap-x-2.5 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
-
-                      onClick={() => {
-                        dispatch(userLogOut());
-                        signOut({ callbackUrl: "/auth" });
-                      }}
-                    >
-                      {" "}
-                      <item.icon
-                        aria-hidden='true'
-                        className='size-5 flex-none text-gray-500'
-                      />
-                      {item.name}
-                    </button>
-
-                      }
+                      {item.type === "link" ? (
+                        <Link href={item.href}>{item.name}</Link>
+                      ) : (
+                        <button
+                          className='flex items-center justify-center gap-x-2.5 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
+                          onClick={() => {
+                            dispatch(userLogOut());
+                            signOut({ callbackUrl: "/auth" });
+                          }}
+                        >
+                          {" "}
+                          <item.icon
+                            aria-hidden='true'
+                            className='size-5 flex-none text-gray-500'
+                          />
+                          {item.name}
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -287,7 +297,7 @@ export default function Navbar() {
           )}
         </div>
       </nav>
-      <div className="sm:hidden block">
+      <div className='block sm:hidden'>
         <HeaderBanner />
       </div>
       <Dialog
@@ -412,24 +422,28 @@ export default function Navbar() {
                 </Popover>
               </div>
               <div className='py-6'>
-                {userAuth.isLoggedIn ? <button
-                  className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5'
-                  onClick={() => {
-                    // setTimeout(() => {
-                    //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
-                    // }, 500)
-                    dispatch(userLogOut());
+                {userAuth.isLoggedIn ? (
+                  <button
+                    className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5'
+                    onClick={() => {
+                      // setTimeout(() => {
+                      //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
+                      // }, 500)
+                      dispatch(userLogOut());
 
-                    signOut({ callbackUrl: "/auth" });
-                  }} >
-                  Log out
-                </button> : <Link
-                  href='/auth'
-                  className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5'
-                >
-                  Log in
-                </Link>}
-
+                      signOut({ callbackUrl: "/auth" });
+                    }}
+                  >
+                    Log out
+                  </button>
+                ) : (
+                  <Link
+                    href='/auth'
+                    className='-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5'
+                  >
+                    Log in
+                  </Link>
+                )}
               </div>
             </div>
           </div>

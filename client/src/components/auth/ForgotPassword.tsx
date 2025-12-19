@@ -67,9 +67,10 @@ const ForgotPassword = (): React.JSX.Element => {
               />
             </div>
 
-            <div className='flex w-full justify-between items-center'>
-              <Link href="/auth" className="underline"
-              >Back to Login</Link>
+            <div className='flex w-full items-center justify-between'>
+              <Link href='/auth' className='underline'>
+                Back to Login
+              </Link>
               <Button
                 text='Proceed'
                 onClick={() => {

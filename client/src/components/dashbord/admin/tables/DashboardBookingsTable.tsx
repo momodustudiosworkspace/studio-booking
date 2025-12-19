@@ -3,8 +3,6 @@
 // // import { useGetAllStaffQuery } from "@/redux/services/admin/staff-management/adminStaffManagement.api";
 // // import React, { useState } from "react";
 
-
-
 // interface BookingProps {
 //     id?: string | null | undefined;
 //     location?: string | null | undefined;
@@ -21,8 +19,7 @@
 
 // const DashboardBookingsTable = ({
 //     bookings, isLoading }: BookingTableProps) => {
-   
-   
+
 //     return (
 //         <div className="w-full rounded-xl bg-white p-4 shadow-md">
 //             {/* Table */}
@@ -89,9 +86,9 @@
 //                                         </span>
 //                                     </td>
 //                                     <td className="px-4 py-5">
-                                       
+
 //                                             {booking.date ? "accepted" : "pending"}
-                                      
+
 //                                     </td>
 //                                 </tr>
 //                             ))
