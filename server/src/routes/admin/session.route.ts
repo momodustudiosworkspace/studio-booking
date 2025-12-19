@@ -106,7 +106,7 @@ router.post("/", authMiddleWare, createSession);
  *       500:
  *         description: Server error
  */
-router.get("/", authMiddleWare, getAllSessions);
+router.get("/", getAllSessions);
 
 /**
  * @openapi

@@ -29,20 +29,13 @@ const baseQueryWithReauth: typeof rawBaseQuery = async (
 
     // Get session again
     const session = await getSession();
-    
-    // 👇 user is not logged in — DO NOTHING
-    if (!session) {
+    const refreshToken = session?.user?.refreshToken;
+
+    if (!refreshToken) {
+      console.log("No refresh token found — signing out");
+      signOut({ callbackUrl: "/auth" });
       return result;
     }
-    
-    const refreshToken = session?.user?.refreshToken;
-  
-  // 👇 session exists but refresh token is missing → invalid auth
-  if (!refreshToken) {
-    console.log("❌ Auth session invalid — signing out");
-    signOut({ callbackUrl: "/auth" });
-    return result;
-  }
 
     // Try refreshing token via your backend
     const refreshResult = await rawBaseQuery(
