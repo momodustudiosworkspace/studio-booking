@@ -131,7 +131,7 @@ router.post("/", authMiddleWare, createOrUpdatePackage);
  *       500:
  *         description: Server error
  */
-router.get("/", authMiddleWare, getAllPackages);
+router.get("/", getAllPackages);
 
 /**
  * @openapi

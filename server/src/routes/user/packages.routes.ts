@@ -1,5 +1,4 @@
 import express from "express";
-import authMiddleWare from "../../middlewares/auth.middleware";
 import { getBookingSessionPackages } from "../../controllers/user/packages.controllers";
 
 const router = express.Router();
@@ -89,6 +88,6 @@ const router = express.Router();
  *       500:
  *         description: Server error
  */
-router.post("/", authMiddleWare, getBookingSessionPackages);
+router.post("/", getBookingSessionPackages);
 
 export default router;
