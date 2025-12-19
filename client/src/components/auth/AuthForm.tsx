@@ -30,7 +30,13 @@ const AuthForm = ({
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo");
 
-  const callBackUrl = redirectTo ? redirectTo : "/dashboard";
+  const callBackUrl =
+    redirectTo && redirectTo.startsWith("/")
+      ? redirectTo
+      : redirectTo
+        ? `/${redirectTo}`
+        : "/dashboard";
+
   // const { data: session } = useSession();
 
   // if (session) {
