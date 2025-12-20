@@ -5,7 +5,7 @@ const tiers = [
   {
     name: "Individual",
     id: "tier-hobby",
-    href: "#",
+    href: "/auth",
     priceMonthly: `${nairaSymbol()}250,000`,
     description:
       "The perfect plan if you're just getting started with our product.",
@@ -20,7 +20,7 @@ const tiers = [
   {
     name: "Enterprise",
     id: "tier-enterprise",
-    href: "#",
+    href: "auth/",
     priceMonthly: `${nairaSymbol()}420,000`,
     description: "Dedicated support and infrastructure for your company.",
     features: [

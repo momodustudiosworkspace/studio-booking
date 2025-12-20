@@ -4,9 +4,9 @@ import React from "react";
 
 const JoinStudioCommunity = () => {
   return (
-    <div className='bg-gradient-to-b from-black to-black'>
+    <div className='bg-gradient-to-b'>
       <div className='mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8'>
-        <div className='relative isolate overflow-hidden bg-black/55 px-6 pt-16 after:pointer-events-none after:absolute after:inset-0 after:inset-ring after:inset-ring-white/10 sm:rounded-3xl sm:px-16 after:sm:rounded-3xl md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0'>
+        <div className='relative isolate overflow-hidden bg-black px-6 pt-16 after:pointer-events-none after:absolute after:inset-0 after:inset-ring after:inset-ring-white/10 sm:rounded-3xl sm:px-16 after:sm:rounded-3xl md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0'>
           <svg
             viewBox='0 0 1024 1024'
             aria-hidden='true'
@@ -39,7 +39,7 @@ const JoinStudioCommunity = () => {
               <Image
                 width={100}
                 height={100}
-                src='https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia_5_bbjmrb'
                 alt=''
                 className='inline-block size-10 rounded-full ring-2 ring-gray-900 outline -outline-offset-1 outline-white/10'
               />

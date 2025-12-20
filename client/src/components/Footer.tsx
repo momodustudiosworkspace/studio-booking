@@ -65,18 +65,24 @@ const Footer = (): React.JSX.Element => {
     },
   ];
   return (
+    // At Momodu Studios, we are redefining the landscape of media and production by seamlessly integrating cutting - edge technology into every step of our creative process.From conceptualization to final delivery, we harness the power of digital innovation to craft compelling stories, immersive experiences, and visually stunning content that resonates with audiences.Our team blends artistic vision with technical expertise, ensuring that every project we undertake is not only visually striking but also strategically optimized for modern media platforms.By embracing technology in our workflows, we enhance efficiency, streamline collaboration, and elevate the quality of our productions, while maintaining the human touch that makes every story unique.Whether it’s photography, videography, or multimedia production, Momodu Studios combines passion, creativity, and innovation to deliver experiences that inspire, engage, and leave a lasting impact.
     <div className='relative bg-black px-5 py-10 text-white sm:px-0'>
       <div className='relative mx-auto flex max-w-7xl flex-col items-center'>
-        <div className='my-4 mb-5 flex flex-col items-center justify-center sm:mb-20'>
-          <Link href={"/"} className='flex sm:hidden'>
-            {" "}
-            <BaseIcons value='logo-white' />
-          </Link>
-          <Link href={"/"} className='hidden sm:flex'>
-            {" "}
-            <FooterIcons value='desktop-logo-white' />
-          </Link>
-          <p className='font-semibold text-white'>Impossible is nothing</p>
+        <div className="flex sm:flex-row flex-col w-full items-center">
+          <div className='my-4 mb-5 flex flex-col w-full sm:mb-20'>
+            <Link href={"/"} className='flex sm:hidden'>
+              {" "}
+              <BaseIcons value='logo-white' />
+            </Link>
+            <Link href={"/"} className='hidden sm:flex'>
+              {" "}
+              <FooterIcons value='desktop-logo-white' />
+            </Link>
+            <p className='font-semibold text-white'>Impossible is nothing</p>
+          </div>
+          <div className="mb-10">
+            <p>At Momodu Studios, we blend creativity and technology to bring stories to life. From concept to screen, our media and production expertise meets innovative workflows, delivering visually striking content that engages, inspires, and leaves a lasting impression.  </p>
+          </div>
         </div>
         <div className='flex w-full justify-center sm:mb-20'>
           <div className='flex flex-col gap-8 py-3 sm:w-[1440px] sm:flex-row sm:justify-between'>

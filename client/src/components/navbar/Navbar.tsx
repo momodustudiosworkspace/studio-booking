@@ -100,7 +100,7 @@ const callsToAction = [
     href: "https://www.youtube.com/channel/UCw21vvzOUnqDX5tR9E15YmA",
     icon: PlayCircleIcon,
   },
-  { name: "Contact sales", href: "#", icon: PhoneIcon },
+  // { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 const profileCallsToAction = [
   {
