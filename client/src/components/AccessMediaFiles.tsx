@@ -15,19 +15,14 @@ const AccessMediaFiles = () => {
 
 
         <div className='mt-10 flex items-center sm:flex-row flex-col sm:gap-40 gap-10 sm:mt-16'>
-
-
           <Image
-            width={350}
+            width={310}
             height={100}
             quality={100}
             alt=''
-            src='https://res.cloudinary.com/duwxmrkgd/image/upload/data-insight_dpyfpl'
+            src='https://res.cloudinary.com/duwxmrkgd/image/upload/Screenshot_20251220_130126_Samsung_Internet_vgmdee'
             className='rounded-2xl shadow-2xl'
           />
-
-
-
           <div className='relative lg:row-span-2 h-[650px]'>
             <div className='absolute inset-px rounded-lg bg-black max-lg:rounded-b-4xl lg:rounded-r-4xl' />
             <div className='relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]'>

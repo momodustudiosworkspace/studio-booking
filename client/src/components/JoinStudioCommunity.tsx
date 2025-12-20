@@ -88,7 +88,7 @@ const JoinStudioCommunity = () => {
           <div className='relative mt-16 h-80 lg:mt-8'>
             <Image
               alt='App screenshot'
-              src='https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png'
+              src='https://res.cloudinary.com/duwxmrkgd/image/upload/Screenshot_2025-12-20_at_23.18.03_lukmgu'
               width={1824}
               height={1080}
               className='absolute top-0 left-0 w-228 max-w-none rounded-md bg-white/5 ring-1 ring-white/10'
