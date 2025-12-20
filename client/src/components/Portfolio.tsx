@@ -35,7 +35,7 @@ const Portfolio = (): React.JSX.Element => {
   ];
   return (
     <section className='mx-auto max-w-7xl px-6 lg:px-8'>
-      <div className='flex flex-col sm:hidden'>
+      <div className='flex flex-col '>
         <SectionHeader
           variation='dark'
           badgeWidth='w-[180px]'
@@ -43,7 +43,7 @@ const Portfolio = (): React.JSX.Element => {
           headerText='Every Moment, Perfectly Captured'
           paragraphText='Your moments deserve more than a memory — they deserve to be unforgettable.'
         />
-        <div className='mt-14 grid grid-cols-1 gap-10 md:grid-cols-2'>
+        <div className='mt-20 grid grid-cols-1 gap-10 md:grid-cols-2'>
           {PORTFOLIO.map((item, key) => (
             <CardOne
               key={key}
@@ -54,8 +54,6 @@ const Portfolio = (): React.JSX.Element => {
           ))}
         </div>
       </div>
-
-      <div></div>
     </section>
   );
 };

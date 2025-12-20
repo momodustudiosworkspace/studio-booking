@@ -13,7 +13,7 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import {
-  ArrowPathIcon,
+  // ArrowPathIcon,
   Bars3Icon,
   HomeModernIcon,
   XMarkIcon,
@@ -42,30 +42,30 @@ const PRODUCTS_LIST = [
     href: "/bookings",
     icon: BookOpenIcon,
   },
-  {
-    name: "Studio Sessions",
-    description: "Create and manage studio sessions",
-    href: "#",
-    icon: HomeModernIcon,
-  },
-  {
-    name: "Beauty Salon",
-    description: "All-in-one salon management",
-    href: "#",
-    icon: FaceSmileIcon,
-  },
+  // {
+  //   name: "Studio Sessions",
+  //   description: "Create and manage studio sessions",
+  //   href: "#",
+  //   icon: HomeModernIcon,
+  // },
+  // {
+  //   name: "Beauty Salon",
+  //   description: "All-in-one salon management",
+  //   href: "#",
+  //   icon: FaceSmileIcon,
+  // },
   {
     name: "Online Studio Course",
     description: "Join a community of talented craftmanship",
     href: "https://thehustleinstitute.com/",
     icon: BookmarkSquareIcon,
   },
-  {
-    name: "Collaborations",
-    description: "Build strategic funnels that will convert",
-    href: "#",
-    icon: ArrowPathIcon,
-  },
+  // {
+  //   name: "Collaborations",
+  //   description: "Build strategic funnels that will convert",
+  //   href: "#",
+  //   icon: ArrowPathIcon,
+  // },
 ];
 const PROFILE_LINKS = [
   {
@@ -100,7 +100,7 @@ const callsToAction = [
     href: "https://www.youtube.com/channel/UCw21vvzOUnqDX5tR9E15YmA",
     icon: PlayCircleIcon,
   },
-  { name: "Contact sales", href: "#", icon: PhoneIcon },
+  // { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 const profileCallsToAction = [
   {
@@ -205,9 +205,9 @@ export default function Navbar() {
             </PopoverPanel>
           </Popover>
 
-          <Link href='#' className='text-sm/6 font-semibold text-white'>
+          {/* <Link href='#' className='text-sm/6 font-semibold text-white'>
             Features
-          </Link>
+          </Link> */}
           <Link
             href='https://www.momodustudios.com/pages/merch'
             className='text-sm/6 font-semibold text-white'
@@ -347,12 +347,12 @@ export default function Navbar() {
                     ))}
                   </DisclosurePanel>
                 </Disclosure>
-                <Link
+                {/* <Link
                   href='#'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5'
                 >
                   Features
-                </Link>
+                </Link> */}
                 <Link
                   href='https://www.momodustudios.com/pages/merch'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5'

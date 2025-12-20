@@ -1,120 +1,122 @@
-import Image from "next/image";
+import { shopifyFetch } from "@/lib/shopify";
+// import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
-const Blogs = () => {
-  const posts = [
-    {
-      id: 1,
-      title: "Boost your conversion rate",
-      href: "#",
-      description:
-        "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-      date: "Mar 16, 2020",
-      datetime: "2020-03-16",
-      category: { title: "Marketing", href: "#" },
-      author: {
-        name: "Michael Foster",
-        role: "Co-Founder / CTO",
-        href: "#",
-        imageUrl:
-          "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-    },
-    {
-      id: 2,
-      title: "How to use search engine optimization to drive sales",
-      href: "#",
-      description:
-        "Optio cum necessitatibus dolor voluptatum provident commodi et. Qui aperiam fugiat nemo cumque.",
-      date: "Mar 10, 2020",
-      datetime: "2020-03-10",
-      category: { title: "Sales", href: "#" },
-      author: {
-        name: "Lindsay Walton",
-        role: "Front-end Developer",
-        href: "#",
-        imageUrl:
-          "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-    },
-    {
-      id: 3,
-      title: "Improve your customer experience",
-      href: "#",
-      description:
-        "Cupiditate maiores ullam eveniet adipisci in doloribus nulla minus. Voluptas iusto libero adipisci rem et corporis. Nostrud sint anim sunt aliqua. Nulla eu labore irure incididunt velit cillum quis magna dolore.",
-      date: "Feb 12, 2020",
-      datetime: "2020-02-12",
-      category: { title: "Business", href: "#" },
-      author: {
-        name: "Tom Cook",
-        role: "Director of Product",
-        href: "#",
-        imageUrl:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-    },
-  ];
+const BLOG_ARTICLES_QUERY = `
+  query BlogArticles($handle: String!, $first: Int!) {
+    blog(handle: $handle) {
+      title
+      articles(first: $first) {
+        edges {
+          node {
+            id
+            title
+            handle
+            excerpt
+            contentHtml
+            publishedAt
+            image {
+              url
+              altText
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const formatDate = (date: string) => {
+  const d = new Date(date);
+  return {
+    readable: d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }),
+    iso: d.toISOString().split("T")[0],
+  };
+};
+
+const Blogs = async () => {
+  const data = await shopifyFetch(BLOG_ARTICLES_QUERY, {
+    handle: "news", // 👈 your Shopify blog handle
+    first: 6,
+  });
+
+  console.log(data);
+
+  const articles =
+    data?.data?.blog?.articles?.edges?.map((e: any) => e.node) || [];
+
+
+  if (!articles.length) {
+    return <div>No blog posts yet.</div>;
+  }
+
   return (
-    <div className='bg-black/70 py-24 sm:py-32'>
-      <div className='mx-auto max-w-7xl px-6 lg:px-8'>
-        <div className='mx-auto max-w-2xl lg:mx-0'>
-          <h2 className='text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl'>
+    <div className="bg-black py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:mx-0">
+          <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
             From the blog
           </h2>
-          <p className='mt-2 text-lg/8 text-gray-300'>
+          <p className="mt-2 text-lg text-gray-300">
             Learn how to grow your business with our expert advice.
-
           </p>
         </div>
-        <div className='mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-white pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3'>
-          {posts.map(post => (
-            <article
-              key={post.id}
-              className='flex max-w-xl flex-col items-start justify-between'
-            >
-              <div className='flex items-center gap-x-4 text-xs'>
-                <time dateTime={post.datetime} className='text-gray-400'>
-                  {post.date}
-                </time>
-                <a
-                  href={post.category.href}
-                  className='relative z-10 rounded-full bg-black px-3 py-1.5 font-medium text-gray-300 hover:bg-black/80'
-                >
-                  {post.category.title}
-                </a>
-              </div>
-              <div className='group relative grow'>
-                <h3 className='mt-3 text-lg/6 font-semibold text-white group-hover:text-gray-300'>
-                  <a href={post.href}>
-                    <span className='absolute inset-0' />
-                    {post.title}
-                  </a>
-                </h3>
-                <p className='mt-5 line-clamp-3 text-sm/6 text-gray-400'>
-                  {post.description}
-                </p>
-              </div>
-              <div className='relative mt-8 flex items-center gap-x-4 justify-self-end'>
-                <Image
-                  width={100}
-                  height={100}
-                  alt=''
-                  src={post.author.imageUrl}
-                  className='size-10 rounded-full bg-gray-800'
-                />
-                <div className='text-sm/6'>
-                  <p className='font-semibold text-white'>
-                    <a href={post.author.href}>
-                      <span className='absolute inset-0' />
-                      {post.author.name}
-                    </a>
-                  </p>
-                  <p className='text-gray-400'>{post.author.role}</p>
+
+        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-white pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          {articles.map((article: any) => {
+            const date = formatDate(article.publishedAt);
+
+            return (
+              <article
+                key={article.id}
+                className="flex max-w-xl flex-col items-start justify-between"
+              >
+                {/* Date + Category (static label) */}
+                <div className="flex items-center gap-x-4 text-xs">
+                  <time dateTime={date.iso} className="text-gray-400">
+                    {date.readable}
+                  </time>
+                  <span className="relative z-10 rounded-full bg-black px-3 py-1.5 font-medium text-gray-300">
+                    Blog
+                  </span>
                 </div>
-              </div>
-            </article>
-          ))}
+
+                {/* Content */}
+                <div className="group relative grow">
+                  <h3 className="mt-3 text-lg font-semibold text-white group-hover:text-gray-300">
+                    <Link href={`https://www.momodustudios.com/blogs/news/${article.handle}`}>
+                      <span className="absolute inset-0" />
+                      {article.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-5 line-clamp-3 text-sm text-gray-400">
+                    {article.excerpt ||
+                      article.contentHtml
+                        ?.replace(/<[^>]+>/g, "")
+                        .slice(0, 140) + "..."}
+                  </p>
+                </div>
+
+                {/* Author (Shopify has no author image → safe fallback) */}
+                <div className="relative mt-8 flex items-center gap-x-4">
+                  <div className="size-10 rounded-full bg-gray-800 flex items-center justify-center text-white text-xs">
+                    MS
+                  </div>
+                  <div className="text-sm">
+                    <p className="font-semibold text-white">
+                      Momodu Studios
+                    </p>
+                    <p className="text-gray-400">Editorial</p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </div>

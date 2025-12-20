@@ -186,6 +186,7 @@ export const authOptions: NextAuthOptions = {
           user.isMember = data.user.isMember;
           user.first_name = data.user.first_name;
           user.last_name = data.user.last_name;
+          user.image = data.user.image;
 
           console.log("user from google: ", user);
 

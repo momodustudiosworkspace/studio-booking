@@ -4,6 +4,7 @@ import { CalendarDaysIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { AuthToast } from "./toast/ToastMessage";
+import Image from "next/image";
 
 const NewsLetter = () => {
   const [sendUserSubscriptionEmail, { isLoading }] =
@@ -32,7 +33,17 @@ const NewsLetter = () => {
     <div className='relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32'>
       <div className='mx-auto max-w-7xl px-6 lg:px-8'>
         <div className='mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2'>
-          <div className='max-w-xl lg:max-w-lg'>
+          <div>
+            <Image
+              width={350}
+              height={100}
+              quality={100}
+              alt=''
+              src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia_27_j14qyv.jpg'
+              className='rounded-2xl shadow-2xl'
+            />
+          </div>
+          <div className='max-w-xl lg:max-w-lg flex flex-col'>
             <h2 className='text-4xl font-semibold tracking-tight text-white'>
               Subscribe to our newsletter
             </h2>
@@ -40,7 +51,7 @@ const NewsLetter = () => {
               Get the latest photography tips, studio updates, and exclusive
               booking offers delivered to your inbox.
             </p>
-            <div className='mt-6 flex max-w-md gap-x-4'>
+            <div className='mt-6 flex max-w-md mb-10 gap-x-4'>
               <label htmlFor='email-address' className='sr-only'>
                 Email address
               </label>
@@ -66,39 +77,40 @@ const NewsLetter = () => {
                 )}
               </button>
             </div>
+            <dl className='grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2'>
+              <div className='flex flex-col items-start'>
+                <div className='rounded-md bg-white/5 p-2 ring-1 ring-white/10'>
+                  <CalendarDaysIcon
+                    aria-hidden='true'
+                    className='size-6 text-white'
+                  />
+                </div>
+                <dt className='mt-4 text-base font-semibold text-white'>
+                  Weekly articles
+                </dt>
+                <dd className='mt-2 text-base/7 text-gray-400'>
+                  Receive weekly articles on photography techniques, studio tips,
+                  and industry trends to enhance your skills.
+                </dd>
+              </div>
+              <div className='flex flex-col items-start'>
+                <div className='rounded-md bg-white/5 p-2 ring-1 ring-white/10'>
+                  <HandRaisedIcon
+                    aria-hidden='true'
+                    className='size-6 text-white'
+                  />
+                </div>
+                <dt className='mt-4 text-base font-semibold text-white'>
+                  No spam
+                </dt>
+                <dd className='mt-2 text-base/7 text-gray-400'>
+                  We respect your privacy and promise no spam, only valuable
+                  content and exclusive offers.
+                </dd>
+              </div>
+            </dl>
           </div>
-          <dl className='grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2'>
-            <div className='flex flex-col items-start'>
-              <div className='rounded-md bg-white/5 p-2 ring-1 ring-white/10'>
-                <CalendarDaysIcon
-                  aria-hidden='true'
-                  className='size-6 text-white'
-                />
-              </div>
-              <dt className='mt-4 text-base font-semibold text-white'>
-                Weekly articles
-              </dt>
-              <dd className='mt-2 text-base/7 text-gray-400'>
-                Receive weekly articles on photography techniques, studio tips,
-                and industry trends to enhance your skills.
-              </dd>
-            </div>
-            <div className='flex flex-col items-start'>
-              <div className='rounded-md bg-white/5 p-2 ring-1 ring-white/10'>
-                <HandRaisedIcon
-                  aria-hidden='true'
-                  className='size-6 text-white'
-                />
-              </div>
-              <dt className='mt-4 text-base font-semibold text-white'>
-                No spam
-              </dt>
-              <dd className='mt-2 text-base/7 text-gray-400'>
-                We respect your privacy and promise no spam, only valuable
-                content and exclusive offers.
-              </dd>
-            </div>
-          </dl>
+
         </div>
       </div>
       <div

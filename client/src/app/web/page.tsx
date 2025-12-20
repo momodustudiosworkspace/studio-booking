@@ -75,7 +75,8 @@ export default function Page() {
           {/* Hero  */}
           <Hero />
 
-          {/* <CarouselContainer /> */}
+          {/* NewsLetter  */}
+          <NewsLetter />
 
           {/* Collaborations  */}
           <Collaborations />
@@ -91,9 +92,6 @@ export default function Page() {
 
           {/* Podcast Session  */}
           <PodcastSession />
-
-          {/* NewsLetter  */}
-          <NewsLetter />
 
           {/* Studio merch  */}
           <StudioMerch />
@@ -153,7 +151,7 @@ export default function Page() {
         {/* Portfolio  */}
         <div className='flex w-full flex-col items-center bg-black py-10 text-white'>
           <Portfolio />
-          <div className='mx-auto mt-10 grid w-full max-w-7xl grid-cols-1 gap-8 px-6 pr-24 pl-5 sm:grid-cols-4 sm:gap-x-20 lg:px-8'>
+          <div className='mx-auto mt-20 grid w-full max-w-7xl grid-cols-1 gap-8 px-6 pr-24 pl-5 sm:grid-cols-4 sm:gap-x-20 lg:px-8'>
             {BOOK_SESSION.map((book, key) => (
               <div key={key} className='flex flex-col gap-2'>
                 <h3 className='text-[16px] font-semibold capitalize'>
@@ -296,8 +294,8 @@ export default function Page() {
         </div> */}
 
         {/* FAQs  */}
-        <div className='mx-auto w-full max-w-7xl px-6 lg:px-8'>
-          <div className='mt-10 mb-10 sm:mb-20'>
+        <div className=' px-6 lg:px-8 w-full bg-black'>
+          <div className=' mt-10 mb-10 sm:mb-20 text-white'>
             <Faqs />
           </div>
         </div>
