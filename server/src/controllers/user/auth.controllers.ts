@@ -79,15 +79,11 @@ export async function googleAuth(req: Request, res: Response) {
             first_name = parts.shift();         // First element
             last_name = parts.join(" ");        // Remaining elements (handles middle names)
         }
-
-
         let user = await User.findOne({ email });
         if (!user) {
 
             user = await User.create({ email, first_name, last_name, image });
         }
-
-
         const { accessToken, refreshAccessToken } = generateAuthTokens(user.id)
         return res.json({ message: "Sign In successful", user, accessToken: accessToken, refreshToken: refreshAccessToken });
 

@@ -294,7 +294,7 @@ export default function Page() {
         </div> */}
 
         {/* FAQs  */}
-        <div className=' px-6 lg:px-8 w-full bg-black'>
+        <div className=' sm:px-6 lg:px-8 w-full bg-black'>
           <div className=' mt-10 mb-10 sm:mb-20 text-white'>
             <Faqs />
           </div>

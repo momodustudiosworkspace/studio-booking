@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getSession, signOut } from "next-auth/react";
 
 const rawBaseQuery = fetchBaseQuery({
-  baseUrl: baseUrl || "https://studio-booking-api.onrender.com/api",
+  baseUrl: baseUrl || "https://studio-booking-api-dx1m.onrender.com/api",
   prepareHeaders: async headers => {
     const session = await getSession();
     const token = session?.user?.accessToken;
