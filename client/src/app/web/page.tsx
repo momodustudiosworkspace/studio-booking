@@ -75,7 +75,8 @@ export default function Page() {
           {/* Hero  */}
           <Hero />
 
-          {/* <CarouselContainer /> */}
+          {/* NewsLetter  */}
+          <NewsLetter />
 
           {/* Collaborations  */}
           <Collaborations />
@@ -91,9 +92,6 @@ export default function Page() {
 
           {/* Podcast Session  */}
           <PodcastSession />
-
-          {/* NewsLetter  */}
-          <NewsLetter />
 
           {/* Studio merch  */}
           <StudioMerch />

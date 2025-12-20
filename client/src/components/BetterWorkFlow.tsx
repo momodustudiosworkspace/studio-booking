@@ -62,7 +62,7 @@ const BetterWorkFlow = () => {
             width={100}
             height={100}
             alt=''
-            src='https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png'
+            src='https://res.cloudinary.com/duwxmrkgd/image/upload/dashboard-screen-shot_yphoqk'
             className='w-3xl max-w-none rounded-xl bg-gray-800 shadow-xl ring-1 ring-white/10 sm:w-228'
           />
         </div>

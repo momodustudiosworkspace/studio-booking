@@ -41,7 +41,7 @@ function classNames(...classes) {
 
 export default function PricingList() {
   return (
-    <div className='relative isolate bg-black px-6 py-24 sm:py-32 lg:px-8'>
+    <div className='relative isolate bg-black px-6 py-16 sm:py-32 lg:px-8'>
       <div
         aria-hidden='true'
         className='absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl'
@@ -58,7 +58,7 @@ export default function PricingList() {
         <h2 className='text-base/7 font-semibold text-white'>
           Studio packages
         </h2>
-        <p className='mt-2 sm:font-sem text-3xlibold tracking-tight text-balance text-white sm:text-6xl'>
+        <p className='mt-2 sm:font-sem text-3xl font-semibold tracking-tight text-balance text-white sm:text-6xl'>
           Choose the right plan for your studio session
         </p>
       </div>
