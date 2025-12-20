@@ -1,14 +1,15 @@
+import { LockClosedIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React from "react";
 
 const AccessMediaFiles = () => {
   return (
-    <div className='bg-white py-24 sm:py-32'>
+    <div className='bg-black py-24 sm:py-32'>
       <div className='mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8'>
         <h2 className='text-center text-base/7 font-semibold text-gray-400'>
           Access media files from anywhere.
         </h2>
-        <p className='mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-black capitalize sm:text-5xl'>
+        <p className='mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-white capitalize sm:text-5xl'>
           Moments are vital, data is insight.
         </p>
         <div className='mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2'>
@@ -30,8 +31,8 @@ const AccessMediaFiles = () => {
                     width={100}
                     height={100}
                     alt=''
-                    src='https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png'
-                    className='size-full object-cover object-top'
+                    src='/home/undraw_lock-screen-notifications_n6o8.svg'
+                    className='w-full max-lg:max-w-xs'
                   />
                 </div>
               </div>
@@ -63,25 +64,26 @@ const AccessMediaFiles = () => {
             <div className='pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15 max-lg:rounded-t-4xl' />
           </div>
           <div className='relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2'>
-            <div className='absolute inset-px rounded-lg bg-white' />
+            <div className='absolute inset-px rounded-lg ' />
             <div className='relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]'>
               <div className='px-8 pt-8 sm:px-10 sm:pt-10'>
-                <p className='mt-2 text-lg font-medium tracking-tight text-black max-lg:text-center'>
+                <p className='mt-2 text-lg font-semibold tracking-tight text-white max-lg:text-center'>
                   Security
                 </p>
-                <p className='mt-2 max-w-lg text-sm/6 text-gray-400 max-lg:text-center'>
+                <p className='mt-2 max-w-lg text-sm/6 text-white max-lg:text-center'>
                   Your media files are protected with top-tier security
                   measures, ensuring your data remains safe and private.
                 </p>
               </div>
               <div className='@container flex flex-1 items-center max-lg:py-6 lg:pb-2'>
-                <Image
+                <LockClosedIcon className='size-20 flex-none' />
+                {/* <Image
                   width={100}
                   height={100}
                   alt=''
                   src='https://tailwindcss.com/plus-assets/img/component-images/dark-bento-03-security.png'
                   className='h-[min(152px,40cqw)] object-cover'
-                />
+                /> */}
               </div>
             </div>
             <div className='pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15' />

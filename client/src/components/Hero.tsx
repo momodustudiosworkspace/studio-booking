@@ -17,7 +17,7 @@ const Hero = () => {
               creatives. Manage & organize your journey
             </p>
           </div>
-          <div className="px-4 sm:px-0 sm:h-auto h-[800px]">
+          <div className="px-4 sm:px-0 sm:h-auto h-[700px]">
             <div className='mt-10'>
               {/* Decorative image grid */}
               <div
@@ -32,7 +32,7 @@ const Hero = () => {
                           width={100}
                           height={100}
                           alt=''
-                          src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg'
+                          src='https://res.cloudinary.com/duwxmrkgd/image/upload/MomoduMedia-3_9_bw0jne'
                           className='size-full object-cover'
                         />
                       </div>
@@ -41,7 +41,8 @@ const Hero = () => {
                           width={100}
                           height={100}
                           alt=''
-                          src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg'
+                          // src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-8_39_ctgwdb'
+                          src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-8_38_m8nade'
                           className='size-full object-cover'
                         />
                       </div>
@@ -52,7 +53,17 @@ const Hero = () => {
                           width={100}
                           height={100}
                           alt=''
-                          src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg'
+                          // src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-4_50_qx5khz' 
+                          src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia_5_bbjmrb' 
+                          className='size-full object-cover'
+                        />
+                      </div>
+                      <div className='sm:h-64 w-[165px] shadow-2xl sm:w-44 overflow-hidden rounded-lg'>
+                        <Image
+                          width={100}
+                          height={100}
+                          alt=''
+                          src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-24_8_susol3.jpg'
                           className='size-full object-cover'
                         />
                       </div>
@@ -61,16 +72,7 @@ const Hero = () => {
                           width={100}
                           height={100}
                           alt=''
-                          src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg'
-                          className='size-full object-cover'
-                        />
-                      </div>
-                      <div className='sm:h-64 w-[165px] sm:w-44 overflow-hidden rounded-lg'>
-                        <Image
-                          width={100}
-                          height={100}
-                          alt=''
-                          src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg'
+                          src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-57_1_yo8jib'
                           className='size-full object-cover'
                         />
                       </div>
@@ -81,7 +83,8 @@ const Hero = () => {
                           width={100}
                           height={100}
                           alt=''
-                          src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg'
+                          // src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-16_38_jalmxa' 
+                          src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-52-2_nvh9iv'
                           className='size-full object-cover'
                         />
                       </div>
@@ -90,7 +93,7 @@ const Hero = () => {
                           width={100}
                           height={100}
                           alt=''
-                          src='https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg'
+                          src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-14_23_medsl7'
                           className='size-full object-cover'
                         />
                       </div>
