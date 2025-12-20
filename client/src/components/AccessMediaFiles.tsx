@@ -12,7 +12,10 @@ const AccessMediaFiles = () => {
         <p className='mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-white capitalize sm:text-5xl'>
           Moments are vital, data is insight.
         </p>
+
+
         <div className='mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2'>
+
           <div className='relative lg:row-span-2'>
             <div className='absolute inset-px rounded-lg bg-white lg:rounded-l-4xl' />
             <div className='relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]'>
@@ -27,12 +30,19 @@ const AccessMediaFiles = () => {
               </div>
               <div className='@container relative min-h-120 w-full grow max-lg:mx-auto max-lg:max-w-sm'>
                 <div className='absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-gray-700 bg-gray-900 outline outline-white/20'>
-                  <Image
+                  {/* <Image
                     width={100}
                     height={100}
                     alt=''
                     src='/home/undraw_lock-screen-notifications_n6o8.svg'
                     className='w-full max-lg:max-w-xs'
+                  /> */}
+                  <Image
+                    width={100}
+                    height={100}
+                    alt=''
+                    src='https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-15_28_wq13f7'
+                    className='w-full max-lg:max-w-xs h-full object-cover'
                   />
                 </div>
               </div>
