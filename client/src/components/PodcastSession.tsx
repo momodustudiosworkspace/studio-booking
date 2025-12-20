@@ -3,7 +3,7 @@ import React from "react";
 
 const PodcastSession = () => {
   return (
-    <div className='relative isolate overflow-hidden bg-gradient-to-b from-black to-black px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0'>
+    <div className='relative isolate overflow-hidden bg-gradient-to-b from-black to-black px-6 pb-14 pt-20  sm:py-32 lg:overflow-visible lg:px-0'>
       {/* <div className="bg-black"> */}
 
       <div className='relative isolate px-6 lg:px-8'>
@@ -54,10 +54,10 @@ const PodcastSession = () => {
           </div>
 
           <div className='text-center'>
-            <h1 className='text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl'>
+            <h1 className='text-3xl font-semibold tracking-tight text-balance text-white sm:text-7xl'>
               Elevate Your Podcast Sessions
             </h1>
-            <p className='mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8'>
+            <p className='mt-8 font-medium text-pretty text-gray-400 sm:text-xl/8'>
               Join us for an immersive podcast experience where creativity meets
               technology. Our state-of-the-art studio is designed to bring your
               voice to life with crystal-clear sound quality and
