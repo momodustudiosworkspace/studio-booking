@@ -43,7 +43,7 @@ const Faqs = (): React.JSX.Element => {
   ];
   return (
     <div className='flex flex-col sm:flex-row sm:justify-between mx-auto w-full max-w-7xl'>
-      <div className='sm:w-[30%] pl-5'>
+      <div className='sm:w-[30%] sm:pl-5'>
         <SectionHeader
           badgeText='FAQs'
           badgeWidth='w-[120px]'
