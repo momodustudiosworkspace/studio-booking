@@ -18,6 +18,7 @@ declare module "next-auth/jwt" {
     refreshToken: string;
     first_name: string;
     last_name: string;
+    image: string;
     accessTokenExpires: number;
     isMember: boolean;
     isAdmin: boolean;
@@ -34,6 +35,7 @@ declare module "next-auth" {
     isAdmin: boolean;
     first_name: string;
     last_name: string;
+    image: string;
     phoneNumber: string;
   }
   interface Session {
@@ -43,6 +45,7 @@ declare module "next-auth" {
       email: string;
       first_name: string;
       last_name: string;
+      image: string;
       isMember: boolean;
       isAdmin: boolean;
       phoneNumber: string;
@@ -138,6 +141,7 @@ export const authOptions: NextAuthOptions = {
           first_name: user.user.first_name,
           last_name: user.user.last_name,
           phoneNumber: user.user.phoneNumber,
+          image: user.user.image,
         };
       },
     }),
@@ -209,6 +213,7 @@ export const authOptions: NextAuthOptions = {
         token.first_name = user.first_name;
         token.last_name = user.last_name;
         token.phoneNumber = user.phoneNumber;
+        token.image = user.image;
       }
 
       if (
@@ -232,17 +237,16 @@ export const authOptions: NextAuthOptions = {
         session.user = {
           ...session.user,
           accessToken: token.accessToken,
-          image: token.picture ?? null,
           isMember: token.isMember ?? null,
           name: token.name ?? null,
           email: token.email ?? null,
           first_name: token.first_name ?? null,
           last_name: token.last_name ?? null,
+          image: token.image ?? null,
           phoneNumber: token.phoneNumber,
         };
       }
-      console.log(token.first_name, token.last_name);
-
+   
       return session;
     },
   },

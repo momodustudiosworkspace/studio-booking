@@ -215,7 +215,7 @@ const BookingCalendar = ({
     <div className='flex w-full flex-col items-center gap-8 sm:w-[650px] sm:flex-row'>
       {/* Date Picker */}
       <div className='flex flex-col'>
-        <h2 className='mb-3 text-lg font-bold text-black'>
+        <h2 className='mb-3 text-lg font-bold text-white'>
           Select available date
         </h2>
 
@@ -242,7 +242,7 @@ const BookingCalendar = ({
               showMonthDropdown
               showYearDropdown
               dropdownMode='select'
-              className='w-full rounded-lg border border-white bg-black px-3 py-2 text-center text-white'
+                // className='w-full rounded-lg border border-white bg-black px-3 py-2 text-center text-white'
             />
           </div>
         )}

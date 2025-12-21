@@ -1,11 +1,13 @@
 import { useAppDispatch } from "@/hooks/hooks";
 import { setBookingPackage } from "@/redux/slices/bookingSlice";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 // import Button from "../ui/Button";
 // import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import nairaSymbol from "@/utils/symbols";
 import { useGetPackagesQuery } from "@/redux/services/admin/package/adminPackages.api";
 import { CheckIcon } from "@heroicons/react/24/outline";
+import useEmblaCarousel from "embla-carousel-react";
+import { EmblaOptionsType } from "embla-carousel";
 interface PackageProps {
   title: string | null;
   price: number | null;
@@ -17,11 +19,20 @@ interface BookingsPackagesProps {
   setBookingStep: (step: number) => void;
 }
 
+const emblaOptions: EmblaOptionsType = {
+  align: "start",
+  containScroll: "trimSnaps",
+};
+
 const BookingPackages = ({
   bookingPackage,
   // setOnProceed,
   setBookingStep,
 }: BookingsPackagesProps): React.JSX.Element => {
+  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions);
+
+
+
   const { data, isLoading } = useGetPackagesQuery(
     { sessionId: bookingPackage?.sessionId || "" },
     {
@@ -53,13 +64,32 @@ const BookingPackages = ({
   //   return () => setOnProceed(null);
   // }, [setOnProceed, selectedPackage, dispatch]);
 
-  if (isLoading) return <div>Loading...</div>;
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
+
   }
+
+  // Sync selected slide with Embla
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    // const index = emblaApi.selectedScrollSnap();
+    // const session = BOOKING_SESSIONS[index];
+    // if (session) {
+    //   setSelectedSession(session._id);
+    // }
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.on("select", onSelect);
+    onSelect();
+  }, [emblaApi, onSelect]);
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
-    <div>
+    <div className='overflow-hidden' ref={emblaRef}>
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-3'>
         {data?.data.map((packages, packagesIdx) => {
           return (

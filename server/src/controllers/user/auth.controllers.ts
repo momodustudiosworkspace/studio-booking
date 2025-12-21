@@ -81,7 +81,6 @@ export async function googleAuth(req: Request, res: Response) {
         }
         let user = await User.findOne({ email });
         if (!user) {
-
             user = await User.create({ email, first_name, last_name, image });
         }
         const { accessToken, refreshAccessToken } = generateAuthTokens(user.id)
