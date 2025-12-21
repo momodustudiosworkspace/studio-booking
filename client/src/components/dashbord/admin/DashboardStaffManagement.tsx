@@ -80,21 +80,14 @@ const DashboardStaffManagement = () => {
       <div className='space-y-8'>
         {/* Manage Sessions Section */}
         <div className='rounded-lg'>
-          <div className='mb-6 flex items-center justify-between rounded-lg bg-white p-6 shadow'>
+          <div className='mb-6 flex sm:flex-row flex-col sm:items-center justify-between gap-3 rounded-lg bg-white p-6 shadow'>
             <div>
               <h2 className='text-xl font-bold text-black'>Manage Staff</h2>
               <p className='mt-1 text-sm text-gray-600'>
                 Create and manage your studio team members
               </p>
             </div>
-            <Button
-              text='+ Add new staff'
-              onClick={() => setOpen(true)}
-              icon={<RedirectArrowWhite />}
-              iconPosition='right'
-              className='w-[190px]'
-              size='md'
-            />
+            <button onClick={() => setOpen(true)} className="inline-block rounded-md  px-6 text-sm py-2 text-center font-semibold text-white bg-green-600">+ Add staff</button>
           </div>
 
           {/* Modal Form */}
@@ -111,14 +104,14 @@ const DashboardStaffManagement = () => {
                   className='relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95'
                 >
                   <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
-                    <div className='mb-5 sm:flex sm:items-center'>
+                    <div className='mb-5 flex sm:items-center sm:gap-0 gap-3'>
                       <div className='mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-black/30 sm:mx-0 sm:size-10'>
                         <PlusCircleIcon
                           aria-hidden='true'
                           className='size-6 text-black'
                         />
                       </div>
-                      <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
+                      <div className='sm:ml-4 text-left'>
                         <DialogTitle
                           as='h3'
                           className='text-base font-semibold text-black'

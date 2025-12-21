@@ -4,7 +4,8 @@ import {
   useDeleteSessionsMutation,
 } from "@/redux/services/admin/session-and-packages/adminSessionAndPackages.api";
 // import PackagesForm from "./forms/PackagesForm";
-import SessionPackages from "./DashBoardPackages/SessionPackages";
+import SessionPackages from "../DashBoardPackages/SessionPackages";
+import { TrashIcon } from "@heroicons/react/24/outline";
 // import Button from "@/components/ui/Button";
 // import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 
@@ -60,7 +61,7 @@ const DashboardSessionTable = () => {
   };
 
   return (
-    <div className='w-full rounded-xl bg-white p-4 shadow-md'>
+    <div className='w-full rounded-xl bg-white shadow-md'>
       {/* <div className="flex justify-between items-center mb-4">
                 <div className="relative w-60">
                  <input
@@ -129,8 +130,9 @@ const DashboardSessionTable = () => {
                         });
                         setOpen(!open);
                       }}
+                      className="inline-block rounded-md px-6 text-sm py-2 text-center font-semibold text-white bg-black"
                     >
-                      View packages
+                       Packages
                     </button>
                     <SessionPackages
                       selectedSession={selectedSession}
@@ -139,15 +141,16 @@ const DashboardSessionTable = () => {
                     />
                     {/* <PackagesForm selectedSession={selectedSession} open={open} setOpen={setOpen} /> */}
                   </td>
-                  <td className='flex gap-3 px-4 py-5'>
-                    <button className='flex items-center gap-1 text-blue-600 hover:underline'>
+                  <td className='flex gap-3 items-center px-4 justify-center pt-[38px]'>
+                    <button className='inline-block rounded-md  px-6 text-sm py-2 text-center font-semibold text-white bg-blue-500'>
                       Edit
                     </button>
                     <button
-                      className='flex items-center gap-1 text-red-600 hover:underline'
+                      className='flex gap-3 items-center rounded-md  px-4 text-sm py-2 text-center font-semibold text-white bg-red-600'
                       onClick={() => handleDelete(session._id)}
                     >
-                      Delete
+                      <TrashIcon className="size-5 text-white"/>
+                      <p>Delete</p>
                     </button>
                   </td>
                 </tr>

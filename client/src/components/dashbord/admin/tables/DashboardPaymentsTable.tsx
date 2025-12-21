@@ -1,24 +1,22 @@
 "use client";
 
-import { BookingType } from "@/types/booking.types";
 import { formatDate } from "@/utils/dateFormatter";
 import Link from "next/link";
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
-import { formatTime } from "@/utils/timeFormatter";
-import DashboardAssignStaffDropDown from "../DashboardAssignStaffDropDown";
-import { usePathname } from "next/navigation";
+
+import { AllPaymentResponse } from "@/types/payment.types";
+import nairaSymbol from "@/utils/symbols";
 
 
-interface BookingTableProps {
-    bookings: BookingType[],
+interface PaymentTableProps {
+    payments: AllPaymentResponse[],
     isLoading: boolean
 }
 
 
-const DashboardBookingsTable = ({
-    bookings, isLoading }: BookingTableProps) => {
-    const bookingLocation = "C1 Melita Plaze, Gimbiya street, Garki"
-    const pathName = usePathname()
+const DashboardPaymentsTable = ({
+    payments, isLoading }: PaymentTableProps) => {
+  
 
     return (
         <div className="w-full rounded-xl bg-white ">
@@ -26,10 +24,11 @@ const DashboardBookingsTable = ({
             <div className="overflow-x-auto">
                 <table className="w-full border-collapse text-left">
                     <thead>
-                        <tr className="border-b bg-gray-50">
-                            <th className="px-4 py-5">Client Name</th>
-                            <th className="px-4 py-5">Location</th>
-                            <th className="px-4 py-5">Date Book</th>
+                        <tr className="border-b rounded-tr-2xl rounded-tl-2xl bg-gray-50">
+                            <th className="px-4 py-5">Invoice</th>
+                            <th className="px-4 py-5">Client</th>
+                            <th className="px-4 py-5">Amount</th>
+                            <th className="px-4 py-5">Date</th>
                             <th className="px-4 py-5">Status</th>
                             <th className="px-4 py-5">Action</th>
                         </tr>
@@ -53,23 +52,23 @@ const DashboardBookingsTable = ({
                                     </td>
                                 </tr>
                             ))
-                        ) : bookings.length === 0 ? (
+                        ) : payments.length === 0 ? (
                             <tr>
                                 <td colSpan={4} className="py-6 text-center text-gray-500">
                                     No bookings found
                                 </td>
                             </tr>
                         ) : (
-                            bookings.map(booking => (
+                            payments.map(payment => (
                                 <tr
-                                    key={booking._id}
+                                    key={payment.reference}
                                     className="border-b hover:bg-gray-50"
                                 >
                                     <td className="px-4 py-5 font-medium capitalize">
-                                        {booking.user_fullnames}
+                                        #MS-{payment.reference?.slice(0, 4)}
                                     </td>
-
-                                    <td className="px-4 py-5 capitalize">{booking.location?.address === bookingLocation ? "indoor" : "outdoor"}</td>
+                                    <td className="px-4 py-5 capitalize">{payment.booking}</td>
+                                    <td className="px-4 py-5 capitalize">{`${nairaSymbol()} ${payment.amount?.toLocaleString()}`}</td>
 
                                     <td className="px-4 py-5 flex items-center gap-2 capitalize">
                                         <div
@@ -77,35 +76,31 @@ const DashboardBookingsTable = ({
                                         >
                                             <DashboardIcons value='calendar-grid-outlined-black' />
                                         </div>
-                                        {/* {booking.date} */}
+                                        {/* {payment.date} */}
                                         <div>
-                                            <p> {formatDate(booking.date)}</p>
-                                            <p> {formatTime(booking.startTime)}</p>
+                                            <p> {formatDate(payment.paidAt)}</p>
                                         </div>
                                     </td>
 
                                     <td className="px-4 py-5">
                                         <span
-                                            className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${booking.status === "completed"
+                                            className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${payment.status === "success"
                                                 ? "bg-green-100 text-green-700"
                                                 : "bg-yellow-100 text-yellow-700"
                                                 }`}
                                         >
-                                            {booking.status}
+                                            {payment.status}
                                         </span>
                                     </td>
                                     <td className="px-4 py-5">
-                                        {pathName === "/admin/dashboard/bookings" ? (
-                                            <DashboardAssignStaffDropDown bookingId={booking._id || ""} assignedStaffId={`${booking.assignedTo || ""}`} />
-
-                                        ) : (
-                                            <Link href={`/admin/dashboard/bookings/${booking._id}`} className="inline-block rounded-md  px-6 text-sm py-2 text-center font-semibold text-white bg-black ">
+                                      
+                                            <Link href={`/admin/dashboard/bookings/${payment.booking}`} className="inline-block rounded-md  px-6 text-sm py-2 text-center font-semibold text-white bg-black ">
                                                 View
                                             </Link>
-                                        )}
+                                      
 
 
-                                        {/* {booking.assignedTo ? "Assigned" : "Not assigned"} */}
+                                        {/* {payment.assignedTo ? "Assigned" : "Not assigned"} */}
                                         {/* {booking.assignedTo ? booking.assignedTo : "Not assigned"} */}
                                     </td>
                                 </tr>
@@ -145,4 +140,4 @@ const DashboardBookingsTable = ({
     );
 };
 
-export default DashboardBookingsTable;
+export default DashboardPaymentsTable;

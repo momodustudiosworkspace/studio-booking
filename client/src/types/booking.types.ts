@@ -1,8 +1,8 @@
 // src/types/booking.ts
 
-interface BookingLocationOptions {
-  state?: string;
-  address?: string;
+export interface BookingLocationOptions {
+  address?: string | null;
+  state?: string | null;
 }
 export interface BookingType {
   _id: string | null;

@@ -12,7 +12,7 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
   const [createBookingSession, { isLoading }] =
     useCreateBookingSessionMutation();
   return (
-    <div className='isolate px-6 lg:px-8'>
+    <div className='isolate sm:px-6 lg:px-8'>
       <div
         aria-hidden='true'
         className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80'
@@ -74,7 +74,7 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
               <Field
                 name='session_title'
                 type='text'
-                className='border-b-[1px] border-white pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black'
+                className='border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 border-black'
                 placeholder='Enter session title'
               />
             </div>

@@ -3,14 +3,14 @@ import User from "../../models/user.models";
 
 
 
-// Get all bookings 
+// Get all users 
 export const getAllUsers = async (req: Request, res: Response)=> {
   try {
     const page = parseInt(req.query['page'] as string)|| 1;
     const limit =  parseInt(req.query['limit'] as string) || 10;
     const skip = (page - 1) * limit;
 
-    // Fetch bookings with pagination
+    // Fetch users with pagination
     const [users, total] = await Promise.all([
       User.find().sort({ createdAt: -1 }).skip(skip).limit(limit),
       User.countDocuments(),
@@ -26,8 +26,8 @@ export const getAllUsers = async (req: Request, res: Response)=> {
       },
     });
   } catch (error) {
-    console.error("❌ Error fetching paginated bookings:", error);
-   return  res.status(500).json({ message: "Failed to fetch bookings" });
+    console.error("❌ Error fetching paginated users:", error);
+   return  res.status(500).json({ message: "Failed to fetch users" });
   }
 }
 
