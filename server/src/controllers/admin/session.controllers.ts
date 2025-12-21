@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Session from "../../models/session.models";
+import Package from "../../models/package.models";
 
 // ✅ Create a new session
 export async function createSession(req: Request, res: Response) {
@@ -99,7 +100,6 @@ export async function updateSession(req: Request, res: Response) {
   }
 }
 
-
 // ✅ Delete a session
 export async function deleteSession(req: Request, res: Response) {
   try {
@@ -175,6 +175,27 @@ export async function getSingleSession(req: Request, res: Response) {
     return res.status(500).json({
       status: 500,
       message: "Failed to fetch session",
+      error: error.message,
+    });
+  }
+}
+
+export async function getSessionCount(_req: Request, res: Response) {
+  try {
+    const totalSessions = await Session.countDocuments();
+    const totalPackages = await Package.countDocuments();
+
+    return res.status(200).json({
+      status: 200,
+      message: "Session count fetched successfully",
+      data: { totalSessions, totalPackages },
+    });
+
+  }
+  catch (error: any) {
+    return res.status(500).json({
+      status: 500,
+      message: "Failed to fetch session count",
       error: error.message,
     });
   }

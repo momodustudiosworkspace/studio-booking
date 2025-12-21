@@ -22,8 +22,8 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className='relative flex min-h-screen w-full flex-col justify-center overflow-y-hidden bg-no-repeat px-5 sm:h-full sm:justify-start sm:px-0'>
-      <div className='relative z-20 h-full'>{children}</div>
+    <section className='relative flex w-full flex-col justify-center bg-no-repeat sm:h-full sm:justify-start sm:px-0'>
+      <div className='relative z-20 '>{children}</div>
     </section>
   );
 }

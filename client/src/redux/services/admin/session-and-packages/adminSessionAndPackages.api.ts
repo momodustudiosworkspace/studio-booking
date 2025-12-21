@@ -17,7 +17,7 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: [{ type: "Sessions", id: "LIST" }],
+      invalidatesTags: [{ type: "Sessions", id: "LIST" },   { type: "Sessions", id: "COUNT" }],
     }),
 
     // UPDATE
@@ -39,7 +39,7 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
         url: `${ADMIN_BASE_URL}/sessions/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Sessions", id: "LIST" }],
+      invalidatesTags: [{ type: "Sessions", id: "LIST" },  { type: "Sessions", id: "COUNT" }, ],
     }),
 
     // GET ALL
@@ -54,12 +54,12 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
       providesTags: result =>
         result?.data
           ? [
-              ...result.data.map(s => ({
-                type: "Sessions" as const,
-                id: s._id,
-              })),
-              { type: "Sessions", id: "LIST" },
-            ]
+            ...result.data.map(s => ({
+              type: "Sessions" as const,
+              id: s._id,
+            })),
+            { type: "Sessions", id: "LIST" },
+          ]
           : [{ type: "Sessions", id: "LIST" }],
     }),
 
@@ -68,6 +68,15 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
       query: id => `${ADMIN_BASE_URL}/sessions/${id}`, // FIX URL
       providesTags: (_result, _error, id) => [{ type: "Sessions", id }],
     }),
+
+    getSessionAndPackagesCount: builder.query<
+      { data: { totalSessions: number; totalPackages: number } },
+      void
+    >({
+      query: () => `${ADMIN_BASE_URL}/sessions/sessions-and-packages/count`,
+      providesTags: [{ type: "Sessions", id: "COUNT" }],
+
+    }),
   }),
 
   overrideExisting: true,
@@ -75,8 +84,9 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
 
 export const {
   useCreateBookingSessionMutation,
-  useGetAllSessionsQuery,
-  useGetSessionByIdQuery,
   useUpdateSessionMutation,
   useDeleteSessionsMutation,
+  useGetAllSessionsQuery,
+  useGetSessionByIdQuery,
+  useGetSessionAndPackagesCountQuery,
 } = sessionAndPackagesApi;

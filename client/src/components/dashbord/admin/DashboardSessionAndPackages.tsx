@@ -14,9 +14,12 @@ import {
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
 import SessionForm from "./forms/SessionForm";
 import DashboardSessionTable from "./DashBoardSessionTable";
+import { useGetSessionAndPackagesCountQuery } from "@/redux/services/admin/session-and-packages/adminSessionAndPackages.api";
 
 const DashboardSessionAndPackages = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const { data: stats, isLoading: isStatsLoading } = useGetSessionAndPackagesCountQuery();
+  console.log(stats);
 
   const analytics = useMemo(
     () => {
@@ -28,14 +31,14 @@ const DashboardSessionAndPackages = () => {
       return [
         {
           title: "Total Sessions",
-          count: 0,
+          count: isStatsLoading ? "Loading..." : stats?.data?.totalSessions || 0,
           linkText: "From 2025",
           href: "/bookings",
           dataType: 0,
         },
         {
           title: "Total Packages",
-          count: 0,
+          count: isStatsLoading ? "Loading..." : stats?.data?.totalPackages || 0,
           linkText: "For all sessions",
           href: "/bookings",
           dataType: 0,
