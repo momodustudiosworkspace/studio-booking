@@ -121,7 +121,7 @@ const DashboardProfile = () => {
             <p className='font-medium text-[#414141] sm:text-[16px]'>
               {userprofile?.user?.phoneNumber
                 ? `+234 ${userprofile.user.phoneNumber.slice(1)}`
-                : "—"}
+                : "Add phone number"}
             </p>
           </div>
         </div>

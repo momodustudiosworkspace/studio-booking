@@ -73,6 +73,9 @@ const DashboardNavbar = () => {
     imageUrl:
       session?.user.image,
   };
+
+  console.log("user navbar: ", user);
+
   const pathname = usePathname();
 
   return (
