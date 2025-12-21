@@ -114,7 +114,7 @@ const ChooseBookingSession = ({
       </div>
 
       {/* Thumbs / Indicators */}
-      <div className='mt-4 flex justify-center gap-2'>
+      {/* <div className='mt-4 flex justify-center gap-2'>
         {BOOKING_SESSIONS.map((session, index) => (
           <button
             key={session._id}
@@ -124,7 +124,7 @@ const ChooseBookingSession = ({
             }`}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

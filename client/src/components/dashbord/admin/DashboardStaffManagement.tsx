@@ -15,42 +15,47 @@ import { PlusCircleIcon } from "@heroicons/react/20/solid";
 // import DashboardSessionTable from "./DashBoardSessionTable";
 import StaffForm from "./forms/StaffForm";
 import DashboardStaffManagementTable from "./tables/DashboardStaffManagementTable";
+import { useGetStaffStatisticsQuery } from "@/redux/services/admin/staff-management/adminStaffManagement.api";
 
 const DashboardStaffManagement = () => {
   const [open, setOpen] = useState<boolean>(false);
 
+  const { data } = useGetStaffStatisticsQuery()
+  console.log(data);
+
+
   const analytics = useMemo(() => {
     return [
       {
-        title: "Total Sessions",
-        count: 12,
-        linkText: "Active sessions",
+        title: "Team Members",
+        count: data?.data.totalStaff || 0,
+        linkText: "All team members",
         href: "/admin/sessions",
         dataType: 0,
       },
       {
-        title: "Total Packages",
-        count: 28,
-        linkText: "All packages",
+        title: "Active Staff",
+        count: data?.data.activeStaff || 0,
+        linkText: "Active staff members",
         href: "/admin/packages",
         dataType: 0,
       },
       {
-        title: "Team Members",
-        count: 8,
-        linkText: "View all staff",
+        title: "Accepted Invitations",
+        count: data?.data.isInvitationAccepted || 0,
+        linkText: "",
         href: "/admin/staff",
         dataType: 0,
       },
       {
-        title: "Pending Approvals",
-        count: 2,
+        title: "Pending Invitations",
+        count: data?.data.pendingInvitations || 0,
         linkText: "Review now",
         href: "/admin/approvals",
         dataType: 0,
       },
     ];
-  }, []);
+  }, [data?.data.pendingInvitations, data?.data.isInvitationAccepted, data?.data.activeStaff, data?.data.totalStaff]);
   return (
     <DashboardLayout
       headerProps={{

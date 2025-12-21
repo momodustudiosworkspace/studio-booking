@@ -288,13 +288,15 @@ export async function deleteStaff(req: Request, res: Response) {
 // ✅ Get staff statistics (for dashboard)
 export async function getStaffStatistics(_req: Request, res: Response) {
   try {
-    const [totalStaff, activeStaff, inactiveStaff, staffByRole] = await Promise.all([
+    const [totalStaff, activeStaff, inactiveStaff, isInvitationAccepted, pendingInvitations] = await Promise.all([
       Staff.countDocuments(),
       Staff.countDocuments({ status: "active" }),
       Staff.countDocuments({ status: "inactive" }),
-      Staff.aggregate([
-        { $group: { _id: "$role", count: { $sum: 1 } } },
-      ]),
+      Staff.countDocuments({ isInvitationAccepted: true }),
+      Staff.countDocuments({ isInvitationAccepted: false }),
+      // Staff.aggregate([
+      //   { $group: { _id: "$role", count: { $sum: 1 } } },
+      // ]),
     ]);
 
     return res.status(200).json({
@@ -304,7 +306,8 @@ export async function getStaffStatistics(_req: Request, res: Response) {
         totalStaff,
         activeStaff,
         inactiveStaff,
-        staffByRole,
+        isInvitationAccepted,
+        pendingInvitations
       },
     });
   } catch (error: any) {
