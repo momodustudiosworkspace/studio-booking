@@ -224,13 +224,15 @@ export const getCalendarBookings = async (req: any, res: Response) => {
         bookingDate: {
           $dateToString: {
             format: "%Y-%m-%d",
-            date: "$date",
+            date: "$startTime",
+              timezone: "Africa/Lagos",
           },
         },
         bookingTime: {
           $dateToString: {
             format: "%H:%M",
             date: "$startTime",
+              timezone: "Africa/Lagos",
           },
         },
       },
@@ -252,6 +254,8 @@ export const getCalendarBookings = async (req: any, res: Response) => {
     { $sort: { date: 1 } },
   ]);
 
+  console.log("Slots: ", slots);
+  
   return res.json(slots);
 };
 
