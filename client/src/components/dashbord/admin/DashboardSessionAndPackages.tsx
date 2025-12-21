@@ -19,7 +19,6 @@ import { useGetSessionAndPackagesCountQuery } from "@/redux/services/admin/sessi
 const DashboardSessionAndPackages = () => {
   const [open, setOpen] = useState<boolean>(false);
   const { data: stats, isLoading: isStatsLoading } = useGetSessionAndPackagesCountQuery();
-  console.log(stats);
 
   const analytics = useMemo(
     () => {
