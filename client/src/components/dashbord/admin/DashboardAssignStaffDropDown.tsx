@@ -125,7 +125,6 @@ export default function DashboardAssignStaffDropDown({
               )}
             </ListboxOption>
           ))}
-
         </ListboxOptions>
       </div>
     </Listbox>

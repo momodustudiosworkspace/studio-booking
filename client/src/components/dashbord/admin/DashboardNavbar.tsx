@@ -6,7 +6,7 @@ import {
 import { useAppDispatch } from "@/hooks/hooks";
 // import { baseApi } from "@/redux/services/api";
 import { userLogOut } from "@/redux/slices/authSlice";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -25,6 +25,8 @@ import Image from "next/image";
 
 const DashboardNavbar = () => {
   const dispatch = useAppDispatch();
+
+  const { data: session } = useSession();
 
   const navigation = [
     {
@@ -77,47 +79,27 @@ const DashboardNavbar = () => {
     return classes.filter(Boolean).join(" ");
   }
   const userNavigation = [
-    { name: "Your profile", href: "#", type: "link" },
-    { name: "Settings", href: "#", type: "link" },
-    { name: "Sign out", href: "#", type: "button" },
+    // { name: "Your profile", href: "#", type: "link" },
+    // { name: "Settings", href: "#", type: "link" },
+    {
+      name: "Sign out",
+      href: "#",
+      type: "button",
+      onClick: () => {
+        dispatch(userLogOut());
+        signOut({ callbackUrl: "/auth" });
+      },
+    },
   ];
+
   const user = {
-    name: "Tom Cook",
-    email: "tom@example.com",
-    imageUrl:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    name: `${session?.user.first_name} ${session?.user.first_name}`,
+    email: session?.user.email,
+    imageUrl: session?.user.image,
   };
   const pathname = usePathname();
 
   return (
-    // <div className='z-40 -mt-[120px] h-screen w-[300px] border-r-[1px] border-gray-200 pt-[130px] pr-4 sm:flex'>
-    //   <nav className='w-full space-y-4'>
-    //     {SIDEBAR_LINKS.map(link => (
-    //       <Link
-    //         key={link.href}
-    //         href={link.href}
-    //         className={`flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-100 ${pathname === link.href && "bg-gray-200 font-semibold"} `}
-    //       >
-    //         <DashboardIcons value={link.icon} />
-    //         <span className='mt-[3px]'>{link.label}</span>
-    //       </Link>
-    //     ))}
-    //     <button
-    //       className='mt-4 flex w-full items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
-    //       onClick={() => {
-    //         // setTimeout(() => {
-    //         //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
-    //         // }, 500)
-    //         dispatch(userLogOut());
-
-    //         signOut({ callbackUrl: "/auth" });
-    //       }}
-    //     >
-    //       <DashboardIcons value='logout-danger' />
-    //       Log Out
-    //     </button>
-    //   </nav>
-    // </div>
     <Disclosure
       as='nav'
       className='mx-auto w-full max-w-7xl bg-black px-4 py-6 sm:px-6 lg:px-8'
@@ -171,7 +153,7 @@ const DashboardNavbar = () => {
                     width={100}
                     height={100}
                     alt=''
-                    src={user.imageUrl}
+                    src={user.imageUrl || ""}
                     className='size-8 rounded-full outline -outline-offset-1 outline-white/10'
                   />
                 </MenuButton>
@@ -225,7 +207,34 @@ const DashboardNavbar = () => {
       </div>
 
       <DisclosurePanel className='md:hidden'>
-        <div className='space-y-1 px-2 pt-2 pb-3 sm:px-3'>
+        <div className='mt-10 mb-3 flex items-center'>
+          <div className='shrink-0'>
+            <Image
+              width={100}
+              height={100}
+              alt=''
+              src={user.imageUrl || ""}
+              className='size-10 rounded-full outline -outline-offset-1 outline-white/10'
+            />
+          </div>
+          <div className='ml-3'>
+            <div className='text-base/5 font-medium text-white'>
+              {user.name}
+            </div>
+            <div className='max-w-[200px] truncate text-sm font-medium text-gray-400'>
+              {user.email}
+            </div>
+          </div>
+          <button
+            type='button'
+            className='relative ml-auto shrink-0 rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-white'
+          >
+            <span className='absolute -inset-1.5' />
+            <span className='sr-only'>View notifications</span>
+            <BellIcon aria-hidden='true' className='size-6' />
+          </button>
+        </div>
+        <div className='space-y-1 pt-2 pb-3 sm:px-3'>
           {navigation.map(item => (
             <DisclosureButton
               key={item.name}
@@ -235,8 +244,8 @@ const DashboardNavbar = () => {
               className={classNames(
                 pathname === item.href
                   ? "bg-gray-950/50 text-white"
-                  : "text-gray-300 hover:bg-white/5 hover:text-white",
-                "block rounded-md px-3 py-2 text-base font-medium"
+                  : "text-gray-500 hover:bg-white/5 hover:text-white",
+                "block rounded-md py-2 text-base font-medium"
               )}
             >
               {item.name}
@@ -244,40 +253,21 @@ const DashboardNavbar = () => {
           ))}
         </div>
         <div className='border-t border-white/10 pt-4 pb-3'>
-          <div className='flex items-center px-5'>
-            <div className='shrink-0'>
-              <Image
-                width={100}
-                height={100}
-                alt=''
-                src={user.imageUrl}
-                className='size-10 rounded-full outline -outline-offset-1 outline-white/10'
-              />
-            </div>
-            <div className='ml-3'>
-              <div className='text-base/5 font-medium text-white'>
-                {user.name}
-              </div>
-              <div className='text-sm font-medium text-gray-400'>
-                {user.email}
-              </div>
-            </div>
-            <button
-              type='button'
-              className='relative ml-auto shrink-0 rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-white'
-            >
-              <span className='absolute -inset-1.5' />
-              <span className='sr-only'>View notifications</span>
-              <BellIcon aria-hidden='true' className='size-6' />
-            </button>
-          </div>
-          <div className='mt-3 space-y-1 px-2'>
+          <div className='mt-3 space-y-1'>
             {userNavigation.map(item => (
               <DisclosureButton
                 key={item.name}
-                as='a'
-                href={item.href}
-                className='block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white'
+                as='button'
+                type='button'
+                onClick={() => {
+                  if (item.type === "link" && item.href) {
+                    window.location.href = item.href;
+                  }
+                  if (item.type === "button" && item.onClick) {
+                    item.onClick();
+                  }
+                }}
+                className='block w-full rounded-md py-2 text-left text-base font-medium text-white hover:bg-white/5 hover:text-white'
               >
                 {item.name}
               </DisclosureButton>

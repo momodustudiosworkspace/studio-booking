@@ -110,7 +110,7 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
               </Link>
             </div>
 
-            <div className='flex w-full -mt-5 justify-end'>
+            <div className='-mt-5 flex w-full justify-end'>
               <Button
                 text='Log In'
                 onClick={() => console.log(values)}

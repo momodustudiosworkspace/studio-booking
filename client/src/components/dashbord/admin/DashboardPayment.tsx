@@ -2,20 +2,21 @@
 import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
 import DashboardHeader from "./DashboardHeader";
-import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
+// import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import nairaSymbol from "@/utils/symbols";
-import BookingCardPayment from "./cards/BookingCardPayment";
 import {
   useGetAllPaymentQuery,
-  usePrefetch,
+  // usePrefetch,
 } from "@/redux/services/admin/payment/adminPayments.api";
-import Pagination from "@/components/Pagination";
+// import Pagination from "@/components/Pagination";
+import { AllPaymentResponse } from "@/types/payment.types";
+import DashboardPaymentsTable from "./tables/DashboardPaymentsTable";
 // import { formatDate } from "@/utils/dateFormatter";
 // import { formatTime } from "@/utils/timeFormatter";
 
 const DashboardPayment = () => {
-  const [paymentPage, setPaymentPage] = useState(1);
+  const [paymentPage, _setPaymentPage] = useState(1);
   const limit = 10;
   const { data: payments, isLoading } = useGetAllPaymentQuery(
     { page: paymentPage, limit: limit },
@@ -26,7 +27,7 @@ const DashboardPayment = () => {
   console.log("payments: ", payments);
 
   // Prefetch hook for single booking
-  const prefetchPayment = usePrefetch("getPaymentById");
+  // const prefetchPayment = usePrefetch("getPaymentById");
   // ✅ Compute analytics safely and memoize
   const analytics = useMemo(() => {
     // const total = payments?.length || 2000;
@@ -82,14 +83,14 @@ const DashboardPayment = () => {
   // const now = new Date();
   const upcomingpayments = formattedPayments.filter(payment => {
     // const paymentookingDate = payment.date;
-    return payment.status;
+    return payment.status === "pending";
   });
 
   const pastpayments = formattedPayments.filter(payment => {
     // const paymentookingDate = payment.date;
-    return payment.status;
+    return payment.status === "success";
   });
-  if (isLoading) return <p className="text-white">Loading...</p>;
+  if (isLoading) return <p className='text-white'>Loading...</p>;
   // if (error) return "Failed to load data";
 
   const TABS = [
@@ -98,33 +99,35 @@ const DashboardPayment = () => {
     { label: "Past", index: 3 },
   ];
 
-  const renderpayments = (data: typeof formattedPayments) => {
+  const renderpayments = (data: AllPaymentResponse[]) => {
     if (!data.length)
       return (
         <p className='flex h-[100px] w-full items-center justify-center'>
           No payments available.
         </p>
       );
-    return data.map(payment => (
-      <div
-        key={payment.reference}
-        onMouseEnter={() =>
-          prefetchPayment(payment.reference || "", { ifOlderThan: 60 })
-        } // 👈 Prefetch on hover
-        onFocus={() =>
-          prefetchPayment(payment.reference || "", { ifOlderThan: 60 })
-        } // 👈 Accessibility
-      >
-        <BookingCardPayment
-          // id={payment.reference}
-          booking={payment.booking}
-          reference={payment.reference}
-          amount={payment.amount}
-          status={payment.status}
-          paidAt={payment.paidAt}
-        />
-      </div>
-    ));
+
+    return <DashboardPaymentsTable payments={data} isLoading={isLoading} />;
+    // return data.map(payment => (
+    //   <div
+    //     key={payment.reference}
+    //     onMouseEnter={() =>
+    //       prefetchPayment(payment.reference || "", { ifOlderThan: 60 })
+    //     } // 👈 Prefetch on hover
+    //     onFocus={() =>
+    //       prefetchPayment(payment.reference || "", { ifOlderThan: 60 })
+    //     } // 👈 Accessibility
+    //   >
+    //     <BookingCardPayment
+    //       // id={payment.reference}
+    //       booking={payment.booking}
+    //       reference={payment.reference}
+    //       amount={payment.amount}
+    //       status={payment.status}
+    //       paidAt={payment.paidAt}
+    //     />
+    //   </div>
+    // ));
   };
 
   return (
@@ -176,7 +179,7 @@ const DashboardPayment = () => {
               </div>
             </div>
 
-            <div className='flex items-center gap-10'>
+            {/* <div className='flex items-center gap-10'>
               <div className='relative w-full'>
                 <div className=''>
                   <div className='absolute top-3 left-1 text-[14px] font-semibold capitalize underline'>
@@ -197,12 +200,12 @@ const DashboardPayment = () => {
                   <DashboardIcons value='down-arrow-outlined-black' />
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* booking list  */}
           <div className='flex flex-col font-medium'>
-            <div className='flex items-center gap-[120px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4 font-semibold'>
+            {/* <div className='flex items-center gap-[120px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4 font-semibold'>
               <div className='flex shrink-0 justify-between sm:w-[480px] sm:items-center'>
                 <p>Invoice</p>
                 <p>Client</p>
@@ -217,23 +220,23 @@ const DashboardPayment = () => {
               <div className='flex gap-2 sm:items-center sm:justify-center'>
                 <p>Action</p>
               </div>
-            </div>
+            </div> */}
 
             {/* payments lists */}
 
             {/* payments per tab */}
-            <div className='flex flex-col gap-4 py-6 pr-6 pl-4'>
+            <div className='flex flex-col gap-4 pb-6'>
               {currentTab === 1 && renderpayments(allpayments)}
               {currentTab === 2 && renderpayments(upcomingpayments)}
               {currentTab === 3 && renderpayments(pastpayments)}
             </div>
-            <div className='p-6'>
+            {/* <div className='p-6'>
               <Pagination
                 currentPage={payments?.pagination.page || null}
                 totalPages={payments?.pagination.totalPages || null}
                 onPageChange={setPaymentPage}
               />
-            </div>
+            </div> */}
           </div>
         </section>
       </section>

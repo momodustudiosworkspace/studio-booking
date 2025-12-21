@@ -42,6 +42,6 @@ export interface AllPaymentResponse {
   reference: string;
   amount: number;
   status: "pending" | "success" | "failed";
-  gateway_response: string;
+  // gateway_response: string;
   paidAt: string;
 }

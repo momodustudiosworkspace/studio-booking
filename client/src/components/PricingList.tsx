@@ -58,7 +58,7 @@ export default function PricingList() {
         <h2 className='text-base/7 font-semibold text-white'>
           Studio packages
         </h2>
-        <p className='mt-2 sm:font-sem text-3xl font-semibold tracking-tight text-balance text-white sm:text-6xl'>
+        <p className='sm:font-sem mt-2 text-3xl font-semibold tracking-tight text-balance text-white sm:text-6xl'>
           Choose the right plan for your studio session
         </p>
       </div>
@@ -95,7 +95,7 @@ export default function PricingList() {
               <span
                 className={classNames(
                   tier.featured ? "text-white" : "text-white",
-                  "sm:text-5xl text-3xl font-semibold tracking-tight"
+                  "text-3xl font-semibold tracking-tight sm:text-5xl"
                 )}
               >
                 {tier.priceMonthly}

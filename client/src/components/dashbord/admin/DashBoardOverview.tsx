@@ -3,19 +3,16 @@ import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import DashboardHeader from "./DashboardHeader";
-import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
-import BookingCard from "./cards/BookingCard";
+// import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import { useGetAdminDashBoardStatsQuery } from "@/redux/services/admin/dashboard/adminDashboard.api";
 import { useGetAllUserBookingsQuery } from "@/redux/services/admin/booking/adminBooking.api";
-import Pagination from "@/components/Pagination";
-import { formatDate } from "@/utils/dateFormatter";
-import { formatTime } from "@/utils/timeFormatter";
 import { useGetAllUserQuery } from "@/redux/services/admin/user/adminUsers.api";
-import ClientCards from "./cards/BookingClientCards";
+import DashboardBookingsTable from "./tables/DashboardBookingsTable";
+import DashboardClientsTable from "./tables/DashboardClientsTable";
 
 const DashBoardOverview = () => {
-  const [bookingPage, setBookingPage] = useState(1);
-  const [userPage, setUserPage] = useState(1);
+  const [bookingPage, _setBookingPage] = useState(1);
+  const [userPage, _setUserPage] = useState(1);
   const limit = 10;
   // Call the query hook
   const {
@@ -25,7 +22,7 @@ const DashBoardOverview = () => {
   } = useGetAdminDashBoardStatsQuery(undefined, { pollingInterval: 600000 });
   const {
     data: bookings,
-    error: bookingError,
+    // error: bookingError,
     isLoading: bookingIsloading,
   } = useGetAllUserBookingsQuery(
     { page: bookingPage, limit },
@@ -33,7 +30,7 @@ const DashBoardOverview = () => {
   );
   const {
     data: users,
-    error: usersError,
+    // error: usersError,
     isLoading: usersIsloading,
   } = useGetAllUserQuery(
     { page: userPage, limit },
@@ -85,8 +82,6 @@ const DashBoardOverview = () => {
     stats?.data.totalClients,
     stats?.data.totalRevenue,
   ]);
-  if (isLoading) return <p className="text-white">Loading...</p>;
-  if (error) return <p className="text-white">Failed to load data</p>;
 
   return (
     <DashboardLayout
@@ -111,15 +106,18 @@ const DashBoardOverview = () => {
           ))}
         </div>
 
+        {isLoading && <p className='text-black'>Loading...</p>}
+        {error && <p className='text-black'>Failed to load data</p>}
+
         {/* Bookings table  */}
         <section className='mb-10 max-h-[870px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
           {/* header section  */}
-          <div className='mb-10 flex items-center justify-between p-5'>
+          <div className='flex items-center justify-between p-5'>
             <DashboardHeader
               headerText={"Bookings"}
               paragraph={"All bookings record"}
             />
-            <div className='flex items-center gap-10'>
+            {/* <div className='flex items-center gap-10'>
               <div className='relative w-full'>
                 <div className=''>
                   <div className='absolute top-3 left-1 text-[14px] font-semibold capitalize underline'>
@@ -140,119 +138,31 @@ const DashBoardOverview = () => {
                   <DashboardIcons value='down-arrow-outlined-black' />
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
 
-          {/* booking list  */}
-          <div className='flex flex-col font-medium'>
-            <div className='flex items-center gap-[120px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4 font-semibold'>
-              <div className='flex shrink-0 justify-between sm:w-[480px] sm:items-center'>
-                <p>Booking ID</p>
-                <p>Client Name</p>
-                <p>Location</p>
-              </div>
-              <div className='flex items-center justify-center gap-2 sm:w-[200px]'>
-                <p>Date</p>
-              </div>
-              <div className='flex items-center gap-2 sm:w-[200px]'>
-                <p>Status</p>
-              </div>
-              <div className='flex gap-2 sm:items-center sm:justify-center'>
-                <p>Action</p>
-              </div>
-            </div>
-
-            {/* Bookings lists */}
-            {bookingIsloading ? (
-              "Loading data"
-            ) : bookingError ? (
-              "error loading"
-            ) : (
-              <div className='flex flex-col gap-10 py-5 pr-6 pl-4'>
-                {bookings?.data.bookings.map(booking => {
-                  return (
-                    <BookingCard
-                      key={booking._id}
-                      id={booking._id}
-                      client_name={booking.user_fullnames}
-                      location={booking.location?.address}
-                      date={formatDate(booking.startTime)}
-                      startTime={formatTime(booking.startTime)}
-                      status={booking.status}
-                    />
-                  );
-                })}
-              </div>
-            )}
-            <div className='p-6'>
-              <Pagination
-                currentPage={users?.pagination.page || null}
-                totalPages={users?.pagination.totalPages || null}
-                onPageChange={setBookingPage}
-              />
-            </div>
-          </div>
+          {/* booking Table  */}
+          <DashboardBookingsTable
+            bookings={bookings?.data.bookings || []}
+            isLoading={bookingIsloading}
+          />
         </section>
 
         {/* Clients table  */}
         <section className='max-h-[870px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
           {/* header section  */}
-          <div className='mb-10 flex items-center justify-between p-5'>
+          <div className='flex items-center justify-between p-5'>
             <DashboardHeader
               headerText={"Clients"}
               paragraph={"All clients record"}
             />
           </div>
 
-          {/* client list  */}
-          <div className='flex flex-col font-medium'>
-            <div className='flex items-center gap-[150px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4 font-semibold'>
-              <div className='flex w-[550px] shrink-0 justify-between sm:items-center'>
-                <p>Name</p>
-                <p>Email</p>
-                <p>Joined Date</p>
-              </div>
-              <div className='flex items-center justify-center gap-2 sm:w-[200px]'>
-                <p>Bookings</p>
-              </div>
-              <div className='flex items-center gap-2 sm:w-[200px]'>
-                <p>Status</p>
-              </div>
-              <div className='flex gap-2 sm:items-center sm:justify-center'>
-                <p>Action</p>
-              </div>
-            </div>
-
-            {/* Users lists */}
-            {usersIsloading ? (
-              "Loading data"
-            ) : usersError ? (
-              "error loading"
-            ) : (
-              <div className='flex flex-col gap-10 py-5 pr-6 pl-4'>
-                {users?.data.map(user => {
-                  return (
-                    <ClientCards
-                      key={user._id}
-                      id={user._id}
-                      client_name={`${user.first_name} ${user.last_name}`}
-                      email={user.email}
-                      joined_date={formatDate(user.createdAt)}
-                      bookings={user.totalBookings}
-                      status={user.isMember ? "active" : "inactive"}
-                    />
-                  );
-                })}
-              </div>
-            )}
-            <div className='p-6'>
-              <Pagination
-                currentPage={bookings?.pagination.page || null}
-                totalPages={bookings?.pagination.totalPages || null}
-                onPageChange={setUserPage}
-              />
-            </div>
-          </div>
+          {/* client table */}
+          <DashboardClientsTable
+            users={users?.data || []}
+            isLoading={usersIsloading}
+          />
         </section>
       </section>
     </DashboardLayout>

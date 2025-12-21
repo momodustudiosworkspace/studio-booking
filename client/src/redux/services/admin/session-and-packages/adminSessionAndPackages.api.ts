@@ -17,7 +17,10 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: [{ type: "Sessions", id: "LIST" },   { type: "Sessions", id: "COUNT" }],
+      invalidatesTags: [
+        { type: "Sessions", id: "LIST" },
+        { type: "Sessions", id: "COUNT" },
+      ],
     }),
 
     // UPDATE
@@ -39,7 +42,10 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
         url: `${ADMIN_BASE_URL}/sessions/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Sessions", id: "LIST" },  { type: "Sessions", id: "COUNT" }, ],
+      invalidatesTags: [
+        { type: "Sessions", id: "LIST" },
+        { type: "Sessions", id: "COUNT" },
+      ],
     }),
 
     // GET ALL
@@ -54,12 +60,12 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
       providesTags: result =>
         result?.data
           ? [
-            ...result.data.map(s => ({
-              type: "Sessions" as const,
-              id: s._id,
-            })),
-            { type: "Sessions", id: "LIST" },
-          ]
+              ...result.data.map(s => ({
+                type: "Sessions" as const,
+                id: s._id,
+              })),
+              { type: "Sessions", id: "LIST" },
+            ]
           : [{ type: "Sessions", id: "LIST" }],
     }),
 
@@ -75,7 +81,6 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
     >({
       query: () => `${ADMIN_BASE_URL}/sessions/sessions-and-packages/count`,
       providesTags: [{ type: "Sessions", id: "COUNT" }],
-
     }),
   }),
 

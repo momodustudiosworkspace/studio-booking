@@ -6,7 +6,10 @@ const Collaborations = () => {
   return (
     <div
       className='relative bg-gray-300 bg-cover bg-fixed bg-center bg-no-repeat py-24 sm:h-[900] sm:py-32'
-      style={{ backgroundImage: "url('https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-21_3_d8hvpe')" }}
+      style={{
+        backgroundImage:
+          "url('https://res.cloudinary.com/duwxmrkgd/image/upload/Momodumedia-21_3_d8hvpe')",
+      }}
     >
       <div className='absolute top-0 h-full w-full bg-black/50'></div>
       <div className='relative z-10 mx-auto max-w-7xl px-6 lg:px-8'>

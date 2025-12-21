@@ -35,7 +35,7 @@ const Portfolio = (): React.JSX.Element => {
   ];
   return (
     <section className='mx-auto max-w-7xl px-6 lg:px-8'>
-      <div className='flex flex-col '>
+      <div className='flex flex-col'>
         <SectionHeader
           variation='dark'
           badgeWidth='w-[180px]'

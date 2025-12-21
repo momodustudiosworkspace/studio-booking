@@ -32,7 +32,7 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
   const [inviteStaff, { isLoading }] = useInviteStaffMutation();
 
   return (
-    <div className='isolate px-6 lg:px-8'>
+    <div className='isolate lg:px-8'>
       <div
         aria-hidden='true'
         className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80'
@@ -80,19 +80,19 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
         }}
       >
         {({ values, isSubmitting, errors, touched }) => (
-          <Form className='flex w-full flex-col gap-10 text-white sm:text-black'>
+          <Form className='flex w-full flex-col gap-10 text-black'>
             {/* First Name */}
             <div className='flex flex-col gap-3'>
-              <label className='text-sm font-medium text-white sm:text-black'>
+              <label className='text-sm font-medium text-black'>
                 First Name *
               </label>
               <Field
                 name='first_name'
                 type='text'
-                className={`border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black ${
+                className={`border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2 ${
                   errors.first_name && touched.first_name
                     ? "border-red-500"
-                    : "border-white"
+                    : ""
                 }`}
                 placeholder='Enter first name'
               />
@@ -105,16 +105,14 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
 
             {/* Last Name */}
             <div className='flex flex-col gap-3'>
-              <label className='text-sm font-medium text-white sm:text-black'>
+              <label className='text-sm font-medium text-black'>
                 Last Name *
               </label>
               <Field
                 name='last_name'
                 type='text'
                 className={`border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black ${
-                  errors.last_name && touched.last_name
-                    ? "border-red-500"
-                    : "border-white"
+                  errors.last_name && touched.last_name ? "border-red-500" : ""
                 }`}
                 placeholder='Enter last name'
               />
@@ -125,16 +123,14 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
 
             {/* Email */}
             <div className='flex flex-col gap-3'>
-              <label className='text-sm font-medium text-white sm:text-black'>
+              <label className='text-sm font-medium text-black'>
                 Email Address *
               </label>
               <Field
                 name='email'
                 type='email'
                 className={`border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black ${
-                  errors.email && touched.email
-                    ? "border-red-500"
-                    : "border-white"
+                  errors.email && touched.email ? "border-red-500" : ""
                 }`}
                 placeholder='Enter email address'
               />
@@ -145,16 +141,14 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
 
             {/* Role */}
             <div className='flex flex-col gap-3'>
-              <label className='text-sm font-medium text-white sm:text-black'>
+              <label className='text-sm font-medium text-black'>
                 Staff Role *
               </label>
               <Field
                 as='select'
                 name='role'
                 className={`border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black ${
-                  errors.role && touched.role
-                    ? "border-red-500"
-                    : "border-white"
+                  errors.role && touched.role ? "border-red-500" : ""
                 } bg-white text-black`}
               >
                 <option value='engineer'>Engineer</option>
@@ -169,7 +163,7 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
             </div>
 
             {/* Action Buttons */}
-            <div className='flex justify-end gap-3'>
+            <div className='flex gap-3 sm:justify-end'>
               <button
                 type='button'
                 className='flex gap-2 rounded-md bg-black px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-black/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black'

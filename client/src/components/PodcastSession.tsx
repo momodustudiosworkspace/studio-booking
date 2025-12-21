@@ -3,7 +3,7 @@ import React from "react";
 
 const PodcastSession = () => {
   return (
-    <div className='relative isolate overflow-hidden bg-gradient-to-b from-black to-black px-6 pb-14 pt-20  sm:py-32 lg:overflow-visible lg:px-0'>
+    <div className='relative isolate overflow-hidden bg-gradient-to-b from-black to-black px-6 pt-20 pb-14 sm:py-32 lg:overflow-visible lg:px-0'>
       {/* <div className="bg-black"> */}
 
       <div className='relative isolate px-6 lg:px-8'>

@@ -246,7 +246,7 @@ export const authOptions: NextAuthOptions = {
           phoneNumber: token.phoneNumber,
         };
       }
-   
+
       return session;
     },
   },

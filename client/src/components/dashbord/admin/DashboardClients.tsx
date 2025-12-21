@@ -4,19 +4,16 @@ import DashboardLayout from "./DashboardLayout";
 // import { useGetBookingsQuery } from "@/redux/services/booking/booking.api";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import DashboardHeader from "./DashboardHeader";
-import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
-import ClientCards from "./cards/BookingClientCards";
 import { useGetAllUserQuery } from "@/redux/services/admin/user/adminUsers.api";
-import { formatDate } from "@/utils/dateFormatter";
-import Pagination from "@/components/Pagination";
+import DashboardClientsTable from "./tables/DashboardClientsTable";
 
 const DashBoardClients = () => {
-  const [userPage, setUserPage] = useState(1);
+  const [userPage, _setUserPage] = useState(1);
   const limit = 10;
   // Call the query hook
   const {
     data: users,
-    error: usersError,
+    // error: usersError,
     isLoading: usersIsloading,
   } = useGetAllUserQuery({ page: userPage, limit });
   console.log("users data:", users);
@@ -87,14 +84,14 @@ const DashBoardClients = () => {
         </div>
 
         {/* Clients table  */}
-        <section className='max-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
+        <section className='min-h-[670px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
           {/* header section  */}
-          <div className='mb-10 flex items-center justify-between p-5'>
+          <div className='mb-5 flex items-center justify-between p-5'>
             <DashboardHeader
               headerText={"Clients"}
               paragraph={"All clients record"}
             />
-            <div className='flex items-center gap-10'>
+            {/* <div className='flex items-center gap-10'>
               <div className='relative w-full'>
                 <div className=''>
                   <div className='absolute top-3 left-1 text-[14px] font-semibold capitalize underline'>
@@ -115,12 +112,12 @@ const DashBoardClients = () => {
                   <DashboardIcons value='down-arrow-outlined-black' />
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* client list  */}
           <div className='flex flex-col font-medium'>
-            <div className='flex items-center gap-[150px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4 font-semibold'>
+            {/* <div className='flex items-center gap-[150px] rounded-tl-2xl rounded-tr-2xl bg-[#F9FAFB] p-4 font-semibold'>
               <div className='flex w-[550px] shrink-0 justify-between sm:items-center'>
                 <p>Name</p>
                 <p>Email</p>
@@ -135,10 +132,16 @@ const DashBoardClients = () => {
               <div className='flex gap-2 sm:items-center sm:justify-center'>
                 <p>Action</p>
               </div>
-            </div>
+            </div> */}
+
+            {/* client table */}
+            <DashboardClientsTable
+              users={users?.data || []}
+              isLoading={usersIsloading}
+            />
 
             {/* Users lists */}
-            {usersIsloading ? (
+            {/* {usersIsloading ? (
               "Loading data"
             ) : usersError ? (
               "error loading"
@@ -165,7 +168,7 @@ const DashBoardClients = () => {
                 totalPages={users?.pagination.totalPages || null}
                 onPageChange={setUserPage}
               />
-            </div>
+            </div> */}
           </div>
         </section>
       </section>

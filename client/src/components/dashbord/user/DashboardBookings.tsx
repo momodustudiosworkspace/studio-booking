@@ -36,7 +36,7 @@ const DashboardBookings = () => {
   //   // const bookingDate = b.date;
   //   return b.date;
   // });
-  if (isLoading) return <p className="text-white">Loading...</p>;
+  if (isLoading) return <p className='text-white'>Loading...</p>;
   if (error) return "Failed to load data";
 
   const TABS = [

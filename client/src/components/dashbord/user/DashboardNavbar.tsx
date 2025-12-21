@@ -70,8 +70,7 @@ const DashboardNavbar = () => {
   const user = {
     name: `${session?.user.first_name} ${session?.user.first_name}`,
     email: session?.user.email,
-    imageUrl:
-      session?.user.image,
+    imageUrl: session?.user.image,
   };
 
   console.log("user navbar: ", user);
@@ -79,34 +78,6 @@ const DashboardNavbar = () => {
   const pathname = usePathname();
 
   return (
-    // <div className='z-40 -mt-[120px] h-screen w-[300px] border-r-[1px] border-gray-200 pt-[130px] pr-4 sm:flex'>
-    //   <nav className='w-full space-y-4'>
-    //     {SIDEBAR_LINKS.map(link => (
-    //       <Link
-    //         key={link.href}
-    //         href={link.href}
-    //         className={`flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-100 ${pathname === link.href && "bg-gray-200 font-semibold"} `}
-    //       >
-    //         <DashboardIcons value={link.icon} />
-    //         <span className='mt-[3px]'>{link.label}</span>
-    //       </Link>
-    //     ))}
-    //     <button
-    //       className='mt-4 flex w-full items-center gap-2 rounded-md bg-[#C500001A] px-2 py-2 text-[#C50000] hover:cursor-pointer'
-    //       onClick={() => {
-    //         // setTimeout(() => {
-    //         //   dispatch(baseApi.util.resetApiState()) // 🧹 Clear all cached queries
-    //         // }, 500)
-    //         dispatch(userLogOut());
-
-    //         signOut({ callbackUrl: "/auth" });
-    //       }}
-    //     >
-    //       <DashboardIcons value='logout-danger' />
-    //       Log Out
-    //     </button>
-    //   </nav>
-    // </div>
     <Disclosure
       as='nav'
       className='mx-auto w-full max-w-7xl bg-black px-4 py-6 sm:px-6 lg:px-8'
@@ -214,24 +185,6 @@ const DashboardNavbar = () => {
       </div>
 
       <DisclosurePanel className='md:hidden'>
-        <div className='space-y-1 px-2 pt-2 pb-3 sm:px-3'>
-          {navigation.map(item => (
-            <DisclosureButton
-              key={item.name}
-              as='a'
-              href={item.href}
-              aria-current={pathname === item.href ? "page" : undefined}
-              className={classNames(
-                pathname === item.href
-                  ? "bg-gray-950/50 text-white"
-                  : "text-gray-300 hover:bg-white/5 hover:text-white",
-                "block rounded-md px-3 py-2 text-base font-medium"
-              )}
-            >
-              {item.name}
-            </DisclosureButton>
-          ))}
-        </div>
         <div className='border-t border-white/10 pt-4 pb-3'>
           <div className='flex items-center px-5'>
             <div className='shrink-0'>
@@ -260,26 +213,44 @@ const DashboardNavbar = () => {
               <BellIcon aria-hidden='true' className='size-6' />
             </button>
           </div>
-          <div className='mt-3 space-y-1 px-2'>
-            {userNavigation.map(item => (
-              <DisclosureButton
-                key={item.name}
-                as='button'
-                type='button'
-                onClick={() => {
-                  if (item.type === "link" && item.href) {
-                    window.location.href = item.href;
-                  }
-                  if (item.type === "button" && item.onClick) {
-                    item.onClick();
-                  }
-                }}
-                className='block w-full rounded-md px-3 py-2 text-left text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white'
-              >
-                {item.name}
-              </DisclosureButton>
-            ))}
-          </div>
+        </div>
+        <div className='space-y-1 px-2 pt-2 pb-3 sm:px-3'>
+          {navigation.map(item => (
+            <DisclosureButton
+              key={item.name}
+              as='a'
+              href={item.href}
+              aria-current={pathname === item.href ? "page" : undefined}
+              className={classNames(
+                pathname === item.href
+                  ? "bg-gray-950/50 text-white"
+                  : "text-gray-500 hover:bg-white/5 hover:text-white",
+                "block rounded-md px-3 py-2 text-base font-medium"
+              )}
+            >
+              {item.name}
+            </DisclosureButton>
+          ))}
+        </div>
+        <div className='space-y-1 px-2'>
+          {userNavigation.map(item => (
+            <DisclosureButton
+              key={item.name}
+              as='button'
+              type='button'
+              onClick={() => {
+                if (item.type === "link" && item.href) {
+                  window.location.href = item.href;
+                }
+                if (item.type === "button" && item.onClick) {
+                  item.onClick();
+                }
+              }}
+              className='block w-full rounded-md px-3 py-2 text-left text-base font-medium text-white hover:bg-white/5 hover:text-white'
+            >
+              {item.name}
+            </DisclosureButton>
+          ))}
         </div>
       </DisclosurePanel>
     </Disclosure>
