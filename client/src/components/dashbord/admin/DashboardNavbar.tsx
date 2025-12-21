@@ -28,7 +28,6 @@ const DashboardNavbar = () => {
 
   const { data: session } = useSession();
 
-
   const navigation = [
     {
       href: "/admin/dashboard",
@@ -83,7 +82,10 @@ const DashboardNavbar = () => {
     // { name: "Your profile", href: "#", type: "link" },
     // { name: "Settings", href: "#", type: "link" },
     {
-      name: "Sign out", href: "#", type: "button", onClick: () => {
+      name: "Sign out",
+      href: "#",
+      type: "button",
+      onClick: () => {
         dispatch(userLogOut());
         signOut({ callbackUrl: "/auth" });
       },
@@ -93,13 +95,11 @@ const DashboardNavbar = () => {
   const user = {
     name: `${session?.user.first_name} ${session?.user.first_name}`,
     email: session?.user.email,
-    imageUrl:
-      session?.user.image,
+    imageUrl: session?.user.image,
   };
   const pathname = usePathname();
 
   return (
-
     <Disclosure
       as='nav'
       className='mx-auto w-full max-w-7xl bg-black px-4 py-6 sm:px-6 lg:px-8'
@@ -207,7 +207,7 @@ const DashboardNavbar = () => {
       </div>
 
       <DisclosurePanel className='md:hidden'>
-        <div className='flex items-center mt-10 mb-3'>
+        <div className='mt-10 mb-3 flex items-center'>
           <div className='shrink-0'>
             <Image
               width={100}
@@ -253,8 +253,7 @@ const DashboardNavbar = () => {
           ))}
         </div>
         <div className='border-t border-white/10 pt-4 pb-3'>
-
-          <div className='mt-3 space-y-1 '>
+          <div className='mt-3 space-y-1'>
             {userNavigation.map(item => (
               <DisclosureButton
                 key={item.name}

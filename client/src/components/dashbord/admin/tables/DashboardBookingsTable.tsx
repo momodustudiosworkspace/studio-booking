@@ -8,115 +8,118 @@ import { formatTime } from "@/utils/timeFormatter";
 import DashboardAssignStaffDropDown from "../DashboardAssignStaffDropDown";
 import { usePathname } from "next/navigation";
 
-
 interface BookingTableProps {
-    bookings: BookingType[],
-    isLoading: boolean
+  bookings: BookingType[];
+  isLoading: boolean;
 }
 
+const DashboardBookingsTable = ({ bookings, isLoading }: BookingTableProps) => {
+  const bookingLocation = "C1 Melita Plaze, Gimbiya street, Garki";
+  const pathName = usePathname();
 
-const DashboardBookingsTable = ({
-    bookings, isLoading }: BookingTableProps) => {
-    const bookingLocation = "C1 Melita Plaze, Gimbiya street, Garki"
-    const pathName = usePathname()
+  return (
+    <div className='w-full rounded-xl bg-white'>
+      {/* Table */}
+      <div className='overflow-x-auto'>
+        <table className='w-full border-collapse text-left'>
+          <thead>
+            <tr className='border-b bg-gray-50'>
+              <th className='px-4 py-5'>Client Name</th>
+              <th className='px-4 py-5'>Location</th>
+              <th className='px-4 py-5'>Date Book</th>
+              <th className='px-4 py-5'>Status</th>
+              <th className='px-4 py-5'>Action</th>
+            </tr>
+          </thead>
 
-    return (
-        <div className="w-full rounded-xl bg-white ">
-            {/* Table */}
-            <div className="overflow-x-auto">
-                <table className="w-full border-collapse text-left">
-                    <thead>
-                        <tr className="border-b bg-gray-50">
-                            <th className="px-4 py-5">Client Name</th>
-                            <th className="px-4 py-5">Location</th>
-                            <th className="px-4 py-5">Date Book</th>
-                            <th className="px-4 py-5">Status</th>
-                            <th className="px-4 py-5">Action</th>
-                        </tr>
-                    </thead>
+          <tbody>
+            {isLoading ? (
+              [...Array(6)].map((_, i) => (
+                <tr key={i} className='animate-pulse border-b'>
+                  <td className='px-4 py-5'>
+                    <div className='h-4 w-40 rounded bg-gray-200' />
+                  </td>
+                  <td className='px-4 py-5'>
+                    <div className='h-4 w-48 rounded bg-gray-200' />
+                  </td>
+                  <td className='px-4 py-5'>
+                    <div className='h-4 w-24 rounded bg-gray-200' />
+                  </td>
+                  <td className='px-4 py-5'>
+                    <div className='h-4 w-20 rounded bg-gray-200' />
+                  </td>
+                </tr>
+              ))
+            ) : bookings.length === 0 ? (
+              <tr>
+                <td colSpan={4} className='py-6 text-center text-gray-500'>
+                  No bookings found
+                </td>
+              </tr>
+            ) : (
+              bookings.map(booking => (
+                <tr key={booking._id} className='border-b hover:bg-gray-50'>
+                  <td className='px-4 py-5 font-medium capitalize'>
+                    {booking.user_fullnames}
+                  </td>
 
-                    <tbody>
-                        {isLoading ? (
-                            [...Array(6)].map((_, i) => (
-                                <tr key={i} className="animate-pulse border-b">
-                                    <td className="px-4 py-5">
-                                        <div className="h-4 w-40 rounded bg-gray-200" />
-                                    </td>
-                                    <td className="px-4 py-5">
-                                        <div className="h-4 w-48 rounded bg-gray-200" />
-                                    </td>
-                                    <td className="px-4 py-5">
-                                        <div className="h-4 w-24 rounded bg-gray-200" />
-                                    </td>
-                                    <td className="px-4 py-5">
-                                        <div className="h-4 w-20 rounded bg-gray-200" />
-                                    </td>
-                                </tr>
-                            ))
-                        ) : bookings.length === 0 ? (
-                            <tr>
-                                <td colSpan={4} className="py-6 text-center text-gray-500">
-                                    No bookings found
-                                </td>
-                            </tr>
-                        ) : (
-                            bookings.map(booking => (
-                                <tr
-                                    key={booking._id}
-                                    className="border-b hover:bg-gray-50"
-                                >
-                                    <td className="px-4 py-5 font-medium capitalize">
-                                        {booking.user_fullnames}
-                                    </td>
+                  <td className='px-4 py-5 capitalize'>
+                    {booking.location?.address === bookingLocation
+                      ? "indoor"
+                      : "outdoor"}
+                  </td>
 
-                                    <td className="px-4 py-5 capitalize">{booking.location?.address === bookingLocation ? "indoor" : "outdoor"}</td>
+                  <td className='flex items-center gap-2 px-4 py-5 capitalize'>
+                    <div
+                      className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
+                    >
+                      <DashboardIcons value='calendar-grid-outlined-black' />
+                    </div>
+                    {/* {booking.date} */}
+                    <div>
+                      <p> {formatDate(booking.date)}</p>
+                      <p> {formatTime(booking.startTime)}</p>
+                    </div>
+                  </td>
 
-                                    <td className="px-4 py-5 flex items-center gap-2 capitalize">
-                                        <div
-                                            className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
-                                        >
-                                            <DashboardIcons value='calendar-grid-outlined-black' />
-                                        </div>
-                                        {/* {booking.date} */}
-                                        <div>
-                                            <p> {formatDate(booking.date)}</p>
-                                            <p> {formatTime(booking.startTime)}</p>
-                                        </div>
-                                    </td>
+                  <td className='px-4 py-5'>
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${
+                        booking.status === "completed"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {booking.status}
+                    </span>
+                  </td>
+                  <td className='px-4 py-5'>
+                    {pathName === "/admin/dashboard/bookings" ? (
+                      <DashboardAssignStaffDropDown
+                        bookingId={booking._id || ""}
+                        assignedStaffId={`${booking.assignedTo || ""}`}
+                      />
+                    ) : (
+                      <Link
+                        href={`/admin/dashboard/bookings/${booking._id}`}
+                        className='inline-block rounded-md bg-black px-6 py-2 text-center text-sm font-semibold text-white'
+                      >
+                        View
+                      </Link>
+                    )}
 
-                                    <td className="px-4 py-5">
-                                        <span
-                                            className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${booking.status === "completed"
-                                                ? "bg-green-100 text-green-700"
-                                                : "bg-yellow-100 text-yellow-700"
-                                                }`}
-                                        >
-                                            {booking.status}
-                                        </span>
-                                    </td>
-                                    <td className="px-4 py-5">
-                                        {pathName === "/admin/dashboard/bookings" ? (
-                                            <DashboardAssignStaffDropDown bookingId={booking._id || ""} assignedStaffId={`${booking.assignedTo || ""}`} />
+                    {/* {booking.assignedTo ? "Assigned" : "Not assigned"} */}
+                    {/* {booking.assignedTo ? booking.assignedTo : "Not assigned"} */}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
 
-                                        ) : (
-                                            <Link href={`/admin/dashboard/bookings/${booking._id}`} className="inline-block rounded-md  px-6 text-sm py-2 text-center font-semibold text-white bg-black ">
-                                                View
-                                            </Link>
-                                        )}
-
-
-                                        {/* {booking.assignedTo ? "Assigned" : "Not assigned"} */}
-                                        {/* {booking.assignedTo ? booking.assignedTo : "Not assigned"} */}
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
-            </div>
-
-            {/* Pagination Controls */}
-            {/* {pagination && (
+      {/* Pagination Controls */}
+      {/* {pagination && (
                 <div className="mt-4 flex items-center justify-between">
                     <p className="text-sm text-gray-600">
                         Page {pagination.page} of {pagination.totalPages}
@@ -141,8 +144,8 @@ const DashboardBookingsTable = ({
                     </div>
                 </div>
             )} */}
-        </div>
-    );
+    </div>
+  );
 };
 
 export default DashboardBookingsTable;

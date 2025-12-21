@@ -74,7 +74,7 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
               <Field
                 name='session_title'
                 type='text'
-                className='border-b-[1px] pb-2 outline-0 transition-all ease-in-out focus:border-b-2 border-black'
+                className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                 placeholder='Enter session title'
               />
             </div>

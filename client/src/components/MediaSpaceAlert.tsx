@@ -11,7 +11,6 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 const MediaSpaceAlert = () => {
   const [open, setOpen] = useState<boolean>(false);
 
-
   // useEffect(() => {
   //   const pageAlertTimer = setTimeout(() => setOpen(true), 5000)
 
@@ -45,7 +44,10 @@ const MediaSpaceAlert = () => {
                       aria-hidden='true'
                       className='size-6 text-red-400'
                     /> */}
-                    <CheckCircleIcon aria-hidden='true' className='size-6 text-green-400' />
+                    <CheckCircleIcon
+                      aria-hidden='true'
+                      className='size-6 text-green-400'
+                    />
                   </div>
                   <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
                     <DialogTitle
@@ -57,11 +59,12 @@ const MediaSpaceAlert = () => {
                     </DialogTitle>
                     <div className='mt-2'>
                       <p className='text-sm text-gray-400'>
-                        Did you know that you can organize your media files in our cloud for seamless access and use of your media assets across all social platforms?
+                        Did you know that you can organize your media files in
+                        our cloud for seamless access and use of your media
+                        assets across all social platforms?
                         {/* Your media storage has reached its limit. To continue
                         uploading and storing media files, please consider
                         upgrading your plan or deleting unnecessary files. */}
-
                       </p>
                     </div>
                   </div>
@@ -88,7 +91,7 @@ const MediaSpaceAlert = () => {
                   onClick={() => setOpen(false)}
                   className='mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto'
                 >
-                  Dismiss 
+                  Dismiss
                 </button>
                 {/* <button
                   type='button'

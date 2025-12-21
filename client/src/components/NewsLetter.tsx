@@ -43,7 +43,7 @@ const NewsLetter = () => {
               className='rounded-2xl shadow-2xl'
             />
           </div>
-          <div className='max-w-xl lg:max-w-lg flex flex-col'>
+          <div className='flex max-w-xl flex-col lg:max-w-lg'>
             <h2 className='text-4xl font-semibold tracking-tight text-white'>
               Subscribe to our newsletter
             </h2>
@@ -51,7 +51,7 @@ const NewsLetter = () => {
               Get the latest photography tips, studio updates, and exclusive
               booking offers delivered to your inbox.
             </p>
-            <div className='mt-6 flex max-w-md mb-10 gap-x-4'>
+            <div className='mt-6 mb-10 flex max-w-md gap-x-4'>
               <label htmlFor='email-address' className='sr-only'>
                 Email address
               </label>
@@ -89,8 +89,8 @@ const NewsLetter = () => {
                   Weekly articles
                 </dt>
                 <dd className='mt-2 text-base/7 text-gray-400'>
-                  Receive weekly articles on photography techniques, studio tips,
-                  and industry trends to enhance your skills.
+                  Receive weekly articles on photography techniques, studio
+                  tips, and industry trends to enhance your skills.
                 </dd>
               </div>
               <div className='flex flex-col items-start'>
@@ -110,7 +110,6 @@ const NewsLetter = () => {
               </div>
             </dl>
           </div>
-
         </div>
       </div>
       <div

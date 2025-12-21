@@ -3,8 +3,6 @@ import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 // import SessionForm from './forms/SessionForm'
-import Button from "@/components/ui/Button";
-import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import {
   Dialog,
   DialogBackdrop,
@@ -20,9 +18,8 @@ import { useGetStaffStatisticsQuery } from "@/redux/services/admin/staff-managem
 const DashboardStaffManagement = () => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const { data } = useGetStaffStatisticsQuery()
+  const { data } = useGetStaffStatisticsQuery();
   console.log(data);
-
 
   const analytics = useMemo(() => {
     return [
@@ -55,7 +52,12 @@ const DashboardStaffManagement = () => {
         dataType: 0,
       },
     ];
-  }, [data?.data.pendingInvitations, data?.data.isInvitationAccepted, data?.data.activeStaff, data?.data.totalStaff]);
+  }, [
+    data?.data.pendingInvitations,
+    data?.data.isInvitationAccepted,
+    data?.data.activeStaff,
+    data?.data.totalStaff,
+  ]);
   return (
     <DashboardLayout
       headerProps={{
@@ -80,14 +82,19 @@ const DashboardStaffManagement = () => {
       <div className='space-y-8'>
         {/* Manage Sessions Section */}
         <div className='rounded-lg'>
-          <div className='mb-6 flex sm:flex-row flex-col sm:items-center justify-between gap-3 rounded-lg bg-white p-6 shadow'>
+          <div className='mb-6 flex flex-col justify-between gap-3 rounded-lg bg-white p-6 shadow sm:flex-row sm:items-center'>
             <div>
               <h2 className='text-xl font-bold text-black'>Manage Staff</h2>
               <p className='mt-1 text-sm text-gray-600'>
                 Create and manage your studio team members
               </p>
             </div>
-            <button onClick={() => setOpen(true)} className="inline-block rounded-md  px-6 text-sm py-2 text-center font-semibold text-white bg-green-600">+ Add staff</button>
+            <button
+              onClick={() => setOpen(true)}
+              className='inline-block rounded-md bg-green-600 px-6 py-2 text-center text-sm font-semibold text-white'
+            >
+              + Add staff
+            </button>
           </div>
 
           {/* Modal Form */}
@@ -104,14 +111,14 @@ const DashboardStaffManagement = () => {
                   className='relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95'
                 >
                   <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
-                    <div className='mb-5 flex sm:items-center sm:gap-0 gap-3'>
+                    <div className='mb-5 flex gap-3 sm:items-center sm:gap-0'>
                       <div className='mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-black/30 sm:mx-0 sm:size-10'>
                         <PlusCircleIcon
                           aria-hidden='true'
                           className='size-6 text-black'
                         />
                       </div>
-                      <div className='sm:ml-4 text-left'>
+                      <div className='text-left sm:ml-4'>
                         <DialogTitle
                           as='h3'
                           className='text-base font-semibold text-black'

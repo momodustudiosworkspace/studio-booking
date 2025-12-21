@@ -77,14 +77,14 @@ const StudioMerch = async () => {
   }
 `;
 
-  const VARIABLES = { first: 10 }
+  const VARIABLES = { first: 10 };
 
   const data = await shopifyFetch(PRODUCTS_QUERY, VARIABLES);
 
   const products = data.data.products.edges.map((e: any) => e.node);
 
   if (!products || products.length === 0) {
-    return <div>We are restocking.</div>
+    return <div>We are restocking.</div>;
   }
   const formatPrice = (amount: string, currency: string) => {
     return new Intl.NumberFormat("en-US", {
@@ -95,20 +95,20 @@ const StudioMerch = async () => {
   };
 
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+    <div className='bg-white'>
+      <div className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8'>
+        <h2 className='text-2xl font-bold tracking-tight text-gray-900'>
           Members also purchased
         </h2>
         <p>Get up to 20% discount on your first studio session.</p>
 
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className='mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
           {products.map((product: any) => {
             const image = product.images.edges[0]?.node;
 
             return (
-              <div key={product.id} className="group relative">
-                <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 lg:h-80">
+              <div key={product.id} className='group relative'>
+                <div className='aspect-square w-full overflow-hidden rounded-md bg-gray-200 lg:h-80'>
                   {image ? (
                     <Image
                       src={image.url}
@@ -116,26 +116,28 @@ const StudioMerch = async () => {
                       width={400}
                       height={400}
                       unoptimized
-                      className="h-full w-full object-cover group-hover:opacity-75"
+                      className='h-full w-full object-cover group-hover:opacity-75'
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm text-gray-500">
+                    <div className='flex h-full w-full items-center justify-center text-sm text-gray-500'>
                       No image
                     </div>
                   )}
                 </div>
 
-                <div className="mt-4 flex justify-between">
+                <div className='mt-4 flex justify-between'>
                   <div>
-                    <h3 className="text-sm text-gray-700">
-                      <Link href={`https://www.momodustudios.com/products/${product.handle}`}>
-                        <span aria-hidden="true" className="absolute inset-0" />
+                    <h3 className='text-sm text-gray-700'>
+                      <Link
+                        href={`https://www.momodustudios.com/products/${product.handle}`}
+                      >
+                        <span aria-hidden='true' className='absolute inset-0' />
                         {product.title}
                       </Link>
                     </h3>
                   </div>
 
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className='text-sm font-medium text-gray-900'>
                     {formatPrice(
                       product.priceRange.minVariantPrice.amount,
                       product.priceRange.minVariantPrice.currencyCode
@@ -147,13 +149,13 @@ const StudioMerch = async () => {
           })}
         </div>
 
-        <div className="mt-10">
+        <div className='mt-10'>
           <Link
-            href="https://www.momodustudios.com/pages/merch"
-            className="flex items-center gap-2 text-sm font-medium text-gray-900"
+            href='https://www.momodustudios.com/pages/merch'
+            className='flex items-center gap-2 text-sm font-medium text-gray-900'
           >
             See more
-            <ArrowLongRightIcon aria-hidden="true" className="size-6" />
+            <ArrowLongRightIcon aria-hidden='true' className='size-6' />
           </Link>
         </div>
       </div>

@@ -273,8 +273,8 @@ export default function Navbar() {
                       ) : (
                         <button
                           className='flex items-center justify-center gap-x-2.5 text-sm/6 font-semibold text-white hover:bg-gray-700/50'
-                            onClick={() => {
-                              dispatch(baseApi.util.resetApiState());
+                          onClick={() => {
+                            dispatch(baseApi.util.resetApiState());
                             dispatch(userLogOut());
                             signOut({ callbackUrl: "/auth" });
                           }}

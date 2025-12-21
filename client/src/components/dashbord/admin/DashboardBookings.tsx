@@ -7,9 +7,9 @@ import DashboardHeader from "./DashboardHeader";
 import BookingCardAnalytics from "./cards/BookingCardAnalytics";
 import {
   useGetAllUserBookingsQuery,
-  // usePrefetch, 
+  // usePrefetch,
 } from "@/redux/services/admin/booking/adminBooking.api";
-// import Pagination from "@/components/Pagination"; 
+// import Pagination from "@/components/Pagination";
 import DashboardBookingsTable from "./tables/DashboardBookingsTable";
 import { BookingType } from "@/types/booking.types";
 // import { formatDate } from "@/utils/dateFormatter";
@@ -111,7 +111,7 @@ const DashboardBookings = () => {
 
   console.log("formattedBookings: ", formattedBookings);
 
-  if (isLoading) return <p className="text-white">Loading...</p>;
+  if (isLoading) return <p className='text-white'>Loading...</p>;
   // if (error) return "Failed to load data";
 
   const TABS = [
@@ -128,9 +128,7 @@ const DashboardBookings = () => {
         </p>
       );
 
-    return (
-      <DashboardBookingsTable bookings={data} isLoading={isLoading} />
-    );
+    return <DashboardBookingsTable bookings={data} isLoading={isLoading} />;
     // return data.map(b => (
     //   <div
     //     key={b._id}
@@ -186,10 +184,11 @@ const DashboardBookings = () => {
                 {TABS.map(tab => (
                   <button
                     key={tab.index}
-                    className={`pb-1 text-sm font-medium capitalize ${currentTab === tab.index
+                    className={`pb-1 text-sm font-medium capitalize ${
+                      currentTab === tab.index
                         ? "border-b-[3px] border-black font-semibold"
                         : ""
-                      }`}
+                    }`}
                     onClick={() => setCurrentTab(tab.index)}
                   >
                     {tab.label}
@@ -231,11 +230,15 @@ const DashboardBookings = () => {
                 {currentTab === 1 && renderBookings(allBookings ?? [])}
                 {currentTab === 2 &&
                   renderBookings(
-                    bookings?.data.bookings.filter(b => b.status === "pending") ?? []
+                    bookings?.data.bookings.filter(
+                      b => b.status === "pending"
+                    ) ?? []
                   )}
                 {currentTab === 3 &&
                   renderBookings(
-                    bookings?.data.bookings.filter(b => b.status === "completed") ?? []
+                    bookings?.data.bookings.filter(
+                      b => b.status === "completed"
+                    ) ?? []
                   )}
                 {/* <div className='py-6'>
                 <Pagination

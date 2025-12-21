@@ -18,52 +18,46 @@ import { useGetSessionAndPackagesCountQuery } from "@/redux/services/admin/sessi
 
 const DashboardSessionAndPackages = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const { data: stats, isLoading: isStatsLoading } = useGetSessionAndPackagesCountQuery();
+  const { data: stats, isLoading: isStatsLoading } =
+    useGetSessionAndPackagesCountQuery();
 
-  const analytics = useMemo(
-    () => {
-      // const total = bookings?.length || 2000;
-      // const completed = bookings?.filter(b => b.status === "completed").length || 0;
-      // const upcoming = bookings?.filter(b => b.status === "pending").length || 0;
-      // const cancelled = bookings?.filter(b => b.status === "cancelled").length || 0;
+  const analytics = useMemo(() => {
+    // const total = bookings?.length || 2000;
+    // const completed = bookings?.filter(b => b.status === "completed").length || 0;
+    // const upcoming = bookings?.filter(b => b.status === "pending").length || 0;
+    // const cancelled = bookings?.filter(b => b.status === "cancelled").length || 0;
 
-      return [
-        {
-          title: "Total Sessions",
-          count: isStatsLoading ? "Loading..." : stats?.data?.totalSessions || 0,
-          linkText: "From 2025",
-          href: "/bookings",
-          dataType: 0,
-        },
-        {
-          title: "Total Packages",
-          count: isStatsLoading ? "Loading..." : stats?.data?.totalPackages || 0,
-          linkText: "For all sessions",
-          href: "/bookings",
-          dataType: 0,
-        },
-        //    {
-        //      title: "Total Revenue",
-        //      count: 0,
-        //      linkText: "Next session soon",
-        //      href: "/bookings",
-        //      dataType: 1,
-        //    },
-        //    {
-        //      title: "Upcoming Sessions",
-        //      count:  0,
-        //      linkText: "View all",
-        //      href: "/bookings",
-        //      dataType: 0,
-        //    },
-      ];
-    },
-    [
-      //  stats?.data.totalBookings,
-      //  stats?.data.totalClients,
-      //  stats?.data.totalRevenue,
-    ]
-  );
+    return [
+      {
+        title: "Total Sessions",
+        count: isStatsLoading ? "Loading..." : stats?.data?.totalSessions || 0,
+        linkText: "From 2025",
+        href: "/bookings",
+        dataType: 0,
+      },
+      {
+        title: "Total Packages",
+        count: isStatsLoading ? "Loading..." : stats?.data?.totalPackages || 0,
+        linkText: "For all sessions",
+        href: "/bookings",
+        dataType: 0,
+      },
+      //    {
+      //      title: "Total Revenue",
+      //      count: 0,
+      //      linkText: "Next session soon",
+      //      href: "/bookings",
+      //      dataType: 1,
+      //    },
+      //    {
+      //      title: "Upcoming Sessions",
+      //      count:  0,
+      //      linkText: "View all",
+      //      href: "/bookings",
+      //      dataType: 0,
+      //    },
+    ];
+  }, [isStatsLoading, stats?.data?.totalPackages, stats?.data?.totalSessions]);
   return (
     <DashboardLayout
       headerProps={{
@@ -89,7 +83,7 @@ const DashboardSessionAndPackages = () => {
         {/* Additional content for sessions and packages can be added here */}
         <div className='flex items-start'>
           {/* Create Session  */}
-          <div className='flex w-full sm:flex-row flex-col sm:items-center sm:justify-between rounded-lg bg-white sm:p-6 p-4 gap-5 shadow'>
+          <div className='flex w-full flex-col gap-5 rounded-lg bg-white p-4 shadow sm:flex-row sm:items-center sm:justify-between sm:p-6'>
             <div>
               <h2 className='text-xl font-bold'>Manage Sessions</h2>
               <p className='mt-1 text-sm text-gray-400'>
@@ -106,7 +100,12 @@ const DashboardSessionAndPackages = () => {
               //   loading={isSubmitting}
               //   disabled={isSubmitting}
             /> */}
-            <button onClick={() => setOpen(true)} className="inline-block rounded-md  px-6 text-sm py-2 text-center font-semibold text-white bg-green-600">+ Create session</button>
+            <button
+              onClick={() => setOpen(true)}
+              className='inline-block rounded-md bg-green-600 px-6 py-2 text-center text-sm font-semibold text-white'
+            >
+              + Create session
+            </button>
           </div>
 
           {/* Modal Form */}
@@ -123,7 +122,7 @@ const DashboardSessionAndPackages = () => {
                   className='relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95'
                 >
                   <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
-                    <div className='mb-5 flex items-start gap-2 sm:gap-0 flex-row sm:items-center '>
+                    <div className='mb-5 flex flex-row items-start gap-2 sm:items-center sm:gap-0'>
                       <div className='mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-black/30 sm:mx-0 sm:size-10'>
                         <PlusCircleIcon
                           aria-hidden='true'

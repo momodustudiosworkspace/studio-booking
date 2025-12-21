@@ -135,8 +135,10 @@ const DashBoardClients = () => {
             </div> */}
 
             {/* client table */}
-            <DashboardClientsTable users={users?.data || []} isLoading={usersIsloading} />
-
+            <DashboardClientsTable
+              users={users?.data || []}
+              isLoading={usersIsloading}
+            />
 
             {/* Users lists */}
             {/* {usersIsloading ? (

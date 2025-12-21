@@ -70,8 +70,7 @@ const DashboardNavbar = () => {
   const user = {
     name: `${session?.user.first_name} ${session?.user.first_name}`,
     email: session?.user.email,
-    imageUrl:
-      session?.user.image,
+    imageUrl: session?.user.image,
   };
 
   console.log("user navbar: ", user);
@@ -214,7 +213,6 @@ const DashboardNavbar = () => {
               <BellIcon aria-hidden='true' className='size-6' />
             </button>
           </div>
-
         </div>
         <div className='space-y-1 px-2 pt-2 pb-3 sm:px-3'>
           {navigation.map(item => (
@@ -254,7 +252,6 @@ const DashboardNavbar = () => {
             </DisclosureButton>
           ))}
         </div>
-
       </DisclosurePanel>
     </Disclosure>
   );

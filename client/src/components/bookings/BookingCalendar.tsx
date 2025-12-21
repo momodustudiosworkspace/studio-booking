@@ -83,7 +83,6 @@ interface BookingsCalendarProps {
   setOnProceed: React.Dispatch<React.SetStateAction<(() => void) | null>>;
 }
 
-
 type CalendarSlot = {
   date: string; // "2025-12-30"
   times: string[]; // booked times
@@ -112,7 +111,6 @@ const BookingCalendar = ({
     year: getYear(new Date()),
     month: getMonth(new Date()),
   });
-
 
   const { data: availableSlots = [], isFetching } =
     useGetCalendarBookingsQuery(visibleMonth);
@@ -152,9 +150,7 @@ const BookingCalendar = ({
     if (!slot) return DAILY_TIME_SLOTS;
 
     // 🟡 Remove booked times
-    return DAILY_TIME_SLOTS.filter(
-      time => !slot.times.includes(time)
-    );
+    return DAILY_TIME_SLOTS.filter(time => !slot.times.includes(time));
   }, [selectedDate, bookedSlotsByDate]);
 
   const isDayDisabled = useCallback(
@@ -176,7 +172,6 @@ const BookingCalendar = ({
     }
   }, [selectedDate, isFetching, isDayDisabled]);
 
-
   // ✅ Update available times when user selects a date
   useEffect(() => {
     if (!selectedBookingStartTime) {
@@ -196,7 +191,6 @@ const BookingCalendar = ({
 
     setSelectedTime(time);
   }, [selectedBookingStartTime]);
-
 
   // Register this child’s custom proceed handler
   useEffect(() => {
@@ -244,7 +238,7 @@ const BookingCalendar = ({
               showMonthDropdown
               showYearDropdown
               dropdownMode='select'
-                // className='w-full rounded-lg border border-white bg-black px-3 py-2 text-center text-white'
+              // className='w-full rounded-lg border border-white bg-black px-3 py-2 text-center text-white'
             />
           </div>
         )}

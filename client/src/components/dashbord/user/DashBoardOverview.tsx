@@ -61,7 +61,7 @@ const DashBoardOverview = () => {
       },
     ];
   }, [bookings]);
-  if (isLoading) return <p className="text-white">Loading...</p>;
+  if (isLoading) return <p className='text-white'>Loading...</p>;
   if (error) return "Failed to load data";
 
   const BOOKING_QUICK_LINKS_CARDS = [

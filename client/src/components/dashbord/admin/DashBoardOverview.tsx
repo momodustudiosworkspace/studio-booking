@@ -106,13 +106,13 @@ const DashBoardOverview = () => {
           ))}
         </div>
 
-        {isLoading && <p className="text-black">Loading...</p>}
-        {error && <p className="text-black">Failed to load data</p>}
+        {isLoading && <p className='text-black'>Loading...</p>}
+        {error && <p className='text-black'>Failed to load data</p>}
 
         {/* Bookings table  */}
         <section className='mb-10 max-h-[870px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
           {/* header section  */}
-          <div className=' flex items-center justify-between p-5'>
+          <div className='flex items-center justify-between p-5'>
             <DashboardHeader
               headerText={"Bookings"}
               paragraph={"All bookings record"}
@@ -142,14 +142,16 @@ const DashBoardOverview = () => {
           </div>
 
           {/* booking Table  */}
-          <DashboardBookingsTable bookings={bookings?.data.bookings || []} isLoading={bookingIsloading} />
-
+          <DashboardBookingsTable
+            bookings={bookings?.data.bookings || []}
+            isLoading={bookingIsloading}
+          />
         </section>
 
         {/* Clients table  */}
         <section className='max-h-[870px] w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
           {/* header section  */}
-          <div className=' flex items-center justify-between p-5'>
+          <div className='flex items-center justify-between p-5'>
             <DashboardHeader
               headerText={"Clients"}
               paragraph={"All clients record"}
@@ -157,8 +159,10 @@ const DashBoardOverview = () => {
           </div>
 
           {/* client table */}
-          <DashboardClientsTable users={users?.data || []} isLoading={usersIsloading} />
-
+          <DashboardClientsTable
+            users={users?.data || []}
+            isLoading={usersIsloading}
+          />
         </section>
       </section>
     </DashboardLayout>

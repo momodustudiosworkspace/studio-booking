@@ -9,7 +9,7 @@ import {
   useGetAllPaymentQuery,
   // usePrefetch,
 } from "@/redux/services/admin/payment/adminPayments.api";
-// import Pagination from "@/components/Pagination"; 
+// import Pagination from "@/components/Pagination";
 import { AllPaymentResponse } from "@/types/payment.types";
 import DashboardPaymentsTable from "./tables/DashboardPaymentsTable";
 // import { formatDate } from "@/utils/dateFormatter";
@@ -90,7 +90,7 @@ const DashboardPayment = () => {
     // const paymentookingDate = payment.date;
     return payment.status === "success";
   });
-  if (isLoading) return <p className="text-white">Loading...</p>;
+  if (isLoading) return <p className='text-white'>Loading...</p>;
   // if (error) return "Failed to load data";
 
   const TABS = [
@@ -225,7 +225,7 @@ const DashboardPayment = () => {
             {/* payments lists */}
 
             {/* payments per tab */}
-            <div className='flex flex-col gap-4 pb-6 '>
+            <div className='flex flex-col gap-4 pb-6'>
               {currentTab === 1 && renderpayments(allpayments)}
               {currentTab === 2 && renderpayments(upcomingpayments)}
               {currentTab === 3 && renderpayments(pastpayments)}

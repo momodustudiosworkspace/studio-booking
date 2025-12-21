@@ -130,9 +130,9 @@ const DashboardSessionTable = () => {
                         });
                         setOpen(!open);
                       }}
-                      className="inline-block rounded-md px-6 text-sm py-2 text-center font-semibold text-white bg-black"
+                      className='inline-block rounded-md bg-black px-6 py-2 text-center text-sm font-semibold text-white'
                     >
-                       Packages
+                      Packages
                     </button>
                     <SessionPackages
                       selectedSession={selectedSession}
@@ -141,15 +141,15 @@ const DashboardSessionTable = () => {
                     />
                     {/* <PackagesForm selectedSession={selectedSession} open={open} setOpen={setOpen} /> */}
                   </td>
-                  <td className='flex gap-3 items-center px-4 justify-center pt-[38px]'>
-                    <button className='inline-block rounded-md  px-6 text-sm py-2 text-center font-semibold text-white bg-blue-500'>
+                  <td className='flex items-center justify-center gap-3 px-4 pt-[38px]'>
+                    <button className='inline-block rounded-md bg-blue-500 px-6 py-2 text-center text-sm font-semibold text-white'>
                       Edit
                     </button>
                     <button
-                      className='flex gap-3 items-center rounded-md  px-4 text-sm py-2 text-center font-semibold text-white bg-red-600'
+                      className='flex items-center gap-3 rounded-md bg-red-600 px-4 py-2 text-center text-sm font-semibold text-white'
                       onClick={() => handleDelete(session._id)}
                     >
-                      <TrashIcon className="size-5 text-white"/>
+                      <TrashIcon className='size-5 text-white' />
                       <p>Delete</p>
                     </button>
                   </td>
