@@ -9,6 +9,7 @@ import {
   isBefore,
   getMonth,
   getYear,
+  format,
 } from "date-fns";
 import { enUS } from "date-fns/locale/en-US";
 import { BaseIcons } from "@/assets/icons/BaseIcons";
@@ -141,7 +142,7 @@ const BookingCalendar = ({
   const availableTimes = React.useMemo(() => {
     if (!selectedDate) return [];
 
-    const dateKey = selectedDate.toISOString().split("T")[0];
+    const dateKey = format(selectedDate, "yyyy-MM-dd");
     const slot = bookedSlotsByDate.get(dateKey || "");
 
     // ❌ Fully booked
@@ -160,7 +161,7 @@ const BookingCalendar = ({
     (date: Date) => {
       if (isBefore(date, startOfToday())) return true;
 
-      const dateKey = date.toISOString().split("T")[0];
+      const dateKey = format(date, "yyyy-MM-dd");
       return bookedSlotsByDate.get(dateKey || "")?.isFull ?? false;
     },
     [bookedSlotsByDate]
