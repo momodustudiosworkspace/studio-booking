@@ -3,8 +3,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import DatePicker, { ReactDatePickerCustomHeaderProps } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
-  parseISO,
-  isSameDay,
+  // parseISO,
+  // isSameDay,
   startOfToday,
   isBefore,
   getMonth,
@@ -82,6 +82,24 @@ interface BookingsCalendarProps {
   setOnProceed: React.Dispatch<React.SetStateAction<(() => void) | null>>;
 }
 
+
+type CalendarSlot = {
+  date: string; // "2025-12-30"
+  times: string[]; // booked times
+  isFull: boolean;
+};
+
+const DAILY_TIME_SLOTS = [
+  "08:00",
+  "09:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "14:00",
+  "15:00",
+  "16:00",
+];
+
 const BookingCalendar = ({
   selectedBookingDate,
   selectedBookingStartTime,
@@ -94,18 +112,6 @@ const BookingCalendar = ({
     month: getMonth(new Date()),
   });
 
-  // 🧠 Dummy backend-like data (will be replaced by RTK Query later)
-  // const [availableSlots] = useState<AvailableSlot[]>([
-  //   {
-  //     date: "2025-11-29",
-  //     times: ["09:00", "11:00", "14:00", "15:00", "16:00"],
-  //   }, // 4 bookings (full)
-  //   { date: "2025-12-28", times: ["09:00", "11:00", "14:00"] },
-  //   { date: "2025-12-30", times: ["10:00", "12:00", "16:00", "17:00"] },
-  //   { date: "2025-12-11", times: ["08:00", "10:00", "15:00"] },
-  //   { date: "2025-12-30", times: ["08:00", "10:00", "12:00", "14:00"] }, // full
-  //   { date: "2025-12-05", times: ["09:00", "11:00"] },
-  // ]);
 
   const { data: availableSlots = [], isFetching } =
     useGetCalendarBookingsQuery(visibleMonth);
@@ -121,61 +127,54 @@ const BookingCalendar = ({
     selectedBookingStartTime || null
   );
 
+  const bookedSlotsByDate = React.useMemo(() => {
+    const map = new Map<string, CalendarSlot>();
+
+    availableSlots.forEach(slot => {
+      map.set(slot.date, slot);
+    });
+
+    return map;
+  }, [availableSlots]);
+
   // ✅ DERIVED — NO STATE
   const availableTimes = React.useMemo(() => {
     if (!selectedDate) return [];
-    const DAILY_TIME_SLOTS = [
-      "08:00",
-      "09:00",
-      "10:00",
-      "11:00",
-      "12:00",
-      "14:00",
-      "15:00",
-      "16:00",
-    ];
 
-    const slotForDay = availableSlots.find(slot =>
-      isSameDay(parseISO(slot.date), selectedDate)
+    const dateKey = selectedDate.toISOString().split("T")[0];
+    const slot = bookedSlotsByDate.get(dateKey || "");
+
+    // ❌ Fully booked
+    if (slot?.isFull) return [];
+
+    // 🟢 No bookings → all slots available
+    if (!slot) return DAILY_TIME_SLOTS;
+
+    // 🟡 Remove booked times
+    return DAILY_TIME_SLOTS.filter(
+      time => !slot.times.includes(time)
     );
-
-    // ❌ Day is fully booked → no slots
-    if (slotForDay?.isFull) {
-      return [];
-    }
-
-    // 🟢 No record from backend → all slots available
-    if (!slotForDay) {
-      return DAILY_TIME_SLOTS;
-    }
-
-    // 🟡 Remove already-booked times
-    return DAILY_TIME_SLOTS.filter(time => !slotForDay.times.includes(time));
-  }, [selectedDate, availableSlots]);
+  }, [selectedDate, bookedSlotsByDate]);
 
   const isDayDisabled = useCallback(
     (date: Date) => {
-      const today = startOfToday();
-      if (isBefore(date, today)) return true;
+      if (isBefore(date, startOfToday())) return true;
 
-      const slot = availableSlots.find(s => isSameDay(parseISO(s.date), date));
-
-      return slot?.isFull ?? false;
+      const dateKey = date.toISOString().split("T")[0];
+      return bookedSlotsByDate.get(dateKey || "")?.isFull ?? false;
     },
-    [availableSlots]
+    [bookedSlotsByDate]
   );
+
   useEffect(() => {
-    if (selectedDate) return; // already selected
-    if (isFetching) return;
+    if (selectedDate || isFetching) return;
 
     const today = startOfToday();
-
-    // Only auto-select today if it's not disabled
-    const isTodayDisabled = isDayDisabled(today);
-    if (!isTodayDisabled) {
+    if (!isDayDisabled(today)) {
       setSelectedDate(today);
     }
-  }, [isFetching, selectedDate, availableSlots, isDayDisabled]);
+  }, [selectedDate, isFetching, isDayDisabled]);
+
 
   // ✅ Update available times when user selects a date
   useEffect(() => {
@@ -196,8 +195,10 @@ const BookingCalendar = ({
 
     setSelectedTime(time);
   }, [selectedBookingStartTime]);
+
+
+  // Register this child’s custom proceed handler
   useEffect(() => {
-    // Register this child’s custom proceed handler
     setOnProceed(() => () => {
       dispatch(
         setBookingDateTime({

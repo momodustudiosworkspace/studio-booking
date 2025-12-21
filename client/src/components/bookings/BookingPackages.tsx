@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/hooks/hooks";
 import { setBookingPackage } from "@/redux/slices/bookingSlice";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 // import Button from "../ui/Button";
 // import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import nairaSymbol from "@/utils/symbols";
@@ -41,6 +41,10 @@ const BookingPackages = ({
     }
   );
 
+  const SESSIONS_PACKAGES = useMemo(() => data?.data || [], [data?.data]);
+  const [selectedSessionPackage, setSelectedSessionPackage] = useState<string | null>(
+    ""
+  );
   console.log("data: ", data?.data);
 
   const dispatch = useAppDispatch();
@@ -49,6 +53,7 @@ const BookingPackages = ({
   // );
 
   const handleSelect = (packageSelected: PackageProps) => {
+    setSelectedSessionPackage(packageSelected.price?.toString() || null);
     dispatch(setBookingPackage({ package: packageSelected }));
 
     setBookingStep(2);
@@ -73,12 +78,12 @@ const BookingPackages = ({
   // Sync selected slide with Embla
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    // const index = emblaApi.selectedScrollSnap();
-    // const session = BOOKING_SESSIONS[index];
-    // if (session) {
-    //   setSelectedSession(session._id);
-    // }
-  }, [emblaApi]);
+    const index = emblaApi.selectedScrollSnap();
+    const session = SESSIONS_PACKAGES[index];
+    if (session) {
+      setSelectedSessionPackage(session.price?.toString() || null);
+    }
+  }, [emblaApi, SESSIONS_PACKAGES]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -89,9 +94,9 @@ const BookingPackages = ({
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="w-[350px] rounded-lg sm:w-[750px]">
+    <div className="w-[350px] rounded-lg sm:w-[850px]">
     <div className='overflow-hidden' ref={emblaRef}>
-        <div className='flex gap-4 w-full'>
+        <div className='flex gap-4 py-10 w-full'>
         {data?.data.map((packages, packagesIdx) => {
           return (
             <div
@@ -180,6 +185,17 @@ const BookingPackages = ({
             </div>
           );
         })}
+        </div>
+        {/* Thumbs / Indicators */}
+        <div className='mt-4 flex justify-center gap-2'>
+          {SESSIONS_PACKAGES.map((sessionPackage, index) => (
+            <button
+              key={sessionPackage.price}
+              onClick={() => emblaApi?.scrollTo(index)}
+              className={`h-2 w-2 rounded-full transition ${selectedSessionPackage === sessionPackage.price.toString() ? "bg-white" : "bg-gray-500"
+                }`}
+            />
+          ))}
       </div>
     </div>
     </div>

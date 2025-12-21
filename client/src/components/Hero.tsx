@@ -102,13 +102,21 @@ const Hero = () => {
                 </div>
               </div>
 
-              <Link
-                href='/dashboard/profile-settings'
-                className='mb-10 inline-block rounded-md border border-transparent bg-white px-8 py-3 text-center font-semibold text-black hover:bg-white/25'
-              >
-                Organize your journey
-              </Link>
+              <div className="flex items-center gap-6">
+                <Link
+                  href='/dashboard/profile-settings'
+                  className='mb-10  hidden sm:inline-block rounded-md border border-transparent bg-white px-8 py-3 text-center font-semibold text-black hover:bg-white/25'
+                >
+                  Organize your journey
+                </Link>
+                <Link
+                  href='/bookings'
+                  className='mb-10 inline-block rounded-md border border-transparent bg-linear-to-r from-[#ff80b5] to-[#9089fc] px-8 py-3 text-center font-semibold text-white hover:bg-white/25'
+                >
+                  Book session now
+                </Link>
 
+              </div>
               <div className='flex items-center gap-4'>
                 <p className='text-[20px] font-semibold text-white'>
                   Over +2,500 users{" "}
