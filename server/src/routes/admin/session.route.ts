@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { createSession, deleteSession, getAllSessions, getSingleSession, updateSession } from "../../controllers/admin/session.controllers";
+import { createSession, deleteSession, getAllSessions, getSessionCount, getSingleSession, updateSession } from "../../controllers/admin/session.controllers";
 import authMiddleWare from "../../middlewares/auth.middleware";
 
 const router = Router();
+
+
 
 /**
  * @openapi
@@ -146,6 +148,51 @@ router.get("/", getAllSessions);
  */
 router.get("/:id", authMiddleWare, getSingleSession);
 
+
+/**
+ * @openapi
+ * /api/admin/sessions:
+ *   get:
+ *     summary: Get session and packages count
+ *     tags: [Sessions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Sessions and packages fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: number
+ *                   example: 200
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       title:
+ *                         type: string
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date-time
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+router.get("/sessions-and-packages/count", authMiddleWare, getSessionCount)
+
+
 /**
  * @openapi
  * /api/admin/sessions/{id}:
@@ -226,5 +273,6 @@ router.put("/:id", authMiddleWare, updateSession);
  *         description: Server error
  */
 router.delete("/:id", authMiddleWare, deleteSession);
+
 
 export default router;
