@@ -84,9 +84,11 @@ export interface StaffStatisticsResponse {
     totalStaff: number;
     activeStaff: number;
     inactiveStaff: number;
-    staffByRole: Array<{
-      _id: string;
-      count: number;
-    }>;
+    isInvitationAccepted: number;
+    pendingInvitations: number;
+    // staffByRole: Array<{
+    //   _id: string;
+    //   count: number;
+    // }>;
   };
 }

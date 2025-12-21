@@ -35,7 +35,7 @@ export const adminStaffManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Staff"],
+      invalidatesTags: [{ type: "Staff", id: "LIST" }],
     }),
 
     // ✅ Get staff statistics
@@ -57,7 +57,7 @@ export const adminStaffManagementApi = baseApi.injectEndpoints({
         if (role) params.append("role", role);
         return `/admin/staff?${params.toString()}`;
       },
-      providesTags: ["Staff"],
+      providesTags: [{ type: "Staff", id: "LIST" }],
     }),
 
     // ✅ Get staff member by ID

@@ -1,9 +1,9 @@
 export function staffInivitationEmailTemplate({ firstName, invitationLink }: { firstName: string; invitationLink: string }) {
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <h2>Welcome to Momodust Studios Team!</h2>
+      <h2>Welcome to Momodu Studios Team!</h2>
       <p>Hi ${firstName},</p>
-      <p>You have been invited to join our studio team at Momodust Studios. Click the link below to accept your invitation and complete your profile setup.</p>
+      <p>You have been invited to join our studio team at Momodu Studios. Click the link below to accept your invitation and complete your profile setup.</p>
       <p>
         <a href="${`https://bookings.momodustudios.com/staff/invite/accept?token=${invitationLink}`}" style="background-color: #000; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">
           Accept Invitation
