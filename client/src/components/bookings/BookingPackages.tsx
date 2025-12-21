@@ -89,8 +89,9 @@ const BookingPackages = ({
   if (isLoading) return <div>Loading...</div>;
 
   return (
+    <div className="w-[350px] rounded-lg sm:w-[750px]">
     <div className='overflow-hidden' ref={emblaRef}>
-      <div className='grid grid-cols-1 gap-4 sm:grid-cols-3'>
+        <div className='flex gap-4 w-full'>
         {data?.data.map((packages, packagesIdx) => {
           return (
             <div
@@ -180,6 +181,7 @@ const BookingPackages = ({
           );
         })}
       </div>
+    </div>
     </div>
   );
 };
