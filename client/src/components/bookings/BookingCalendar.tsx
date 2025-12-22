@@ -81,6 +81,7 @@ interface BookingsCalendarProps {
   selectedBookingDate: string | null;
   selectedBookingStartTime: string | null;
   setOnProceed: React.Dispatch<React.SetStateAction<(() => void) | null>>;
+  setBookingTimeSelected: (value: boolean) => void;
 }
 
 type CalendarSlot = {
@@ -104,6 +105,7 @@ const BookingCalendar = ({
   selectedBookingDate,
   selectedBookingStartTime,
   setOnProceed,
+  setBookingTimeSelected
 }: BookingsCalendarProps) => {
   const dispatch = useAppDispatch();
 
@@ -207,6 +209,12 @@ const BookingCalendar = ({
     return () => setOnProceed(null);
   }, [setOnProceed, selectedDate, selectedTime, dispatch]);
 
+
+  useEffect(() => {
+    if (selectedTime) {
+      setBookingTimeSelected(true);
+    }
+  }, [selectedTime, setBookingTimeSelected])
   return (
     <div className='flex w-full flex-col items-center gap-8 sm:w-[650px] sm:flex-row'>
       {/* Date Picker */}
