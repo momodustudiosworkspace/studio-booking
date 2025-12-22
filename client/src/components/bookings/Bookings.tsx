@@ -18,7 +18,6 @@ import BookingCalendar from "./BookingCalendar";
 import { toast } from "react-toastify";
 import { AuthToast } from "../toast/ToastMessage";
 import { useSession } from "next-auth/react";
-import LinkButton from "../ui/LinkButton";
 import BookingPackages from "./BookingPackages";
 import BookingPayment from "./BookingPayment";
 import { BookingTypeResponse } from "@/types/booking.types";
@@ -26,6 +25,7 @@ import {
   useCreateBookingMutation,
   useUpdateBookingMutation,
 } from "@/redux/services/user/booking/booking.api";
+import Link from "next/link";
 
 const Bookings = (): React.JSX.Element => {
   const router = useRouter();
@@ -299,7 +299,7 @@ const Bookings = (): React.JSX.Element => {
     <section className='flex min-h-screen items-center justify-center px-5'>
       <div className='flex w-full justify-center'>
         <div className='flex w-full justify-center'>
-          <div className='mt-20 mb-10 flex flex-col gap-4'>
+          <div className='mt-20 mb-5 flex flex-col gap-4'>
             {bookingStep !== 6 && (
               <button
                 className={`flex h-10 w-10 items-center justify-center rounded-full bg-[#FAFAFA] ${bookingStep === 1 && "mt-32"}`}
@@ -333,28 +333,19 @@ const Bookings = (): React.JSX.Element => {
             {bookingStep >= 2 && bookingStep <= 4 && (
               <div className='mt-4 flex w-full justify-end'>
                 {!session?.user.email && bookingStep > 3 ? (
-                  <LinkButton
-                    href='/auth?redirectTo=bookings'
-                    size='md'
-                    text='Login to book'
-                    icon={<RedirectArrowWhite />}
-                    iconPosition='right'
-                    className='w-auto shrink-0'
-                  />
-                ) : (
-                    bookingTimeSelected ? 
-                      <Button
-                        ref={proceedBtnRef}
-                        text={"Proceed"}
-                        onClick={handleBookingStepsProceed}
-                        icon={<RedirectArrowWhite />}
-                        iconPosition='right'
-                        className='w-[125px]'
-                        size='md'
-                        loading={createBookingLoading || updateBookingLoading}
-                        disabled={createBookingLoading || updateBookingLoading}
-                      /> : ""
 
+                  <Link href={"/auth?redirectTo=bookings"} className="mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25">
+                    Login to book
+                  </Link>
+                ) : (
+                    bookingTimeSelected && bookingStep === 2 ?
+                      <button ref={proceedBtnRef} disabled={createBookingLoading || updateBookingLoading} onClick={handleBookingStepsProceed} className="mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25">
+                        Proceed
+                      </button>
+                      : bookingStep > 2 ? <button ref={proceedBtnRef} disabled={createBookingLoading || updateBookingLoading} onClick={handleBookingStepsProceed} className="mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25">
+                        Proceed
+                      </button>
+                        : ""
                 )}
               </div>
             )}
