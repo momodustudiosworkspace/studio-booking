@@ -46,6 +46,8 @@ const Bookings = (): React.JSX.Element => {
   const [updateBooking, { isLoading: updateBookingLoading }] =
     useUpdateBookingMutation();
 
+  const [bookingTimeSelected, setBookingTimeSelected] = useState<boolean>(false);
+
   const proceedBtnRef = useRef<HTMLButtonElement>(null);
 
   // Booking Steps
@@ -89,6 +91,7 @@ const Bookings = (): React.JSX.Element => {
           selectedBookingDate={bookingData.date || null}
           selectedBookingStartTime={bookingData.startTime || null}
           setOnProceed={setOnProceed}
+          setBookingTimeSelected={setBookingTimeSelected}
         />
       ),
       header: "reserve a slot",
@@ -339,17 +342,19 @@ const Bookings = (): React.JSX.Element => {
                     className='w-auto shrink-0'
                   />
                 ) : (
-                  <Button
-                    ref={proceedBtnRef}
-                    text={"Proceed"}
-                    onClick={handleBookingStepsProceed}
-                    icon={<RedirectArrowWhite />}
-                    iconPosition='right'
-                    className='w-[125px]'
-                    size='md'
-                    loading={createBookingLoading || updateBookingLoading}
-                    disabled={createBookingLoading || updateBookingLoading}
-                  />
+                    bookingTimeSelected ? 
+                      <Button
+                        ref={proceedBtnRef}
+                        text={"Proceed"}
+                        onClick={handleBookingStepsProceed}
+                        icon={<RedirectArrowWhite />}
+                        iconPosition='right'
+                        className='w-[125px]'
+                        size='md'
+                        loading={createBookingLoading || updateBookingLoading}
+                        disabled={createBookingLoading || updateBookingLoading}
+                      /> : ""
+
                 )}
               </div>
             )}
