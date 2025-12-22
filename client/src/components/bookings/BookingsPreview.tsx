@@ -29,6 +29,8 @@ const BookingsPreview = ({
   const { data: session } = useSession();
   console.log("session: ", session);
 
+  const [codeError, setCodeError] = React.useState(false);
+
   useEffect(() => {
     if (!proceedBtnRef.current || !hiddenSubmitRef.current) return;
 
@@ -113,11 +115,14 @@ const BookingsPreview = ({
                   <input
                     type='text'
                     placeholder='Enter code'
+                    maxLength={5}
                     name='discount_code'
                     className='h-[37px] w-full border-b-[1px] border-white bg-white px-2 text-[14px] outline-0 transition-all ease-in-out focus:border-b-2 sm:w-[224px] sm:border-black'
                   />
-                  <button className='absolute top-2 right-1 text-[14px] font-semibold capitalize underline'>
-                    confirm
+                  <button onClick={() => {
+                    setCodeError(true)
+                  }} className={`absolute top-2 right-1 text-[14px] ${codeError ? "text-red-500" : "text-green-600"} font-semibold capitalize underline`}>
+                    {codeError ? "Invalid code" : "Confirm"}
                   </button>
                 </div>
               </div>
