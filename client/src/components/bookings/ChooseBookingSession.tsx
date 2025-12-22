@@ -65,12 +65,13 @@ const ChooseBookingSession = ({
     setBookingStep(1);
   };
 
-  if (isLoading) {
-    return <div className='p-5'>Loading...</div>;
-  }
+
 
   return (
     <div className='w-[350px] rounded-lg sm:w-[750px]'>
+
+      {isLoading && <p className="text-white">Loading sessions...</p>}
+      {data?.data.length === 0 && !isLoading && (<p className="text-white">No sessions available.</p>)}
       {/* Main Carousel */}
       <div className='overflow-hidden' ref={emblaRef}>
         <div className='flex gap-5'>
@@ -88,7 +89,7 @@ const ChooseBookingSession = ({
                 <div
                   className='absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110'
                   style={{
-                    backgroundImage: `url("/home/hero-section-one.png")`,
+                    backgroundImage: `url("${session.imageUrl}")`,
                   }}
                 />
 

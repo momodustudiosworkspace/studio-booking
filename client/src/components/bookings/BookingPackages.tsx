@@ -87,10 +87,11 @@ const BookingPackages = ({
     onSelect();
   }, [emblaApi, onSelect]);
 
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className='w-[350px] rounded-lg sm:w-[850px]'>
+      {isLoading && <p className="text-white">Loading sessions...</p>}
+      {data?.data.length === 0 && !isLoading && (<p className="text-white">No packages available.</p>)}
       <div className='overflow-hidden' ref={emblaRef}>
         <div className='flex w-full gap-4 py-10'>
           {data?.data.map((packages, packagesIdx) => {
