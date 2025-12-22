@@ -1,19 +1,19 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
-// import BookingCard from "./cards/BookingCard"; 
+import BookingCard from "./cards/BookingCard";
 import {
   useGetBookingsQuery,
-  // usePrefetch, 
+  usePrefetch,
 } from "@/redux/services/user/booking/booking.api";
-import DashboardBookingsTable from "../admin/tables/DashboardBookingsTable";
+// import DashboardBookingsTable from "../admin/tables/DashboardBookingsTable"; 
 import { BookingType } from "@/types/booking.types";
 
 const DashboardBookings = () => {
   const { data: bookings, error, isLoading } = useGetBookingsQuery();
   const [currentTab, setCurrentTab] = useState<number>(1);
   // Prefetch hook for single booking
-  // const prefetchBooking = usePrefetch("getBookingById");
+  const prefetchBooking = usePrefetch("getBookingById");
 
   // 🔹 Compute and format your bookings once
   const formattedBookings: BookingType[] = useMemo(() => {
@@ -22,7 +22,7 @@ const DashboardBookings = () => {
     return bookings?.map(b => ({
       _id: b._id || null,
       user: b.user || null,
-      title: `${b.sessionType} session` || null,
+      sessionTitle: `${b.sessionTitle} session` || null,
       location: {
         address: b.location?.address || null,
         state: b.location?.state || null,
@@ -31,7 +31,7 @@ const DashboardBookings = () => {
       user_fullnames: b.user_fullnames?.toLowerCase() || null,
       date: b.date || null, // e.g. "Thu Dec 04 2025"
       startTime: b.startTime || null,
-      amount: b.price || null, // e.g. "123,400"
+      price: b.price || null, // e.g. "123,400"
       status: b.status || "pending", // e.g. "pending", "completed"
     }));
   }, [bookings]);
@@ -56,32 +56,35 @@ const DashboardBookings = () => {
 
     if (!data.length)
       return (
-        <p className='flex h-[100px] w-full items-center justify-center text-black'>
+        <p className='flex h-[100px] w-full items-center justify-center text-white'>
           No bookings available.
         </p>
       );
 
-    return <DashboardBookingsTable bookings={data} isLoading={isLoading} />;
-  // return data.map(b => (
+    // return <DashboardBookingsTable bookings={data} isLoading={isLoading} role={'user'} />;
+
   // if (!data.length) return <p>No bookings available.</p>;
-  // return data.map(b => (
-  //   <div
-  //     key={b.id}
-  //     onMouseEnter={() => prefetchBooking(b.id || "", { ifOlderThan: 60 })} // 👈 Prefetch on hover
-  //     onFocus={() => prefetchBooking(b.id || "", { ifOlderThan: 60 })} // 👈 Accessibility
-  //   >
-  //     <BookingCard
-  //       key={b.id}
-  //       id={b.id}
-  //       title={b.title}
-  //       location={b.location}
-  //       date={b.date}
-  //       time={b.time}
-  //       amount={b.amount}
-  //       status={b.status}
-  //     />
-  //   </div>
-  // ));
+    return data.map(b => (
+      <div
+        key={b._id}
+        onMouseEnter={() => prefetchBooking(b._id || "", { ifOlderThan: 60 })} // 👈 Prefetch on hover
+        onFocus={() => prefetchBooking(b._id || "", { ifOlderThan: 60 })} // 👈 Accessibility
+      >
+        <BookingCard
+          key={b._id}
+          id={b._id}
+          title={b.sessionTitle}
+          location={{
+            address: b.location?.address || "",
+            state: b.location?.state || "",
+          }}
+          date={b.date}
+          time={b.startTime}
+          price={b.price}
+          status={b.status}
+        />
+      </div>
+    ));
   };
 
   return (

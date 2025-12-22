@@ -2,9 +2,9 @@ import React from "react";
 
 const Stats = () => {
   const stats = [
-    { id: 1, name: "Transactions every 24 hours", value: "44 million" },
-    { id: 2, name: "Assets under holding", value: "$119 trillion" },
-    { id: 3, name: "New users annually", value: "46,000" },
+    { id: 1, name: "Session every 24 hours", value: "14" },
+    { id: 2, name: "Outdoor events", value: "2300" },
+    { id: 3, name: "New users annually", value: "250" },
   ];
   return (
     <div className='py-24 sm:py-32'>

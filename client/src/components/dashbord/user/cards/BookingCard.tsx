@@ -1,9 +1,8 @@
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
-import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
-import LinkButton from "@/components/ui/LinkButton";
 import { formatDate } from "@/utils/dateFormatter";
 import nairaSymbol from "@/utils/symbols";
 import { formatTime } from "@/utils/timeFormatter";
+import Link from "next/link";
 import React from "react";
 
 interface BookingLocationOptions {
@@ -16,7 +15,7 @@ interface BookingCardProps {
   location?: BookingLocationOptions | null | undefined;
   date?: string | null | undefined;
   time?: string | null | undefined;
-  amount?: number | null | undefined;
+  price?: number | null | undefined;
   status: "cancelled" | "completed" | "pending" | "confirmed" | undefined;
 }
 const BookingCard = ({
@@ -25,7 +24,7 @@ const BookingCard = ({
   location,
   date,
   time,
-  amount,
+  price,
   status,
 }: BookingCardProps) => {
   const statusStyle =
@@ -100,7 +99,7 @@ const BookingCard = ({
           <div className='mb-1 flex gap-2'>
             <h3 className='font-semibold capitalize'>
               {nairaSymbol()}
-              {amount?.toLocaleString()}
+              {price?.toLocaleString()}
             </h3>
           </div>
           <p className='text-[14px] sm:text-[16px]'>
@@ -110,14 +109,10 @@ const BookingCard = ({
       </div>
       {/* View booking details  */}
       <div className='flex gap-2 sm:items-center sm:justify-center'>
-        <LinkButton
-          href={`/dashboard/booking/${id}`}
-          size='md'
-          text={"View"}
-          icon={<RedirectArrowWhite />}
-          iconPosition='right'
-          className='w-auto'
-        />
+        <Link href={`/dashboard/booking/${id}`} className="inline-block rounded-md border border-transparent bg-white px-4 text-sm py-1 text-center font-semibold text-black hover:bg-white/25">
+          View
+        </Link>
+
       </div>
     </div>
   );
