@@ -11,9 +11,10 @@ import { usePathname } from "next/navigation";
 interface BookingTableProps {
   bookings: BookingType[];
   isLoading: boolean;
+  role?: "admin" | "user";
 }
 
-const DashboardBookingsTable = ({ bookings, isLoading }: BookingTableProps) => {
+const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: BookingTableProps) => {
   const bookingLocation = "C1 Melita Plaze, Gimbiya street, Garki";
   const pathName = usePathname();
 
@@ -23,13 +24,19 @@ const DashboardBookingsTable = ({ bookings, isLoading }: BookingTableProps) => {
       <div className='overflow-x-auto'>
         <table className='w-full border-collapse text-left'>
           <thead>
-            <tr className='border-b bg-gray-50'>
+            {role === "admin" ? <tr className='border-b bg-gray-50'>
               <th className='px-4 py-5'>Client Name</th>
               <th className='px-4 py-5'>Location</th>
               <th className='px-4 py-5'>Date Book</th>
               <th className='px-4 py-5'>Status</th>
               <th className='px-4 py-5'>Action</th>
-            </tr>
+            </tr> : <tr className='border-b bg-gray-50'>
+              <th className='px-4 py-5'>Booking Id</th>
+              <th className='px-4 py-5'>Location</th>
+              <th className='px-4 py-5'>Date Book</th>
+              <th className='px-4 py-5'>Status</th>
+              <th className='px-4 py-5'>Action</th>
+            </tr>}
           </thead>
 
           <tbody>
@@ -64,9 +71,9 @@ const DashboardBookingsTable = ({ bookings, isLoading }: BookingTableProps) => {
                   </td>
 
                   <td className='px-4 py-5 capitalize'>
-                    {booking.location?.address === bookingLocation
+                    {role === "admin" ? booking.location?.address === bookingLocation
                       ? "indoor"
-                      : "outdoor"}
+                      : "outdoor" : booking.location?.address}
                   </td>
 
                   <td className='flex items-center gap-2 px-4 py-5 capitalize'>
