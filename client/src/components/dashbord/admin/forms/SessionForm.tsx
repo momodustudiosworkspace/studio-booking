@@ -24,6 +24,7 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
       <Formik
         initialValues={{
           session_title: "",
+          image_url: ""
         }}
         onSubmit={async values => {
           //   console.log(values);
@@ -66,9 +67,9 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
         }}
       >
         {({ values, isSubmitting }) => (
-          <Form className='flex w-full flex-col gap-10 text-white sm:text-black'>
+          <Form className='flex w-full flex-col gap-10 text-black'>
             <div className='flex flex-col gap-3'>
-              <label className='text-sm font-medium text-white sm:text-black'>
+              <label className='text-sm font-medium text-black'>
                 {/* Session title */}
               </label>
               <Field
@@ -76,6 +77,17 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
                 type='text'
                 className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                 placeholder='Enter session title'
+              />
+            </div>
+            <div className='flex flex-col gap-3'>
+              <label className='text-sm font-medium text-black'>
+                {/* Session title */}
+              </label>
+              <Field
+                name='image_url'
+                type='text'
+                className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                placeholder='Enter image url'
               />
             </div>
 

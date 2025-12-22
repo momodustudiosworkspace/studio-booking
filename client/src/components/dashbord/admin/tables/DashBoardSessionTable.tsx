@@ -141,7 +141,7 @@ const DashboardSessionTable = () => {
                     />
                     {/* <PackagesForm selectedSession={selectedSession} open={open} setOpen={setOpen} /> */}
                   </td>
-                  <td className='flex items-center justify-center gap-3 px-4 pt-[38px]'>
+                  <td className='flex items-center justify-start gap-3 px-4 py-5'>
                     <button className='inline-block rounded-md bg-blue-500 px-6 py-2 text-center text-sm font-semibold text-white'>
                       Edit
                     </button>

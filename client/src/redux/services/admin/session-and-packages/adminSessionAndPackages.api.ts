@@ -10,7 +10,7 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
     // CREATE
     createBookingSession: builder.mutation<
       { status: number },
-      { session_title: string }
+      { session_title: string, image_url:string }
     >({
       query: body => ({
         url: `${ADMIN_BASE_URL}/sessions/`,

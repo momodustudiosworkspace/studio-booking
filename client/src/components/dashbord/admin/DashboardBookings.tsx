@@ -123,7 +123,7 @@ const DashboardBookings = () => {
   const renderBookings = (data: BookingType[]) => {
     if (!data.length)
       return (
-        <p className='flex h-[100px] w-full items-center justify-center text-white'>
+        <p className='flex h-[100px] w-full items-center justify-center text-black'>
           No bookings available.
         </p>
       );

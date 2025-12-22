@@ -5,7 +5,7 @@ import Package from "../../models/package.models";
 // ✅ Create a new session
 export async function createSession(req: Request, res: Response) {
   try {
-    const { session_title } = req.body;
+    const { session_title, image_url } = req.body;
 
     console.log(session_title);
     
@@ -27,6 +27,7 @@ export async function createSession(req: Request, res: Response) {
     // Create session
     const session = await Session.create({
       title: session_title,
+      imageUrl: image_url
     });
 
     return res.status(200).json({

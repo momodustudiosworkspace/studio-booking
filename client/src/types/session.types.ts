@@ -8,6 +8,7 @@ export interface IPagination {
 export interface ISession {
   _id: string;
   title: string;
+  imageUrl: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
