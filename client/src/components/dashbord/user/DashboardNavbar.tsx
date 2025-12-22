@@ -76,6 +76,8 @@ const DashboardNavbar = () => {
   console.log("user navbar: ", user);
 
   const pathname = usePathname();
+  console.log(pathname);
+
 
   return (
     <Disclosure
@@ -220,12 +222,12 @@ const DashboardNavbar = () => {
               key={item.name}
               as='a'
               href={item.href}
-              aria-current={pathname === item.href ? "page" : undefined}
+              // aria-current={pathname === item.href ? "page" : undefined} 
               className={classNames(
                 pathname === item.href
                   ? "bg-gray-950/50 text-white"
-                  : "text-gray-500 hover:bg-white/5 hover:text-white",
-                "block rounded-md px-3 py-2 text-base font-medium"
+                  : "text-gray-500 hover:bg-white/5",
+                "block rounded-md py-2 text-base font-medium"
               )}
             >
               {item.name}
@@ -236,8 +238,7 @@ const DashboardNavbar = () => {
           {userNavigation.map(item => (
             <DisclosureButton
               key={item.name}
-              as='button'
-              type='button'
+              as={item.type === "button" ? "button" : "a"}
               onClick={() => {
                 if (item.type === "link" && item.href) {
                   window.location.href = item.href;
@@ -246,8 +247,12 @@ const DashboardNavbar = () => {
                   item.onClick();
                 }
               }}
-              className='block w-full rounded-md px-3 py-2 text-left text-base font-medium text-white hover:bg-white/5 hover:text-white'
-            >
+              className={classNames(
+                pathname === item.href
+                  ? " text-white"
+                  : "text-gray-300 hover:bg-white hover:text-black",
+                "rounded-md py-2 text-sm font-medium block"
+              )} >
               {item.name}
             </DisclosureButton>
           ))}
