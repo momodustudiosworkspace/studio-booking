@@ -22,12 +22,12 @@ const Hero = () => {
               {/* Decorative image grid */}
               <div
                 aria-hidden='true'
-                className='pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl'
+                className='pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto w-full lg:max-w-7xl'
               >
-                <div className='absolute transform pt-52 sm:top-0 sm:left-1/2 sm:translate-x-8 lg:top-1/2 lg:left-1/2 lg:translate-x-8 lg:-translate-y-1/2 lg:pt-0'>
+                <div className='absolute transform sm:pt-52 pt-48 sm:top-0 sm:left-1/2 sm:translate-x-8 lg:top-1/2 w-full lg:left-1/2 lg:translate-x-8 lg:-translate-y-1/2 lg:pt-0 left-0 px-2'>
                   <div className='flex items-center space-x-3 sm:space-x-6 lg:space-x-8'>
-                    <div className='grid shrink-0 grid-cols-1 gap-y-3 sm:gap-y-6 lg:gap-y-8'>
-                      <div className='w-[165px] overflow-hidden rounded-lg sm:h-64 sm:w-44 sm:opacity-0 lg:opacity-100'>
+                    <div className='grid shrink-0  w-[47%] sm:w-auto grid-cols-1 gap-y-3 sm:gap-y-6 lg:gap-y-8'>
+                      <div className='w-[100%] overflow-hidden rounded-lg sm:h-64 sm:w-44 sm:opacity-0 lg:opacity-100'>
                         <Image
                           width={100}
                           height={100}
@@ -36,7 +36,7 @@ const Hero = () => {
                           className='size-full object-cover'
                         />
                       </div>
-                      <div className='w-[165px] overflow-hidden rounded-lg sm:h-64 sm:w-44'>
+                      <div className='w-[100%] overflow-hidden rounded-lg sm:h-64 sm:w-44'>
                         <Image
                           width={100}
                           height={100}
@@ -47,8 +47,8 @@ const Hero = () => {
                         />
                       </div>
                     </div>
-                    <div className='grid shrink-0 grid-cols-1 gap-y-3 sm:gap-y-6 lg:gap-y-8'>
-                      <div className='w-[165px] overflow-hidden rounded-lg sm:h-64 sm:w-44'>
+                    <div className='grid shrink-0 w-[47%] sm:w-auto grid-cols-1 gap-y-3 sm:gap-y-6 lg:gap-y-8'>
+                      <div className='w-[100%] overflow-hidden rounded-lg sm:h-64 sm:w-44'>
                         <Image
                           width={100}
                           height={100}
@@ -58,7 +58,7 @@ const Hero = () => {
                           className='size-full object-cover'
                         />
                       </div>
-                      <div className='w-[165px] overflow-hidden rounded-lg shadow-2xl sm:h-64 sm:w-44'>
+                      <div className='w-[100%] overflow-hidden rounded-lg shadow-2xl sm:h-64 sm:w-44'>
                         <Image
                           width={100}
                           height={100}
@@ -67,7 +67,7 @@ const Hero = () => {
                           className='size-full object-cover'
                         />
                       </div>
-                      <div className='w-[165px] overflow-hidden rounded-lg sm:h-64 sm:w-44'>
+                      <div className='w-[100%] overflow-hidden rounded-lg sm:h-64 sm:w-44'>
                         <Image
                           width={100}
                           height={100}
@@ -105,7 +105,7 @@ const Hero = () => {
               <div className='flex items-center gap-6'>
                 <Link
                   href='/dashboard/profile-settings'
-                  className='mb-10 hidden rounded-md border border-transparent bg-white px-8 py-3 text-center font-semibold text-black hover:bg-white/25 sm:inline-block'
+                  className='mb-10 hidden rounded-md border border-transparent px-8 py-3 text-center font-semibold text-black hover:bg-white/25 sm:inline-block'
                 >
                   Organize your journey
                 </Link>

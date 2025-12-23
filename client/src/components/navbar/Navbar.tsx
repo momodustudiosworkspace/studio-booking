@@ -149,6 +149,12 @@ export default function Navbar() {
           </button>
         </div>
         <PopoverGroup className='hidden lg:flex lg:gap-x-12'>
+          <Link
+            href='/web'
+            className='text-sm/6 font-semibold text-white'
+          >
+            Home
+          </Link>
           <Popover className='relative'>
             <PopoverButton className='flex items-center gap-x-1 border-none text-sm/6 font-semibold text-white outline-none focus:border-none focus:outline-none'>
               Product
