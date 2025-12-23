@@ -67,7 +67,7 @@ const BookingsPreview = ({
                 <BookingsIcons value='phone-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
                   {/* user phone number  */}
-                  {session?.user.phoneNumber}
+                  {session?.user.phoneNumber ? session.user.phoneNumber : "No phone number"}
                 </p>
               </div>
               <div className='flex items-center gap-2'>
