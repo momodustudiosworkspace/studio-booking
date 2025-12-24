@@ -53,12 +53,27 @@ export const adminBookingApi = baseApi.injectEndpoints({
         { type: "Bookings", id: "LIST" }, // 🔥 update bookings list
       ],
     }),
+    removeStaffFromBooking: builder.mutation<
+  BookingType,
+  { bookingId: string; staffId: string }
+>({
+  query: ({ bookingId, staffId }) => ({
+    url: `/admin/bookings/${bookingId}/remove-staff`,
+    method: "PATCH",
+    body: { staffId },
+  }),
+  invalidatesTags: (_result, _error, { bookingId }) => [
+    { type: "Bookings", id: bookingId },
+    { type: "Bookings", id: "LIST" },
+  ],
+}),
   }),
   overrideExisting: true,
 });
 
 export const {
   useGetAllUserBookingsQuery,
+  useRemoveStaffFromBookingMutation,
   useAssignStaffToBookingMutation,
   usePrefetch,
 } = adminBookingApi;

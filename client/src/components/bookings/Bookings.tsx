@@ -254,6 +254,9 @@ const Bookings = (): React.JSX.Element => {
           theme: "colored",
         });
       }
+
+      console.log(err.data);
+
       return toast.error(AuthToast, {
         data: {
           title: "Booking failed",
@@ -296,9 +299,9 @@ const Bookings = (): React.JSX.Element => {
   }, [bookingStep, dispatch]);
 
   return (
-    <section className='flex min-h-screen items-center justify-center px-5'>
+    <section className='flex min-h-screen items-center pt-14 justify-center px-5'>
       <div className='flex w-full justify-center'>
-        <div className='flex w-full justify-center'>
+        <div className='flex w-full justify-center min-h-[400px] max-w-2xl flex-col '>
           <div className='mt-20 mb-5 flex flex-col gap-4'>
             {bookingStep !== 6 && (
               <button

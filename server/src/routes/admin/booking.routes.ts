@@ -1,5 +1,5 @@
 import express from "express";
-import { assignStaffToBooking, getAllUserBookings } from "../../controllers/admin/booking.controllers";
+import { assignStaffToBooking, getAllUserBookings, removeStaffFromBooking } from "../../controllers/admin/booking.controllers";
 import authMiddleWare from "../../middlewares/auth.middleware";
 
 const router = express.Router();
@@ -121,5 +121,6 @@ const router = express.Router();
 router.get("/all", authMiddleWare, getAllUserBookings);
 
 router.patch("/:id/assign-staff", authMiddleWare, assignStaffToBooking);
+router.patch( "/:id/remove-staff",authMiddleWare, removeStaffFromBooking);
 
 export default router;

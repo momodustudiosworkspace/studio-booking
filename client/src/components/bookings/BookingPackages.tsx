@@ -77,7 +77,7 @@ const BookingPackages = ({
     const index = emblaApi.selectedScrollSnap();
     const session = SESSIONS_PACKAGES[index];
     if (session) {
-      setSelectedSessionPackage(session.price?.toString() || null);
+      setSelectedSessionPackage(session.title || null);
     }
   }, [emblaApi, SESSIONS_PACKAGES]);
 
@@ -87,6 +87,7 @@ const BookingPackages = ({
     onSelect();
   }, [emblaApi, onSelect]);
 
+  console.log("selectedSessionPackage:", selectedSessionPackage);
 
   return (
     <div className='w-[350px] rounded-lg sm:w-[850px]'>
@@ -187,12 +188,12 @@ const BookingPackages = ({
         <div className='mt-4 flex justify-center gap-2'>
           {SESSIONS_PACKAGES.map((sessionPackage, index) => (
             <button
-              key={sessionPackage.price}
+              key={sessionPackage.title}
               onClick={() => emblaApi?.scrollTo(index)}
               className={`h-2 w-2 rounded-full transition ${
-                selectedSessionPackage === sessionPackage.price.toString()
+                selectedSessionPackage === sessionPackage.title
                   ? "bg-white"
-                  : "bg-gray-500"
+                : "bg-gray-800"
               }`}
             />
           ))}

@@ -97,7 +97,7 @@ const SignIn = ({ signin, setSignin }: SignProps): React.JSX.Element => {
                 name='password'
                 type='password'
                 className='border-b-[1px] border-white pb-2 outline-0 transition-all ease-in-out focus:border-b-2 sm:border-black'
-                placeholder='Enter email address'
+                placeholder='Enter password'
               />
             </div>
 
