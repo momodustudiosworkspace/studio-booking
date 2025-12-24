@@ -105,7 +105,7 @@ const DashboardStaffManagementTable = () => {
             <button
               disabled={page === 1}
               onClick={() => setPage(p => p - 1)}
-              className='rounded border px-3 py-1 text-sm disabled:opacity-50'
+              className='rounded border px-3 py-1 text-sm disabled:cursor-not-allowed bg-black disabled:opacity-55 text-white'
             >
               Previous
             </button>
@@ -113,7 +113,7 @@ const DashboardStaffManagementTable = () => {
             <button
               disabled={page >= pagination.totalPages}
               onClick={() => setPage(p => p + 1)}
-              className='rounded border px-3 py-1 text-sm disabled:opacity-50'
+              className='rounded border px-3 py-1 text-sm disabled:cursor-not-allowed bg-black disabled:opacity-55 text-white'
             >
               Next
             </button>

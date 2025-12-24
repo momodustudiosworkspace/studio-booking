@@ -33,7 +33,7 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
         method: "PUT",
         body: { title }, // FIX
       }),
-      invalidatesTags: [{ type: "Sessions", id: "LIST" }],
+      invalidatesTags: [{ type: "Sessions", id: "LIST" },   { type: "Sessions", id: "COUNT" },],
     }),
 
     // DELETE

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import { formatTime } from "@/utils/timeFormatter";
 import { usePathname } from "next/navigation";
-import DashboardGroupIcons from "../DashboardAvatar";
+import AssignedToGroupIcons from "../AssignedToGroupIcons";
 
 interface BookingTableProps {
   bookings: BookingType[];
@@ -68,7 +68,7 @@ const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: Booking
             ) : (
               bookings.map(booking => (
                 <tr key={booking._id} className='border-b hover:bg-gray-50'>
-                  <td className='px-4 py-5 font-medium capitalize'>
+                  <td className='px-4 py-5 max-w-[200px] truncate font-medium capitalize'>
                     {booking.user_fullnames}
                   </td>
 
@@ -78,7 +78,7 @@ const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: Booking
                       : "outdoor" : booking.location?.address}
                   </td>
 
-                  <td className='flex items-center gap-2 px-4 py-5 capitalize'>
+                  <td className='flex items-center max-w-[200px] truncate gap-2 py-5 capitalize'>
                     <div
                       className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
                     >
@@ -106,8 +106,8 @@ const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: Booking
                       {booking.status}
                     </span>
                   </td>
-                  <td className='px-4 py-8'>
-                    <DashboardGroupIcons
+                  <td className='px-4 py-8 max-w-[200px] truncate'>
+                    <AssignedToGroupIcons
                       groups={booking.assignedTo || []}
                     />
                   </td>

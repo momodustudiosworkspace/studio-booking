@@ -132,18 +132,37 @@ export async function deleteSession(req: Request, res: Response) {
 
 export async function getAllSessions(_req: Request, res: Response) {
   try {
-    const sessions = await Session.find().sort({ createdAt: -1 })
-      // .sort({ createdAt: -1 }) // newest first
-      
-    console.log("Sessions: ", sessions);
+    const sessions = await Session.aggregate([
+      { $sort: { createdAt: -1 } },
+
+      {
+        $lookup: {
+          from: "packages",
+          localField: "_id",
+          foreignField: "session",
+          as: "packages",
+        },
+      },
+
+      {
+        $project: {
+          title: 1,
+          createdAt: 1,
+          packages: {
+            title: 1,
+            // price: 1,
+            // discount: 1,
+            // services: 1,
+          },
+        },
+      },
+    ]);
 
     return res.status(200).json({
       status: 200,
       message: "Sessions fetched successfully",
       data: sessions,
-      
     });
-
   } catch (error: any) {
     return res.status(500).json({
       status: 500,
@@ -152,6 +171,7 @@ export async function getAllSessions(_req: Request, res: Response) {
     });
   }
 }
+
 
 export async function getSingleSession(req: Request, res: Response) {
   try {

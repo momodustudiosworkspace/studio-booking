@@ -5,7 +5,9 @@ import {
 } from "@/redux/services/admin/session-and-packages/adminSessionAndPackages.api";
 // import PackagesForm from "./forms/PackagesForm";
 import SessionPackages from "../DashBoardPackages/SessionPackages";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { formatDate } from "@/utils/dateFormatter";
+import { ISession } from "@/types/session.types";
 // import Button from "@/components/ui/Button";
 // import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 
@@ -14,9 +16,11 @@ interface SelectedSessionProps {
   selectedSessionTitle?: string;
 }
 const DashboardSessionTable = () => {
+  const [page, setPage] = useState(1);
+  const limit = 10;
   const { data, isLoading } = useGetAllSessionsQuery({
-    page: 1,
-    limit: 10,
+    page: page,
+    limit: limit,
     search: "",
   });
   const [deleteSession] = useDeleteSessionsMutation();
@@ -28,30 +32,10 @@ const DashboardSessionTable = () => {
 
   // const [search, setSearch] = useState("");
   const [sortAsc, setSortAsc] = useState(true);
-  // const [page, setPage] = useState(1);
-  // const pageSize = 5;
+  const pagination = data?.pagination;
 
-  // const filtered = useMemo(() => {
-  //     if (!data?.sessions) return [];
-  //     return data.sessions.filter((s: any) =>
-  //         s.title.toLowerCase().includes(search.toLowerCase())
-  //     );
-  // }, [data, search]);
-
-  // const sorted = useMemo(() => {
-  //     return [...filtered].sort((a, b) =>
-  //         sortAsc ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
-  //     );
-  // }, [filtered, sortAsc]);
-
-  // const paginated = useMemo(() => {
-  //     const start = (page - 1) * pageSize;
-  //     return sorted.slice(start, start + pageSize);
-  // }, [sorted, page]);
-
-  // const totalPages = Math.ceil(sorted.length / pageSize);
-
-  console.log("Session data: ", data);
+  console.log("Packages pagination: ", data?.pagination
+  );
   // console.log("Session sorted: ", sorted);
   // console.log("Session filtered: ", filtered);
 
@@ -114,43 +98,42 @@ const DashboardSessionTable = () => {
                 </td>
               </tr>
             ) : (
-              data?.data.map((session: any) => (
+                  data?.data.map((session: ISession) => (
                 <tr key={session._id} className='border-b hover:bg-gray-50'>
-                  <td className='px-4 py-5 font-medium'>{session.title}</td>
-                  <td className='px-4 py-5'>
-                    {new Date(session.createdAt).toDateString()}
-                  </td>
+                      <td className='px-4 py-5 max-w-[200px] truncate font-medium'>{session.title}</td>
+                      <td className='px-4 py-5 max-w-[200px] truncate'>
+                        {formatDate(session.createdAt)}
+                      </td>
 
-                  <td>
-                    <button
-                      onClick={() => {
-                        setSelectedSession({
-                          selectedSessionId: session._id,
-                          selectedSessionTitle: session.title,
-                        });
-                        setOpen(!open);
-                      }}
-                      className='inline-block rounded-md bg-black px-6 py-2 text-center text-sm font-semibold text-white'
-                    >
-                      Packages
-                    </button>
-                    <SessionPackages
-                      selectedSession={selectedSession}
-                      open={open}
-                      setOpen={setOpen}
-                    />
-                    {/* <PackagesForm selectedSession={selectedSession} open={open} setOpen={setOpen} /> */}
-                  </td>
-                  <td className='flex items-center justify-start gap-3 px-4 py-5'>
-                    <button className='inline-block rounded-md bg-blue-500 px-6 py-2 text-center text-sm font-semibold text-white'>
-                      Edit
+                      <td className='px-4 py-5 max-w-[200px] truncate  capitalize'>
+
+                        <p className="flex flex-wrap w-full gap-2 ">{session.packages?.map((pkg, key) => {
+                          return <span key={key} className="font-semibold">{pkg.title} | </span>
+                        })}</p>
+                        {/* {session.packages?.length ? session.packages.} */}
+                      </td>
+
+                      <td className='flex items-center justify-start gap-3 px-4 py-5 my-4'>
+
+                        <SessionPackages
+                          selectedSession={selectedSession}
+                          open={open}
+                          setOpen={setOpen}
+                        />
+                        <button className='inline-block rounded-md border-[1px] border-black bg-black px-4 py-2 text-center text-sm font-semibold text-white' onClick={() => {
+                          setSelectedSession({
+                            selectedSessionId: session._id,
+                            selectedSessionTitle: session.title,
+                          });
+                          setOpen(!open);
+                        }}>
+                          <PencilIcon className='size-5 text-white ' />
                     </button>
                     <button
                       className='flex items-center gap-3 rounded-md bg-red-600 px-4 py-2 text-center text-sm font-semibold text-white'
                       onClick={() => handleDelete(session._id)}
                     >
-                      <TrashIcon className='size-5 text-white' />
-                      <p>Delete</p>
+                          <TrashIcon className='size-5 text-white' />
                     </button>
                   </td>
                 </tr>
@@ -159,6 +142,32 @@ const DashboardSessionTable = () => {
           </tbody>
         </table>
       </div>
+      {/* Pagination Controls */}
+      {pagination && (
+        <div className='mt-4 flex items-center justify-between'>
+          <p className='text-sm text-gray-600'>
+            Page {pagination.page} of {pagination.total}
+          </p>
+
+          <div className='flex gap-2'>
+            <button
+              disabled={page === 1}
+              onClick={() => setPage(p => p - 1)}
+              className='rounded border px-3 py-1 text-sm disabled:cursor-not-allowed bg-black disabled:opacity-55 text-white'
+            >
+              Previous
+            </button>
+
+            <button
+              disabled={page >= pagination.total}
+              onClick={() => setPage(p => p + 1)}
+              className='rounded border px-3 py-1 text-sm disabled:cursor-not-allowed bg-black disabled:opacity-55 text-white'
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -61,8 +61,8 @@ const DashBoardOverview = () => {
       },
     ];
   }, [bookings]);
-  if (isLoading) return <p className='text-white'>Loading...</p>;
-  if (error) return "Failed to load data";
+  // if (isLoading) return <p className='text-white'>Loading...</p>;
+  // if (error) return "Failed to load data";
 
   const BOOKING_QUICK_LINKS_CARDS = [
     {
@@ -72,52 +72,53 @@ const DashBoardOverview = () => {
       linkText: "Book a session",
       href: "/bookings",
     },
-    {
-      icon: "calendar-check-outlined-black" as IconsType,
-      title: "Request a quote",
-      count: 50,
-      linkText: "Request a quote",
-      href: "/",
-    },
-    {
-      icon: "camera-outlined-black" as IconsType,
-      title: "Message studio",
-      count: 3,
-      linkText: "next session: 5th june 2025",
-      href: "/",
-    },
+    // {
+    //   icon: "calendar-check-outlined-black" as IconsType,
+    //   title: "Request a quote",
+    //   count: 50,
+    //   linkText: "Request a quote",
+    //   href: "/",
+    // },
+    // {
+    //   icon: "camera-outlined-black" as IconsType,
+    //   title: "Message studio",
+    //   count: 3,
+    //   linkText: "next session: 5th june 2025",
+    //   href: "/",
+    // },
   ];
   const BOOKING_SERVICES_CARDS = [
     {
-      title: "Wedding & engagements",
-      paragraph: "Lorem ipsum dolor sit amet consectetur.",
+      title: "Fashion & portfolios",
+      paragraph: "Capture your style with professional fashion photography and portfolio shoots.",
       href: "/",
     },
     {
       title: "Wedding & engagements",
-      paragraph: "Lorem ipsum dolor sit amet consectetur.",
+      paragraph: "Celebrate your love story with stunning wedding and engagement photography.",
       href: "/",
     },
     {
-      title: "Wedding & engagements",
-      paragraph: "Lorem ipsum dolor sit amet consectetur.",
+      title: "Photo Frames & Albums",
+      paragraph: "Preserve your memories in beautiful custom photo frames and albums.",
       href: "/",
     },
     {
-      title: "Wedding & engagements",
-      paragraph: "Lorem ipsum dolor sit amet consectetur.",
+      title: "Prints & canvases",
+      paragraph: "Transform your photos into high-quality prints and canvas art.",
       href: "/",
     },
     {
-      title: "Wedding & engagements",
-      paragraph: "Lorem ipsum dolor sit amet consectetur.",
+      title: "Family & kids portraits",
+      paragraph: "Create lasting family memories with adorable kids and family portraits.",
       href: "/",
     },
     {
-      title: "Wedding & engagements",
-      paragraph: "Lorem ipsum dolor sit amet consectetur.",
+      title: "Corporate & events",
+      paragraph: "Professional photography for corporate events, conferences, and special occasions.",
       href: "/",
     },
+
   ];
   return (
     <DashboardLayout
@@ -129,6 +130,9 @@ const DashBoardOverview = () => {
         href: "/bookings",
       }}
     >
+      {/* Overview section  */}
+      {isLoading && (<p className='text-white'>Loading...</p>)}
+      {error && (<p className='text-white'>Failed to load data</p>)}
       <section className='w-full'>
         {/* Booking analytics  */}
         <div className='mb-14 flex w-full flex-col items-center gap-4 sm:flex-row'>
@@ -172,7 +176,7 @@ const DashBoardOverview = () => {
             headerText='our services'
             paragraph='Pick a session type you’ll love for us to cover'
           />
-          <div className='mb-14 grid grid-cols-1 gap-y-4 sm:grid-cols-4'>
+          <div className='mb-14 grid grid-cols-1 sm:gap-y-4 gap-y-10 sm:grid-cols-4'>
             {BOOKING_SERVICES_CARDS.map((card, key) => {
               return (
                 <BookingCardService

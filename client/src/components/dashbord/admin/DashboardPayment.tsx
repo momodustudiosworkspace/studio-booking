@@ -68,6 +68,7 @@ const DashboardPayment = () => {
 
     return payments?.data.map(payment => ({
       booking: payment.booking,
+      user: payment.user,
       reference: payment.reference,
       amount: payment.amount,
       status: payment.status,
@@ -108,26 +109,6 @@ const DashboardPayment = () => {
       );
 
     return <DashboardPaymentsTable payments={data} isLoading={isLoading} />;
-    // return data.map(payment => (
-    //   <div
-    //     key={payment.reference}
-    //     onMouseEnter={() =>
-    //       prefetchPayment(payment.reference || "", { ifOlderThan: 60 })
-    //     } // 👈 Prefetch on hover
-    //     onFocus={() =>
-    //       prefetchPayment(payment.reference || "", { ifOlderThan: 60 })
-    //     } // 👈 Accessibility
-    //   >
-    //     <BookingCardPayment
-    //       // id={payment.reference}
-    //       booking={payment.booking}
-    //       reference={payment.reference}
-    //       amount={payment.amount}
-    //       status={payment.status}
-    //       paidAt={payment.paidAt}
-    //     />
-    //   </div>
-    // ));
   };
 
   return (
@@ -139,6 +120,8 @@ const DashboardPayment = () => {
         href: "",
       }}
     >
+
+      {isLoading && <p>Loading...</p>}
       {/* Booking analytics  */}
       <div className='mb-14 flex w-full flex-col items-center gap-4 sm:flex-row'>
         {analytics.map((card, key) => (

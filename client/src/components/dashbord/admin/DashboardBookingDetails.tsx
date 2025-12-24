@@ -58,8 +58,8 @@ const DashboardBookingDetails = ({
 
   // if client is late based on bookign time and checkin time let the checking timeline be red
   const timeLineLevel = 5;
-  if (isLoading) return <p>Loading booking details...</p>;
-  if (!booking) return <p>No booking found.</p>;
+  // if (isLoading) return <p>Loading booking details...</p>;
+  // if (!booking) return <p>No booking found.</p>;
 
   const handleCancelBooking = async () => {
     if (!booking._id) return;
@@ -99,6 +99,8 @@ const DashboardBookingDetails = ({
         href: "/",
       }}
     >
+      {isLoading && <p>Loading booking details...</p>}
+      {!booking && !isLoading && <p>No booking found.</p>}
       <button
         className='mb-5 flex h-[32px] w-[32px] items-center justify-center rounded-full bg-gray-300'
         onClick={() => {
@@ -142,6 +144,7 @@ const DashboardBookingDetails = ({
             <DashboardAssignStaffDropDown
               bookingId={booking._id || ""}
               assignedStaff={booking.assignedTo || []}
+              removingStaff={removing}
             />
           </div>
         </div>
