@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import DashboardBookingDetails from "@/components/dashbord/user/DashboardBookingDetails";
 import { useGetBookingByIdQuery } from "@/redux/services/user/booking/booking.api";
+import DashboardBookingDetails from "@/components/dashbord/admin/DashboardBookingDetails";
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   // ✅ Unwrap the Promise using React.use()
@@ -20,7 +20,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   if (!booking) return <p>No booking found.</p>;
 
   return (
-    <section className='w-full pt-24'>
+    <section className='w-full'>
       <DashboardBookingDetails booking={booking} isLoading={isLoading} />
     </section>
   );

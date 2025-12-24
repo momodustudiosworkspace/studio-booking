@@ -1,3 +1,4 @@
+import { BookingAssignedTo } from "@/types/booking.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import { RootState } from "../store";
 // import { RootState } from '../store';
@@ -8,7 +9,7 @@ interface BookingLocationOptions {
 }
 export interface BookingState {
   bookingId?: string | null;
-  assignedTo?: number;
+  assignedTo?: BookingAssignedTo[];
   bookingStep?: number | null;
   sessionType?: string | null;
   sessionTitle?: string | null;
@@ -30,7 +31,7 @@ export interface BookingState {
 
 const initialState: BookingState = {
   bookingId: null,
-  assignedTo: 0,
+  assignedTo: [],
   bookingStep: 0,
   sessionType: "",
   date: "",

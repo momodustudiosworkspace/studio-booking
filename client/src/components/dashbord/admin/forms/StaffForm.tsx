@@ -151,8 +151,9 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
                   errors.role && touched.role ? "border-red-500" : ""
                 } bg-white text-black`}
               >
-                <option value='engineer'>Engineer</option>
+                <option value='engineer'>Retoucher</option>
                 <option value='photographer'>Photographer</option>
+                <option value='videographer'>Videographer</option>
                 <option value='producer'>Producer</option>
                 <option value='manager'>Manager</option>
                 <option value='admin'>Admin</option>

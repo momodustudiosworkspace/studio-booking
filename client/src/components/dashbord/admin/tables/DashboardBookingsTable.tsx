@@ -5,8 +5,8 @@ import { formatDate } from "@/utils/dateFormatter";
 import Link from "next/link";
 import { DashboardIcons } from "@/assets/icons/dashboard/DashboardIcons";
 import { formatTime } from "@/utils/timeFormatter";
-import DashboardAssignStaffDropDown from "../DashboardAssignStaffDropDown";
 import { usePathname } from "next/navigation";
+import DashboardGroupIcons from "../DashboardAvatar";
 
 interface BookingTableProps {
   bookings: BookingType[];
@@ -17,6 +17,7 @@ interface BookingTableProps {
 const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: BookingTableProps) => {
   const bookingLocation = "C1 Melita Plaze, Gimbiya street, Garki";
   const pathName = usePathname();
+  console.log(bookings);
 
   return (
     <div className='w-full rounded-xl bg-white'>
@@ -29,7 +30,8 @@ const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: Booking
               <th className='px-4 py-5'>Location</th>
               <th className='px-4 py-5'>Date Book</th>
               <th className='px-4 py-5'>Status</th>
-              <th className='px-4 py-5'>Action</th>
+              <th className='px-4 py-5'>Assign to</th>
+              <th className='px-4 py-5'>View</th>
             </tr> : <tr className='border-b bg-gray-50'>
               <th className='px-4 py-5'>Booking Id</th>
               <th className='px-4 py-5'>Location</th>
@@ -93,19 +95,35 @@ const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: Booking
                     <span
                       className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${
                         booking.status === "completed"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-yellow-100 text-yellow-700"
-                      }`}
+                          ? "bg-green-100 text-green-700" :
+                          booking.status === "pending" ?
+                            "bg-blue-100 text-blue-700" :
+                            booking.status === "cancelled"
+                              ? "bg-red-100 text-red-700"
+                              : "bg-yellow-100 text-yellow-700"
+                        }`}
                     >
                       {booking.status}
                     </span>
                   </td>
+                  <td className='px-4 py-8'>
+                    <DashboardGroupIcons
+                      groups={booking.assignedTo || []}
+                    />
+                  </td>
+
                   <td className='px-4 py-5'>
                     {pathName === "/admin/dashboard/bookings" ? (
-                      <DashboardAssignStaffDropDown
-                        bookingId={booking._id || ""}
-                        assignedStaffId={`${booking.assignedTo || ""}`}
-                      />
+                      // <DashboardAssignStaffDropDown
+                      //   bookingId={booking._id || ""}
+                      //   assignedStaffId={`${booking.assignedTo || ""}`}
+                      // />
+                      <Link
+                        href={`/admin/dashboard/bookings/${booking._id}`}
+                        className='inline-block rounded-md bg-black px-6 py-2 text-center text-sm font-semibold text-white'
+                      >
+                        View
+                      </Link>
                     ) : (
                       <Link
                         href={`/admin/dashboard/bookings/${booking._id}`}

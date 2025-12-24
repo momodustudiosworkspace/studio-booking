@@ -12,6 +12,7 @@ import { CheckIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useGetAllStaffQuery } from "@/redux/services/admin/staff-management/adminStaffManagement.api";
 import { useAssignStaffToBookingMutation } from "@/redux/services/admin/booking/adminBooking.api";
+import { BookingAssignedTo } from "@/types/booking.types";
 
 interface Staff {
   _id: string;
@@ -22,12 +23,12 @@ interface Staff {
 
 interface AssignStaffDropdownProps {
   bookingId: string;
-  assignedStaffId?: string;
+  assignedStaff?: BookingAssignedTo[] | null;
 }
 
 export default function DashboardAssignStaffDropDown({
   bookingId,
-  assignedStaffId,
+  assignedStaff,
 }: AssignStaffDropdownProps) {
   console.log("bookingId: ", bookingId);
   // Fetch staff list
@@ -48,9 +49,9 @@ export default function DashboardAssignStaffDropDown({
   useEffect(() => {
     if (!staffList.length) return;
     const staff =
-      staffList.find(s => s._id === assignedStaffId) || staffList[0];
+      staffList.find(s => assignedStaff?.some(assigned => assigned._id === s._id)) || staffList[0];
     setSelected(staff);
-  }, [staffList, assignedStaffId]);
+  }, [staffList, assignedStaff]);
 
   const handleSelect = async (staff: Staff) => {
     console.log("selected staff: ", staff);

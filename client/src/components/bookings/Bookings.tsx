@@ -254,6 +254,9 @@ const Bookings = (): React.JSX.Element => {
           theme: "colored",
         });
       }
+
+      console.log(err.data);
+
       return toast.error(AuthToast, {
         data: {
           title: "Booking failed",

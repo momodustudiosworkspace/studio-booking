@@ -105,7 +105,7 @@ const Hero = () => {
               <div className='flex items-center gap-6'>
                 <Link
                   href='/dashboard/profile-settings'
-                  className='mb-10 hidden rounded-md border border-transparent px-8 py-3 text-center font-semibold text-black hover:bg-white/25 sm:inline-block'
+                  className='mb-10 hidden rounded-md border border-transparent px-8 py-3 text-center font-semibold bg-white text-black hover:bg-white/25 sm:inline-block'
                 >
                   Organize your journey
                 </Link>
