@@ -34,8 +34,7 @@ const DashboardSessionTable = () => {
   const [sortAsc, setSortAsc] = useState(true);
   const pagination = data?.pagination;
 
-  console.log("Packages pagination: ", data?.pagination
-  );
+  console.log("Packages pagination: ", data?.pagination);
   // console.log("Session sorted: ", sorted);
   // console.log("Session filtered: ", filtered);
 
@@ -98,42 +97,51 @@ const DashboardSessionTable = () => {
                 </td>
               </tr>
             ) : (
-                  data?.data.map((session: ISession) => (
+              data?.data.map((session: ISession) => (
                 <tr key={session._id} className='border-b hover:bg-gray-50'>
-                      <td className='px-4 py-5 max-w-[200px] truncate font-medium'>{session.title}</td>
-                      <td className='px-4 py-5 max-w-[200px] truncate'>
-                        {formatDate(session.createdAt)}
-                      </td>
+                  <td className='max-w-[200px] truncate px-4 py-5 font-medium'>
+                    {session.title}
+                  </td>
+                  <td className='max-w-[200px] truncate px-4 py-5'>
+                    {formatDate(session.createdAt)}
+                  </td>
 
-                      <td className='px-4 py-5 max-w-[200px] truncate  capitalize'>
+                  <td className='max-w-[200px] truncate px-4 py-5 capitalize'>
+                    <p className='flex w-full flex-wrap gap-2'>
+                      {session.packages?.map((pkg, key) => {
+                        return (
+                          <span key={key} className='font-semibold'>
+                            {pkg.title} |{" "}
+                          </span>
+                        );
+                      })}
+                    </p>
+                    {/* {session.packages?.length ? session.packages.} */}
+                  </td>
 
-                        <p className="flex flex-wrap w-full gap-2 ">{session.packages?.map((pkg, key) => {
-                          return <span key={key} className="font-semibold">{pkg.title} | </span>
-                        })}</p>
-                        {/* {session.packages?.length ? session.packages.} */}
-                      </td>
-
-                      <td className='flex items-center justify-start gap-3 px-4 py-5 my-4'>
-
-                        <SessionPackages
-                          selectedSession={selectedSession}
-                          open={open}
-                          setOpen={setOpen}
-                        />
-                        <button className='inline-block rounded-md border-[1px] border-black bg-black px-4 py-2 text-center text-sm font-semibold text-white' onClick={() => {
-                          setSelectedSession({
-                            selectedSessionId: session._id,
-                            selectedSessionTitle: session.title,
-                          });
-                          setOpen(!open);
-                        }}>
-                          <PencilIcon className='size-5 text-white ' />
+                  <td className='my-4 flex items-center justify-start gap-3 px-4 py-5'>
+                    <SessionPackages
+                      selectedSession={selectedSession}
+                      open={open}
+                      setOpen={setOpen}
+                    />
+                    <button
+                      className='inline-block rounded-md border-[1px] border-black bg-black px-4 py-2 text-center text-sm font-semibold text-white'
+                      onClick={() => {
+                        setSelectedSession({
+                          selectedSessionId: session._id,
+                          selectedSessionTitle: session.title,
+                        });
+                        setOpen(!open);
+                      }}
+                    >
+                      <PencilIcon className='size-5 text-white' />
                     </button>
                     <button
                       className='flex items-center gap-3 rounded-md bg-red-600 px-4 py-2 text-center text-sm font-semibold text-white'
                       onClick={() => handleDelete(session._id)}
                     >
-                          <TrashIcon className='size-5 text-white' />
+                      <TrashIcon className='size-5 text-white' />
                     </button>
                   </td>
                 </tr>
@@ -153,7 +161,7 @@ const DashboardSessionTable = () => {
             <button
               disabled={page === 1}
               onClick={() => setPage(p => p - 1)}
-              className='rounded border px-3 py-1 text-sm disabled:cursor-not-allowed bg-black disabled:opacity-55 text-white'
+              className='rounded border bg-black px-3 py-1 text-sm text-white disabled:cursor-not-allowed disabled:opacity-55'
             >
               Previous
             </button>
@@ -161,7 +169,7 @@ const DashboardSessionTable = () => {
             <button
               disabled={page >= pagination.total}
               onClick={() => setPage(p => p + 1)}
-              className='rounded border px-3 py-1 text-sm disabled:cursor-not-allowed bg-black disabled:opacity-55 text-white'
+              className='rounded border bg-black px-3 py-1 text-sm text-white disabled:cursor-not-allowed disabled:opacity-55'
             >
               Next
             </button>

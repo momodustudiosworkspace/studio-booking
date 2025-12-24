@@ -109,10 +109,12 @@ const BookingCard = ({
       </div>
       {/* View booking details  */}
       <div className='flex gap-2 sm:items-center sm:justify-center'>
-        <Link href={`/dashboard/booking/${id}`} className="inline-block rounded-md border border-transparent bg-white px-4 text-sm py-1 text-center font-semibold text-black hover:bg-white/25">
+        <Link
+          href={`/dashboard/booking/${id}`}
+          className='inline-block rounded-md border border-transparent bg-white px-4 py-1 text-center text-sm font-semibold text-black hover:bg-white/25'
+        >
           View
         </Link>
-
       </div>
     </div>
   );

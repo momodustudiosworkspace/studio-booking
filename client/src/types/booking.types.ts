@@ -5,8 +5,8 @@ export interface BookingLocationOptions {
   state?: string | null;
 }
 
-export interface BookingAssignedTo{
-  _id: string ;
+export interface BookingAssignedTo {
+  _id: string;
   first_name?: string | null;
   last_name?: string | null;
   role?: string | null;

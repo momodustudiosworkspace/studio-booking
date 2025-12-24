@@ -24,7 +24,7 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
       <Formik
         initialValues={{
           session_title: "",
-          image_url: ""
+          image_url: "",
         }}
         onSubmit={async values => {
           //   console.log(values);

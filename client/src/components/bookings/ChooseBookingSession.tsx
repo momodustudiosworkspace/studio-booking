@@ -65,13 +65,12 @@ const ChooseBookingSession = ({
     setBookingStep(1);
   };
 
-
-
   return (
     <div className='w-[350px] rounded-lg sm:w-[750px]'>
-
-      {isLoading && <p className="text-white">Loading sessions...</p>}
-      {data?.data.length === 0 && !isLoading && (<p className="text-white">No sessions available.</p>)}
+      {isLoading && <p className='text-white'>Loading sessions...</p>}
+      {data?.data.length === 0 && !isLoading && (
+        <p className='text-white'>No sessions available.</p>
+      )}
       {/* Main Carousel */}
       <div className='overflow-hidden' ref={emblaRef}>
         <div className='flex gap-5'>

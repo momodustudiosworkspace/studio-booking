@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -22,11 +22,14 @@ const BookingCardService = ({
         height={151}
         className='h-[200px] w-full rounded-md object-cover object-center sm:h-[151px]'
       />
-      <div className="text-white">
+      <div className='text-white'>
         <h1 className='font-bold'>{title}</h1>
         <small>{paragraph}</small>
       </div>
-      <Link href={href} className="rounded py-1 text-center text-sm bg-white font-medium w-[70px] text-black">
+      <Link
+        href={href}
+        className='w-[70px] rounded bg-white py-1 text-center text-sm font-medium text-black'
+      >
         Explore
       </Link>
       {/* <LinkButton

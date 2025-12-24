@@ -91,8 +91,10 @@ const BookingPackages = ({
 
   return (
     <div className='w-[350px] rounded-lg sm:w-[850px]'>
-      {isLoading && <p className="text-white">Loading sessions...</p>}
-      {data?.data.length === 0 && !isLoading && (<p className="text-white">No packages available.</p>)}
+      {isLoading && <p className='text-white'>Loading sessions...</p>}
+      {data?.data.length === 0 && !isLoading && (
+        <p className='text-white'>No packages available.</p>
+      )}
       <div className='overflow-hidden' ref={emblaRef}>
         <div className='flex w-full gap-4 py-10'>
           {data?.data.map((packages, packagesIdx) => {
@@ -193,7 +195,7 @@ const BookingPackages = ({
               className={`h-2 w-2 rounded-full transition ${
                 selectedSessionPackage === sessionPackage.title
                   ? "bg-white"
-                : "bg-gray-800"
+                  : "bg-gray-800"
               }`}
             />
           ))}

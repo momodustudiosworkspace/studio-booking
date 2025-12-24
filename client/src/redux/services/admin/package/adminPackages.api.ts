@@ -21,9 +21,9 @@ export const adminPackagesAPI = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
-    
+
       invalidatesTags: [
-       "Packages",
+        "Packages",
         { type: "Sessions", id: "LIST" },
         { type: "Sessions", id: "COUNT" },
       ],

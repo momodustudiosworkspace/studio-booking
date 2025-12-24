@@ -5,7 +5,6 @@ export interface IPagination {
   pages: number;
 }
 
-
 export interface IPackage {
   title: string;
   price: number;

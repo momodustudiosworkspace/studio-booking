@@ -110,7 +110,7 @@ const DashBoardOverview = () => {
         {error && <p className='text-black'>Failed to load data</p>}
 
         {/* Bookings table  */}
-        <section className='mb-10 max-h-auto w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
+        <section className='max-h-auto mb-10 w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
           {/* header section  */}
           <div className='flex items-center justify-between p-5'>
             <DashboardHeader

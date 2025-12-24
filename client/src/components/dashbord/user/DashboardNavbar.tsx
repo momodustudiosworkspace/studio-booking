@@ -78,7 +78,6 @@ const DashboardNavbar = () => {
   const pathname = usePathname();
   console.log(pathname);
 
-
   return (
     <Disclosure
       as='nav'
@@ -222,7 +221,7 @@ const DashboardNavbar = () => {
               key={item.name}
               as='a'
               href={item.href}
-              // aria-current={pathname === item.href ? "page" : undefined} 
+              // aria-current={pathname === item.href ? "page" : undefined}
               className={classNames(
                 pathname === item.href
                   ? "bg-gray-950/50 text-white"
@@ -249,10 +248,11 @@ const DashboardNavbar = () => {
               }}
               className={classNames(
                 pathname === item.href
-                  ? " text-white"
+                  ? "text-white"
                   : "text-gray-300 hover:bg-white hover:text-black",
-                "rounded-md py-2 text-sm font-medium block"
-              )} >
+                "block rounded-md py-2 text-sm font-medium"
+              )}
+            >
               {item.name}
             </DisclosureButton>
           ))}

@@ -89,7 +89,7 @@ const DashboardBookingDetails = ({
   return (
     <DashboardLayout
       headerProps={{
-    // headerText: "potrait session- ms1234",
+        // headerText: "potrait session- ms1234",
         headerText: `${booking.sessionTitle} session - ms${booking._id?.slice(0, 6)}`,
         badge: `${booking.status}`,
         badgeStatus: booking.status,
@@ -109,38 +109,36 @@ const DashboardBookingDetails = ({
       >
         <DashboardIcons value='arrow-left-outlined-black' />
       </button>
-      <div className="mb-10 bg-white shadow w-full sm:w-[600px] rounded-md p-5">
-        <p className="font-bold sm:text-xl sm:mb-0 mb-2">Staff assigned: </p>
-        <div className="flex sm:flex-row flex-col gap-10 justify-between">
+      <div className='mb-10 w-full rounded-md bg-white p-5 shadow sm:w-[600px]'>
+        <p className='mb-2 font-bold sm:mb-0 sm:text-xl'>Staff assigned: </p>
+        <div className='flex flex-col justify-between gap-10 sm:flex-row'>
           {booking.assignedTo && booking.assignedTo.length > 0 ? (
-            <ul className="sm:mt-5">
+            <ul className='sm:mt-5'>
               {booking.assignedTo.map((staff, key) => (
                 <li
                   key={key}
-                  className="flex mb-4 items-center justify-between gap-4 capitalize"
+                  className='mb-4 flex items-center justify-between gap-4 capitalize'
                 >
                   <span>
-                    <span className="font-semibold">{staff.role}: </span>
+                    <span className='font-semibold'>{staff.role}: </span>
                     {staff.first_name} {staff.last_name}
                   </span>
 
                   <button
                     onClick={() => handleRemoveStaff(staff._id)}
                     disabled={removing}
-                    className="text-xs text-red-500 hover:underline"
+                    className='text-xs text-red-500 hover:underline'
                   >
-                    <TrashIcon className="h-5 w-5" />
+                    <TrashIcon className='h-5 w-5' />
                   </button>
                 </li>
               ))}
             </ul>
           ) : (
-
-            <p className="text-gray-400">No staff assigned</p>
-
+            <p className='text-gray-400'>No staff assigned</p>
           )}
           <div>
-            <p className="font-semibold"> Assign staff :</p>
+            <p className='font-semibold'> Assign staff :</p>
             <DashboardAssignStaffDropDown
               bookingId={booking._id || ""}
               assignedStaff={booking.assignedTo || []}
@@ -149,9 +147,7 @@ const DashboardBookingDetails = ({
           </div>
         </div>
       </div>
-      <div>
-
-      </div>
+      <div></div>
       <div className='flex flex-col-reverse gap-10 sm:flex-row sm:gap-32'>
         {/* Timeline  */}
         <div className='h-[720px] w-full border-t-[1px] border-gray-50 p-4 shadow sm:h-[610px] sm:w-[50%] sm:border-none'>
