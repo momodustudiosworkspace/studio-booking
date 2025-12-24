@@ -91,7 +91,7 @@ const DashboardStaffManagement = () => {
             </div>
             <button
               onClick={() => setOpen(true)}
-              className='inline-block rounded-md bg-green-600 px-6 py-2 text-center text-sm font-semibold text-white'
+              className='inline-block rounded-md bg-green-600 sm:w-auto w-[40%] px-6 py-2 text-center text-sm font-semibold text-white'
             >
               + Add staff
             </button>

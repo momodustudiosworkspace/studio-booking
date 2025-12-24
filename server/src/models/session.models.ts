@@ -18,7 +18,14 @@ const sessionSchema = new Schema<ISession>(
 
 // sessionSchema.index({ date: 1, startTime: 1, }, { unique: true });
 // sessionSchema.index({ user: 1 });
+sessionSchema.virtual("packages", {
+  ref: "Package",
+  localField: "_id",
+  foreignField: "session",
+});
 
+sessionSchema.set("toJSON", { virtuals: true });
+sessionSchema.set("toObject", { virtuals: true });
 
 export const Session: Model<ISession> = mongoose.model("Session", sessionSchema);
 export default Session;

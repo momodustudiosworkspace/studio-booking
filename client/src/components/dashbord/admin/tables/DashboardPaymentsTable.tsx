@@ -59,13 +59,13 @@ const DashboardPaymentsTable = ({ payments, isLoading }: PaymentTableProps) => {
                   key={payment.reference}
                   className='border-b hover:bg-gray-50'
                 >
-                  <td className='px-4 py-5 font-medium capitalize'>
+                  <td className='max-w-[200px] truncate px-4 py-5 font-medium capitalize'>
                     #MS-{payment.reference?.slice(0, 4)}
                   </td>
-                  <td className='px-4 py-5 capitalize'>{payment.booking}</td>
-                  <td className='px-4 py-5 capitalize'>{`${nairaSymbol()} ${payment.amount?.toLocaleString()}`}</td>
+                  <td className='px-4 py-5 max-w-[200px] truncate capitalize'>{payment.user.first_name} {payment.user.last_name}</td>
+                  <td className='px-4 py-5 max-w-[200px] truncate capitalize'>{`${nairaSymbol()} ${payment.amount?.toLocaleString()}`}</td>
 
-                  <td className='flex items-center gap-2 px-4 py-5 capitalize'>
+                  <td className='flex items-center max-w-[200px] truncate gap-2 px-4 py-5 capitalize'>
                     <div
                       className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
                     >

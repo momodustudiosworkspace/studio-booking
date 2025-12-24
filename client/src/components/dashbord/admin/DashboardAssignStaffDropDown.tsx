@@ -24,11 +24,13 @@ interface Staff {
 interface AssignStaffDropdownProps {
   bookingId: string;
   assignedStaff?: BookingAssignedTo[] | null;
+  removingStaff?: boolean;
 }
 
 export default function DashboardAssignStaffDropDown({
   bookingId,
   assignedStaff,
+  removingStaff = false,
 }: AssignStaffDropdownProps) {
   console.log("bookingId: ", bookingId);
   // Fetch staff list
@@ -87,12 +89,15 @@ export default function DashboardAssignStaffDropDown({
               />
             )}
             <span className='block truncate'>
-              {selected
+              {isAssigning || removingStaff ? (
+                <span className='ml-1 text-gray-200'>Updating records..</span>
+              ) : selected
                 ? `${selected.first_name} ${selected.last_name}`
                 : "Select Staff"}
             </span>
           </span>
-          <ChevronUpDownIcon className='col-start-1 row-start-1 h-5 w-5 self-center justify-self-end text-gray-400' />
+          {!isAssigning && <ChevronUpDownIcon className='col-start-1 row-start-1 h-5 w-5 self-center justify-self-end text-gray-400' />}
+
         </ListboxButton>
 
         <ListboxOptions className='absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md border-none bg-black py-1 text-base outline-none sm:text-sm'>
@@ -100,7 +105,7 @@ export default function DashboardAssignStaffDropDown({
             <ListboxOption
               key={staff._id}
               value={staff}
-              className='relative cursor-default py-2 pr-9 pl-3 text-white select-none'
+              className='relative cursor-default py-2 pr-9 pl-3 text-white select-none hover:cursor-pointer'
             >
               <div className='flex items-center gap-2'>
                 {staff.avatar && (
@@ -118,10 +123,10 @@ export default function DashboardAssignStaffDropDown({
               </div>
               {selected?._id === staff._id && (
                 <span className='absolute inset-y-0 right-0 flex items-center pr-4 text-white'>
-                  <CheckIcon className='h-5 w-5' />
-                  {isAssigning && (
+
+                  {isAssigning ? (
                     <span className='ml-1 text-xs text-gray-200'>…</span>
-                  )}
+                  ) : <CheckIcon className='h-5 w-5' />}
                 </span>
               )}
             </ListboxOption>

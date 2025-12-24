@@ -1,6 +1,6 @@
-import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
-import LinkButton from "@/components/ui/LinkButton";
+"use client"
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface BookingCardServiceprops {
@@ -14,7 +14,7 @@ const BookingCardService = ({
   href,
 }: BookingCardServiceprops) => {
   return (
-    <div className='flex min-h-[297px] w-full flex-col gap-3 rounded-md bg-white p-4 shadow sm:w-[290px]'>
+    <div className='flex min-h-[297px] w-full flex-col gap-3 rounded-md shadow sm:w-[290px]'>
       <Image
         src='/home/hero-section-one.png'
         alt='/'
@@ -22,18 +22,21 @@ const BookingCardService = ({
         height={151}
         className='h-[200px] w-full rounded-md object-cover object-center sm:h-[151px]'
       />
-      <div>
+      <div className="text-white">
         <h1 className='font-bold'>{title}</h1>
         <small>{paragraph}</small>
       </div>
-      <LinkButton
+      <Link href={href} className="rounded py-1 text-center text-sm bg-white font-medium w-[70px] text-black">
+        Explore
+      </Link>
+      {/* <LinkButton
         href={href}
         size='md'
         text={"View package"}
         icon={<RedirectArrowWhite />}
         iconPosition='right'
         className='w-[170px]'
-      />
+      /> */}
     </div>
   );
 };

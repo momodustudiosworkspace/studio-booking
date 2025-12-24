@@ -57,8 +57,8 @@ const DashboardClientsTable = ({ users, isLoading }: ClientTableProps) => {
               </tr>
             ) : (
               users.map(user => (
-                <tr key={user._id} className='border-b hover:bg-gray-50'>
-                  <td className='px-4 py-5 font-medium capitalize'>
+                <tr key={user._id} className='border-b hover:bg-gray-50 font-medium'>
+                  <td className='px-4 py-5 max-w-[200px] truncate font-medium capitalize'>
                     {user.first_name?.toLowerCase()}{" "}
                     {user.last_name?.toLowerCase()}
                   </td>
@@ -67,7 +67,7 @@ const DashboardClientsTable = ({ users, isLoading }: ClientTableProps) => {
                     {user.email}
                   </td>
 
-                  <td className='flex items-center gap-2 px-4 py-5 capitalize'>
+                  <td className='flex items-center max-w-[200px] truncate gap-2 px-4 py-5 capitalize'>
                     <div
                       className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
                     >

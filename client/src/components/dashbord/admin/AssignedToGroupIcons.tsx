@@ -5,7 +5,7 @@ interface GroupIconsProps {
     groups?: BookingAssignedTo[]; // each item is initials like "EM"
 }
 
-const DashboardGroupIcons = ({ groups }: GroupIconsProps) => {
+const AssignedToGroupIcons = ({ groups }: GroupIconsProps) => {
     console.log("Groups: ", groups);
     
     return (
@@ -14,7 +14,7 @@ const DashboardGroupIcons = ({ groups }: GroupIconsProps) => {
                 groups.map((initials, index) => (
                     <div
                         key={index}
-                        className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-700 text-white font-bold text-lg ring-2 ring-gray-900"
+                        className="flex h-10 w-10 items-center justify-center rounded-full text-lg ring-1 bg-white ring-gray-900"
                     >
                         {initials.first_name?.[0] || ""}{initials.last_name?.[0] || ""}
                         
@@ -29,4 +29,4 @@ const DashboardGroupIcons = ({ groups }: GroupIconsProps) => {
     );
 };
 
-export default DashboardGroupIcons;
+export default AssignedToGroupIcons;
