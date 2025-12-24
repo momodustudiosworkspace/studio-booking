@@ -90,7 +90,7 @@ const DashboardBookings = () => {
         address: b.location?.address || null,
         state: b.location?.state || null,
       },
-      assignedTo: b.assignedTo || null,
+      assignedTo: b.assignedTo || [],
       user_fullnames: b.user_fullnames?.toLowerCase() || null,
       date: b.date || null, // e.g. "Thu Dec 04 2025"
       startTime: b.startTime || null,
