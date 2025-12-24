@@ -3,7 +3,7 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 export interface IBooking extends Document {
   user: mongoose.Types.ObjectId;
   user_fullnames: string;
-  assignedTo?: mongoose.Types.ObjectId;
+  assignedTo?: mongoose.Types.ObjectId[];
   sessionType: string;
   sessionTitle: string;
   date: Date;
@@ -34,7 +34,9 @@ export interface IBooking extends Document {
 const bookingSchema = new Schema<IBooking>(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    assignedTo: { type: Schema.Types.ObjectId, ref: "Staff" },
+    assignedTo: [
+  { type: Schema.Types.ObjectId, ref: "Staff" }
+],
     user_fullnames: { type: String, required: true, trim: true },
     sessionType: { type: String, required: true, trim: true },
     sessionTitle: { type: String, required: true, trim: true },

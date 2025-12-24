@@ -43,11 +43,14 @@ export async function createBooking(req: Request, res: Response) {
     // const { sessionType, date, timeSlot, notes } = req.body;
     const userId = req.userId; // assuming user is attached from auth middleware
 
-    const user = await User.findOne({_id:userId})
-
-
+    const user = await User.findOne({ _id: userId })
+    
+    
+    
+    
     const { date, startTime, sessionType, studioRoom, price, location, sessionTitle} = req.body;
-
+    
+    console.log("DB date and time: ", startTime, date);
     // The system will calculate end time endTime, based on number of outfits 
 
     if (!userId) return res.status(401).json({ message: "Unauthorized" });
@@ -130,7 +133,7 @@ export async function getBookingById(req: Request, res: Response) {
     if (!mongoose.Types.ObjectId.isValid(Number(id)))
       return res.status(400).json({ message: "Invalid booking ID" });
 
-    const booking = await Booking.findById(id);
+    const booking = await Booking.findById(id).populate("assignedTo", "first_name last_name email role")
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     return res.status(200).json(booking);

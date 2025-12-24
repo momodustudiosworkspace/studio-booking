@@ -15,7 +15,7 @@ export const getAllUserBookings = async (req: Request, res: Response)=> {
 
     // Fetch bookings with pagination
     const [bookings, total] = await Promise.all([
-      Booking.find().sort({ createdAt: -1 }).skip(skip).limit(limit),
+      Booking.find().sort({ createdAt: -1 }).skip(skip).limit(limit).populate("assignedTo", "first_name last_name email role"),
       Booking.countDocuments(),
     ]);
        const totalRevenueResult = await Booking.aggregate([
@@ -45,10 +45,6 @@ export async function assignStaffToBooking(req: Request, res: Response) {
     const { id } = req.params;
     const { staffId } = req.body;
 
-    console.log("bboking Id: ", id);
-    console.log("staffId: ", staffId);
-    
-
     if (!staffId) {
       return res.status(400).json({
         status: 400,
@@ -65,10 +61,10 @@ export async function assignStaffToBooking(req: Request, res: Response) {
       });
     }
 
-    // Update booking
+    // Add staff to assignedTo array
     const booking = await Booking.findByIdAndUpdate(
       id,
-      { assignedTo: staffId },
+      { $addToSet: { assignedTo: staffId } }, // 👈 key change
       { new: true }
     ).populate("assignedTo", "first_name last_name email role");
 
@@ -94,6 +90,103 @@ export async function assignStaffToBooking(req: Request, res: Response) {
     });
   }
 }
+
+// Remove staff from booking 
+// Remove staff from booking
+// export async function removeStaffFromBooking(req: Request, res: Response) {
+//   try {
+//     const { id } = req.params;
+//     const { staffId } = req.body;
+
+//     if (!staffId) {
+//       return res.status(400).json({
+//         status: 400,
+//         message: "Staff ID is required",
+//       });
+//     }
+
+//     const booking = await Booking.findById(id);
+//     if (!booking) {
+//       return res.status(404).json({
+//         status: 404,
+//         message: "Booking not found",
+//       });
+//     }
+
+
+//     if (booking.assignedTo) {
+      
+//       const isAssigned = booking.assignedTo.some(
+//         assignedId => assignedId.toString() === staffId
+//       );
+  
+//       if (!isAssigned) {
+//         return res.status(409).json({
+//           status: 409,
+//           message: "Staff is not assigned to this booking",
+//         });
+//       }
+  
+//     }
+//     booking.assignedTo = (booking.assignedTo || []).filter(
+//       assignedId => assignedId.toString() !== staffId
+//     );
+
+//     await booking.save();
+//     await booking.populate("assignedTo", "first_name last_name email role");
+
+//     return res.status(200).json({
+//       status: 200,
+//       message: "Staff removed from booking successfully",
+//       data: booking,
+//     });
+//   } catch (error: any) {
+//     console.error("Remove staff error:", error);
+
+//     return res.status(500).json({
+//       status: 500,
+//       message: "Failed to remove staff from booking",
+//       error: error.message,
+//     });
+//   }
+// }
+
+export async function removeStaffFromBooking(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    const { staffId } = req.body;
+
+    if (!staffId) {
+      return res.status(400).json({ status: 400, message: "Staff ID is required" });
+    }
+
+    const booking = await Booking.findByIdAndUpdate(
+      id,
+      { $pull: { assignedTo: staffId } }, // 🔹 removes staff safely
+      { new: true }
+    ).populate("assignedTo", "first_name last_name email role");
+
+    if (!booking) {
+      return res.status(404).json({ status: 404, message: "Booking not found" });
+    }
+
+    return res.status(200).json({
+      status: 200,
+      message: "Staff removed from booking successfully",
+      data: booking,
+    });
+  } catch (error: any) {
+    console.error("Remove staff error:", error);
+    return res.status(500).json({
+      status: 500,
+      message: "Failed to remove staff from booking",
+      error: error.message,
+    });
+  }
+}
+
+
+
 
 
 
