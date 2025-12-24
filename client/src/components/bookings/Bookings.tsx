@@ -46,7 +46,8 @@ const Bookings = (): React.JSX.Element => {
   const [updateBooking, { isLoading: updateBookingLoading }] =
     useUpdateBookingMutation();
 
-  const [bookingTimeSelected, setBookingTimeSelected] = useState<boolean>(false);
+  const [bookingTimeSelected, setBookingTimeSelected] =
+    useState<boolean>(false);
 
   const proceedBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -299,9 +300,9 @@ const Bookings = (): React.JSX.Element => {
   }, [bookingStep, dispatch]);
 
   return (
-    <section className='flex min-h-screen items-center pt-14 justify-center px-5'>
+    <section className='flex min-h-screen items-center justify-center px-5 pt-14'>
       <div className='flex w-full justify-center'>
-        <div className='flex w-full justify-center min-h-[400px] max-w-2xl flex-col '>
+        <div className='flex min-h-[400px] w-full max-w-2xl flex-col justify-center'>
           <div className='mt-20 mb-5 flex flex-col gap-4'>
             {bookingStep !== 6 && (
               <button
@@ -336,19 +337,32 @@ const Bookings = (): React.JSX.Element => {
             {bookingStep >= 2 && bookingStep <= 4 && (
               <div className='mt-4 flex w-full justify-end'>
                 {!session?.user.email && bookingStep > 3 ? (
-
-                  <Link href={"/auth?redirectTo=bookings"} className="mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25">
+                  <Link
+                    href={"/auth?redirectTo=bookings"}
+                    className='mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25'
+                  >
                     Login to book
                   </Link>
+                ) : bookingTimeSelected && bookingStep === 2 ? (
+                  <button
+                    ref={proceedBtnRef}
+                    disabled={createBookingLoading || updateBookingLoading}
+                    onClick={handleBookingStepsProceed}
+                    className='mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25'
+                  >
+                    Proceed
+                  </button>
+                ) : bookingStep > 2 ? (
+                  <button
+                    ref={proceedBtnRef}
+                    disabled={createBookingLoading || updateBookingLoading}
+                    onClick={handleBookingStepsProceed}
+                    className='mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25'
+                  >
+                    Proceed
+                  </button>
                 ) : (
-                    bookingTimeSelected && bookingStep === 2 ?
-                      <button ref={proceedBtnRef} disabled={createBookingLoading || updateBookingLoading} onClick={handleBookingStepsProceed} className="mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25">
-                        Proceed
-                      </button>
-                      : bookingStep > 2 ? <button ref={proceedBtnRef} disabled={createBookingLoading || updateBookingLoading} onClick={handleBookingStepsProceed} className="mb-10 inline-block rounded-md border border-transparent bg-white px-5 py-2 text-center font-semibold text-black hover:bg-white/25">
-                        Proceed
-                      </button>
-                        : ""
+                  ""
                 )}
               </div>
             )}

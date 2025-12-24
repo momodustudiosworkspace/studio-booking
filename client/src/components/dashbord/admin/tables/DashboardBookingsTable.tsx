@@ -14,7 +14,11 @@ interface BookingTableProps {
   role?: "admin" | "user";
 }
 
-const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: BookingTableProps) => {
+const DashboardBookingsTable = ({
+  bookings,
+  isLoading,
+  role = "admin",
+}: BookingTableProps) => {
   const bookingLocation = "C1 Melita Plaze, Gimbiya street, Garki";
   const pathName = usePathname();
   console.log(bookings);
@@ -25,20 +29,24 @@ const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: Booking
       <div className='overflow-x-auto'>
         <table className='w-full border-collapse text-left'>
           <thead>
-            {role === "admin" ? <tr className='border-b bg-gray-50'>
-              <th className='px-4 py-5'>Client Name</th>
-              <th className='px-4 py-5'>Location</th>
-              <th className='px-4 py-5'>Date Book</th>
-              <th className='px-4 py-5'>Status</th>
-              <th className='px-4 py-5'>Assign to</th>
-              <th className='px-4 py-5'>View</th>
-            </tr> : <tr className='border-b bg-gray-50'>
-              <th className='px-4 py-5'>Booking Id</th>
-              <th className='px-4 py-5'>Location</th>
-              <th className='px-4 py-5'>Date Book</th>
-              <th className='px-4 py-5'>Status</th>
-              <th className='px-4 py-5'>Action</th>
-            </tr>}
+            {role === "admin" ? (
+              <tr className='border-b bg-gray-50'>
+                <th className='px-4 py-5'>Client Name</th>
+                <th className='px-4 py-5'>Location</th>
+                <th className='px-4 py-5'>Date Book</th>
+                <th className='px-4 py-5'>Status</th>
+                <th className='px-4 py-5'>Assign to</th>
+                <th className='px-4 py-5'>View</th>
+              </tr>
+            ) : (
+              <tr className='border-b bg-gray-50'>
+                <th className='px-4 py-5'>Booking Id</th>
+                <th className='px-4 py-5'>Location</th>
+                <th className='px-4 py-5'>Date Book</th>
+                <th className='px-4 py-5'>Status</th>
+                <th className='px-4 py-5'>Action</th>
+              </tr>
+            )}
           </thead>
 
           <tbody>
@@ -68,17 +76,19 @@ const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: Booking
             ) : (
               bookings.map(booking => (
                 <tr key={booking._id} className='border-b hover:bg-gray-50'>
-                  <td className='px-4 py-5 max-w-[200px] truncate font-medium capitalize'>
+                  <td className='max-w-[200px] truncate px-4 py-5 font-medium capitalize'>
                     {booking.user_fullnames}
                   </td>
 
                   <td className='px-4 py-5 capitalize'>
-                    {role === "admin" ? booking.location?.address === bookingLocation
-                      ? "indoor"
-                      : "outdoor" : booking.location?.address}
+                    {role === "admin"
+                      ? booking.location?.address === bookingLocation
+                        ? "indoor"
+                        : "outdoor"
+                      : booking.location?.address}
                   </td>
 
-                  <td className='flex items-center max-w-[200px] truncate gap-2 py-5 capitalize'>
+                  <td className='flex max-w-[200px] items-center gap-2 truncate py-5 capitalize'>
                     <div
                       className={`flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FAFAFA]`}
                     >
@@ -95,21 +105,19 @@ const DashboardBookingsTable = ({ bookings, isLoading, role = "admin" }: Booking
                     <span
                       className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${
                         booking.status === "completed"
-                          ? "bg-green-100 text-green-700" :
-                          booking.status === "pending" ?
-                            "bg-blue-100 text-blue-700" :
-                            booking.status === "cancelled"
+                          ? "bg-green-100 text-green-700"
+                          : booking.status === "pending"
+                            ? "bg-blue-100 text-blue-700"
+                            : booking.status === "cancelled"
                               ? "bg-red-100 text-red-700"
                               : "bg-yellow-100 text-yellow-700"
-                        }`}
+                      }`}
                     >
                       {booking.status}
                     </span>
                   </td>
-                  <td className='px-4 py-8 max-w-[200px] truncate'>
-                    <AssignedToGroupIcons
-                      groups={booking.assignedTo || []}
-                    />
+                  <td className='max-w-[200px] truncate px-4 py-8'>
+                    <AssignedToGroupIcons groups={booking.assignedTo || []} />
                   </td>
 
                   <td className='px-4 py-5'>

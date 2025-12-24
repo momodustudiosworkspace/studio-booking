@@ -51,7 +51,9 @@ export default function DashboardAssignStaffDropDown({
   useEffect(() => {
     if (!staffList.length) return;
     const staff =
-      staffList.find(s => assignedStaff?.some(assigned => assigned._id === s._id)) || staffList[0];
+      staffList.find(s =>
+        assignedStaff?.some(assigned => assigned._id === s._id)
+      ) || staffList[0];
     setSelected(staff);
   }, [staffList, assignedStaff]);
 
@@ -91,13 +93,16 @@ export default function DashboardAssignStaffDropDown({
             <span className='block truncate'>
               {isAssigning || removingStaff ? (
                 <span className='ml-1 text-gray-200'>Updating records..</span>
-              ) : selected
-                ? `${selected.first_name} ${selected.last_name}`
-                : "Select Staff"}
+              ) : selected ? (
+                `${selected.first_name} ${selected.last_name}`
+              ) : (
+                "Select Staff"
+              )}
             </span>
           </span>
-          {!isAssigning && <ChevronUpDownIcon className='col-start-1 row-start-1 h-5 w-5 self-center justify-self-end text-gray-400' />}
-
+          {!isAssigning && (
+            <ChevronUpDownIcon className='col-start-1 row-start-1 h-5 w-5 self-center justify-self-end text-gray-400' />
+          )}
         </ListboxButton>
 
         <ListboxOptions className='absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md border-none bg-black py-1 text-base outline-none sm:text-sm'>
@@ -123,10 +128,11 @@ export default function DashboardAssignStaffDropDown({
               </div>
               {selected?._id === staff._id && (
                 <span className='absolute inset-y-0 right-0 flex items-center pr-4 text-white'>
-
                   {isAssigning ? (
                     <span className='ml-1 text-xs text-gray-200'>…</span>
-                  ) : <CheckIcon className='h-5 w-5' />}
+                  ) : (
+                    <CheckIcon className='h-5 w-5' />
+                  )}
                 </span>
               )}
             </ListboxOption>

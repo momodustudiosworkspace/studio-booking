@@ -36,9 +36,11 @@ const AcceptInvitationPage = () => {
     <div className='flex min-h-screen flex-col items-center justify-center gap-10 bg-black px-4 text-white'>
       <MomoduWhite />
       <div className='w-full max-w-sm rounded-lg border border-white p-6'>
-        {!isSuccess && <h1 className='mb-4'>
-          Click the button below to accept staff invitation
-        </h1>}
+        {!isSuccess && (
+          <h1 className='mb-4'>
+            Click the button below to accept staff invitation
+          </h1>
+        )}
 
         {!isSuccess && (
           <button

@@ -120,7 +120,6 @@ const DashboardPayment = () => {
         href: "",
       }}
     >
-
       {isLoading && <p>Loading...</p>}
       {/* Booking analytics  */}
       <div className='mb-14 flex w-full flex-col items-center gap-4 sm:flex-row'>

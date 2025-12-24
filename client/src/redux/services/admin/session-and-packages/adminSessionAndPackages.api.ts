@@ -10,7 +10,7 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
     // CREATE
     createBookingSession: builder.mutation<
       { status: number },
-      { session_title: string, image_url:string }
+      { session_title: string; image_url: string }
     >({
       query: body => ({
         url: `${ADMIN_BASE_URL}/sessions/`,
@@ -33,7 +33,10 @@ export const sessionAndPackagesApi = baseApi.injectEndpoints({
         method: "PUT",
         body: { title }, // FIX
       }),
-      invalidatesTags: [{ type: "Sessions", id: "LIST" },   { type: "Sessions", id: "COUNT" },],
+      invalidatesTags: [
+        { type: "Sessions", id: "LIST" },
+        { type: "Sessions", id: "COUNT" },
+      ],
     }),
 
     // DELETE

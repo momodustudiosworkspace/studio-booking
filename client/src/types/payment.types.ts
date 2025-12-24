@@ -41,7 +41,7 @@ export interface AllPaymentResponse {
   user: {
     first_name: string;
     last_name: string;
-  }
+  };
   booking: string;
   reference: string;
   amount: number;

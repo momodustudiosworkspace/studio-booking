@@ -67,7 +67,9 @@ const BookingsPreview = ({
                 <BookingsIcons value='phone-solid-black' />
                 <p className='text-[14px] font-medium text-[#414141] capitalize'>
                   {/* user phone number  */}
-                  {session?.user.phoneNumber ? session.user.phoneNumber : "No phone number"}
+                  {session?.user.phoneNumber
+                    ? session.user.phoneNumber
+                    : "No phone number"}
                 </p>
               </div>
               <div className='flex items-center gap-2'>
@@ -119,9 +121,12 @@ const BookingsPreview = ({
                     name='discount_code'
                     className='h-[37px] w-full border-b-[1px] border-white bg-white px-2 text-[14px] outline-0 transition-all ease-in-out focus:border-b-2 sm:w-[224px] sm:border-black'
                   />
-                  <button onClick={() => {
-                    setCodeError(true)
-                  }} className={`absolute top-2 right-1 text-[14px] ${codeError ? "text-red-500" : "text-green-600"} font-semibold capitalize underline`}>
+                  <button
+                    onClick={() => {
+                      setCodeError(true);
+                    }}
+                    className={`absolute top-2 right-1 text-[14px] ${codeError ? "text-red-500" : "text-green-600"} font-semibold capitalize underline`}
+                  >
                     {codeError ? "Invalid code" : "Confirm"}
                   </button>
                 </div>

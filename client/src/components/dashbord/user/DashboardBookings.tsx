@@ -6,7 +6,7 @@ import {
   useGetBookingsQuery,
   usePrefetch,
 } from "@/redux/services/user/booking/booking.api";
-// import DashboardBookingsTable from "../admin/tables/DashboardBookingsTable"; 
+// import DashboardBookingsTable from "../admin/tables/DashboardBookingsTable";
 import { BookingType } from "@/types/booking.types";
 
 const DashboardBookings = () => {
@@ -27,7 +27,7 @@ const DashboardBookings = () => {
         address: b.location?.address || null,
         state: b.location?.state || null,
       },
-      assignedTo: b.assignedTo || null,
+      assignedTo: b.assignedTo || [],
       user_fullnames: b.user_fullnames?.toLowerCase() || null,
       date: b.date || null, // e.g. "Thu Dec 04 2025"
       startTime: b.startTime || null,
@@ -53,7 +53,6 @@ const DashboardBookings = () => {
   ];
 
   const renderBookings = (data: BookingType[]) => {
-
     if (!data.length)
       return (
         <p className='flex h-[100px] w-full items-center justify-center text-white'>
@@ -63,7 +62,7 @@ const DashboardBookings = () => {
 
     // return <DashboardBookingsTable bookings={data} isLoading={isLoading} role={'user'} />;
 
-  // if (!data.length) return <p>No bookings available.</p>;
+    // if (!data.length) return <p>No bookings available.</p>;
     return data.map(b => (
       <div
         key={b._id}
