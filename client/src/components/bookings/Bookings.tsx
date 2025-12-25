@@ -67,7 +67,7 @@ const Bookings = (): React.JSX.Element => {
         />
       ),
       header: "Choose Your Session",
-      paragraph: "You can customize details in the next steps",
+      paragraph: "Click to select a session that suits your needs",
     },
     {
       id: 2,
@@ -318,7 +318,7 @@ const Bookings = (): React.JSX.Element => {
               </button>
             )}
             <div className='mt-5 flex flex-col gap-2 text-white'>
-              <h1 className='text-[28px] font-extrabold capitalize'>
+              <h1 className='text-[28px] font-semibold capitalize'>
                 {BOOKING_STEPS[bookingStep]?.header}
               </h1>
               <div className='flex items-center gap-1'>

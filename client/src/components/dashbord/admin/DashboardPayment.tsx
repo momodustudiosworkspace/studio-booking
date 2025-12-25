@@ -107,7 +107,7 @@ const DashboardPayment = () => {
           No payments available.
         </p>
       );
-
+    if (isLoading) return <p className='flex h-[100px] w-full items-center justify-center'>Payments Loading...</p>;
     return <DashboardPaymentsTable payments={data} isLoading={isLoading} />;
   };
 
@@ -120,7 +120,7 @@ const DashboardPayment = () => {
         href: "",
       }}
     >
-      {isLoading && <p>Loading...</p>}
+
       {/* Booking analytics  */}
       <div className='mb-14 flex w-full flex-col items-center gap-4 sm:flex-row'>
         {analytics.map((card, key) => (

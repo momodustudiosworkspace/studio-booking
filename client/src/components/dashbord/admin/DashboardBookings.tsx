@@ -111,7 +111,7 @@ const DashboardBookings = () => {
 
   console.log("formattedBookings: ", formattedBookings);
 
-  if (isLoading) return <p className='text-white'>Loading...</p>;
+
   // if (error) return "Failed to load data";
 
   const TABS = [
@@ -127,6 +127,8 @@ const DashboardBookings = () => {
           No bookings available.
         </p>
       );
+
+    if (isLoading) return <p>Bookings Loading...</p>;
 
     return <DashboardBookingsTable bookings={data} isLoading={isLoading} />;
     // return data.map(b => (

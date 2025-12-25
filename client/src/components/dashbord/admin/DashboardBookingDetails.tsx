@@ -13,7 +13,6 @@ import { BookingType } from "@/types/booking.types";
 import { formatDate } from "@/utils/dateFormatter";
 import { formatTime } from "@/utils/timeFormatter";
 import nairaSymbol from "@/utils/symbols";
-import Button from "@/components/ui/Button";
 import { useUpdateBookingMutation } from "@/redux/services/user/booking/booking.api";
 import { toast } from "react-toastify";
 import { AuthToast } from "@/components/toast/ToastMessage";
@@ -30,6 +29,8 @@ const DashboardBookingDetails = ({
   isLoading,
 }: DashboardBookingDetailsProps) => {
   const [totalSelectedPhotos, setTotalSelectedPhotos] = useState<number>(0);
+
+
 
   const [updateBooking, { isLoading: updateBookingLoading }] =
     useUpdateBookingMutation();
@@ -99,8 +100,8 @@ const DashboardBookingDetails = ({
         href: "/",
       }}
     >
-      {isLoading && <p>Loading booking details...</p>}
-      {!booking && !isLoading && <p>No booking found.</p>}
+      {/* {isLoading && <p>Loading booking details...</p>}
+      {!booking && !isLoading && <p>No booking found.</p>} */}
       <button
         className='mb-5 flex h-[32px] w-[32px] items-center justify-center rounded-full bg-gray-300'
         onClick={() => {
@@ -109,34 +110,37 @@ const DashboardBookingDetails = ({
       >
         <DashboardIcons value='arrow-left-outlined-black' />
       </button>
-      <div className='mb-10 w-full rounded-md bg-white p-5 shadow sm:w-[600px]'>
-        <p className='mb-2 font-bold sm:mb-0 sm:text-xl'>Staff assigned: </p>
-        <div className='flex flex-col justify-between gap-10 sm:flex-row'>
-          {booking.assignedTo && booking.assignedTo.length > 0 ? (
-            <ul className='sm:mt-5'>
-              {booking.assignedTo.map((staff, key) => (
-                <li
-                  key={key}
-                  className='mb-4 flex items-center justify-between gap-4 capitalize'
-                >
-                  <span>
-                    <span className='font-semibold'>{staff.role}: </span>
-                    {staff.first_name} {staff.last_name}
-                  </span>
 
-                  <button
-                    onClick={() => handleRemoveStaff(staff._id)}
-                    disabled={removing}
-                    className='text-xs text-red-500 hover:underline'
+      {isLoading ? <p>Loading booking details...</p> : (booking.status === "completed" ? <div className='mb-10 w-full rounded-md bg-white p-5 shadow sm:w-[600px]'>
+        <div className='flex flex-col-reverse justify-between gap-10 sm:flex-row'>
+          <div>
+            <p className='mb-2 font-bold sm:mb-0 sm:text-xl'>Staff assigned: </p>
+            {booking.assignedTo && booking.assignedTo.length > 0 ? (
+              <ul className='sm:mt-5'>
+                {booking.assignedTo.map((staff, key) => (
+                  <li
+                    key={key}
+                    className='mb-4 flex items-center justify-between gap-4 capitalize'
                   >
-                    <TrashIcon className='h-5 w-5' />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className='text-gray-400'>No staff assigned</p>
-          )}
+                    <span>
+                      <span className='font-semibold'>{staff.role}: </span>
+                      {staff.first_name} {staff.last_name}
+                    </span>
+
+                    <button
+                      onClick={() => handleRemoveStaff(staff._id)}
+                      disabled={removing}
+                      className='text-xs text-red-500 hover:underline'
+                    >
+                      <TrashIcon className='h-5 w-5' />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className='text-gray-400'>No staff assigned</p>
+            )}
+          </div>
           <div>
             <p className='font-semibold'> Assign staff :</p>
             <DashboardAssignStaffDropDown
@@ -146,8 +150,7 @@ const DashboardBookingDetails = ({
             />
           </div>
         </div>
-      </div>
-      <div></div>
+      </div> : <p className="bg-blue-300 text-blue-600 py-3 px-4 border sm:w-[400px] text-sm border-blue-600 rounded-md mb-5">You can not assign staff to pending or cancelled bookings</p>)}
       <div className='flex flex-col-reverse gap-10 sm:flex-row sm:gap-32'>
         {/* Timeline  */}
         <div className='h-[720px] w-full border-t-[1px] border-gray-50 p-4 shadow sm:h-[610px] sm:w-[50%] sm:border-none'>
@@ -162,7 +165,7 @@ const DashboardBookingDetails = ({
         </div>
 
         {/* Details  */}
-        <div className='h-[610px] w-full border-t-[1px] border-gray-50 p-4 shadow sm:w-[50%] sm:border-none'>
+        <div className='sm:h-[610px] w-full border-t-[1px] border-gray-50 p-4 shadow sm:w-[50%] sm:border-none'>
           <DashboardHeader
             headerText={"booking summary"}
             paragraph={"your session at a glance "}
@@ -211,16 +214,17 @@ const DashboardBookingDetails = ({
             </div>
             {booking.status !== "cancelled" && (
               <div>
-                <Button
+                <button className="font-medium  bg-red-300 text-red-600 py-3 px-4 border text-sm border-red-600 rounded-md" onClick={async () => await handleCancelBooking()}>{updateBookingLoading ? "Cancelling..." : "Cancel booking"}</button>
+                {/* <Button
                   size='md'
                   variant='danger'
-                  text={"Cancel booking"}
+                  text={""}
                   icon={<RedirectArrowWhite />}
                   loading={updateBookingLoading}
                   iconPosition='right'
                   className='w-auto'
-                  onClick={async () => await handleCancelBooking()}
-                />
+                 
+                /> */}
               </div>
             )}
           </div>

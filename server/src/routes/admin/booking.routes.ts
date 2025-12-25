@@ -1,8 +1,12 @@
 import express from "express";
-import { assignStaffToBooking, getAllUserBookings, removeStaffFromBooking } from "../../controllers/admin/booking.controllers";
+import { assignStaffToBooking, getAllUserBookings, removeStaffFromBooking, uploadBookingImages } from "../../controllers/admin/booking.controllers";
 import authMiddleWare from "../../middlewares/auth.middleware";
+import { bookingsMediaStorage } from "../../utils/CloudinaryMediaStorage";
+import multer from "multer";
 
 const router = express.Router();
+
+const bookingImagesUpload = multer({ storage:bookingsMediaStorage });
 
 /**
  * @openapi
@@ -122,5 +126,6 @@ router.get("/all", authMiddleWare, getAllUserBookings);
 
 router.patch("/:id/assign-staff", authMiddleWare, assignStaffToBooking);
 router.patch( "/:id/remove-staff",authMiddleWare, removeStaffFromBooking);
+router.post("/:id/upload", authMiddleWare, bookingImagesUpload.array("images", 10), uploadBookingImages);
 
 export default router;

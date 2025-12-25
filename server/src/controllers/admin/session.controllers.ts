@@ -5,7 +5,7 @@ import Package from "../../models/package.models";
 // ✅ Create a new session
 export async function createSession(req: Request, res: Response) {
   try {
-    const { session_title, image_url } = req.body;
+    const { session_title, image_url, description } = req.body;
 
     console.log(session_title);
     
@@ -27,7 +27,8 @@ export async function createSession(req: Request, res: Response) {
     // Create session
     const session = await Session.create({
       title: session_title,
-      imageUrl: image_url
+      imageUrl: image_url,
+      description:description
     });
 
     return res.status(200).json({
@@ -133,7 +134,7 @@ export async function deleteSession(req: Request, res: Response) {
 export async function getAllSessions(_req: Request, res: Response) {
   try {
     const sessions = await Session.aggregate([
-      { $sort: { createdAt: -1 } },
+      { $sort: { title: 1 } },
 
       {
         $lookup: {
@@ -147,6 +148,8 @@ export async function getAllSessions(_req: Request, res: Response) {
       {
         $project: {
           title: 1,
+          imageUrl: 1,
+          description: 1,
           createdAt: 1,
           packages: {
             title: 1,

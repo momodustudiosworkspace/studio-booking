@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import Booking from "../../models/booking.models";
 import Staff from "../../models/staff.models";
+
 // import Payment from "../../models/payment.models";
 
 
@@ -91,66 +92,7 @@ export async function assignStaffToBooking(req: Request, res: Response) {
   }
 }
 
-// Remove staff from booking 
-// Remove staff from booking
-// export async function removeStaffFromBooking(req: Request, res: Response) {
-//   try {
-//     const { id } = req.params;
-//     const { staffId } = req.body;
-
-//     if (!staffId) {
-//       return res.status(400).json({
-//         status: 400,
-//         message: "Staff ID is required",
-//       });
-//     }
-
-//     const booking = await Booking.findById(id);
-//     if (!booking) {
-//       return res.status(404).json({
-//         status: 404,
-//         message: "Booking not found",
-//       });
-//     }
-
-
-//     if (booking.assignedTo) {
-      
-//       const isAssigned = booking.assignedTo.some(
-//         assignedId => assignedId.toString() === staffId
-//       );
-  
-//       if (!isAssigned) {
-//         return res.status(409).json({
-//           status: 409,
-//           message: "Staff is not assigned to this booking",
-//         });
-//       }
-  
-//     }
-//     booking.assignedTo = (booking.assignedTo || []).filter(
-//       assignedId => assignedId.toString() !== staffId
-//     );
-
-//     await booking.save();
-//     await booking.populate("assignedTo", "first_name last_name email role");
-
-//     return res.status(200).json({
-//       status: 200,
-//       message: "Staff removed from booking successfully",
-//       data: booking,
-//     });
-//   } catch (error: any) {
-//     console.error("Remove staff error:", error);
-
-//     return res.status(500).json({
-//       status: 500,
-//       message: "Failed to remove staff from booking",
-//       error: error.message,
-//     });
-//   }
-// }
-
+// Remove staff from bookings 
 export async function removeStaffFromBooking(req: Request, res: Response) {
   try {
     const { id } = req.params;
@@ -184,6 +126,34 @@ export async function removeStaffFromBooking(req: Request, res: Response) {
     });
   }
 }
+
+// ✅ Upload booking Images
+export async function uploadBookingImages(req: any, res: Response) {
+
+
+  try {
+    const files = req.files as Express.Multer.File[];
+
+    if (!files || files.length === 0) {
+      return res.status(400).json({ message: "No files uploaded" });
+    }
+
+    const images = files.map((file) => ({
+      url: (file as any).path,
+      public_id: (file as any).filename,
+    }));
+
+    // Optionally store image URLs in booking record
+    await Booking.findByIdAndUpdate(req.params.id, {
+      $push: { images: { $each: images } },
+    });
+
+    return res.status(200).json({ message: "Images uploaded successfully", images });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Image upload failed", error });
+  }
+};
 
 
 
