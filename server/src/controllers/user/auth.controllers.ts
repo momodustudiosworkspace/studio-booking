@@ -54,7 +54,7 @@ export async function register(req: Request, res: Response) {
         })
 
         // Send OTP to user (email/SMS)
-        await sendOtpEmail(email, otp, "User account creation");
+        // await sendOtpEmail(email, otp, "User account creation");
         // const { accessToken, refreshAccessToken } = generateAuthTokens(user.id)
         // return res.status(201).json({ message: "User created successfully!", accessToken: accessToken, refreshToken: refreshAccessToken, user: { id: String(user._id), first_name, last_name, email } })
         return res.status(201).json({ message: "User created successfully!", user: { id: String(user._id), password, email } })

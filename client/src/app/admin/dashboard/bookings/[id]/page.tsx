@@ -16,12 +16,14 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   console.log("Booking id:", id);
   console.log("Booking:", booking);
 
-  if (isLoading) return <p>Loading booking details...</p>;
   if (!booking) return <p>No booking found.</p>;
 
   return (
-    <section className='w-full'>
-      <DashboardBookingDetails booking={booking} isLoading={isLoading} />
+    <section className='max-w-7xl px-6 lg:px-8 mx-auto '>
+      {isLoading && <p>Loading booking details...</p>}
+      {!isLoading && booking && (
+        <DashboardBookingDetails booking={booking} isLoading={isLoading} />
+      )}
     </section>
   );
 }

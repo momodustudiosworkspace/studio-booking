@@ -145,8 +145,8 @@ const DashboardProfile = () => {
               <dt className='text-sm/6 font-medium text-gray-100'>
                 Phone Number
               </dt>
-              <dd className='mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0'>
-                {userprofile?.user.phoneNumber}
+              <dd className={`mt-1 text-sm/6 ${userprofile?.user?.phoneNumber ? "text-gray-400" : "text-red-500"} sm:col-span-2 sm:mt-0`}>
+                {userprofile?.user.phoneNumber ? userprofile?.user.phoneNumber : "Update phone number"}
               </dd>
             </div>
             <div className='px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>
@@ -165,8 +165,8 @@ const DashboardProfile = () => {
               <dt className='text-sm/6 font-medium text-gray-100'>
                 Delivery Address
               </dt>
-              <dd className='mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0'>
-                {userprofile?.user.address}
+              <dd className={`mt-1 text-sm/6 ${userprofile?.user?.address ? "text-gray-400" : "text-red-500"} sm:col-span-2 sm:mt-0`}>
+                {userprofile?.user.address ? userprofile?.user.address : "Update address"}
               </dd>
             </div>
             <div className='px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>

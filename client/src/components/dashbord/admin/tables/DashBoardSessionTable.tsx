@@ -34,7 +34,7 @@ const DashboardSessionTable = () => {
   const [sortAsc, setSortAsc] = useState(true);
   const pagination = data?.pagination;
 
-  console.log("Packages pagination: ", data?.pagination);
+  console.log("Packages pagination: ", data);
   // console.log("Session sorted: ", sorted);
   // console.log("Session filtered: ", filtered);
 
@@ -107,7 +107,7 @@ const DashboardSessionTable = () => {
                   </td>
 
                   <td className='max-w-[200px] truncate px-4 py-5 capitalize'>
-                    <p className='flex w-full flex-wrap gap-2'>
+                    {!session.packages?.length ? "No packages" : <p className='flex w-full flex-wrap gap-2'>
                       {session.packages?.map((pkg, key) => {
                         return (
                           <span key={key} className='font-semibold'>
@@ -115,7 +115,7 @@ const DashboardSessionTable = () => {
                           </span>
                         );
                       })}
-                    </p>
+                    </p>}
                     {/* {session.packages?.length ? session.packages.} */}
                   </td>
 

@@ -25,6 +25,7 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
         initialValues={{
           session_title: "",
           image_url: "",
+          description: ""
         }}
         onSubmit={async values => {
           //   console.log(values);
@@ -88,6 +89,18 @@ const SessionForm = ({ setOpen }: SessionFormProps) => {
                 type='text'
                 className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
                 placeholder='Enter image url'
+              />
+            </div>
+            <div className='flex flex-col gap-3'>
+              <label className='text-sm font-medium text-black'>
+                {/* Session title */}
+              </label>
+              <Field
+                name='description'
+                type='text'
+                as='textarea'
+                className='border-b-[1px] border-black pb-2 outline-0 transition-all ease-in-out focus:border-b-2'
+                placeholder='Enter description'
               />
             </div>
 

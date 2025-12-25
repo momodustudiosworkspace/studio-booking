@@ -28,6 +28,9 @@ const ChooseBookingSession = ({
 
   const BOOKING_SESSIONS = useMemo(() => data?.data || [], [data?.data]);
 
+  console.log(data);
+
+
   const [selectedSession, setSelectedSession] = useState<string | null>(
     bookingSession ?? null
   );
@@ -96,15 +99,15 @@ const ChooseBookingSession = ({
                 <div className='absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 transition-opacity duration-500 ease-in-out group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90' />
 
                 {/* Content */}
-                <div className='relative z-10 flex h-full flex-col justify-between p-6 text-white transition-all duration-500 ease-in-out group-hover:items-center group-hover:text-center'>
+                <div className='relative z-10 flex h-full flex-col items-start justify-between p-6 text-white transition-all duration-500 ease-in-out '>
                   {/* Title */}
                   <h3 className='text-2xl leading-tight font-bold capitalize transition-transform duration-500 ease-in-out group-hover:translate-y-2'>
                     {session.title}
                   </h3>
 
                   {/* Tagline */}
-                  <p className='mt-2 translate-y-4 text-xs opacity-80 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100'>
-                    Book your session
+                  <p className='mt-2 translate-y-4 text-left text-xs opacity-80 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100'>
+                    {session.description}
                   </p>
                 </div>
               </button>

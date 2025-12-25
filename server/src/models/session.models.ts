@@ -5,6 +5,7 @@ export interface ISession extends Document {
   title: string;
   imageUrl: string;
   createdAt: Date;
+  description: string;
   updatedAt: Date;
 }
 
@@ -12,6 +13,7 @@ const sessionSchema = new Schema<ISession>(
   {
     title: { type: String, required: true, trim: true },
     imageUrl: { type: String, required: true, trim: true },
+    description: { type: String, required: true, trim: true },
   },
   { timestamps: true }
 );

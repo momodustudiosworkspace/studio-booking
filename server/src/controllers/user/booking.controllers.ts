@@ -87,7 +87,7 @@ export async function createBooking(req: Request, res: Response) {
       price,
       studioRoom,
       location,
-      status:"completed"
+     
     });
 
     return res.status(201).json({ message: "Slot secured successfully!", booking });

@@ -16,6 +16,7 @@ export interface ISession {
   title: string;
   imageUrl: string;
   createdAt: string;
+  description: string;
   packages?: IPackage[];
   updatedAt: string;
   __v: number;
