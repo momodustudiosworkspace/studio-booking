@@ -67,6 +67,25 @@ export const adminBookingApi = baseApi.injectEndpoints({
         { type: "Bookings", id: "LIST" },
       ],
     }),
+      // 🔼 Upload images for a booking
+    uploadBookingImages: builder.mutation<
+      { images: string[]; message: string },
+      { bookingId: string; files: File[] }
+    >({
+      query: ({ bookingId, files }) => {
+        const formData = new FormData();
+        files.forEach((file) => {
+          formData.append("images", file);
+        });
+
+        return {
+          url: `/admin/bookings/${bookingId}/upload`,
+          method: "POST",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["Bookings"],
+    }),
   }),
   overrideExisting: true,
 });
@@ -75,5 +94,6 @@ export const {
   useGetAllUserBookingsQuery,
   useRemoveStaffFromBookingMutation,
   useAssignStaffToBookingMutation,
+  useUploadBookingImagesMutation,
   usePrefetch,
 } = adminBookingApi;

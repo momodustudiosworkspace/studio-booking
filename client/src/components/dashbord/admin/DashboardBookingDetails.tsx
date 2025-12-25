@@ -111,7 +111,7 @@ const DashboardBookingDetails = ({
         <DashboardIcons value='arrow-left-outlined-black' />
       </button>
 
-      {isLoading ? <p>Loading booking details. ewnpweoinvoewineoivnoi..</p> : (booking.status === "completed" ? <div className='mb-10 w-full rounded-md bg-white p-5 shadow sm:w-[600px]'>
+      {isLoading ? <p>Loading booking details...</p> : (booking.status === "completed" ? <div className='mb-10 w-full rounded-md bg-white p-5 shadow sm:w-[600px]'>
         <div className='flex flex-col-reverse justify-between gap-10 sm:flex-row'>
           <div>
             <p className='mb-2 font-bold sm:mb-0 sm:text-xl'>Staff assigned: </p>
@@ -150,7 +150,7 @@ const DashboardBookingDetails = ({
             />
           </div>
         </div>
-      </div> : <p>No booking found.</p>)}
+      </div> : <p className="bg-blue-300 text-blue-600 py-3 px-4 border sm:w-[400px] text-sm border-blue-600 rounded-md mb-5">You can not assign staff to pending or cancelled bookings</p>)}
       <div className='flex flex-col-reverse gap-10 sm:flex-row sm:gap-32'>
         {/* Timeline  */}
         <div className='h-[720px] w-full border-t-[1px] border-gray-50 p-4 shadow sm:h-[610px] sm:w-[50%] sm:border-none'>
@@ -214,7 +214,7 @@ const DashboardBookingDetails = ({
             </div>
             {booking.status !== "cancelled" && (
               <div>
-                <button className="rounded-md px-4 py-1 text-white font-medium bg-red-600" onClick={async () => await handleCancelBooking()}>{updateBookingLoading ? "Cancelling..." : "Cancel booking"}</button>
+                <button className="font-medium  bg-red-300 text-red-600 py-3 px-4 border text-sm border-red-600 rounded-md" onClick={async () => await handleCancelBooking()}>{updateBookingLoading ? "Cancelling..." : "Cancel booking"}</button>
                 {/* <Button
                   size='md'
                   variant='danger'

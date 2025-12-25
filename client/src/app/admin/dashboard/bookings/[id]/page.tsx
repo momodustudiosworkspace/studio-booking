@@ -19,7 +19,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   if (!booking) return <p>No booking found.</p>;
 
   return (
-    <section className='max-w-7xl px-6 lg:px-8 mx-auto '>
+    <section className='max-w-7xl lg:px-8 mx-auto '>
       {isLoading && <p>Loading booking details...</p>}
       {!isLoading && booking && (
         <DashboardBookingDetails booking={booking} isLoading={isLoading} />

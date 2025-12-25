@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Booking from "../../models/booking.models";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "../../config/cloudinary.config";
 import multer from "multer";
 import User from "../../models/user.models";
+import { bookingsMediaStorage } from "../../utils/CloudinaryMediaStorage";
 
 // import { isSlotAvailable } from "../utils/isSlotAvailable"; 
 
@@ -15,27 +14,10 @@ declare global {
     }
   }
 }
-// 🧩 Define multer + Cloudinary storage
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: async (req: any, file) => {
-    // Find booking + user to dynamically set folder
-    const booking = await Booking.findById(req.params.id).populate("user", "first_name last_name");
-    if (!booking || !booking.user) throw new Error("Booking not found");
 
-    const user = booking.user as any;
-    const clientName = `${user.first_name}_${user.last_name}`.replace(/\s+/g, "_");
 
-    return {
-      folder: `bookings/${clientName}/${booking._id}/images`,
-      resource_type: "image",
-      allowed_formats: ["jpg", "jpeg", "png"],
-      public_id: file.originalname.split(".")[0],
-    };
-  },
-});
 
-export const bookingImagesUpload = multer({ storage });
+export const bookingImagesUpload = multer({ storage:bookingsMediaStorage });
 
 // ✅ Create Booking
 export async function createBooking(req: Request, res: Response) {
