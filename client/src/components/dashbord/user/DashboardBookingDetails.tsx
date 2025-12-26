@@ -72,7 +72,8 @@ const DashboardBookingDetails = ({
         badge: `${booking.status}`,
         badgeStatus: booking.status,
         badgeClass: "",
-        paragraph: "sat, sept 13,2025 | Momodu studios, victoria island, Lagos",
+        paragraph: `${formatDate(booking.date)} | ${formatTime(booking.startTime)} - ${booking.location?.address} ${booking.location?.state}`,
+        // paragraph: "sat, sept 13,2025 | Momodu studios, victoria island, Lagos",
         linkText: "Reschedule",
         href: "/",
       }}
@@ -200,6 +201,7 @@ const DashboardBookingDetails = ({
         {/* DashboardBookingPhotoSelection  */}
         <div className='max-h-[800px] w-full overflow-y-scroll pt-5'>
           <DashboardBookingPhotoSelection
+            images={booking.images || []}
             setTotalSelectedPhotos={setTotalSelectedPhotos}
           />
         </div>

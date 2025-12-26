@@ -2,23 +2,29 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
-const photos = [
-  "/dashboard/select.jpg",
-  "/dashboard/select-2.jpg",
-  "/dashboard/select-2.jpg",
-  "/dashboard/select-2.jpg",
-  "/dashboard/select-2.jpg",
-  "/dashboard/select-2.jpg",
-  "/dashboard/select-2.jpg",
-  "/dashboard/select-2.jpg",
-  "/dashboard/select-2.jpg",
-];
+// const photos = [
+//   "/dashboard/select.jpg",
+//   "/dashboard/select-2.jpg",
+//   "/dashboard/select-2.jpg",
+//   "/dashboard/select-2.jpg",
+//   "/dashboard/select-2.jpg",
+//   "/dashboard/select-2.jpg",
+//   "/dashboard/select-2.jpg",
+//   "/dashboard/select-2.jpg",
+//   "/dashboard/select-2.jpg",
+// ];
+
 
 interface DashboardBookingPhotoSelectionProps {
+  images?: {
+    url: string;
+    public_id: string;
+    isSelected?: boolean;
+  }[]
   setTotalSelectedPhotos: (value: number) => void;
 }
 
-const DashboardBookingPhotoSelection = ({
+const DashboardBookingPhotoSelection = ({ images,
   setTotalSelectedPhotos,
 }: DashboardBookingPhotoSelectionProps) => {
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([]);
@@ -49,7 +55,7 @@ const DashboardBookingPhotoSelection = ({
 
   return (
     <div className='grid w-full grid-cols-2 gap-x-2 gap-y-2 sm:grid-cols-5'>
-      {photos.map((photo, index) => {
+      {images && images.map((photo, index) => {
         const isSelected = selectedPhotos.includes(index);
         const selectionNumber = isSelected
           ? selectedPhotos.indexOf(index) + 1
@@ -61,7 +67,7 @@ const DashboardBookingPhotoSelection = ({
             className={`group relative w-full overflow-hidden rounded-lg transition-all duration-300 hover:cursor-pointer sm:h-[320px] sm:w-[229px]`}
           >
             <Image
-              src={photo}
+              src={photo.url}
               alt={`photo-${index}`}
               width={320}
               height={420}
