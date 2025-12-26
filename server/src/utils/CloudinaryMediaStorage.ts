@@ -18,9 +18,9 @@ export const bookingsMediaStorage = new CloudinaryStorage({
 
     return {
       folder: `clients/${clientId}/${sessionTitle}/${booking._id}/originals`,
-      resource_type: "image",
-      allowed_formats: ["jpg", "jpeg", "png"],
-      public_id: file.originalname.split(".")[0],
+      resource_type: "auto",
+      // allowed_formats: ["jpg", "jpeg", "png"],
+      public_id: `${Date.now()}-${file.originalname.split(".")[0]}`,
     };
   },
 });

@@ -132,23 +132,25 @@ export async function uploadBookingImages(req: any, res: Response) {
 
 
   try {
-    const files = req.files as Express.Multer.File[];
+      const files = req.files as Express.Multer.File[];
 
     if (!files || files.length === 0) {
       return res.status(400).json({ message: "No files uploaded" });
     }
 
-    const images = files.map((file) => ({
-      url: (file as any).path,
-      public_id: (file as any).filename,
+    const images = files.map((file: any) => ({
+      url: file.path, // Cloudinary secure URL
+      public_id: file.filename,
+      isSelected: false,
     }));
 
-    // Optionally store image URLs in booking record
-    await Booking.findByIdAndUpdate(req.params.id, {
-      $push: { images: { $each: images } },
-    });
+    const booking = await Booking.findByIdAndUpdate(
+      req.params.id,
+      { $push: { images: { $each: images } } },
+      { new: true }
+    );
 
-    return res.status(200).json({ message: "Images uploaded successfully", images });
+    return res.status(200).json({ message: "Images uploaded successfully", booking });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Image upload failed", error });

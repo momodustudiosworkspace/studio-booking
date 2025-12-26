@@ -21,6 +21,11 @@ export interface BookingType {
   package?: string | null;
   date?: string | null;
   startTime?: string | null;
+   images?: {
+  url: string;
+  public_id: string;
+  isSelected?: boolean;
+}[] | null
   endTime?: string | null;
   studioRoom?: "A" | "B" | null;
   location?: BookingLocationOptions | null;

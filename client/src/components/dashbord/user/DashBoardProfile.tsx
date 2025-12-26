@@ -127,7 +127,7 @@ const DashboardProfile = () => {
         </div>
         <div className=''>
           <h3 className='text-base/7 font-semibold text-white'>
-            Applicant Information
+            Profile Information
           </h3>
           <p className='mt-1 max-w-2xl text-sm/6 text-gray-400'>
             Personal details and application.
