@@ -95,7 +95,8 @@ const DashboardBookings = () => {
       date: b.date || null, // e.g. "Thu Dec 04 2025"
       startTime: b.startTime || null,
       amount: b.price || null, // e.g. "123,400"
-      status: b.status || "pending", // e.g. "pending", "completed"
+      status: b.status || "pending", // e.g. "pending", "completed",
+      paymentStatus: b.paymentStatus || "pending", // e.g. "success", "pending", "refunded"
     }));
   }, [bookings]);
 

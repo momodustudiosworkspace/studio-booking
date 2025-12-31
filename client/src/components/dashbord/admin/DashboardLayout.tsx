@@ -17,6 +17,8 @@ interface DashboardLayoutProps {
       | "pending"
       | "confirmed"
       | "completed"
+    | "success"
+    | "refunded"
       | "cancelled";
     badgeClass?: string;
     href: string;

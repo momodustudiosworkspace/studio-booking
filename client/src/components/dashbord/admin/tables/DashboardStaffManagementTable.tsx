@@ -46,6 +46,9 @@ const DashboardStaffManagementTable = () => {
                   <td className='px-4 py-5'>
                     <div className='h-4 w-20 rounded bg-gray-200' />
                   </td>
+                  <td className='px-4 py-5'>
+                    <div className='h-4 w-20 rounded bg-gray-200' />
+                  </td>
                 </tr>
               ))
             ) : staffList.length === 0 ? (

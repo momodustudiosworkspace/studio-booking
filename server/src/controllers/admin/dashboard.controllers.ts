@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Booking from "../../models/booking.models";
 import Payment from "../../models/payment.models";
 import User from "../../models/user.models";
+import Staff from "../../models/staff.models";
 
 
 export const getAdminDashboardStats = async (_req: Request, res: Response) => {
@@ -9,10 +10,11 @@ export const getAdminDashboardStats = async (_req: Request, res: Response) => {
   
   try {
     // Run all counts in parallel (faster)
-    const [totalBookings, totalPayments, totalClients] = await Promise.all([
+    const [totalBookings, totalPayments, totalClients, totalStaff] = await Promise.all([
       Booking.countDocuments(),
       Payment.countDocuments(),
-      User.countDocuments(), // adjust field if needed
+      User.countDocuments(), // adjust field if needed,
+      Staff.countDocuments()
     ]);
 
    
@@ -29,6 +31,7 @@ export const getAdminDashboardStats = async (_req: Request, res: Response) => {
       message: "Data successfull",
       data: {
         totalBookings,
+        totalStaff,
         totalPayments,
         totalClients,
         totalRevenue,

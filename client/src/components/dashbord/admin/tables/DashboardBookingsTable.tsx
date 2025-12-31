@@ -34,7 +34,7 @@ const DashboardBookingsTable = ({
                 <th className='px-4 py-5'>Client Name</th>
                 <th className='px-4 py-5'>Location</th>
                 <th className='px-4 py-5'>Date Book</th>
-                <th className='px-4 py-5'>Status</th>
+                <th className='px-4 py-5'>Payment</th>
                 <th className='px-4 py-5'>Assign to</th>
                 <th className='px-4 py-5'>View</th>
               </tr>
@@ -65,6 +65,12 @@ const DashboardBookingsTable = ({
                   <td className='px-4 py-5'>
                     <div className='h-4 w-20 rounded bg-gray-200' />
                   </td>
+                  <td className='px-4 py-5'>
+                    <div className='h-4 w-20 rounded bg-gray-200' />
+                  </td>
+                  {role === "admin" && <td className='px-4 py-5'>
+                    <div className='h-4 w-20 rounded bg-gray-200' />
+                  </td>}
                 </tr>
               ))
             ) : bookings.length === 0 ? (
@@ -104,16 +110,16 @@ const DashboardBookingsTable = ({
                   <td className='px-4 py-5'>
                     <span
                       className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${
-                        booking.status === "completed"
+                        booking.paymentStatus === "success"
                           ? "bg-green-100 text-green-700"
-                          : booking.status === "pending"
+                        : booking.paymentStatus === "pending"
                             ? "bg-blue-100 text-blue-700"
-                            : booking.status === "cancelled"
+                          : booking.paymentStatus === "refunded"
                               ? "bg-red-100 text-red-700"
                               : "bg-yellow-100 text-yellow-700"
                       }`}
                     >
-                      {booking.status}
+                      {booking.paymentStatus === "success" ? "successful" : booking.paymentStatus === "pending" ? "Pending" : booking.paymentStatus === "refunded" ? "Refunded" : "Unknown"}
                     </span>
                   </td>
                   <td className='max-w-[200px] truncate px-4 py-8'>

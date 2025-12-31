@@ -45,7 +45,7 @@ export interface InviteStaffRequest {
   first_name: string;
   last_name: string;
   email: string;
-  role: "engineer" | "photographer" | "producer" | "manager" | "admin";
+  role: "retoucher" | "photographer" | "producer" | "manager" | "admin";
 }
 
 // Accept invitation request type

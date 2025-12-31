@@ -43,7 +43,7 @@ const DashboardBookings = () => {
   //   // const bookingDate = b.date;
   //   return b.date;
   // });
-  if (isLoading) return <p className='text-white'>Loading...</p>;
+
   if (error) return "Failed to load data";
 
   const TABS = [
@@ -53,6 +53,7 @@ const DashboardBookings = () => {
   ];
 
   const renderBookings = (data: BookingType[]) => {
+    if (isLoading) return <p className='text-white'>Loading...</p>;
     if (!data.length)
       return (
         <p className='flex h-[100px] w-full items-center justify-center text-white'>

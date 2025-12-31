@@ -13,7 +13,6 @@ import { BookingType } from "@/types/booking.types";
 import { formatDate } from "@/utils/dateFormatter";
 import { formatTime } from "@/utils/timeFormatter";
 import nairaSymbol from "@/utils/symbols";
-import Button from "@/components/ui/Button";
 import { useUpdateBookingMutation } from "@/redux/services/user/booking/booking.api";
 import { toast } from "react-toastify";
 import { AuthToast } from "@/components/toast/ToastMessage";
@@ -36,8 +35,7 @@ const DashboardBookingDetails = ({
 
   // if client is late based on bookign time and checkin time let the checking timeline be red
   const timeLineLevel = 5;
-  if (isLoading) return <p>Loading booking details...</p>;
-  if (!booking) return <p>No booking found.</p>;
+
 
   const handleCancelBooking = async () => {
     if (!booking._id) return;
@@ -86,7 +84,9 @@ const DashboardBookingDetails = ({
       >
         <DashboardIcons value='arrow-left-outlined-black' />
       </button>
-      <div className='flex flex-col-reverse gap-10 sm:flex-row sm:gap-32'>
+      {/* Timelins & Booking details  */}
+
+      {isLoading ? <span className="text-white">Loading...</span> : !booking ? <span className="text-white">No booking found</span> : <div className='flex flex-col-reverse gap-10 sm:flex-row sm:gap-32'>
         {/* Timeline  */}
         <div className='h-[720px] w-full border-t-[1px] border-gray-50 p-4 shadow sm:h-[610px] sm:w-[50%] sm:border-none'>
           <DashboardHeader
@@ -116,16 +116,15 @@ const DashboardBookingDetails = ({
                 {formatDate(booking.date)}, {formatTime(booking.startTime)}
               </p>
             </div>
-            <div className='flex w-full items-center gap-10 capitalize sm:justify-between'>
-              <p className='font-bold'>location</p>
+            <div className='flex w-full items-center capitalize justify-between'>
+              <p className='font-bold'>Address</p>
               <p className='font-medium'>{booking.location?.address}</p>
             </div>
-            <div className='flex w-full items-center justify-end capitalize'>
-              {/* <p className='font-bold'>photographer</p> */}
-              {/* <p className='font-medium'>ekong emmanuel</p> */}
-              {/* <p className='font-bold'></p> */}
+            <div className='flex w-full items-center capitalize justify-between'>
+              <p className='font-bold'>State</p>
               <p className='font-medium'>{booking.location?.state}</p>
             </div>
+
             <div className='flex flex-col gap-7 rounded-md py-5'>
               <div className='flex w-full items-center justify-between capitalize'>
                 <p className='font-bold'>total</p>
@@ -149,21 +148,22 @@ const DashboardBookingDetails = ({
             </div>
             {booking.status !== "cancelled" && (
               <div>
-                <Button
+                <button className=" bg-red-600 font-semibold text-white py-3 px-4 text-sm  rounded-md" onClick={async () => await handleCancelBooking()}>{updateBookingLoading ? "Cancelling..." : "Cancel booking"}</button>
+                {/* <Button
                   size='md'
                   variant='danger'
-                  text={"Cancel booking"}
+                  text={""}
                   icon={<RedirectArrowWhite />}
                   loading={updateBookingLoading}
                   iconPosition='right'
                   className='w-auto'
-                  onClick={async () => await handleCancelBooking()}
-                />
+                 
+                /> */}
               </div>
             )}
           </div>
         </div>
-      </div>
+      </div>}
 
       {/* Photo selection and download  */}
       <div className='mt-2 rounded-lg py-5 text-white sm:px-5'>
