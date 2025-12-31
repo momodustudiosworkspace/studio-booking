@@ -67,6 +67,7 @@ const DashboardSessionAndPackages = () => {
         href: "",
       }}
     >
+      {isStatsLoading && <p className=''>Loading...</p>}
       {/* Session & package analytics  */}
       <div className='mb-14 flex w-full flex-col items-center gap-4 sm:flex-row'>
         {analytics.map((card, key) => (

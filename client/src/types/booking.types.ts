@@ -32,7 +32,7 @@ export interface BookingType {
   status?: undefined | "pending" | "confirmed" | "completed" | "cancelled";
   notes?: string | null;
   price?: number | null;
-  paymentStatus?: "pending" | "paid" | "refunded";
+  paymentStatus?: "pending" | "success" | "refunded";
   paymentReference?: string | null;
   cancelReason?: string | null;
   rescheduledFrom?: string | null;

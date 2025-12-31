@@ -5,5 +5,6 @@ export interface AdminDashBoardStatsTypeResponse {
     totalPayments: number;
     totalClients: number;
     totalRevenue: number;
+    totalStaff: number;
   };
 }

@@ -92,8 +92,8 @@ const DashboardBookingDetails = ({
       headerProps={{
         // headerText: "potrait session- ms1234",
         headerText: `${booking.sessionTitle} session - ms${booking._id?.slice(0, 6)}`,
-        badge: `${booking.status}`,
-        badgeStatus: booking.status,
+        badge: `Payment - ${booking.status}`,
+        badgeStatus: booking.paymentStatus,
         badgeClass: "",
         paragraph: `${formatDate(booking.date)} at ${formatTime(booking.startTime)} | ${booking.location?.address} ${booking.location?.state}`,
         linkText: "Reschedule",
@@ -111,7 +111,7 @@ const DashboardBookingDetails = ({
         <DashboardIcons value='arrow-left-outlined-black' />
       </button>
 
-      {isLoading ? <p>Loading booking details...</p> : (booking.status === "completed" ? <div className='mb-10 w-full rounded-md bg-white p-5 shadow sm:w-[600px]'>
+      {isLoading ? <p>Loading booking details...</p> : (booking.paymentStatus === "success" || booking.paymentStatus === "pending" ? <div className='mb-10 w-full rounded-md bg-white p-5 shadow sm:w-[600px]'>
         <div className='flex flex-col-reverse justify-between gap-10 sm:flex-row'>
           <div>
             <p className='mb-2 font-bold sm:mb-0 sm:text-xl'>Staff assigned: </p>
@@ -181,16 +181,15 @@ const DashboardBookingDetails = ({
                 {formatDate(booking.date)}, {formatTime(booking.startTime)}
               </p>
             </div>
-            <div className='flex w-full items-center gap-10 capitalize sm:justify-between'>
-              <p className='font-bold'>location</p>
+            <div className='flex w-full items-center justify-between'>
+              <p className='font-bold'>address</p>
               <p className='font-medium'>{booking.location?.address}</p>
             </div>
-            <div className='flex w-full items-center justify-end capitalize'>
-              {/* <p className='font-bold'>photographer</p> */}
-              {/* <p className='font-medium'>ekong emmanuel</p> */}
-              {/* <p className='font-bold'></p> */}
+            <div className='flex w-full items-center justify-between'>
+              <p className='font-bold'>state</p>
               <p className='font-medium'>{booking.location?.state}</p>
             </div>
+
             <div className='flex flex-col gap-7 rounded-md py-5'>
               <div className='flex w-full items-center justify-between capitalize'>
                 <p className='font-bold'>total</p>
@@ -214,7 +213,7 @@ const DashboardBookingDetails = ({
             </div>
             {booking.status !== "cancelled" && (
               <div>
-                <button className="font-medium  bg-red-300 text-red-600 py-3 px-4 border text-sm border-red-600 rounded-md" onClick={async () => await handleCancelBooking()}>{updateBookingLoading ? "Cancelling..." : "Cancel booking"}</button>
+                <button className=" font-semibold bg-red-600  text-white py-3 px-4 border text-sm  rounded-md" onClick={async () => await handleCancelBooking()}>{updateBookingLoading ? "Cancelling..." : "Cancel booking"}</button>
                 {/* <Button
                   size='md'
                   variant='danger'

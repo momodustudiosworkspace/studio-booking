@@ -8,7 +8,7 @@ import BetterWorkFlow from "@/components/BetterWorkFlow";
 import Blogs from "@/components/Blogs";
 // import CarouselContainer from "@/components/CarouselContainer";
 // import CardTwo from "@/components/cards/CardTwo";/
-import Collaborations from "@/components/Collaborations";
+// import Collaborations from "@/components/Collaborations";
 import Faqs from "@/components/Faqs";
 import Hero from "@/components/Hero";
 import JoinStudioCommunity from "@/components/JoinStudioCommunity";
@@ -20,7 +20,7 @@ import PricingList from "@/components/PricingList";
 // import SectionHeader from "@/components/SectionHeader";
 // import Statistics from "@/components/Statistics";
 import StudioMerch from "@/components/StudioMerch";
-import StudioServices from "@/components/StudioServices";
+// import StudioServices from "@/components/StudioServices";
 import LinkButton from "@/components/ui/LinkButton";
 // import Image from "next/image";
 
@@ -79,7 +79,7 @@ export default function Page() {
           <NewsLetter />
 
           {/* Collaborations  */}
-          <Collaborations />
+          {/* <Collaborations /> */}
 
           {/* Everything you need  */}
           <AccessMediaFiles />
@@ -103,7 +103,7 @@ export default function Page() {
           <MediaSpaceAlert />
 
           {/* Studio Services */}
-          <StudioServices />
+          {/* <StudioServices /> */}
 
           {/* Blogs  */}
           <Blogs />

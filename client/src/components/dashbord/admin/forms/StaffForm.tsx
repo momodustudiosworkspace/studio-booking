@@ -53,7 +53,7 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
             const response = await inviteStaff({
               ...values,
               role: values.role as
-                | "engineer"
+                | "retoucher"
                 | "photographer"
                 | "producer"
                 | "manager"
@@ -151,7 +151,7 @@ const StaffForm = ({ setOpen }: StaffFormProps) => {
                   errors.role && touched.role ? "border-red-500" : ""
                 } bg-white text-black`}
               >
-                <option value='engineer'>Retoucher</option>
+                <option value='retoucher'>Retoucher</option>
                 <option value='photographer'>Photographer</option>
                 <option value='videographer'>Videographer</option>
                 <option value='producer'>Producer</option>

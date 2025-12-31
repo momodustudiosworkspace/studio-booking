@@ -41,7 +41,7 @@ const DashboardHeader = ({
             <span
               className={`${badgeClass} ${bagdeStatusStyle} flex items-center justify-center rounded-full px-2 py-1 text-xs font-semibold text-white capitalize`}
             >
-              {badge}
+              {badge} 
             </span>
           )}
         </div>

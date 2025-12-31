@@ -6,6 +6,8 @@ import swaggerUI from "swagger-ui-express"
 import swaggerOpenapiSpecification from "./config/swagger.config";
 import morgan from "morgan"
 
+
+
 // API routes  
 
 // Admin API routes 
@@ -25,12 +27,24 @@ import bookingRoutes from "./routes/user/booking.routes";
 import packagesRoutes from "./routes/user/packages.routes"
 import paymentRoutes from "./routes/user/payment.routes"
 import userRouters from "./routes/user/user.routers"
+import { moniepointWebhook } from "./controllers/webhooks/moniepoint.webhook";
 
 
 
 dotenv.config()
 
+
+
 const app = express()
+
+
+// ✅ RAW body ONLY for Moniepoint webhook
+app.post(
+  "/webhooks/moniepoint",
+  express.raw({ type: "application/json" }),
+ moniepointWebhook
+);
+
 
 app.use(cors())
 app.use(express.json())
@@ -61,6 +75,32 @@ app.use("/api/user",userRouters)
 
 // Packages endpoint 
 app.use("/api/bookings/packages", packagesRoutes)
+
+
+
+
+// async function handlePaymentSuccess(data:{reference:string, amount:number}) {
+//   const reference = data.reference;
+
+//   // Example:
+//   // reference = BOOKING_abc123
+
+//   const booking = await Booking.findOne({ reference });
+
+//   if (!booking) {
+//     console.error("Booking not found for reference:", reference);
+//     return;
+//   }
+
+//   booking.paymentStatus = "success";
+//   // booking. = new Date();
+//   booking.price = data.amount;
+
+//   await booking.save();
+
+//   console.log("✅ Booking marked as PAID:", reference);
+// }
+
 
 
 

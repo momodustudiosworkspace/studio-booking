@@ -16,8 +16,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   console.log("Booking id:", id);
   console.log("Booking:", booking);
 
-  if (isLoading) return <p>Loading booking details...</p>;
-  if (!booking) return <p>No booking found.</p>;
+  if (isLoading) return <p className="text-white px-4">Loading booking details...</p>;
+  if (!booking) return <p className="text-white px-4">No booking found.</p>;
 
   return (
     <section className='w-full'>

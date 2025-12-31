@@ -7,7 +7,7 @@ interface DashboardHeaderProps {
   paragraph: string;
   linkText?: string;
   badge?: string | undefined;
-  badgeStatus?: "pending" | "confirmed" | "completed" | "cancelled" | undefined;
+  badgeStatus?: "pending" | "confirmed" | "completed" | "cancelled" | "refunded" | "success" | undefined;
   badgeClass?: string | undefined;
   href?: string;
 }
@@ -23,13 +23,14 @@ const DashboardHeader = ({
   const bagdeStatusStyle =
     badgeStatus === "cancelled"
       ? "bg-red-200 text-red-500"
-      : badgeStatus === "completed"
-        ? "bg-[#0362001A] text-[#036200]"
+      : badgeStatus === "success"
+        ? "bg-green-100 text-green-700"
         : badgeStatus === "pending"
           ? "bg-blue-300 text-blue-600"
           : badgeStatus === undefined
             ? "bg-[#E595001A] text-[#E59500]"
             : "";
+  const badgeText = badgeStatus === "success" ? "Completed" : badge;
   return (
     <div className='flex w-full flex-col gap-5 sm:flex-row sm:items-end sm:justify-between'>
       <div>
@@ -37,11 +38,12 @@ const DashboardHeader = ({
           <h1 className='text-[22px] font-bold capitalize sm:text-[24px]'>
             {headerText}
           </h1>
+
           {badge && (
             <span
               className={`${badgeClass} ${bagdeStatusStyle} flex items-center justify-center rounded-full px-2 py-1 text-xs font-semibold capitalize`}
             >
-              {badge}
+              {badgeText} 
             </span>
           )}
         </div>

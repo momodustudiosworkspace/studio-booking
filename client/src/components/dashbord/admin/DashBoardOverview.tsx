@@ -70,10 +70,10 @@ const DashBoardOverview = () => {
         dataType: 1,
       },
       {
-        title: "upcoming bookings",
-        count: stats?.data.totalClients || 0,
+        title: "total staff",
+        count: stats?.data.totalStaff || 0,
         linkText: "View all",
-        href: "/bookings",
+        href: "/admin/dashboard/staff-management",
         dataType: 0,
       },
     ];
@@ -81,6 +81,7 @@ const DashBoardOverview = () => {
     stats?.data.totalBookings,
     stats?.data.totalClients,
     stats?.data.totalRevenue,
+    stats?.data.totalStaff,
   ]);
 
   return (
@@ -106,8 +107,7 @@ const DashBoardOverview = () => {
           ))}
         </div>
 
-        {isLoading && <p className='text-black'>Loading...</p>}
-        {error && <p className='text-black'>Failed to load data</p>}
+
 
         {/* Bookings table  */}
         <section className='max-h-auto mb-10 w-full rounded-md border-[1px] border-[#F2F2F2] shadow'>
@@ -117,28 +117,8 @@ const DashBoardOverview = () => {
               headerText={"Bookings"}
               paragraph={"All bookings record"}
             />
-            {/* <div className='flex items-center gap-10'>
-              <div className='relative w-full'>
-                <div className=''>
-                  <div className='absolute top-3 left-1 text-[14px] font-semibold capitalize underline'>
-                    <DashboardIcons value='search-outlined-black' />
-                  </div>
-                  <input
-                    type='text'
-                    placeholder='Search'
-                    name='discount_code'
-                    className='h-[37px] w-full border-b-[1px] border-white bg-white pr-2 pl-7 text-[14px] outline-0 transition-all ease-in-out focus:border-b-2 sm:w-[224px] sm:border-black'
-                  />
-                </div>
-              </div>
-              <div className='relative w-full'>
-                <button className='flex items-center gap-2 rounded-md bg-[#FAFAFA] px-4 py-2'>
-                  <DashboardIcons value='filter-outlined-black' />
-                  <p>Filter</p>
-                  <DashboardIcons value='down-arrow-outlined-black' />
-                </button>
-              </div>
-            </div> */}
+            {isLoading && <p className='text-black'>Loading...</p>}
+            {error && <p className='text-black'>Failed to load data</p>}
           </div>
 
           {/* booking Table  */}

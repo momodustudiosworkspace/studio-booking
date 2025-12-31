@@ -91,7 +91,7 @@ const DashboardPayment = () => {
     // const paymentookingDate = payment.date;
     return payment.status === "success";
   });
-  if (isLoading) return <p className='text-white'>Loading...</p>;
+
   // if (error) return "Failed to load data";
 
   const TABS = [
@@ -101,6 +101,7 @@ const DashboardPayment = () => {
   ];
 
   const renderpayments = (data: AllPaymentResponse[]) => {
+    if (isLoading) return <p className=''>Loading...</p>;
     if (!data.length)
       return (
         <p className='flex h-[100px] w-full items-center justify-center'>
