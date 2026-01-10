@@ -2,7 +2,9 @@
 
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { resetBookingState } from "@/redux/slices/bookingSlice";
+import nairaSymbol from "@/utils/symbols";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useState } from "react";
 // import { toast } from "react-toastify";
 // import { AuthToast } from "../toast/ToastMessage";
@@ -75,12 +77,13 @@ const BookingPayment = ({
 
   return (
     <div className="">
-      <div className="bg-white rounded-2xl p-6">
+      <div className="bg-white rounded-2xl p-4">
         {/* <p>Make payment to the account details below:</p>  */}
-        <ul className="mb-4">
+        <ul className="mb-4 flex flex-col gap-3">
           <li><strong>Bank name </strong>: Zenith Bank</li>
-          <li><strong>Account number</strong>: 1218811149 <button className="border-gray-500 border-[1px] rounded px-2 py-1 ml-2 text-gray-500 text-sm" onClick={() => handleCopy("1218811149")}>{isCopied ? 'Copied! 🎉' : 'Copy'}</button></li>
-          <li><strong>Account name</strong>: Momodu Studios Venture Limited</li>
+          <li className="flex items-center"><strong>Account number</strong>: 1218811149 <button className="ml-2" onClick={() => handleCopy("1218811149")}>{isCopied ? 'Copied!' : <Image src={"/copy-and-paste.svg"} alt="copy and" width={25} height={25} />}</button></li>
+          <li><strong>Account name</strong>: Momodu Studios</li>
+          <li><strong>Amount</strong>: {nairaSymbol()} {booking.package?.price?.toLocaleString()}</li>
         </ul>
         <hr />
         <div className="mt-10">
