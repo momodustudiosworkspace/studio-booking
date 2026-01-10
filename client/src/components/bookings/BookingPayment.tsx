@@ -79,7 +79,7 @@ const BookingPayment = ({
         {/* <p>Make payment to the account details below:</p>  */}
         <ul className="mb-4">
           <li><strong>Bank name </strong>: Zenith Bank</li>
-          <li><strong>Account number</strong>: 121881149 <button className="border-gray-500 border-[1px] rounded px-2 py-1 ml-2 text-gray-500 text-sm" onClick={() => handleCopy("121881149")}>{isCopied ? 'Copied! 🎉' : 'Copy'}</button></li>
+          <li><strong>Account number</strong>: 1218811149 <button className="border-gray-500 border-[1px] rounded px-2 py-1 ml-2 text-gray-500 text-sm" onClick={() => handleCopy("1218811149")}>{isCopied ? 'Copied! 🎉' : 'Copy'}</button></li>
           <li><strong>Account name</strong>: Momodu Studios Venture Limited</li>
         </ul>
         <hr />
