@@ -47,9 +47,9 @@ const AuthForm = ({
   return (
     <div className='mt-10 h-full w-full text-white sm:mt-0 sm:flex sm:text-black'>
       <div
-        className={`relative hidden h-full w-[50%] ${adminAuth && "flex flex-col items-center justify-center bg-black"} sm:flex`}
+        className={`relative hidden h-full w-[70%] ${adminAuth && "flex-col items-center justify-center"} sm:flex`}
       >
-        <div className='absolute h-full w-full'></div>
+
 
         {/* User auth  */}
         {!adminAuth && (
@@ -64,9 +64,12 @@ const AuthForm = ({
           <div className='h-full w-full bg-black'>
             <div
               aria-hidden='true'
-              className='pointer-events-none lg:absolute lg:inset-y-0 lg:w-full lg:max-w-7xl'
+              className='pointer-events-none lg:inset-y-0 flex justify-center flex-col items-center h-full'
             >
-              <div className='absolute transform pt-52 sm:top-0 sm:translate-x-8 lg:top-1/2 lg:left-28 lg:translate-x-8 lg:-translate-y-1/2 lg:pt-0'>
+              <h3 className='py-6 text-2xl font-extrabold max-w-xl text-white'>
+                Manage all of your media exprience, data and folders in one place.
+              </h3>
+              <div className=''>
                 <div className='flex items-center space-x-6 lg:space-x-8'>
                   <div className='grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8'>
                     <div className='h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100'>
@@ -139,11 +142,14 @@ const AuthForm = ({
                   </div>
                 </div>
               </div>
-              <div className='absolute bottom-20 left-1/2 max-w-md'>
-                <h3 className='text-white'>
-                  Manage all of your media data in one place.
-                </h3>
-              </div>
+
+
+              <p className='py-6 text-white max-w-xl'>We provide a seamless experience for managing all of your media data in one place.
+                <br />
+                <br />
+                Our intuitive platform allows you to easily organize, access, and share your media files with just a few clicks.
+              </p>
+
             </div>
           </div>
         )}
@@ -168,6 +174,8 @@ const AuthForm = ({
         }
       </div>
 
+
+      {/* Form Section  */}
       <div className='flex w-full flex-col sm:w-[50%] sm:items-center sm:justify-center'>
         <div className='w-full sm:w-[450px]'>
           {/* Logo mobile */}
