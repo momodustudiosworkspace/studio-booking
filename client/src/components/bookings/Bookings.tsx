@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { BaseIcons } from "@/assets/icons/BaseIcons";
-import ChooseBookingSession from "./ChooseBookingSession";
+import BookingSessions from "./BookingSessions";
 import { useRouter } from "next/navigation";
 import Button from "../ui/Button";
 import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
@@ -58,114 +58,114 @@ const Bookings = (): React.JSX.Element => {
     header: string;
     paragraph: string;
   }[] = [
-    {
-      id: 1,
-      component: (
-        <ChooseBookingSession
-          bookingSession={bookingData.sessionType}
-          setBookingStep={setBookingStep}
-        />
-      ),
-      header: "Choose Your Session",
-      paragraph: "Click to select a session that suits your needs",
-    },
-    {
-      id: 2,
-      component: (
-        <BookingPackages
-          bookingPackage={{
-            title: bookingData.package?.title || null,
-            price: bookingData.package?.price || null,
-            sessionId: bookingData.sessionType || null,
-          }}
-          setBookingStep={setBookingStep}
+      {
+        id: 1,
+        component: (
+          <BookingSessions
+            bookingSession={bookingData.sessionType}
+            setBookingStep={setBookingStep}
+          />
+        ),
+        header: "Choose Your Session",
+        paragraph: "Click to select a session that suits your needs",
+      },
+      {
+        id: 2,
+        component: (
+          <BookingPackages
+            bookingPackage={{
+              title: bookingData.package?.title || null,
+              price: bookingData.package?.price || null,
+              sessionId: bookingData.sessionType || null,
+            }}
+            setBookingStep={setBookingStep}
           // setReserveSlot={values => setReserveSlot({ ...values })}
-        />
-      ),
-      header: `Select from ${bookingData.sessionTitle} packages`,
-      paragraph: "We’ll hold your slot while you complete checkout",
-    },
-    {
-      id: 3,
-      component: (
-        <BookingCalendar
-          selectedBookingDate={bookingData.date || null}
-          selectedBookingStartTime={bookingData.startTime || null}
-          setOnProceed={setOnProceed}
-          setBookingTimeSelected={setBookingTimeSelected}
-        />
-      ),
-      header: "reserve a slot",
-      paragraph: "We’ll hold your slot while you complete checkout",
-    },
-    {
-      id: 4,
-      component: (
-        <BookingsLocation
-          selectedBookingLocation={bookingData.location}
-          selectedDefaultLocation={bookingData.defaultLocation || null}
-          setOnProceed={setOnProceed}
-        />
-      ),
-      header: "Choose location",
-      paragraph: "We’ll hold your slot while you complete checkout",
-    },
-    {
-      id: 5,
-      component: (
-        <BookingsPreview
-          location={bookingData.location}
-          price={bookingData.package?.price}
-          sessionTitle={bookingData.sessionTitle}
-          defaultLoacation={bookingData.defaultLocation}
-          proceedBtnRef={proceedBtnRef}
-        />
-      ),
-      header: "preview",
-      paragraph: "We’ll hold your slot while you complete checkout",
-    },
-    {
-      id: 6,
-      component: (
-        <BookingPayment
-          setPaymentCompleted={value => setPaymentCompleted(value)}
-          setBookingStep={value => setBookingStep(value)}
+          />
+        ),
+        header: `Select from ${bookingData.sessionTitle} packages`,
+        paragraph: "We’ll hold your slot while you complete checkout",
+      },
+      {
+        id: 3,
+        component: (
+          <BookingCalendar
+            selectedBookingDate={bookingData.date || null}
+            selectedBookingStartTime={bookingData.startTime || null}
+            setOnProceed={setOnProceed}
+            setBookingTimeSelected={setBookingTimeSelected}
+          />
+        ),
+        header: "reserve a slot",
+        paragraph: "We’ll hold your slot while you complete checkout",
+      },
+      {
+        id: 4,
+        component: (
+          <BookingsLocation
+            selectedBookingLocation={bookingData.location}
+            selectedDefaultLocation={bookingData.defaultLocation || null}
+            setOnProceed={setOnProceed}
+          />
+        ),
+        header: "Choose location",
+        paragraph: "We’ll hold your slot while you complete checkout",
+      },
+      {
+        id: 5,
+        component: (
+          <BookingsPreview
+            location={bookingData.location}
+            price={bookingData.package?.price}
+            sessionTitle={bookingData.sessionTitle}
+            defaultLoacation={bookingData.defaultLocation}
+            proceedBtnRef={proceedBtnRef}
+          />
+        ),
+        header: "preview",
+        paragraph: "We’ll hold your slot while you complete checkout",
+      },
+      {
+        id: 6,
+        component: (
+          <BookingPayment
+            setPaymentCompleted={value => setPaymentCompleted(value)}
+            setBookingStep={value => setBookingStep(value)}
           // id={boo}
           // location={bookingData.location}
           // price={bookingData.package?.price}
           // sesstionType={bookingData.sessionType}
           // proceedBtnRef={proceedBtnRef}
-        />
-      ),
-      header: "Payment",
-      paragraph: "Complete payment to secure booking session.",
-    },
-    {
-      id: 7,
-      component: (
-        <PageMessage
-          status={paymentCompleted ? "success" : "error"}
-          messageHeader={
-            paymentCompleted && bookingStep === 6
-              ? "Booking completed"
-              : "Booking failed"
-          }
-          // Pass error message from server
-          messageParagraph={
-            paymentCompleted && bookingStep === 6
-              ? "You can visit your dashbord to view all bookings"
-              : "There was an issue completing your booking."
-          }
-          btnText={
-            paymentCompleted && bookingStep === 6 ? "Go to dashboard" : ""
-          }
-          href={paymentCompleted && bookingStep === 6 ? "/dashboard" : ""}
-        />
-      ),
-      header: "",
-      paragraph: "",
-    },
-  ];
+          />
+        ),
+        header: "Payment",
+        paragraph: "Complete payment to secure booking session.",
+      },
+      {
+        id: 7,
+        component: (
+          <PageMessage
+            status={paymentCompleted ? "success" : "error"}
+            messageHeader={
+              paymentCompleted && bookingStep === 6
+                ? "Booking completed"
+                : "Booking failed"
+            }
+            // Pass error message from server
+            messageParagraph={
+              paymentCompleted && bookingStep === 6
+                ? "You can visit your dashbord to view all bookings"
+                : "There was an issue completing your booking."
+            }
+            btnText={
+              paymentCompleted && bookingStep === 6 ? "Go to dashboard" : ""
+            }
+            href={paymentCompleted && bookingStep === 6 ? "/dashboard" : ""}
+          />
+        ),
+        header: "",
+        paragraph: "",
+      },
+    ];
 
   const handleBookingStepsProceed = async () => {
     if (!proceedBtnRef.current) {
@@ -376,7 +376,7 @@ const Bookings = (): React.JSX.Element => {
                   iconPosition='right'
                   className='w-[180px]'
                   size='md'
-                  // loading={isSubmitting}
+                // loading={isSubmitting}
                 />
               </div>
             )}
