@@ -8,8 +8,9 @@ import { useAppDispatch } from "@/hooks/hooks";
 import { useGetSessionsQuery } from "@/redux/services/user/booking/sessions.api";
 import { setBookingSessionType } from "@/redux/slices/bookingSlice";
 import { ISession } from "@/types/session.types";
+import Image from "next/image";
 
-interface ChooseBookingSessionProps {
+interface BookingSessionsProps {
   bookingSession: string | null | undefined;
   setBookingStep: (step: number) => void;
 }
@@ -19,10 +20,10 @@ const emblaOptions: EmblaOptionsType = {
   containScroll: "trimSnaps",
 };
 
-const ChooseBookingSession = ({
+const BookingSessions = ({
   bookingSession,
   setBookingStep,
-}: ChooseBookingSessionProps): React.JSX.Element => {
+}: BookingSessionsProps): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const { data, isLoading } = useGetSessionsQuery();
 
@@ -43,15 +44,12 @@ const ChooseBookingSession = ({
     const index = emblaApi.selectedScrollSnap();
     const session = BOOKING_SESSIONS[index];
     if (session) {
-      setSelectedSession(session._id);
+      setSelectedSession(prev =>
+        prev === session._id ? prev : session._id
+      );
+
     }
   }, [emblaApi, BOOKING_SESSIONS]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on("select", onSelect);
-    onSelect();
-  }, [emblaApi, onSelect]);
 
   const handleSelect = (session: ISession, index: number) => {
     setSelectedSession(session._id);
@@ -68,6 +66,19 @@ const ChooseBookingSession = ({
     setBookingStep(1);
   };
 
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    emblaApi.on("select", onSelect);
+
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+
+
   return (
     <div className='w-[350px] rounded-lg sm:w-[750px]'>
       {isLoading && <p className='text-white'>Loading sessions...</p>}
@@ -81,20 +92,26 @@ const ChooseBookingSession = ({
             <div key={session._id} className='min-w-[80%] sm:min-w-[40%]'>
               <button
                 onClick={() => handleSelect(session, index)}
-                className={`group relative h-[380px] w-full overflow-hidden rounded-lg transition ${
-                  selectedSession === session._id
-                    ? "ring-2 ring-black"
-                    : "ring-1 ring-transparent"
-                }`}
+                className={`group relative h-[380px] w-full overflow-hidden rounded-lg transition ${selectedSession === session._id
+                  ? "ring-2 ring-black"
+                  : "ring-1 ring-transparent"
+                  }`}
               >
                 {/* Background Image */}
                 <div
                   className='absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110'
-                  style={{
-                    backgroundImage: `url("${session.imageUrl}")`,
-                  }}
+                // style={{
+                //   backgroundImage: `url("${session.imageUrl}")`,
+                // }}
                 />
-
+                <Image
+                  src={session.imageUrl}
+                  alt={session.title}
+                  fill
+                  loading="lazy"
+                  draggable={false}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                />
                 {/* Dark Gradient Overlay */}
                 <div className='absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 transition-opacity duration-500 ease-in-out group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90' />
 
@@ -117,19 +134,18 @@ const ChooseBookingSession = ({
       </div>
 
       {/* Thumbs / Indicators */}
-      {/* <div className='mt-4 flex justify-center gap-2'>
+      <div className='mt-4 flex justify-center gap-2'>
         {BOOKING_SESSIONS.map((session, index) => (
           <button
             key={session._id}
             onClick={() => emblaApi?.scrollTo(index)}
-            className={`h-2 w-2 rounded-full transition ${
-              selectedSession === session._id ? "bg-white" : "bg-gray-500"
-            }`}
+            className={`h-2 w-2 rounded-full transition ${selectedSession === session._id ? "bg-white" : "bg-gray-500"
+              }`}
           />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 };
 
-export default ChooseBookingSession;
+export default BookingSessions;

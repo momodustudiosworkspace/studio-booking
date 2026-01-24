@@ -10,37 +10,37 @@ const Faqs = (): React.JSX.Element => {
     question: string;
     answer: string;
   }[] = [
-    {
-      id: 1,
-      question: "How do I book a photoshoot?",
-      answer:
-        "You can book directly on our website in just a few clicks. Select your service, choose a date and time, make your payment, and you’re all set!",
-    },
-    {
-      id: 2,
-      question: "Can I reschedule my session?",
-      answer:
-        "You can book directly on our website in just a few clicks. Select your service, choose a date and time, make your payment, and you’re all set!",
-    },
-    {
-      id: 3,
-      question: "How  do i get my pictures?",
-      answer:
-        "You can book directly on our website in just a few clicks. Select your service, choose a date and time, make your payment, and you’re all set!",
-    },
-    {
-      id: 4,
-      question: "Can I request edits on my photos?",
-      answer:
-        "You can book directly on our website in just a few clicks. Select your service, choose a date and time, make your payment, and you’re all set!",
-    },
-    {
-      id: 5,
-      question: "Do you travel for shoots?",
-      answer:
-        "You can book directly on our website in just a few clicks. Select your service, choose a date and time, make your payment, and you’re all set!",
-    },
-  ];
+      {
+        id: 1,
+        question: "How do I book a photoshoot?",
+        answer:
+          "You can book directly on our website in just a few clicks. Select your service, choose a date and time, make your payment, and you’re all set!",
+      },
+      {
+        id: 2,
+        question: "Can I reschedule my session?",
+        answer:
+          "Yes, you can reschedule your session up to 48 hours before the scheduled time without any additional fees. Just contact our support team or use the rescheduling option on our website.",
+      },
+      {
+        id: 3,
+        question: "How  do i get my pictures?",
+        answer:
+          "Login to your account on our website, navigate to the 'My Gallery' section, and you can download your pictures directly from there. You'll also receive an email with a download link once your photos are ready.",
+      },
+      {
+        id: 4,
+        question: "Can I request edits on my photos?",
+        answer:
+          "Absolutely! We offer basic editing services such as color correction and cropping. If you have specific requests, please let us know, and we will do our best to accommodate them. Just use the 'Message studio' button on the gallery page",
+      },
+      {
+        id: 5,
+        question: "Do you travel for shoots?",
+        answer:
+          "Yes, we offer travel services for our clients. We can travel to your location or any other venue of your choice. When booking just select 'OUTDOOR' as your photoshoot type and provide the location details.",
+      },
+    ];
   return (
     <div className='mx-auto flex w-full max-w-7xl flex-col px-4 sm:flex-row sm:justify-between'>
       <div className='sm:w-[30%] sm:pl-5'>

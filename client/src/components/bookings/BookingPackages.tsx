@@ -29,8 +29,9 @@ const BookingPackages = ({
   // setOnProceed,
   setBookingStep,
 }: BookingsPackagesProps): React.JSX.Element => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions);
 
+  const dispatch = useAppDispatch();
+  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions);
   const { data, isLoading } = useGetPackagesQuery(
     { sessionId: bookingPackage?.sessionId || "" },
     {
@@ -38,14 +39,14 @@ const BookingPackages = ({
       pollingInterval: 300000,
     }
   );
-
-  const SESSIONS_PACKAGES = useMemo(() => data?.data || [], [data?.data]);
   const [selectedSessionPackage, setSelectedSessionPackage] = useState<
     string | null
   >("");
+
+
+  const SESSIONS_PACKAGES = useMemo(() => data?.data || [], [data?.data]);
   console.log("data: ", data?.data);
 
-  const dispatch = useAppDispatch();
   // const [selectedPackage, setSelectedPackage] = useState<PackageProps | null>(
   //   bookingPackage || null
   // );
@@ -192,11 +193,10 @@ const BookingPackages = ({
             <button
               key={sessionPackage.title}
               onClick={() => emblaApi?.scrollTo(index)}
-              className={`h-2 w-2 rounded-full transition ${
-                selectedSessionPackage === sessionPackage.title
-                  ? "bg-white"
-                  : "bg-gray-800"
-              }`}
+              className={`h-2 w-2 rounded-full transition ${selectedSessionPackage === sessionPackage.title
+                ? "bg-white"
+                : "bg-gray-800"
+                }`}
             />
           ))}
         </div>
