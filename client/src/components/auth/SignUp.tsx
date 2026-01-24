@@ -2,8 +2,6 @@
 import React from "react";
 import AuthForm from "./AuthForm";
 import { Field, Form, Formik } from "formik";
-import Button from "../ui/Button";
-import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
@@ -152,16 +150,12 @@ const SignUp = ({ signin, setSignin }: SignUpProps): React.JSX.Element => {
             </div>
 
             <div className='flex w-full justify-end'>
-              <Button
-                text='Sign Up'
-                onClick={() => console.log(values)}
-                icon={<RedirectArrowWhite />}
-                disabled={!values.agree || isSubmitting}
-                iconPosition='right'
-                className='w-[124px]'
-                size='md'
-                loading={isSubmitting}
-              />
+              <div className='-mt-5 flex w-full justify-end'>
+                <button type="submit" className='mb-10 gap-2 items-center rounded-md border border-transparent bg-linear-to-r bg-black flex px-2 py-2 text-center font-semibold text-white' disabled={isSubmitting} onClick={() => console.log(values)
+                }>
+                  Sign Up {isSubmitting && <div className='h-4 w-4 animate-spin rounded-full border-4 border-white border-t-transparent'></div>}
+                </button>
+              </div>
             </div>
           </Form>
         )}

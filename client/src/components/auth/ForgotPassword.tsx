@@ -2,8 +2,6 @@
 import React from "react";
 import AuthForm from "./AuthForm";
 import { Field, Form, Formik } from "formik";
-import Button from "../ui/Button";
-import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import { useRouter } from "next/navigation";
 import { useSendOtpMutation } from "@/redux/services/user/auth/auth.api";
 import { toast } from "react-toastify";
@@ -71,18 +69,11 @@ const ForgotPassword = (): React.JSX.Element => {
               <Link href='/auth' className='underline'>
                 Back to Login
               </Link>
-              <Button
-                text='Proceed'
-                onClick={() => {
-                  console.log(values);
-                }}
-                icon={<RedirectArrowWhite />}
-                disabled={values.email.length < 5 || isSubmitting || isLoading}
-                iconPosition='right'
-                loading={isLoading}
-                className='w-[125px]'
-                size='md'
-              />
+
+              <button type="submit" className='mb-10 gap-2 items-center rounded-md border border-transparent bg-linear-to-r bg-black flex px-2 py-2 text-center font-semibold text-white' disabled={values.email.length < 5 || isSubmitting || isLoading} onClick={() => console.log(values)
+              }>
+                Proceed {isLoading && <div className='h-4 w-4 animate-spin rounded-full border-4 border-white border-t-transparent'></div>}
+              </button>
             </div>
           </Form>
         )}

@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import AuthForm from "./AuthForm";
 import { Form, Formik } from "formik";
-import Button from "../ui/Button";
-import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import { useRouter, useSearchParams } from "next/navigation";
 import OTPInput from "react-otp-input";
 import { useVerifyOtpMutation } from "@/redux/services/user/auth/auth.api";
@@ -93,18 +91,10 @@ const Otp = (): React.JSX.Element => {
             />
 
             <div className='flex w-full justify-end'>
-              <Button
-                text='Verify OTP'
-                onClick={() => {
-                  console.log(values);
-                }}
-                icon={<RedirectArrowWhite />}
-                disabled={values.otp.length < 5 || isSubmitting}
-                iconPosition='right'
-                className='w-[145px]'
-                loading={isLoading}
-                size='md'
-              />
+              <button type="submit" className='mb-10 gap-2 items-center rounded-md border border-transparent bg-linear-to-r bg-black flex px-2 py-2 text-center font-semibold text-white' disabled={values.otp.length < 5 || isSubmitting} onClick={() => console.log(values)
+              }>
+                Verify OTP {isLoading && <div className='h-4 w-4 animate-spin rounded-full border-4 border-white border-t-transparent'></div>}
+              </button>
             </div>
           </Form>
         )}
