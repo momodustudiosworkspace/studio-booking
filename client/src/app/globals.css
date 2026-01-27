@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@plugin '../hero.ts';
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 :root {
   /* Brand colors */
   --brand-black: #000000;
@@ -15,10 +17,10 @@
 }
 
 /* Dark theme */
-.dark {
+/* .dark {
   --color-background: #000000;
   --color-foreground: #ffffff;
-}
+} */
 
 /* @theme inline {
   --color-background: var(--background);

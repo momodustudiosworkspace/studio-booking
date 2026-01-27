@@ -2,8 +2,6 @@
 import React from "react";
 import AuthForm from "./AuthForm";
 import { Field, Form, Formik } from "formik";
-import Button from "../ui/Button";
-import RedirectArrowWhite from "@/assets/icons/RedirectArrowWhite";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUpDatePasswordMutation } from "@/redux/services/user/auth/auth.api";
 import { toast } from "react-toastify";
@@ -77,19 +75,11 @@ const ResetPassword = (): React.JSX.Element => {
             </div>
 
             <div className='flex w-full justify-end'>
-              <Button
-                text='Change Password'
-                onClick={() => {
-                  console.log(values);
-                  router.push("/auth");
-                }}
-                icon={<RedirectArrowWhite />}
-                iconPosition='right'
-                className='w-[205px]'
-                size='md'
-                loading={isLoading}
-                disabled={!values.password || !values.password_2}
-              />
+
+              <button type="submit" className='mb-10 gap-2 items-center rounded-md border border-transparent bg-linear-to-r bg-black flex px-2 py-2 text-center font-semibold text-white' disabled={!values.password || !values.password_2} onClick={() => console.log(values)
+              }>
+                Proceed{isLoading && <div className='h-4 w-4 animate-spin rounded-full border-4 border-white border-t-transparent'></div>}
+              </button>
             </div>
           </Form>
         )}
