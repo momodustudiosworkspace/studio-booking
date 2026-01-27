@@ -6,6 +6,7 @@ import { Session } from "next-auth";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "@/redux/store";
+import { HeroUIProvider } from '@heroui/react'
 
 type Props = {
   children: ReactNode;
@@ -22,12 +23,14 @@ export default function SessionProviderWrapper({
   // }
 
   return (
-    <SessionProvider session={session}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          {children}
-        </PersistGate>
-      </Provider>
-    </SessionProvider>
+    <HeroUIProvider>
+      <SessionProvider session={session}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            {children}
+          </PersistGate>
+        </Provider>
+      </SessionProvider>
+    </HeroUIProvider>
   );
 }
